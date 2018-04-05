@@ -17,6 +17,7 @@
 
     <modules>
         <module>codeblocks-common</module>
+        <module>codeblocks-util</module>
     </modules>
 
     <properties>
@@ -34,6 +35,7 @@
         <fastjson.version>1.2.47</fastjson.version>
         <joda-time.version>2.9.9</joda-time.version>
         <guava.version>24.1-jre</guava.version>
+        <orika.version>1.5.2</orika.version>
         <commons-lang3.version>3.7</commons-lang3.version>
         <commons-codec.version>1.11</commons-codec.version>
         <commons-collections4.version>4.1</commons-collections4.version>
@@ -125,6 +127,11 @@
                 <version>${jackson.version}</version>
             </dependency>
             <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>${commons-lang3.version}</version>
@@ -143,6 +150,11 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ma.glasnost.orika</groupId>
+                <artifactId>orika-core</artifactId>
+                <version>${orika.version}</version>
             </dependency>
             <dependency>
                 <groupId>joda-time</groupId>
