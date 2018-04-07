@@ -19,6 +19,7 @@
         <module>codeblocks-common</module>
         <module>codeblocks-util</module>
         <module>codeblocks-serialization</module>
+        <module>codeblocks-captcha</module>
     </modules>
 
     <properties>
