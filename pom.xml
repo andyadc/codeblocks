@@ -20,6 +20,7 @@
         <module>codeblocks-util</module>
         <module>codeblocks-serialization</module>
         <module>codeblocks-captcha</module>
+        <module>codeblocks-servlet-demo</module>
     </modules>
 
     <properties>
