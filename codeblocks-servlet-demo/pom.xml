@@ -24,13 +24,22 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.andyadc</groupId>
+            <artifactId>codeblocks-captcha</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.andyadc</groupId>
+            <artifactId>codeblocks-util</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.andyadc</groupId>
-            <artifactId>codeblocks-captcha</artifactId>
-            <version>1.0.0</version>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
         </dependency>
     </dependencies>
 
