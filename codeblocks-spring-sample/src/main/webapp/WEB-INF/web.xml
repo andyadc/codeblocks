@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="3.1"
+         xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd "
+         metadata-complete="true">
+
+    <display-name>Archetype Created Web Application</display-name>
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath*:/applicationContext.xml
+        </param-value>
+    </context-param>
+
+    <listener>
+        <description>Introspector缓存清除监听器</description>
+        <listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+    </listener>
+
+    <listener>
+        <description>Spring监听器</description>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <listener>
+        <description>Request监听器</description>
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+    </listener>
+
+    <!-- Character Encoding filter -->
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <async-supported>true</async-supported>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+
+    <!-- Shiro Security filter -->
+    <filter>
+        <filter-name>shiroFilter</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>shiroFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+    </filter-mapping>
+
+    <!-- Spring MVC Servlet -->
+    <servlet>
+        <servlet-name>springServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath*:/spring-servlet.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+        <async-supported>true</async-supported>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>springServlet</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>captchaServlet</servlet-name>
+        <servlet-class>com.andyadc.codeblocks.captcha.servlet.CaptchaServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>captchaServlet</servlet-name>
+        <url-pattern>/public/captcha.servlet</url-pattern>
+    </servlet-mapping>
+
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/views/common/error/404.jsp</location>
+    </error-page>
+
+    <distributable/>
+</web-app>

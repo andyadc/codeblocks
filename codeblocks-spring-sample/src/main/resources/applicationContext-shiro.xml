@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-lazy-init="false">
+
+    <description>Shiro Configuration</description>
+
+    <bean id="credentialsMatcher"
+          class="com.andyadc.scaffold.showcase.auth.security.RetryLimitHashedCredentialsMatcher">
+        <constructor-arg ref="shiroCacheManager"/>
+        <property name="hashAlgorithmName" value="${hash.algorithm.name}"/>
+        <property name="hashIterations" value="${hash.iterations}"/>
+        <property name="storedCredentialsHexEncoded" value="true"/>
+        <property name="authService" ref="authService"/>
+    </bean>
+
+    <bean id="shiroDbRealm" class="com.andyadc.scaffold.showcase.auth.security.ShiroDbRealm">
+        <property name="credentialsMatcher" ref="credentialsMatcher"/>
+        <property name="authService" ref="authService"/>
+    </bean>
+
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="shiroDbRealm"/>
+        <property name="cacheManager" ref="shiroCacheManager"/>
+    </bean>
+
+    <bean id="shiroCacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManagerConfigFile" value="classpath:cache/ehcache-shiro.xml"/>
+    </bean>
+
+    <!-- Shiro Filter -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <property name="loginUrl" value="${admin.login.url}"/>
+        <property name="successUrl" value="${admin.index.url}"/>
+        <property name="filters">
+            <map>
+                <entry key="logoutFilter" value-ref="logoutFilter"/>
+                <entry key="authCaptcha" value-ref="captchaFormAuthenticationFilter"/>
+            </map>
+        </property>
+        <!--
+		anon	org.apache.shiro.web.filter.authc.AnonymousFilter
+		authc	org.apache.shiro.web.filter.authc.FormAuthenticationFilter
+		authcBasic	org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter
+		logout	org.apache.shiro.web.filter.authc.LogoutFilter
+		noSessionCreation	org.apache.shiro.web.filter.session.NoSessionCreationFilter
+		perms	org.apache.shiro.web.filter.authz.PermissionsAuthorizationFilter
+		port	org.apache.shiro.web.filter.authz.PortFilter
+		rest	org.apache.shiro.web.filter.authz.HttpMethodPermissionFilter
+		roles	org.apache.shiro.web.filter.authz.RolesAuthorizationFilter
+		ssl	org.apache.shiro.web.filter.authz.SslFilter
+		user	org.apache.shiro.web.filter.authc.UserFilter
+		-->
+        <property name="filterChainDefinitions">
+            <value>
+                /static/** = anon
+
+                /public/** = anon
+                /api/** = anon
+                /logout = logout
+                /login = authCaptcha
+                /** = user
+            </value>
+        </property>
+    </bean>
+
+    <bean id="logoutFilter" class="org.apache.shiro.web.filter.authc.LogoutFilter">
+        <property name="redirectUrl" value="${admin.login.url}"/>
+    </bean>
+
+    <bean id="captchaFormAuthenticationFilter"
+          class="com.andyadc.scaffold.showcase.auth.security.CaptchaFormAuthenticationFilter">
+        <property name="authService" ref="authService"/>
+    </bean>
+
+</beans>

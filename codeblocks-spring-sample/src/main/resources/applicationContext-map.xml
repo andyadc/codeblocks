@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="kafkaServiceMap" class="org.springframework.beans.factory.config.MapFactoryBean">
+        <property name="targetMapClass" value="java.util.concurrent.ConcurrentHashMap"/>
+        <property name="sourceMap">
+            <map>
+                <entry key="producer" value-ref="messageProducer"/>
+                <entry key="consumer" value-ref="messagePoller"/>
+            </map>
+        </property>
+    </bean>
+</beans>

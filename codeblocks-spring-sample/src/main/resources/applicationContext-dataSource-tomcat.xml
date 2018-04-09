@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-lazy-init="false">
+
+    <description>Tomcat JDBC Pool Configuration</description>
+
+    <!-- Tomcat jdbc dataSource -->
+    <bean id="tomcatDataSource" class="org.apache.tomcat.jdbc.pool.DataSource"
+          destroy-method="close">
+        <!-- Connection Info -->
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+
+        <!-- Connection Pooling Info -->
+        <property name="maxActive" value="${tomcat.jdbc.pool.maxActive}"/>
+        <property name="maxIdle" value="${tomcat.jdbc.pool.maxIdle}"/>
+        <property name="minIdle" value="0"/>
+        <property name="defaultAutoCommit" value="false"/>
+    </bean>
+</beans>
