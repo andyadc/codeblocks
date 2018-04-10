@@ -22,7 +22,6 @@
         <module>codeblocks-captcha</module>
         <module>codeblocks-servlet-demo</module>
         <module>codeblocks-spring-sample</module>
-        <module>codeblocks-mybatis</module>
         <module>test</module>
     </modules>
 
