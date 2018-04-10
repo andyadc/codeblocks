@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ehcache updateCheck="false" name="shiroCache">
 
-    <diskStore path="d:/temp/showcase/cache/shiro"/>
+    <diskStore path="/opt/log/codeblocks/sample/cache/shiro"/>
 
     <defaultCache
             maxEntriesLocalHeap="10000"
