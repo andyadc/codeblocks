@@ -33,7 +33,7 @@
         <tomcat-jdbc.version>8.5.30</tomcat-jdbc.version>
         <HikariCP.version>3.0.0</HikariCP.version>
         <druid.version>1.1.9</druid.version>
-        <redisson.version>3.6.3</redisson.version>
+        <redisson.version>3.6.5</redisson.version>
         <jedis.version>2.9.0</jedis.version>
         <lettuce.version>5.0.3.RELEASE</lettuce.version>
         <jackson.version>2.9.5</jackson.version>
@@ -47,19 +47,24 @@
         <commons-collections4.version>4.1</commons-collections4.version>
         <commons.pool2.version>2.5.0</commons.pool2.version>
         <mysql-driver.version>5.1.46</mysql-driver.version>
+        <h2.version>1.4.197</h2.version>
         <fst.version>2.57</fst.version>
         <kryo.version>4.0.2</kryo.version>
         <protostuff.version>1.6.0</protostuff.version>
         <freemarker.version>2.3.28</freemarker.version>
         <shiro.version>1.4.0</shiro.version>
-        <ehcache.version>2.10.4</ehcache.version>
+        <zxing.version>3.3.2</zxing.version>
+        <poi.version>3.17</poi.version>
         <slf4j.version>1.7.25</slf4j.version>
         <logback.version>1.2.3</logback.version>
+        <mockito.version>2.18.0</mockito.version>
         <junit.version>4.12</junit.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
+        <jdk.version>1.8</jdk.version>
+        <maven.test.skip>true</maven.test.skip>
         <argLine>-Dfile.encoding=UTF-8</argLine>
     </properties>
 
@@ -88,6 +93,12 @@
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql-driver.version}</version>
                 <scope>runtime</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.h2database</groupId>
+                <artifactId>h2</artifactId>
+                <version>${h2.version}</version>
+                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.mybatis</groupId>
@@ -241,6 +252,28 @@
             </dependency>
 
             <dependency>
+                <groupId>com.google.zxing</groupId>
+                <artifactId>core</artifactId>
+                <version>${zxing.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.zxing</groupId>
+                <artifactId>javase</artifactId>
+                <version>${zxing.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.poi</groupId>
+                <artifactId>poi-ooxml</artifactId>
+                <version>${poi.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
                 <version>3.1.0</version>
@@ -270,6 +303,14 @@
                 <version>${slf4j.version}</version>
                 <scope>runtime</scope>
             </dependency>
+
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
@@ -286,6 +327,28 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <!-- The Versions Plugin is used when you want to manage the versions of artifacts -->
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>versions-maven-plugin</artifactId>
+                    <version>2.5</version>
+                    <configuration>
+                        <includes>
+                            <include>org.codehaus.plexus:*</include>
+                            <include>junit:junit</include>
+                        </includes>
+                        <excludes>
+                            <exclude>org.codehaus.plexus:plexus-utils</exclude>
+                        </excludes>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 
     <repositories>
         <repository>
