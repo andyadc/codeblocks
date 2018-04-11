@@ -77,7 +77,7 @@
     </bean>
 
     <!-- controller performance aop -->
-    <bean id="performanceMonitorAspect" class="com.andyadc.scaffold.showcase.common.aop.PerformanceMonitor"/>
+    <bean id="performanceMonitorAspect" class="com.andyadc.scaffold.showcase.common.monitor.PerformanceMonitor"/>
     <aop:config>
         <aop:aspect ref="performanceMonitorAspect">
             <!--<aop:pointcut expression="execution(* com.andyadc.scaffold.web.controller..*.*(..))" id="performancePointCut"/>-->

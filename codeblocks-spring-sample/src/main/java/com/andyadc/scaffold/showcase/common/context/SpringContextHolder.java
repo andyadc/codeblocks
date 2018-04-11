@@ -1,4 +1,4 @@
-package com.andyadc.scaffold.showcase.common.spring;
+package com.andyadc.scaffold.showcase.common.context;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

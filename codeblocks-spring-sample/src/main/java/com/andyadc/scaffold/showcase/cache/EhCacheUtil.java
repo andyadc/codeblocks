@@ -1,6 +1,6 @@
 package com.andyadc.scaffold.showcase.cache;
 
-import com.andyadc.scaffold.showcase.common.spring.SpringContextHolder;
+import com.andyadc.scaffold.showcase.common.context.SpringContextHolder;
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;

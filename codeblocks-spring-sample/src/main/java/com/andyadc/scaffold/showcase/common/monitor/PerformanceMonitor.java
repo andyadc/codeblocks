@@ -1,4 +1,4 @@
-package com.andyadc.scaffold.showcase.common.aop;
+package com.andyadc.scaffold.showcase.common.monitor;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.slf4j.Logger;
