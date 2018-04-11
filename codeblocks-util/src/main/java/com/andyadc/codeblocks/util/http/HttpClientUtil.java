@@ -1,4 +1,4 @@
-package com.andyadc.scaffold.showcase.common.http;
+package com.andyadc.codeblocks.util.http;
 
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.config.Registry;

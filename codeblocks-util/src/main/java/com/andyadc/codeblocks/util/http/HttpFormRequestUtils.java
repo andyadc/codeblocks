@@ -1,4 +1,4 @@
-package com.andyadc.scaffold.showcase.common.http;
+package com.andyadc.codeblocks.util.http;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
