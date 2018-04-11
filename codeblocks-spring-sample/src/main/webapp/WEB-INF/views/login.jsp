@@ -97,8 +97,8 @@
 </div>
 
 <script type="text/javascript" src="${ctx}/static/common/jquery/jquery-1.12.4.min.js"></script>
-<script type="text/javascript" src="${ctx}/static/plugins/jquery-validation-1.15/jquery.validate.min.js"></script>
-<script type="text/javascript" src="${ctx}/static/plugins/jquery-validation-1.15/localization/messages_zh.js"></script>
+<script type="text/javascript" src="${ctx}/static/plugins/jquery-validation-1.17/jquery.validate.min.js"></script>
+<script type="text/javascript" src="${ctx}/static/plugins/jquery-validation-1.17/localization/messages_zh.js"></script>
 <script type="text/javascript" src="${ctx}/static/plugins/toastr/toastr.min.js"></script>
 <script type="text/javascript" src="${ctx}/static/js/login.js"></script>
 <script type="text/javascript">
