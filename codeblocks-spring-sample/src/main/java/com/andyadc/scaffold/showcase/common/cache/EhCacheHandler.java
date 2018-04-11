@@ -1,4 +1,4 @@
-package com.andyadc.scaffold.showcase.cache;
+package com.andyadc.scaffold.showcase.common.cache;
 
 import com.andyadc.scaffold.showcase.common.context.SpringContextHolder;
 import net.sf.ehcache.Cache;
@@ -9,12 +9,12 @@ import net.sf.ehcache.Element;
  * @author andaicheng
  * @version 2016/4/17
  */
-public class EhCacheUtil {
+public class EhCacheHandler {
 
     private static final String SYS_CACHE = "sysCache";
     private static CacheManager cacheManager = SpringContextHolder.getBean("ehCacheManager");
 
-    private EhCacheUtil() {
+    private EhCacheHandler() {
     }
 
     /**

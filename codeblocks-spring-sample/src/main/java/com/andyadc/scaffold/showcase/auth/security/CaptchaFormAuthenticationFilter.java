@@ -3,7 +3,7 @@ package com.andyadc.scaffold.showcase.auth.security;
 import com.andyadc.codeblocks.captcha.servlet.CaptchaServlet;
 import com.andyadc.scaffold.showcase.auth.entity.AuthUser;
 import com.andyadc.scaffold.showcase.auth.service.AuthService;
-import com.andyadc.scaffold.showcase.cache.EhCacheUtil;
+import com.andyadc.scaffold.showcase.common.cache.EhCacheHandler;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -71,7 +71,7 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
 
             AuthUser authUser = authService.findAuthUserByAccount(username);
             if (authUser != null) {
-                Integer loginTimes = (Integer) EhCacheUtil.get(CACHE_LOGIN_FAIL_PREFIX + username);
+                Integer loginTimes = (Integer) EhCacheHandler.get(CACHE_LOGIN_FAIL_PREFIX + username);
                 if (loginTimes != null && loginTimes >= LOGIN_FAILURE_LIMIT) {
                     captcha = request.getParameter(CAPTACHE_PARAM);
                     if (!CaptchaServlet.validateCaptcha((HttpServletRequest) request, captcha)) {
@@ -94,7 +94,7 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
     protected boolean onLoginSuccess(AuthenticationToken token, Subject subject, ServletRequest request, ServletResponse response) throws Exception {
         UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
         String username = usernamePasswordToken.getUsername();
-        EhCacheUtil.remove(CACHE_LOGIN_FAIL_PREFIX + username);
+        EhCacheHandler.remove(CACHE_LOGIN_FAIL_PREFIX + username);
         return super.onLoginSuccess(token, subject, request, response);
     }
 
@@ -108,15 +108,15 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
             UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
             String username = usernamePasswordToken.getUsername();
 
-            Integer loginTimes = (Integer) EhCacheUtil.get(CACHE_LOGIN_FAIL_PREFIX + username);
+            Integer loginTimes = (Integer) EhCacheHandler.get(CACHE_LOGIN_FAIL_PREFIX + username);
             if (loginTimes != null && loginTimes >= LOGIN_FAILURE_LIMIT) {
                 request.setAttribute(KEY_AUTH_CAPTCHA_REQUIRED, Boolean.TRUE);
             }
 
             if (loginTimes == null) {
-                EhCacheUtil.put(CACHE_LOGIN_FAIL_PREFIX + username, 1);
+                EhCacheHandler.put(CACHE_LOGIN_FAIL_PREFIX + username, 1);
             } else {
-                EhCacheUtil.put(CACHE_LOGIN_FAIL_PREFIX + username, loginTimes + 1);
+                EhCacheHandler.put(CACHE_LOGIN_FAIL_PREFIX + username, loginTimes + 1);
             }
 
         }
