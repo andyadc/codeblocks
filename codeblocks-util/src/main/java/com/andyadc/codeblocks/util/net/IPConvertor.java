@@ -4,17 +4,17 @@ package com.andyadc.codeblocks.util.net;
  * @author andaicheng
  * @version 2017/1/8
  */
-public final class IPUtils {
+public final class IPConvertor {
 
     public static void main(String[] args) {
         System.out.printf("%s %n", toNum("10.157.165.200"));
-        System.out.printf("%s %n", toIp(178103752));
+        System.out.printf("%s %n", toIP(178103752));
     }
 
     /**
      * IP地址转为数字
      *
-     * @param ip IP地址
+     * @param ip IP 地址
      * @return 数字
      */
     public static int toNum(String ip) {
@@ -46,9 +46,9 @@ public final class IPUtils {
      * 数字转为IP地址
      *
      * @param num 数字
-     * @return IP地址
+     * @return IP 地址
      */
-    public static String toIp(int num) {
+    public static String toIP(int num) {
         StringBuilder builder = new StringBuilder(15);
         builder.append((num & 0xff000000) >>> 24).append('.')
                 .append((num & 0x00ff0000) >>> 16).append('.')

@@ -1,4 +1,4 @@
-package com.andyadc.scaffold.showcase.common.web.util;
+package com.andyadc.codeblocks.util.net;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
@@ -17,7 +17,7 @@ public class ServletUtils {
     /**
      * 获取所有请求参数
      */
-    public static Map<String, String> getReqParameters(HttpServletRequest request) {
+    public static Map<String, String> getReqParams(HttpServletRequest request) {
         Map<String, String> params = new HashMap<>(32);
         if (request == null) {
             return params;
