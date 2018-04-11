@@ -1,4 +1,4 @@
-package com.andyadc.scaffold.showcase.common.entity;
+package com.andyadc.codeblocks.common;
 
 import java.io.Serializable;
 

@@ -28,12 +28,22 @@
 
         <dependency>
             <groupId>com.andyadc</groupId>
+            <artifactId>codeblocks-common</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.andyadc</groupId>
             <artifactId>codeblocks-captcha</artifactId>
             <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>com.andyadc</groupId>
             <artifactId>codeblocks-util</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.andyadc</groupId>
+            <artifactId>codeblocks-mybatis</artifactId>
             <version>1.0.0</version>
         </dependency>
 

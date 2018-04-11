@@ -1,4 +1,4 @@
-package com.andyadc.scaffold.showcase.common.annotation;
+package com.andyadc.codeblocks.common.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

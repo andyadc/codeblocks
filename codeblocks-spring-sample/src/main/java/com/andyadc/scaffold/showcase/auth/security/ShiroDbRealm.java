@@ -1,9 +1,9 @@
 package com.andyadc.scaffold.showcase.auth.security;
 
+import com.andyadc.codeblocks.common.enums.Deletion;
 import com.andyadc.scaffold.showcase.auth.entity.AuthUser;
 import com.andyadc.scaffold.showcase.auth.enums.AuthUserState;
 import com.andyadc.scaffold.showcase.auth.service.AuthService;
-import com.andyadc.scaffold.showcase.common.enums.DeletionEnum;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -47,7 +47,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
         if (authUser == null) {
             throw new UnknownAccountException();
         }
-        if (DeletionEnum.DELETED.getState() == authUser.getIsDeleted()) {
+        if (Deletion.DELETED.getState() == authUser.getIsDeleted()) {
             throw new UnknownAccountException();
         }
         if (AuthUserState.BLOCKED.getState() == authUser.getState()) {

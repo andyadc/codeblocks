@@ -1,6 +1,6 @@
 package com.andyadc.scaffold.showcase.sys.entity;
 
-import com.andyadc.scaffold.showcase.common.entity.BaseEntity;
+import com.andyadc.codeblocks.common.BaseEntity;
 
 import java.util.Date;
 

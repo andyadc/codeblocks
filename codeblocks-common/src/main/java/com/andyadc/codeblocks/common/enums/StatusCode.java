@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.common;
+package com.andyadc.codeblocks.common.enums;
 
 /**
  * @author andaicheng

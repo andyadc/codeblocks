@@ -1,13 +1,13 @@
-package com.andyadc.scaffold.showcase.common.dto;
+package com.andyadc.codeblocks.common;
 
 import java.io.Serializable;
 
 /**
  * @author andy.an
- * @since 2017/10/24
+ * @since 2018/4/11
  */
-public class BaseRequest implements Serializable {
-    private static final long serialVersionUID = 34137137523056691L;
+public class Request implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     private String version;
     private String appId;

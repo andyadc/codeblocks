@@ -5,7 +5,7 @@
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
@@ -82,7 +82,7 @@
         <aop:aspect ref="performanceMonitorAspect">
             <!--<aop:pointcut expression="execution(* com.andyadc.scaffold.web.controller..*.*(..))" id="performancePointCut"/>-->
             <aop:pointcut id="performanceAnnotationPointCut"
-                          expression="@annotation(com.andyadc.scaffold.showcase.common.annotation.Performance)"/>
+                          expression="@annotation(com.andyadc.codeblocks.common.annotation.Performance)"/>
             <aop:around method="doAround" pointcut-ref="performanceAnnotationPointCut"/>
         </aop:aspect>
     </aop:config>

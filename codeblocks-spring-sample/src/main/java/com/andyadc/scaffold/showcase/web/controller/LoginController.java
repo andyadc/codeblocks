@@ -1,7 +1,7 @@
 package com.andyadc.scaffold.showcase.web.controller;
 
+import com.andyadc.codeblocks.common.annotation.Performance;
 import com.andyadc.scaffold.showcase.auth.security.CaptchaFormAuthenticationFilter;
-import com.andyadc.scaffold.showcase.common.annotation.Performance;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.ExcessiveAttemptsException;

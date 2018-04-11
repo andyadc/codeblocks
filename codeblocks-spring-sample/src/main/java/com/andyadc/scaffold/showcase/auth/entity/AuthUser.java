@@ -1,8 +1,8 @@
 package com.andyadc.scaffold.showcase.auth.entity;
 
 
-import com.andyadc.scaffold.showcase.common.annotation.MetaData;
-import com.andyadc.scaffold.showcase.common.entity.BaseEntity;
+import com.andyadc.codeblocks.common.BaseEntity;
+import com.andyadc.codeblocks.common.annotation.MetaData;
 
 import java.util.Date;
 

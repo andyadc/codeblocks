@@ -1,6 +1,6 @@
 package com.andyadc.scaffold.showcase.sys.mapper;
 
-import com.andyadc.scaffold.showcase.common.repository.MyBatisRepository;
+import com.andyadc.codeblocks.mybatis.MyBatisRepository;
 
 /**
  * @author andaicheng

@@ -1,4 +1,4 @@
-package com.andyadc.scaffold.showcase.common.interceptor;
+package com.andyadc.codeblocks.mybatis;
 
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.BoundSql;
@@ -35,9 +35,9 @@ import java.util.Properties;
         @Signature(type = Executor.class, method = "query", args = {MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class}),
         @Signature(type = Executor.class, method = "update", args = {MappedStatement.class, Object.class})
 })
-public class MybatisExecuteInterceptor implements Interceptor {
+public class SQLExecuteInterceptor implements Interceptor {
 
-    private static final Logger LOG = LoggerFactory.getLogger(MybatisExecuteInterceptor.class);
+    private static final Logger LOG = LoggerFactory.getLogger(SQLExecuteInterceptor.class);
     private final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     @Override

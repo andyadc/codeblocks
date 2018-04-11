@@ -1,5 +1,7 @@
 package com.andyadc.codeblocks.common;
 
+import com.andyadc.codeblocks.common.enums.StatusCode;
+
 import java.io.Serializable;
 
 /**

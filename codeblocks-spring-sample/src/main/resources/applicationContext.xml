@@ -46,14 +46,14 @@
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="hikariDataSource"/>
         <property name="typeAliasesPackage" value="com.andyadc.scaffold"/>
-        <property name="typeAliasesSuperType" value="com.andyadc.scaffold.showcase.common.entity.BaseEntity"/>
+        <property name="typeAliasesSuperType" value="com.andyadc.codeblocks.common.BaseEntity"/>
         <property name="mapperLocations" value="classpath:/mappings/**/*Mapper.xml"/>
         <property name="configLocation" value="classpath:/mybatis-config.xml"/>
     </bean>
 
     <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.andyadc.scaffold"/>
-        <property name="annotationClass" value="com.andyadc.scaffold.showcase.common.repository.MyBatisRepository"/>
+        <property name="annotationClass" value="com.andyadc.codeblocks.mybatis.MyBatisRepository"/>
     </bean>
 
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">

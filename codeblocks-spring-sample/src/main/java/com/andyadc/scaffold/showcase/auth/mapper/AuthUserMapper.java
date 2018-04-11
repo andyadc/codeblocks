@@ -1,7 +1,7 @@
 package com.andyadc.scaffold.showcase.auth.mapper;
 
+import com.andyadc.codeblocks.mybatis.MyBatisRepository;
 import com.andyadc.scaffold.showcase.auth.entity.AuthUser;
-import com.andyadc.scaffold.showcase.common.repository.MyBatisRepository;
 
 @MyBatisRepository
 public interface AuthUserMapper {
