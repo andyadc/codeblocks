@@ -604,7 +604,7 @@ input.fm-button-disabled {
 }
 
 #login-form .loading-mask .loading-icon {
-    background: url(../images/ajax-loader-16x16.gif) no-repeat center center;
+    background: url(../images/ajax-loader.gif) no-repeat center center;
     z-index: 2
 }
 
