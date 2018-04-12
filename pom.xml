@@ -23,6 +23,7 @@
         <module>codeblocks-servlet-demo</module>
         <module>codeblocks-spring-sample</module>
         <module>codeblocks-mybatis</module>
+        <module>codeblocks-test</module>
     </modules>
 
     <properties>
