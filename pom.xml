@@ -24,6 +24,7 @@
         <module>codeblocks-spring-sample</module>
         <module>codeblocks-mybatis</module>
         <module>codeblocks-test</module>
+        <module>codeblocks-algorithm</module>
     </modules>
 
     <properties>
