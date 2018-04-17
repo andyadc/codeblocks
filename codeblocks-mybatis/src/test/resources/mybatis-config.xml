@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <settings>
+        <setting name="logImpl" value="SLF4J"/>
+    </settings>
+
+    <plugins>
+        <!--<plugin interceptor="com.andyadc.codeblocks.mybatis.pagination.PaginationInterceptor">
+            <property name="dbType" value="MySQL"/>
+            <property name="dialectClass" value="com.andyadc.codeblocks.mybatis.pagination.dialect.MySQLDialect"/>
+        </plugin>-->
+        <plugin interceptor="com.andyadc.codeblocks.mybatis.pagination.PageInterceptor">
+            <!--<property name="dialectClass" value="com.andyadc.codeblocks.mybatis.pagination.dialect.MySQLDialect"/>-->
+            <property name="dialect" value="mysql"/>
+        </plugin>
+    </plugins>
+
+    <environments default="dev">
+        <environment id="dev">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost/idea?useUnicode=true&amp;characterEncoding=utf-8"/>
+                <property name="username" value="root"/>
+                <property name="password" value="andyadc"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper resource="db-mapper.xml"/>
+    </mappers>
+
+</configuration>

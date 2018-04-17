@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.andyadc.codeblocks.mybatis.mapper">
+
+    <resultMap id="BaseResultMap" type="com.andyadc.codeblocks.mybatis.test.BankMapping">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="bank_code" jdbcType="VARCHAR" property="bankCode"/>
+        <result column="bank_name" jdbcType="VARCHAR" property="bankName"/>
+    </resultMap>
+
+    <select id="selectBankMapping" resultMap="BaseResultMap">
+        SELECT * FROM bank_mapping
+    </select>
+
+    <select id="selectBankMappingSelective" resultMap="BaseResultMap">
+        SELECT * FROM bank_mapping
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+            <if test="bankCode != null">
+                bank_code = #{bankCode}
+            </if>
+            <if test="bankName != null">
+                bank_name = #{bankName}
+            </if>
+        </where>
+    </select>
+
+</mapper>

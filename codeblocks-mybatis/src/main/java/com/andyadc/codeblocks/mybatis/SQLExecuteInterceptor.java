@@ -38,7 +38,8 @@ import java.util.Properties;
 public class SQLExecuteInterceptor implements Interceptor {
 
     private static final Logger LOG = LoggerFactory.getLogger(SQLExecuteInterceptor.class);
-    private final DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+    private static final ThreadLocal<DateFormat> DATE_FORMAT_THREAD_LOCAL = ThreadLocal.withInitial(() -> new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
@@ -108,7 +109,7 @@ public class SQLExecuteInterceptor implements Interceptor {
             if (propertyValue instanceof String) {
                 result = "'" + propertyValue + "'";
             } else if (propertyValue instanceof Date) {
-                result = "'" + dateFormat.format(propertyValue) + "'";
+                result = "'" + DATE_FORMAT_THREAD_LOCAL.get().format(propertyValue) + "'";
             } else {
                 result = propertyValue.toString();
             }
