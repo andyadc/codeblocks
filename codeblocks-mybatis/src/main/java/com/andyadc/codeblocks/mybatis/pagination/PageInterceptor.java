@@ -2,7 +2,11 @@ package com.andyadc.codeblocks.mybatis.pagination;
 
 import com.andyadc.codeblocks.mybatis.pagination.dialect.Dialect;
 import com.andyadc.codeblocks.mybatis.pagination.helper.DialectHelper;
+import com.andyadc.codeblocks.mybatis.pagination.helper.SqlHelper;
+import com.andyadc.codeblocks.mybatis.util.StringUtils;
 import org.apache.ibatis.executor.statement.StatementHandler;
+import org.apache.ibatis.mapping.BoundSql;
+import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.plugin.Intercepts;
 import org.apache.ibatis.plugin.Invocation;
@@ -30,7 +34,19 @@ public class PageInterceptor implements Interceptor {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PageInterceptor.class);
 
+    private static final ThreadLocal<Integer> PAGINATION_TOTAL = ThreadLocal.withInitial(() -> 0);
+
     private Dialect dialect;
+
+    public static int getPaginationTotal() {
+        int count = PAGINATION_TOTAL.get();
+        clean();
+        return count;
+    }
+
+    private static void clean() {
+        PAGINATION_TOTAL.remove();
+    }
 
     @Override
     public Object intercept(Invocation invocation) throws Throwable {
@@ -41,17 +57,26 @@ public class PageInterceptor implements Interceptor {
         MetaObject metaObject = SystemMetaObject.forObject(statementHandler);
 
         RowBounds rowBounds = (RowBounds) metaObject.getValue("delegate.rowBounds");
-//        MappedStatement mappedStatement = (MappedStatement) metaObject.getValue("delegate.mappedStatement");
+        PageBounds pageBounds = new PageBounds(rowBounds);
 
-        int offset = rowBounds.getOffset();
-        int limit = rowBounds.getLimit();
+        MappedStatement mappedStatement = (MappedStatement) metaObject.getValue("delegate.mappedStatement");
+
+//        int offset = rowBounds.getOffset();
+//        int limit = rowBounds.getLimit();
+
+        BoundSql boundSql = statementHandler.getBoundSql();
+        Connection connection = (Connection) invocation.getArgs()[0];
+        int count = SqlHelper.getCount(mappedStatement, connection, boundSql.getParameterObject(), dialect);
+        PAGINATION_TOTAL.set(count);
 
         String originalSql = (String) metaObject.getValue("delegate.boundSql.sql");
         LOGGER.info("originalSql: {}", originalSql);
 
-        String newSql = dialect.getPageString(originalSql, offset, limit);
+        String newSql = dialect.getPageString(originalSql, pageBounds);
         LOGGER.info("newSql: {}", newSql);
         metaObject.setValue("delegate.boundSql.sql", newSql);
+        metaObject.setValue("delegate.rowBounds.offset", RowBounds.NO_ROW_OFFSET);
+        metaObject.setValue("delegate.rowBounds.limit", RowBounds.NO_ROW_LIMIT);
 
         return invocation.proceed();
     }
@@ -69,7 +94,7 @@ public class PageInterceptor implements Interceptor {
         String dialectClass = properties.getProperty("dialectClass");
         String dialectStr = properties.getProperty("dialect");
         LOGGER.info("dialectClass: {}, dialect: {}", dialectClass, dialectStr);
-        if (dialectClass == null || "".equals(dialectClass.trim())) {
+        if (StringUtils.isBlank(dialectClass)) {
             Dialect.Type databaseType = null;
             try {
                 databaseType = Dialect.Type.valueOf(dialectStr.toUpperCase());

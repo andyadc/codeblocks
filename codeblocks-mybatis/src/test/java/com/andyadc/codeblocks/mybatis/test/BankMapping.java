@@ -9,6 +9,7 @@ public class BankMapping {
     private Long id;
     private String bankCode;
     private String bankName;
+    private Integer cardType;
 
     public Long getId() {
         return id;
@@ -34,12 +35,21 @@ public class BankMapping {
         this.bankName = bankName;
     }
 
+    public Integer getCardType() {
+        return cardType;
+    }
+
+    public void setCardType(Integer cardType) {
+        this.cardType = cardType;
+    }
+
     @Override
     public String toString() {
         return "BankMapping{" +
                 "id=" + id +
                 ", bankCode=" + bankCode +
                 ", bankName=" + bankName +
+                ", cardType=" + cardType +
                 "}";
     }
 }

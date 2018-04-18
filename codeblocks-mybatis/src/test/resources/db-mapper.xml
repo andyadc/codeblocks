@@ -9,6 +9,7 @@
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="bank_code" jdbcType="VARCHAR" property="bankCode"/>
         <result column="bank_name" jdbcType="VARCHAR" property="bankName"/>
+        <result column="card_type" jdbcType="INTEGER" property="cardType"/>
     </resultMap>
 
     <select id="selectBankMapping" resultMap="BaseResultMap">
@@ -22,10 +23,13 @@
                 id = #{id}
             </if>
             <if test="bankCode != null">
-                bank_code = #{bankCode}
+                AND bank_code = #{bankCode}
             </if>
             <if test="bankName != null">
-                bank_name = #{bankName}
+                AND bank_name = #{bankName}
+            </if>
+            <if test="cardType != null">
+                AND card_type = #{cardType}
             </if>
         </where>
     </select>

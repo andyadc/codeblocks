@@ -1,7 +1,13 @@
 package com.andyadc.codeblocks.mybatis.pagination.dialect;
 
+import com.andyadc.codeblocks.mybatis.pagination.Order;
+import com.andyadc.codeblocks.mybatis.pagination.PageBounds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author andaicheng
@@ -11,11 +17,9 @@ public abstract class Dialect {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(Dialect.class);
 
-    public static void main(String[] args) {
-        System.out.println(getDialectTypeValidValues());
-    }
+    private static final Pattern ORDERBYSPLITPATTERN = Pattern.compile("(.*)ORDER\\s+BY(.*)", Pattern.CASE_INSENSITIVE);
 
-    protected static String getLineSQL(String sql) {
+    protected static String getLineSql(String sql) {
         return sql.replaceAll("[\r\n]", " ").replaceAll("\\s{2,}", " ");
     }
 
@@ -30,17 +34,56 @@ public abstract class Dialect {
         return sb.toString();
     }
 
-    protected String getCountString(String sql) {
+    /**
+     * 把SQL语句基于Order By进行切分
+     *
+     * @param sql 原始SQL语句
+     * @return 如果包含order by语句则返回2个元素数组，0元素为order by前部分，1元素为后部分；否则直接返回1个元素的原始SQL的数组
+     */
+    public static String[] splitOrderBy(String sql) {
+        Matcher matcher = ORDERBYSPLITPATTERN.matcher(sql);
+        if (matcher.find()) {
+            return new String[]{matcher.group(1), matcher.group(2)};
+        } else {
+            return new String[]{sql};
+        }
+    }
+
+    public static void main(String[] args) {
+        System.out.println(splitOrderBy("select * from test where name=1 Order      BY age desc")[0]);
+    }
+
+    public String getCountString(String sql) {
         return "SELECT COUNT(1) FROM ( " + sql + " ) tmp";
     }
 
-    public abstract String getPageString(final String sql, final int offset, final int limit);
+    public String getSortString(String sql, List<Order> orders) {
+        if (orders == null || orders.size() < 1) {
+            return sql;
+        }
+        sql = splitOrderBy(sql)[0];
+        StringBuilder builder = new StringBuilder(sql).append(" ORDER BY ");
+        for (Order order : orders) {
+            builder.append(order.toString());
+        }
+        return builder.toString();
+    }
 
-    public abstract boolean supportsPage();
+    public String getPageString(String sql, PageBounds pageBounds) {
+
+        sql = getSortString(sql, pageBounds.getOrders());
+
+        return getPageString(sql, pageBounds.startIndex(), pageBounds.getLimit());
+    }
 
     public enum Type {
         MYSQL,
         ORACLE,
         MSSQL
     }
+
+    public abstract String getPageString(final String sql, final int offset, final int limit);
+
+    public abstract boolean supportsPage();
+
 }
