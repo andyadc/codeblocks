@@ -36,6 +36,46 @@ public class MyBatisTest {
     }
 
     @Test
+    public void update() {
+        try {
+            session = factory.openSession();
+            System.out.println(session);
+
+            BankMapping bankMapping = new BankMapping();
+            bankMapping.setBankCode("test");
+            bankMapping.setBankName("测试123");
+            bankMapping.setCardType(2);
+            bankMapping.setId(231L);
+
+            int result = session.update(NAMESPACE + ".updateByPrimaryKeySelective", bankMapping);
+            session.commit(true);
+            System.out.println(result);
+        } finally {
+            session.close();
+        }
+    }
+
+    @Test
+    public void insert() {
+        try {
+            session = factory.openSession();
+            System.out.println(session);
+
+            BankMapping bankMapping = new BankMapping();
+            bankMapping.setBankCode("test");
+            bankMapping.setBankName("测试");
+            bankMapping.setCardType(2);
+
+            int result = session.insert(NAMESPACE + ".insertSelective", bankMapping);
+            session.commit();
+            System.out.println(result);
+            System.out.println(bankMapping.getId());
+        } finally {
+            session.close();
+        }
+    }
+
+    @Test
     public void query() {
         try {
             session = factory.openSession();

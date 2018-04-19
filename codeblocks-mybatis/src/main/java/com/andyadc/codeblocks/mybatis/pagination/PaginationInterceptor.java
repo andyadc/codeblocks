@@ -1,100 +1,137 @@
 package com.andyadc.codeblocks.mybatis.pagination;
 
 import com.andyadc.codeblocks.mybatis.pagination.dialect.Dialect;
-import org.apache.ibatis.executor.Executor;
+import com.andyadc.codeblocks.mybatis.pagination.helper.DialectHelper;
+import com.andyadc.codeblocks.mybatis.pagination.helper.SqlHelper;
+import com.andyadc.codeblocks.mybatis.util.StringUtils;
+import org.apache.ibatis.executor.statement.StatementHandler;
+import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.plugin.Intercepts;
 import org.apache.ibatis.plugin.Invocation;
 import org.apache.ibatis.plugin.Plugin;
 import org.apache.ibatis.plugin.Signature;
-import org.apache.ibatis.session.ResultHandler;
+import org.apache.ibatis.reflection.MetaObject;
+import org.apache.ibatis.reflection.SystemMetaObject;
 import org.apache.ibatis.session.RowBounds;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Constructor;
+import java.sql.Connection;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Properties;
 
 /**
- * 拦截 Executor.query 方法实现分页方言的查询
+ * 拦截 StatementHandler.prepare 方法实现分页方言的查询
  *
- * @author andaicheng
- * @since 2018/4/10
+ * @author andy.an
+ * @since 2018/4/17
  */
-@Intercepts(
-        {
-                @Signature(type = Executor.class, method = "query", args = {
-                        MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class
-                })
-        }
-)
+@Intercepts({
+        @Signature(type = StatementHandler.class, method = "prepare", args = {
+                Connection.class, Integer.class
+        })
+})
 public class PaginationInterceptor implements Interceptor {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(PaginationInterceptor.class);
 
-    private static final int MAPPED_STATEMENT_INDEX = 0;
-    private static final int PARAMETER_INDEX = 1;
-    private static final int ROWBOUNDS_INDEX = 2;
+    private static final ThreadLocal<Integer> PAGINATION_TOTAL = ThreadLocal.withInitial(() -> 0);
 
-    private String dialectClass;
-    private String dbType;
+    private Dialect dialect;
+    private String pageStmtIdRegEx;
+
+    public static int getPaginationTotal() {
+        int count = PAGINATION_TOTAL.get();
+        clean();
+        return count;
+    }
+
+    private static void clean() {
+        PAGINATION_TOTAL.remove();
+    }
 
     @Override
-    public Object intercept(Invocation invocation) throws Exception {
-        final Object[] queryArgs = invocation.getArgs();
-        RowBounds rowBounds = (RowBounds) queryArgs[ROWBOUNDS_INDEX];
+    public Object intercept(Invocation invocation) throws Throwable {
+        Instant begin = Instant.now();
+        Object ret;
+        if (dialect == null || !dialect.supportsPage()) {
+            ret = invocation.proceed();
+            Instant end = Instant.now();
+            LOGGER.info("elapsed time: {}ms", Duration.between(begin, end).toMillis());
+            return ret;
+        }
+        StatementHandler statementHandler = (StatementHandler) invocation.getTarget();
+        MetaObject metaObject = SystemMetaObject.forObject(statementHandler);
+
+        MappedStatement mappedStatement = (MappedStatement) metaObject.getValue("delegate.mappedStatement");
+        System.out.println(mappedStatement.getId());
+
+        RowBounds rowBounds = (RowBounds) metaObject.getValue("delegate.rowBounds");
         if (!(rowBounds instanceof PageBounds)) {
-            //return invocation.proceed();
+            ret = invocation.proceed();
+            Instant end = Instant.now();
+            LOGGER.info("elapsed time: {}ms", Duration.between(begin, end).toMillis());
+            return ret;
         }
-
         PageBounds pageBounds = new PageBounds(rowBounds);
-        if (pageBounds.getOffset() == RowBounds.NO_ROW_OFFSET
-                && pageBounds.getLimit() == RowBounds.NO_ROW_LIMIT) {
-            //return invocation.proceed();
-        }
 
-        final MappedStatement ms = (MappedStatement) queryArgs[MAPPED_STATEMENT_INDEX];
-        final Object parameter = queryArgs[PARAMETER_INDEX];
+        BoundSql boundSql = statementHandler.getBoundSql();
+        Connection connection = (Connection) invocation.getArgs()[0];
+        int count = SqlHelper.getCount(mappedStatement, connection, boundSql.getParameterObject(), dialect);
+        PAGINATION_TOTAL.set(count);
 
-        final Dialect dialect;
-        try {
-            Class<?> clazz = Class.forName(dialectClass);
-            Constructor constructor = clazz.getConstructor(MappedStatement.class, Object.class, PageBounds.class);
-            dialect = (Dialect) constructor.newInstance(new Object[]{ms, parameter, pageBounds});
-            if (!dialect.supportsPage()) {
-                return invocation.proceed();
-            }
-        } catch (ClassNotFoundException ex) {
-            throw new ClassNotFoundException("Cannot create dialect instance: " + dialectClass, ex);
-        } catch (Exception e) {
-            throw new RuntimeException("instance " + dialectClass + " handled error!", e);
-        }
+        String originalSql = (String) metaObject.getValue("delegate.boundSql.sql");
+        LOGGER.info("originalSql: {}", originalSql);
 
-        return invocation.proceed();
+        String newSql = dialect.getPageString(originalSql, pageBounds);
+        LOGGER.info("newSql: {}", newSql);
+        metaObject.setValue("delegate.boundSql.sql", newSql);
+        metaObject.setValue("delegate.rowBounds.offset", RowBounds.NO_ROW_OFFSET);
+        metaObject.setValue("delegate.rowBounds.limit", RowBounds.NO_ROW_LIMIT);
+
+        ret = invocation.proceed();
+        Instant end = Instant.now();
+        LOGGER.info("elapsed time: {}ms", Duration.between(begin, end).toMillis());
+        return ret;
     }
 
     @Override
     public Object plugin(Object target) {
-        return Plugin.wrap(target, this);
+        if (target instanceof StatementHandler) {
+            return Plugin.wrap(target, this);
+        }
+        return target;
     }
 
     @Override
     public void setProperties(Properties properties) {
         String dialectClass = properties.getProperty("dialectClass");
-        LOGGER.info("dialectClass:{}", dialectClass);
-        setDialectClass(dialectClass);
+        String dialectStr = properties.getProperty("dialect");
+        LOGGER.info("dialectClass: {}, dialect: {}", dialectClass, dialectStr);
+        if (StringUtils.isBlank(dialectClass)) {
+            Dialect.Type databaseType = null;
+            try {
+                databaseType = Dialect.Type.valueOf(dialectStr.toUpperCase());
+            } catch (Exception e) {
+                // ignore
+            }
 
-        String dbType = properties.getProperty("dbType");
-        LOGGER.info("dbType:{}", dbType);
-        setDbType(dialectClass);
-    }
+            if (databaseType == null) {
+                throw new RuntimeException("The dialect of the attribute [" + dialectStr + "] value is invalid! \n" +
+                        "Valid values for: " + Dialect.getDialectTypeValidValues());
+            }
+            dialect = DialectHelper.getDialect(databaseType);
+        } else {
+            try {
+                Class<?> clazz = Class.forName(dialectClass);
+                dialect = (Dialect) clazz.newInstance();
+            } catch (Exception ex) {
+                throw new RuntimeException("Cannot create dialect instance by dialectClass: " + dialectClass);
+            }
+        }
 
-    public void setDialectClass(String dialectClass) {
-        this.dialectClass = dialectClass;
-    }
-
-    public void setDbType(String dbType) {
-        this.dbType = dbType;
     }
 }

@@ -10,11 +10,7 @@
     </settings>
 
     <plugins>
-        <!--<plugin interceptor="com.andyadc.codeblocks.mybatis.pagination.PaginationInterceptor">
-            <property name="dbType" value="MySQL"/>
-            <property name="dialectClass" value="com.andyadc.codeblocks.mybatis.pagination.dialect.MySQLDialect"/>
-        </plugin>-->
-        <plugin interceptor="com.andyadc.codeblocks.mybatis.pagination.PageInterceptor">
+        <plugin interceptor="com.andyadc.codeblocks.mybatis.pagination.PaginationInterceptor">
             <!--<property name="dialectClass" value="com.andyadc.codeblocks.mybatis.pagination.dialect.MySQLDialect"/>-->
             <property name="dialect" value="mysql"/>
         </plugin>

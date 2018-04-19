@@ -16,6 +16,54 @@
         SELECT * FROM bank_mapping
     </select>
 
+    <update id="updateByPrimaryKeySelective">
+        UPDATE bank_mapping
+        <set>
+            <if test="bankCode != null">
+                bank_code = #{bankCode},
+            </if>
+            <if test="bankName != null">
+                bank_name = #{bankName},
+            </if>
+            <if test="cardType != null">
+                card_type = #{cardType},
+            </if>
+        </set>
+        WHERE id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO bank_mapping
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="bankCode != null">
+                bank_code,
+            </if>
+            <if test="bankName != null">
+                bank_name,
+            </if>
+            <if test="cardType != null">
+                card_type,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="bankCode != null">
+                #{bankCode},
+            </if>
+            <if test="bankName != null">
+                #{bankName},
+            </if>
+            <if test="cardType != null">
+                #{cardType},
+            </if>
+        </trim>
+    </insert>
+
     <select id="selectBankMappingSelective" resultMap="BaseResultMap">
         SELECT * FROM bank_mapping
         <where>
