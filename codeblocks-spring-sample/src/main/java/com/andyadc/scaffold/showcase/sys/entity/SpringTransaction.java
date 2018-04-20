@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class SpringTransaction extends BaseEntity {
 
-    private static final long serialVersionUID = 7567404900254974826L;
+    private static final long serialVersionUID = 1L;
 
     private String name;
 

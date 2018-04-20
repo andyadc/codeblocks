@@ -9,7 +9,7 @@ import java.util.Date;
 @MetaData(desc = "系统权限用户", tableName = "t_auth_user")
 public class AuthUser extends BaseEntity {
 
-    private static final long serialVersionUID = -7830790559829715043L;
+    private static final long serialVersionUID = 1L;
 
     private String identifier;
 
