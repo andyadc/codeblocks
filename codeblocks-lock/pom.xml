@@ -14,6 +14,7 @@
 
     <modules>
         <module>codeblocks-lock-api</module>
+        <module>codeblocks-lock-redis</module>
     </modules>
 
 </project>
