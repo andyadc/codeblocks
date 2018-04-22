@@ -28,11 +28,18 @@ public class SimpleRedisLock implements DLock {
         this.jedisPool = jedisPool;
     }
 
+    public boolean lock(String lockKey,
+                        int expireTime,
+                        String requestId) {
+        Jedis jedis = jedisPool.getResource();
+        lockKey = LOCK_KEY_PREFIX + lockKey;
+        return this.tryLockInner(jedis, lockKey, expireTime, requestId);
+    }
+
     private boolean tryLockInner(Jedis jedis,
                                  String lockKey,
                                  int expireTime,
                                  String requestId) {
-
         String result = jedis.set(lockKey, requestId, SET_IF_NOT_EXIST, SET_WITH_EXPIRE_TIME, expireTime);
         return LOCK_SUCCESS.equals(result);
     }
