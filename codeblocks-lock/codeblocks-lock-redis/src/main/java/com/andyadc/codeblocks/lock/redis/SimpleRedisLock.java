@@ -2,6 +2,7 @@ package com.andyadc.codeblocks.lock.redis;
 
 import com.andyadc.codeblocks.lock.DLock;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 import java.util.Collections;
 
@@ -20,6 +21,12 @@ public class SimpleRedisLock implements DLock {
     private static final String SET_WITH_EXPIRE_TIME = "PX";
 
     private static String LOCK_KEY_PREFIX = "lock:";
+
+    private JedisPool jedisPool;
+
+    public SimpleRedisLock(JedisPool jedisPool) {
+        this.jedisPool = jedisPool;
+    }
 
     private boolean tryLockInner(Jedis jedis,
                                  String lockKey,
