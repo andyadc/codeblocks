@@ -47,6 +47,7 @@
         <commons-lang3.version>3.7</commons-lang3.version>
         <commons-codec.version>1.11</commons-codec.version>
         <commons-collections4.version>4.1</commons-collections4.version>
+        <commons-beanutils.version>1.9.3</commons-beanutils.version>
         <commons.pool2.version>2.5.0</commons.pool2.version>
         <tomcat-jdbc.version>8.5.30</tomcat-jdbc.version>
         <HikariCP.version>3.1.0</HikariCP.version>
@@ -59,6 +60,7 @@
         <freemarker.version>2.3.28</freemarker.version>
         <zxing.version>3.3.2</zxing.version>
         <poi.version>3.17</poi.version>
+        <cglib.version>3.2.6</cglib.version>
         <slf4j.version>1.7.25</slf4j.version>
         <logback.version>1.2.3</logback.version>
         <mockito.version>2.18.0</mockito.version>
@@ -192,6 +194,11 @@
                 <version>${commons-collections4.version}</version>
             </dependency>
             <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>${commons-beanutils.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-pool2</artifactId>
                 <version>${commons.pool2.version}</version>
@@ -236,6 +243,12 @@
                 <groupId>io.protostuff</groupId>
                 <artifactId>protostuff-runtime</artifactId>
                 <version>${protostuff.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>cglib</groupId>
+                <artifactId>cglib</artifactId>
+                <version>${cglib.version}</version>
             </dependency>
 
             <dependency>
