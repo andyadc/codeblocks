@@ -1,12 +1,7 @@
 package com.andyadc.codeblocks.util.time;
 
 import org.joda.time.DateTime;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -15,9 +10,8 @@ import java.util.Date;
  */
 public class JodaDateUtils {
 
-    public static final String DEFAULT_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
-    public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
-    private static final Logger LOG = LoggerFactory.getLogger(JodaDateUtils.class);
+    private static final String DEFAULT_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    private static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
 
     private JodaDateUtils() {
     }
@@ -122,78 +116,5 @@ public class JodaDateUtils {
 
     public static Date minusDays(int days) {
         return new DateTime().minusDays(days).toDate();
-    }
-
-    public static String formatDate(Date date) {
-        if (date == null) {
-            return "";
-        }
-        return new SimpleDateFormat(DEFAULT_DATE_FORMAT).format(date);
-    }
-
-    public static String formatDate(Date date, String format) {
-        if (date == null) {
-            return null;
-        }
-        return new SimpleDateFormat(format).format(date);
-    }
-
-    public static String formatTime(Date date) {
-        if (date == null) {
-            return null;
-        }
-        return new SimpleDateFormat(DEFAULT_TIME_FORMAT).format(date);
-    }
-
-    public static Date parseDate(String date, String format) {
-        if (date == null) {
-            return null;
-        }
-        try {
-            return new SimpleDateFormat(format).parse(date);
-        } catch (ParseException e) {
-            LOG.error("parseDate error", e);
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static Date parseTime(String date, String format) {
-        if (date == null) {
-            return null;
-        }
-        try {
-            return new SimpleDateFormat(format).parse(date);
-        } catch (ParseException e) {
-            LOG.error("parseTime error", e);
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static Date parseDate(String date) {
-        return parseDate(date, DEFAULT_DATE_FORMAT);
-    }
-
-    public static Date parseTime(String date) {
-        return parseTime(date, DEFAULT_TIME_FORMAT);
-    }
-
-    /**
-     * N天之后
-     */
-    public static Date nDaysAfter(Date date, Integer n) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        cal.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH) + n);
-        return cal.getTime();
-    }
-
-    /**
-     * N天之前
-     */
-    public static Date nDaysBefore(Date date, Integer n) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        cal.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH) - n);
-        return cal.getTime();
     }
 }

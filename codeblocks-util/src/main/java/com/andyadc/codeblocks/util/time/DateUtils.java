@@ -17,18 +17,17 @@ public final class DateUtils {
     /**
      * thread safe
      */
-    private static final ThreadLocal<DateFormat> DATE_FORMAT = new ThreadLocal<DateFormat>() {
-        @Override
-        protected DateFormat initialValue() {
-            return new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        }
-    };
+    private static final ThreadLocal<DateFormat> DEFAULT_DATE_FORMAT_THREADLOCAL
+            = ThreadLocal.withInitial(() -> new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
 
     private DateUtils() {
     }
 
+    /**
+     * @return yyyy-MM-dd HH:mm:ss
+     */
     public static String formatCurrentDate() {
-        return DATE_FORMAT.get().format(new Date());
+        return DEFAULT_DATE_FORMAT_THREADLOCAL.get().format(new Date());
     }
 
     //-----------------------------------------------------------------------
