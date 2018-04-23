@@ -31,8 +31,7 @@ public final class SimpleHttpUtils {
     private static final Map<String, String> DEFAULT_HEADER = new HashMap<>(4);
 
     static {
-        DEFAULT_HEADER.put("User-Agent", "Scaffold-Http");
-        DEFAULT_HEADER.put("Accept", "text/xml,text/javascript,text/html");
+        DEFAULT_HEADER.put("User-Agent", "Codeblocks-Http-Server");
     }
 
     private SimpleHttpUtils() {
@@ -45,7 +44,7 @@ public final class SimpleHttpUtils {
      * @param params  params
      * @param charset charset
      * @return http query string
-     * @throws UnsupportedEncodingException
+     * @throws UnsupportedEncodingException exception
      */
     private static String buildQuery(Map<String, String> params, String charset) throws UnsupportedEncodingException {
         if (MapUtils.isEmpty(params)) {
@@ -80,7 +79,7 @@ public final class SimpleHttpUtils {
      * @param connectTimeout an int that specifies the connect timeout value in milliseconds
      * @param readTimeout    an int that specifies the read timeout value in milliseconds
      * @return post response
-     * @throws Exception
+     * @throws Exception exception
      */
     public static String doPost(String url, Map<String, String> params, int connectTimeout, int readTimeout) throws Exception {
         return doPost(url, params, DEFAULT_CHARSET, connectTimeout, readTimeout);
@@ -96,7 +95,7 @@ public final class SimpleHttpUtils {
      * @param connectTimeout an int that specifies the connect timeout value in milliseconds
      * @param readTimeout    an int that specifies the read timeout value in milliseconds
      * @return post response
-     * @throws Exception
+     * @throws Exception exception
      */
     public static String doPost(String url, Map<String, String> params, String charset, int connectTimeout, int readTimeout) throws Exception {
         String ctype = DEFAULT_CONTENT_TYPE + charset;
@@ -120,7 +119,7 @@ public final class SimpleHttpUtils {
      * @param readTimeout    an int that specifies the read timeout value in milliseconds
      * @param header         header
      * @return post response
-     * @throws IOException
+     * @throws IOException exception
      */
     public static String doPost(String url, String contentType, byte[] content, Map<String, String> header, int connectTimeout, int readTimeout) throws IOException {
         HttpURLConnection conn = null;

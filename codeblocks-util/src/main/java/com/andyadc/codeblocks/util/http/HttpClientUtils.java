@@ -69,7 +69,7 @@ public class HttpClientUtils {
      * @param url     请求的url地址 ?之前的地址
      * @param params  请求的参数
      * @param charset 编码格式
-     * @return 页面内容
+     * @return response
      */
     public static String doGet(String url, Map<String, Object> params, Map<String, String> headers, String charset) {
         if (StringUtils.isBlank(url)) {
@@ -121,7 +121,7 @@ public class HttpClientUtils {
      * @param url     请求的url地址 ?之前的地址
      * @param params  请求的参数
      * @param charset 编码格式
-     * @return 页面内容
+     * @return response
      */
     public static String doPost(String url, Map<String, Object> params, Map<String, String> headers, String charset) {
         if (StringUtils.isBlank(url)) {

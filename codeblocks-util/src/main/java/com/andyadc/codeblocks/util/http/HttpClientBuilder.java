@@ -22,6 +22,7 @@ import org.apache.http.impl.conn.SystemDefaultDnsResolver;
 import org.apache.http.impl.io.DefaultHttpRequestWriterFactory;
 import org.apache.http.impl.io.DefaultHttpResponseParserFactory;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -31,12 +32,12 @@ import java.util.concurrent.TimeUnit;
  * @author andaicheng
  * @version 2017/4/12
  */
-public class HttpClientUtil {
+public class HttpClientBuilder {
 
-    static PoolingHttpClientConnectionManager manager = null;
-    static CloseableHttpClient httpClient = null;
+    private static PoolingHttpClientConnectionManager manager = null;
+    private static CloseableHttpClient httpClient = null;
 
-    public static synchronized CloseableHttpClient getHttpClient() {
+    public static synchronized CloseableHttpClient buildHttpClient() {
         if (httpClient == null) {
 
             //注册访问协议相关的Socket工厂
@@ -91,14 +92,11 @@ public class HttpClientUtil {
                     .build();
 
             // JVM 停止或者重启时, 关闭连接池释放资源
-            Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        httpClient.close();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+            Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                try {
+                    httpClient.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }));
         }
