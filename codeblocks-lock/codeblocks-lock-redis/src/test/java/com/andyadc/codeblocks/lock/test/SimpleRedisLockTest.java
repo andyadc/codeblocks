@@ -1,6 +1,7 @@
 package com.andyadc.codeblocks.lock.test;
 
 import com.andyadc.codeblocks.lock.redis.SimpleRedisLock;
+import com.andyadc.codeblocks.util.time.DateUtils;
 import org.databene.contiperf.PerfTest;
 import org.databene.contiperf.junit.ContiPerfRule;
 import org.junit.Rule;
@@ -12,6 +13,7 @@ import redis.clients.jedis.JedisPoolConfig;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -86,7 +88,13 @@ public class SimpleRedisLockTest {
         public void run() {
             SimpleRedisLock lock = new SimpleRedisLock(jedisPool);
             System.out.println(Thread.currentThread().getName() + num.incrementAndGet() + " require lock result: "
-                    + lock.lock("adc", 100000, "home-pc"));
+                    + lock.lock("adc", 100000, "home-pc")
+                    + " " + DateUtils.formatCurrentDate());
+            try {
+                TimeUnit.SECONDS.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             latch.countDown();
         }
     }
