@@ -65,6 +65,13 @@ public class SimpleRedisLockTest {
         System.out.println(lock.lock("adc", 100000, "home-pc"));
     }
 
+    @PerfTest(threads = 10, invocations = 10)
+    @Test
+    public void unlock() {
+        SimpleRedisLock lock = new SimpleRedisLock(jedisPool);
+        System.out.println(lock.unlock("adc", "home-pc"));
+    }
+
     static class Locker implements Runnable {
 
         private JedisPool jedisPool;
