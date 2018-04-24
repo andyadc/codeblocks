@@ -1,6 +1,9 @@
 package com.andyadc.codeblocks.test;
 
 import com.andyadc.codeblocks.util.mask.MaskType;
+import org.databene.contiperf.PerfTest;
+import org.databene.contiperf.junit.ContiPerfRule;
+import org.junit.Rule;
 import org.junit.Test;
 
 /**
@@ -9,6 +12,10 @@ import org.junit.Test;
  */
 public class MaskTest {
 
+    @Rule
+    public ContiPerfRule rule = new ContiPerfRule();
+
+    @PerfTest(threads = 10, invocations = 100)
     @Test
     public void testMask() {
         System.out.println(MaskType.MOBILE.mask("13812345678"));
