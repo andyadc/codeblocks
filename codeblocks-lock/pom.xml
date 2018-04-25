@@ -15,6 +15,7 @@
     <modules>
         <module>codeblocks-lock-api</module>
         <module>codeblocks-lock-redis</module>
+        <module>codeblocks-lock-zookeeper</module>
     </modules>
 
 </project>
