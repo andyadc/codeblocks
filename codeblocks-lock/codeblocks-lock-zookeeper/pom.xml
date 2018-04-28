@@ -57,6 +57,10 @@
             <artifactId>logback-classic</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.databene</groupId>
+            <artifactId>contiperf</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

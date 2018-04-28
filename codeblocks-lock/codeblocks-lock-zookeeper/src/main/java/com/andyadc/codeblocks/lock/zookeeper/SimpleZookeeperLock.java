@@ -5,6 +5,7 @@ import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.ZooDefs;
 import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.data.ACL;
+import org.apache.zookeeper.data.Stat;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,11 +21,12 @@ import java.util.concurrent.locks.Lock;
  */
 public class SimpleZookeeperLock extends ZkPrimitive implements Lock {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(SimpleZookeeperLock.class);
+
     /**
      * A default delimiter to separate a lockPrefix from the sequential elements set by ZooKeeper.
      */
     protected static final char lockDelimiter = '-';
-    private static final Logger LOGGER = LoggerFactory.getLogger(SimpleZookeeperLock.class);
     private static final String lockPrefix = "lock";
     private ThreadLocal<LockHolder> locks = new ThreadLocal<>();
 
@@ -89,36 +91,181 @@ public class SimpleZookeeperLock extends ZkPrimitive implements Lock {
                 localLock.lock();
                 try {
                     //ask ZooKeeper for the lock
-
+                    boolean acquiredLock = tryAcquireDistributed(zk, lockNode, true);
+                    if (!acquiredLock) {
+                        //we don't have the lock, so we need to wait for our watcher to fire
+                        //this method is not interruptible, so need to wait appropriately
+                        condition.awaitUninterruptibly();
+                    } else {
+                        //we have the lock, so return happy
+                        locks.set(new LockHolder(lockNode));
+                        return;
+                    }
                 } finally {
                     localLock.unlock();
                 }
             }
         } catch (KeeperException e) {
-
+            throw new RuntimeException(e);
         } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        } finally {
+            //we no longer care about having a ConnectionListener here
+            removeConnectionListener();
+        }
+    }
 
+    /**
+     * Acquires the lock, unless the current thread is interrupted.
+     * <p><p>
+     * Note: If the ZooKeeper Session expires while this thread is waiting, an {@link InterruptedException} will be
+     * thrown.
+     *
+     * @throws InterruptedException if the current thread is interrupted, or if the ZooKeeper session expires
+     * @throws RuntimeException     wrapping a {@link org.apache.zookeeper.KeeperException} if there is a ZooKeeper
+     *                              server problem.
+     * @inheritDoc
+     * @see java.util.concurrent.locks.Lock#lockInterruptibly()
+     */
+    @Override
+    public void lockInterruptibly() throws InterruptedException {
+        tryLock(Long.MAX_VALUE, TimeUnit.DAYS);
+    }
+
+    /**
+     * Acquires the lock only if it is free at the time of invocation.
+     * <p><p>
+     * Note: If the ZooKeeper Session expires while this thread is processing, nothing is required to happen.
+     *
+     * @return true if the lock has been acquired, false otherwise
+     * @throws RuntimeException wrapping :
+     *                          <ul>
+     *                          <li>{@link org.apache.zookeeper.KeeperException} if there is trouble
+     *                          processing a request with the ZooKeeper servers.
+     *                          <li> {@link InterruptedException} if there is an error communicating between the ZooKeeper client and servers.
+     *                          </ul>
+     * @inheritDoc
+     */
+    @Override
+    public boolean tryLock() {
+        if (checkReentrancy()) {
+            return true;
+        }
+        ZooKeeper zk = zkSessionManager.getZooKeeper();
+        try {
+            String lockNode = zk.create(getBaseLockPath(), emptyNode, privileges, CreateMode.EPHEMERAL_SEQUENTIAL);
+
+            //try to determine its position in the queue
+            boolean lockAcquired = tryAcquireDistributed(zk, lockNode, false);
+            if (!lockAcquired) {
+                //we didn't get the lock, so return false
+                zk.delete(lockNode, -1);
+                return false;
+            } else {
+                //we have the lock, so it goes on the queue
+                locks.set(new LockHolder(lockNode));
+                return true;
+            }
+        } catch (KeeperException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Acquires the lock only if it is free within the given waiting time and the current thread has not been
+     * interrupted.
+     * <p><p>
+     * Note: If the ZooKeeper Session expires while this thread is waiting, an {@link InterruptedException} will be
+     * thrown.
+     *
+     * @param time the maximum time to wait, in milliseconds
+     * @param unit the TimeUnit to use
+     * @return true if the lock is acquired before the timeout expires
+     * @throws InterruptedException if one of the four following conditions hold:
+     *                              <ol>
+     *                              <li value="1">The Thread is interrupted upon entry to the method
+     *                              <li value="2">Another thread interrupts this thread while it is waiting to acquire the lock
+     *                              <li value="3">There is a communication problem between the ZooKeeper client and the ZooKeeper server.
+     *                              <li value="4">The ZooKeeper session expires and invalidates this lock.
+     *                              </ol>
+     * @inheritDoc
+     * @see #tryLock(long, java.util.concurrent.TimeUnit)
+     */
+    @Override
+    public boolean tryLock(long time, TimeUnit unit) throws InterruptedException {
+        if (Thread.interrupted())
+            throw new InterruptedException();
+
+        if (checkReentrancy()) return true;
+
+        ZooKeeper zk = zkSessionManager.getZooKeeper();
+        //add a connection listener
+        setConnectionListener();
+        String lockNode;
+        try {
+            lockNode = zk.create(getBaseLockPath(), emptyNode, privileges, CreateMode.EPHEMERAL_SEQUENTIAL);
+
+            while (true) {
+                if (Thread.interrupted()) {
+                    zk.delete(lockNode, -1);
+                    throw new InterruptedException();
+                } else if (broken) {
+                    throw new InterruptedException("The ZooKeeper Session expired and invalidated this lock");
+                }
+                boolean localAcquired = localLock.tryLock(time, unit);
+                try {
+                    if (!localAcquired) {
+                        //delete the lock node and return false
+                        zk.delete(lockNode, -1);
+                        return false;
+                    }
+                    //ask ZooKeeper for the lock
+                    boolean acquiredLock = tryAcquireDistributed(zk, lockNode, true);
+
+                    if (!acquiredLock) {
+                        //we don't have the lock, so we need to wait for our watcher to fire
+                        boolean alerted = condition.await(time, unit);
+                        if (!alerted) {
+                            //we timed out, so delete the node and return false
+                            zk.delete(lockNode, -1);
+                            return false;
+                        }
+                    } else {
+                        //we have the lock, so return happy
+                        locks.set(new LockHolder(lockNode));
+                        return true;
+                    }
+                } finally {
+                    localLock.unlock();
+                }
+            }
+        } catch (KeeperException e) {
+            throw new RuntimeException(e);
+        } finally {
+            //don't care about the connection any more
+            removeConnectionListener();
         }
     }
 
     @Override
-    public void lockInterruptibly() {
-
-    }
-
-    @Override
-    public boolean tryLock() {
-        return false;
-    }
-
-    @Override
-    public boolean tryLock(long time, TimeUnit unit) {
-        return false;
-    }
-
-    @Override
     public void unlock() {
+        LockHolder nodeToRemove = locks.get();
+        if (nodeToRemove == null)
+            throw new IllegalMonitorStateException("Attempting to unlock without first obtaining that lock on this thread");
 
+        int numLocks = nodeToRemove.decrementLock();
+        if (numLocks == 0) {
+            locks.remove();
+            try {
+                ZkUtils.safeDelete(zkSessionManager.getZooKeeper(), nodeToRemove.lockNode(), -1);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            } catch (KeeperException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     @Override
@@ -147,8 +294,29 @@ public class SimpleZookeeperLock extends ZkPrimitive implements Lock {
      * @throws KeeperException      if Something bad happens on the ZooKeeper server
      * @throws InterruptedException if communication between ZooKeeper and the client fail in some way
      */
-    protected boolean tryAcquireDistributed(ZooKeeper zk, String lockNode, boolean watch) {
+    protected boolean tryAcquireDistributed(ZooKeeper zk, String lockNode, boolean watch) throws KeeperException, InterruptedException {
+        List<String> locks = ZkUtils.filterByPrefix(zk.getChildren(baseNode, false), getLockPrefix());
+        ZkUtils.sortBySequence(locks, lockDelimiter);
 
+        String myNodeName = lockNode.substring(lockNode.lastIndexOf('/') + 1);
+        int myPos = locks.indexOf(myNodeName);
+
+        int nextNodePos = myPos - 1;
+        while (nextNodePos > 0) {
+            Stat stat;
+            if (watch)
+                stat = zk.exists(baseNode + "/" + locks.get(nextNodePos), signalWatcher);
+            else
+                stat = zk.exists(baseNode + "/" + locks.get(nextNodePos), false);
+
+            if (stat != null) {
+                //there is a node which already has the lock, so we need to wait for notification that that
+                //node is gone
+                return false;
+            } else {
+                nextNodePos--;
+            }
+        }
         return true;
     }
 
