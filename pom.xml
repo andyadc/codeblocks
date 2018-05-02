@@ -48,7 +48,8 @@
         <commons-codec.version>1.11</commons-codec.version>
         <commons-collections4.version>4.1</commons-collections4.version>
         <commons-beanutils.version>1.9.3</commons-beanutils.version>
-        <commons.pool2.version>2.5.0</commons.pool2.version>
+        <commons-pool2.version>2.5.0</commons-pool2.version>
+        <commons-dbutils.version>1.7</commons-dbutils.version>
         <tomcat-jdbc.version>8.5.30</tomcat-jdbc.version>
         <HikariCP.version>3.1.0</HikariCP.version>
         <druid.version>1.1.9</druid.version>
@@ -178,6 +179,8 @@
                 <artifactId>jsoniter</artifactId>
                 <version>${jsoniter.version}</version>
             </dependency>
+
+            <!-- commons -->
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
@@ -201,8 +204,14 @@
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-pool2</artifactId>
-                <version>${commons.pool2.version}</version>
+                <version>${commons-pool2.version}</version>
             </dependency>
+            <dependency>
+                <groupId>commons-dbutils</groupId>
+                <artifactId>commons-dbutils</artifactId>
+                <version>${commons-dbutils.version}</version>
+            </dependency>
+
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
@@ -341,6 +350,7 @@
                 <scope>test</scope>
             </dependency>
 
+            <!-- performance test -->
             <dependency>
                 <groupId>org.databene</groupId>
                 <artifactId>contiperf</artifactId>
