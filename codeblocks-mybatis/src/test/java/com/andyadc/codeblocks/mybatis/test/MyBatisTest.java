@@ -24,7 +24,7 @@ public class MyBatisTest {
     private static final Logger LOGGER = LoggerFactory.getLogger(MyBatisTest.class);
 
     private static final String CONFIG_RESOURCE = "mybatis-config.xml";
-    private static final String NAMESPACE = "com.andyadc.codeblocks.mybatis.mapper";
+    private static final String NAMESPACE = "com.andyadc.codeblocks.mybatis.test.BankMapper";
 
     private SqlSession session;
     private SqlSessionFactory factory;
@@ -86,6 +86,19 @@ public class MyBatisTest {
             for (Object o : list) {
                 System.out.println(o);
             }
+        } finally {
+            session.close();
+        }
+    }
+
+    @Test
+    public void queryByMapper() {
+        try {
+            session = factory.openSession();
+            System.out.println(session);
+
+            BankMapper mapper = session.getMapper(BankMapper.class);
+            System.out.println(mapper.selectBankMapping());
         } finally {
             session.close();
         }
