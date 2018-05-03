@@ -30,7 +30,7 @@
 
     <properties>
         <spring.version>5.0.5.RELEASE</spring.version>
-        <aspectj.version>1.9.0</aspectj.version>
+        <aspectj.version>1.9.1</aspectj.version>
         <httpcomponents.version>4.5.5</httpcomponents.version>
         <shiro.version>1.4.0</shiro.version>
         <mybatis.version>3.4.6</mybatis.version>
@@ -42,7 +42,7 @@
         <fastjson.version>1.2.47</fastjson.version>
         <jsoniter.version>0.9.22</jsoniter.version>
         <joda-time.version>2.9.9</joda-time.version>
-        <guava.version>24.1-jre</guava.version>
+        <guava.version>25.0-jre</guava.version>
         <orika.version>1.5.2</orika.version>
         <commons-lang3.version>3.7</commons-lang3.version>
         <commons-codec.version>1.11</commons-codec.version>
@@ -64,7 +64,7 @@
         <cglib.version>3.2.6</cglib.version>
         <slf4j.version>1.7.25</slf4j.version>
         <logback.version>1.2.3</logback.version>
-        <mockito.version>2.18.0</mockito.version>
+        <mockito.version>2.18.3</mockito.version>
         <junit.version>4.12</junit.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
