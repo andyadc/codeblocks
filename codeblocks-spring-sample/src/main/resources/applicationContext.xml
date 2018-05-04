@@ -74,6 +74,11 @@
         <property name="configLocation" value="classpath:cache/ehcache-local.xml"/>
     </bean>
 
+    <!-- HikariCP dataSource -->
+    <bean id="hikariDataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+        <constructor-arg ref="hikariConfig"/>
+    </bean>
+
     <!-- HikariCP configuration -->
     <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
         <property name="poolName" value="${hikari.pool.name}"/>
@@ -96,16 +101,12 @@
         </property>
     </bean>
 
-    <!-- HikariCP dataSource -->
-    <bean id="hikariDataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
-        <constructor-arg ref="hikariConfig"/>
-    </bean>
-
     <!-- import files -->
     <import resource="applicationContext-shiro.xml"/>
     <!--<import resource="applicationContext-redis.xml"/>-->
     <!--<import resource="mail/applicationContext-mail.xml"/>-->
     <import resource="applicationContext-executor.xml"/>
     <!--<import resource="applicationContext-map.xml"/>-->
+    <import resource="applicationContext-dataSource-druid.xml"/>
 
 </beans>
