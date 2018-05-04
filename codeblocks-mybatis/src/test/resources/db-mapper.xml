@@ -12,8 +12,14 @@
         <result column="card_type" jdbcType="INTEGER" property="cardType"/>
     </resultMap>
 
+    <sql id="Base_Column_List">
+        id, bank_code, bank_name, card_type
+    </sql>
+
     <select id="selectBankMapping" resultMap="BaseResultMap">
-        SELECT * FROM bank_mapping
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM bank_mapping
     </select>
 
     <update id="updateByPrimaryKeySelective">
