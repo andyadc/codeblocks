@@ -5,7 +5,7 @@
 
 <mapper namespace="com.andyadc.codeblocks.mybatis.test.BankMapper">
 
-    <resultMap id="BaseResultMap" type="com.andyadc.codeblocks.mybatis.test.BankMapping">
+    <resultMap id="BaseResultMap" type="BankMapping">
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="bank_code" jdbcType="VARCHAR" property="bankCode"/>
         <result column="bank_name" jdbcType="VARCHAR" property="bankName"/>

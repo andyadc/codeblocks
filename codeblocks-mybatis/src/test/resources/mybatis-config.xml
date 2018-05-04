@@ -5,9 +5,15 @@
 
 <configuration>
 
+    <properties resource="db.properties"/>
+
     <settings>
         <setting name="logImpl" value="SLF4J"/>
     </settings>
+
+    <typeAliases>
+        <typeAlias alias="BankMapping" type="com.andyadc.codeblocks.mybatis.test.BankMapping"/>
+    </typeAliases>
 
     <plugins>
         <plugin interceptor="com.andyadc.codeblocks.mybatis.pagination.PaginationInterceptor">
@@ -20,10 +26,10 @@
         <environment id="dev">
             <transactionManager type="JDBC"/>
             <dataSource type="POOLED">
-                <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://localhost/idea?useUnicode=true&amp;characterEncoding=utf-8"/>
-                <property name="username" value="root"/>
-                <property name="password" value="andyadc"/>
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${username}"/>
+                <property name="password" value="${password}"/>
             </dataSource>
         </environment>
     </environments>
