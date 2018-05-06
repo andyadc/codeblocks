@@ -15,8 +15,6 @@
     <name>codeblocks :: spring-sample</name>
 
     <properties>
-
-        <jetty.version>9.4.9.v20180320</jetty.version>
         <webserver.port>9999</webserver.port>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -182,7 +180,6 @@
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>${jetty.version}</version>
                 <configuration>
                     <reload>manual</reload>
                     <httpConnector>

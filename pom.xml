@@ -396,6 +396,12 @@
     <build>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.eclipse.jetty</groupId>
+                    <artifactId>jetty-maven-plugin</artifactId>
+                    <version>9.4.10.v20180503</version>
+                </plugin>
+
                 <!-- The Versions Plugin is used when you want to manage the versions of artifacts -->
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
