@@ -18,9 +18,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.testTarget>1.8</maven.compiler.testTarget>
-        <maven.compiler.testSource>1.8</maven.compiler.testSource>
-        <maven.compiler.testCompilerArgument>-parameters</maven.compiler.testCompilerArgument>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
     <dependencies>
