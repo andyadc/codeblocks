@@ -1,0 +1,42 @@
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: Asia/Shanghai
+
+  output:
+    ansi:
+      enabled: DETECT
+
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML5
+
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: andyadc
+    url: jdbc:mysql://localhost/idea?useUnicode=true&amp;characterEncoding=utf-8
+
+  aop:
+    auto: true
+    proxy-target-class: true
+
+server:
+  port: 9999
+  context-path: /
+  tomcat:
+    max-threads: 500
+    min-spare-threads: 30
+    uri-encoding: utf-8
+    basedir: /opt/apps/codeblocks-backend
+    accesslog:
+      enabled: true
+
+logging:
+  path: /opt/apps/codeblocks-backend
+
+mybatis:
+  type-aliases-package: com.andyadc.codeblocks
+  mapper-locations: classpath:mybatis/mapper/**/*Mapper.xml
+  config-location: classpath:mybatis/mybatis-config.xml

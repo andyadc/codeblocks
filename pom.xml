@@ -27,6 +27,7 @@
         <module>codeblocks-algorithm</module>
         <module>codeblocks-lock</module>
         <module>codeblocks-sources</module>
+        <module>codeblocks-springboot-backend</module>
     </modules>
 
     <properties>
