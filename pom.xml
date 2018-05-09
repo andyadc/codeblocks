@@ -31,7 +31,7 @@
     </modules>
 
     <properties>
-        <spring.version>5.0.5.RELEASE</spring.version>
+        <spring.version>5.0.6.RELEASE</spring.version>
         <aspectj.version>1.9.1</aspectj.version>
         <httpcomponents.version>4.5.5</httpcomponents.version>
         <shiro.version>1.4.0</shiro.version>
