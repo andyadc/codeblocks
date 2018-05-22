@@ -1,6 +1,6 @@
 package com.andyadc.codeblocks.util.http;
 
-import org.apache.commons.lang3.StringUtils;
+import com.andyadc.codeblocks.util.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
