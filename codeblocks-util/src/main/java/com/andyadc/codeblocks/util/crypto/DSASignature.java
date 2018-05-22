@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.algorithm;
+package com.andyadc.codeblocks.util.crypto;
 
 import java.security.Key;
 import java.security.KeyFactory;
