@@ -88,7 +88,7 @@ public class HttpClientBuilder {
                     .setDefaultRequestConfig(requestConfig) //设置默认请求配置
                     .setConnectionReuseStrategy(DefaultConnectionReuseStrategy.INSTANCE)    //连接重用策略
                     .setKeepAliveStrategy(DefaultConnectionKeepAliveStrategy.INSTANCE)  // 长连接策略
-                    .setRetryHandler(new DefaultHttpRequestRetryHandler(0, false))  //设置重试次数, 默认3次; 当前是禁用掉(
+                    .setRetryHandler(new DefaultHttpRequestRetryHandler(0, false))  //设置重试次数, 默认3次; 当前是禁用掉
                     .build();
 
             // JVM 停止或者重启时, 关闭连接池释放资源
