@@ -25,12 +25,12 @@ public class AuthServiceTest {
     public void testSaveAuthUser() {
         AuthUser authUser = new AuthUser();
         authUser.setId(5L);
-        authUser.setName("");
-        authUser.setAccount("");
+        authUser.setUsername("");
+        authUser.setNickname("");
         authUser.setPassword("54erwdfge2");
         authUser.setSalt("ssss");
-        authUser.setState(1);
-        authUser.setIsDeleted(0);
+        authUser.setStatus(1);
+        authUser.setDeleted(0);
         authUser = authService.saveAuthUser(authUser);
         System.out.println(authUser.getId());
     }

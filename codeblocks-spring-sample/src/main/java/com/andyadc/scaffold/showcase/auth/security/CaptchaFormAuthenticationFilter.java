@@ -1,10 +1,11 @@
 package com.andyadc.scaffold.showcase.auth.security;
 
 import com.andyadc.codeblocks.captcha.servlet.CaptchaServlet;
+import com.andyadc.codeblocks.util.StringUtils;
+import com.andyadc.codeblocks.util.net.ServletUtils;
 import com.andyadc.scaffold.showcase.auth.entity.AuthUser;
 import com.andyadc.scaffold.showcase.auth.service.AuthService;
 import com.andyadc.scaffold.showcase.common.cache.EhCacheHandler;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -71,7 +72,8 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
 
             AuthUser authUser = authService.findAuthUserByUsername(username);
             if (authUser != null) {
-                Integer loginTimes = (Integer) EhCacheHandler.get(CACHE_LOGIN_FAIL_PREFIX + username);
+                String uk = ServletUtils.getFromCookie((HttpServletRequest) request, "captcha_flag");
+                Integer loginTimes = (Integer) EhCacheHandler.get(CACHE_LOGIN_FAIL_PREFIX + uk);
                 if (loginTimes != null && loginTimes >= LOGIN_FAILURE_LIMIT) {
                     captcha = request.getParameter(CAPTACHE_PARAM);
                     if (!CaptchaServlet.validateCaptcha((HttpServletRequest) request, captcha)) {
@@ -102,21 +104,23 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
     protected boolean onLoginFailure(AuthenticationToken token, AuthenticationException e, ServletRequest request, ServletResponse response) {
         if (e instanceof CaptchaValidationException) {
             request.setAttribute(KEY_AUTH_CAPTCHA_REQUIRED, Boolean.TRUE);
-        } else if (e instanceof IncorrectCredentialsException) {
+        } else if (e instanceof IncorrectCredentialsException | e instanceof UnknownAccountException) {
             e = new IncorrectCredentialsException("登录账号或密码不正确");
 
             UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
             String username = usernamePasswordToken.getUsername();
 
-            Integer loginTimes = (Integer) EhCacheHandler.get(CACHE_LOGIN_FAIL_PREFIX + username);
+            String uk = ServletUtils.getFromCookie((HttpServletRequest) request, "captcha_flag");
+
+            Integer loginTimes = (Integer) EhCacheHandler.get(CACHE_LOGIN_FAIL_PREFIX + uk);
             if (loginTimes != null && loginTimes >= LOGIN_FAILURE_LIMIT) {
                 request.setAttribute(KEY_AUTH_CAPTCHA_REQUIRED, Boolean.TRUE);
             }
 
             if (loginTimes == null) {
-                EhCacheHandler.put(CACHE_LOGIN_FAIL_PREFIX + username, 1);
+                EhCacheHandler.put(CACHE_LOGIN_FAIL_PREFIX + uk, 1);
             } else {
-                EhCacheHandler.put(CACHE_LOGIN_FAIL_PREFIX + username, loginTimes + 1);
+                EhCacheHandler.put(CACHE_LOGIN_FAIL_PREFIX + uk, loginTimes + 1);
             }
 
         }

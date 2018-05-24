@@ -1,6 +1,6 @@
 package com.andyadc.scaffold.showcase.auth.security;
 
-import org.apache.commons.lang3.StringUtils;
+import com.andyadc.codeblocks.util.StringUtils;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.stereotype.Component;
 

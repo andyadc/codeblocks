@@ -1,8 +1,9 @@
 package com.andyadc.scaffold.showcase.web.controller;
 
 import com.andyadc.codeblocks.common.annotation.Performance;
+import com.andyadc.codeblocks.util.StringUtils;
+import com.andyadc.codeblocks.util.net.ServletUtils;
 import com.andyadc.scaffold.showcase.auth.security.CaptchaFormAuthenticationFilter;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -19,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.UUID;
 
 /**
  * @author andaicheng
@@ -33,12 +36,19 @@ public class LoginController {
     private static final String PAGE_INDEX = "index";
     private static final String ATTR_MSG = "message";
 
+    private static final String LOGIN_CAPTCHA_FLAG = "captcha_flag";
+
     @GetMapping(value = "/login")
-    public String login() {
+    public String login(HttpServletRequest request, HttpServletResponse response) {
         Subject subject = SecurityUtils.getSubject();
         if (subject != null && subject.isAuthenticated()) {
             subject.logout();
         }
+        String v = ServletUtils.getFromCookie(request, LOGIN_CAPTCHA_FLAG);
+        if (v == null) {
+            ServletUtils.setToCookie(response, LOGIN_CAPTCHA_FLAG, UUID.randomUUID().toString(), -1);
+        }
+
         return PAGE_LOGIN;
     }
 

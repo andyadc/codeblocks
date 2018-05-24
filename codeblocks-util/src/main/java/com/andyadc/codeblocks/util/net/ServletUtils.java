@@ -1,6 +1,8 @@
 package com.andyadc.codeblocks.util.net;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -9,7 +11,7 @@ import java.util.Map;
  * @author andaicheng
  * @version 2017/3/12
  */
-public class ServletUtils {
+public final class ServletUtils {
 
     private ServletUtils() {
     }
@@ -31,5 +33,28 @@ public class ServletUtils {
             }
         }
         return params;
+    }
+
+    public static String getFromCookie(HttpServletRequest request,
+                                       String key) {
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals(key)) {
+                return cookie.getValue();
+            }
+        }
+        return null;
+    }
+
+    public static void setToCookie(HttpServletResponse response,
+                                   String key, String value,
+                                   int maxAge) {
+        Cookie cookie = new Cookie(key, value);
+        cookie.setHttpOnly(true);
+        cookie.setPath("/");
+        if (maxAge > 0) {
+            cookie.setMaxAge(maxAge);
+        }
+        response.addCookie(cookie);
     }
 }
