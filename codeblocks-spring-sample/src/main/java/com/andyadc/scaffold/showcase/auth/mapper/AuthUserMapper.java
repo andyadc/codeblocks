@@ -6,17 +6,17 @@ import com.andyadc.scaffold.showcase.auth.entity.AuthUser;
 @MyBatisRepository
 public interface AuthUserMapper {
 
-    int deleteByPrimaryKey(Long id);
+    int deleteById(Long id);
 
     int insertSelective(AuthUser record);
 
-    AuthUser selectByPrimaryKey(Long id);
+    AuthUser selectById(Long id);
 
-    AuthUser selectByAccount(String account);
+    AuthUser selectByUsername(String username);
 
-    int updateByPrimaryKeySelective(AuthUser record);
+    int updateByIdSelective(AuthUser record);
 
     int deleteAuthUserLogic(Long id);
 
-    int lockAuthUserByAccount(String account);
+    int lockAuthUserByUsername(String username);
 }

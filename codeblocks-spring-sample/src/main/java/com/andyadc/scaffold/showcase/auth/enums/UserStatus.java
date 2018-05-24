@@ -4,22 +4,22 @@ package com.andyadc.scaffold.showcase.auth.enums;
  * @author andaicheng
  * @version 2017/2/23
  */
-public enum AuthUserState {
+public enum UserStatus {
     INIT(0, "初始化"),
     NORMAL(1, "正常"),
-    BLOCKED(2, "锁定"),
+    LOCKED(2, "锁定"),
     UNNORMAL(3, "异常");
 
-    private int state;
+    private int status;
     private String desc;
 
-    AuthUserState(int state, String desc) {
-        this.state = state;
+    UserStatus(int status, String desc) {
+        this.status = status;
         this.desc = desc;
     }
 
-    public int getState() {
-        return state;
+    public int getStatus() {
+        return status;
     }
 
     public String getDesc() {

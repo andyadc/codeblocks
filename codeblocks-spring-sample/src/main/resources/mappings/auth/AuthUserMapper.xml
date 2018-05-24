@@ -2,102 +2,106 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.andyadc.scaffold.showcase.auth.mapper.AuthUserMapper">
     <resultMap id="BaseResultMap" type="com.andyadc.scaffold.showcase.auth.entity.AuthUser">
-        <id column="id" jdbcType="BIGINT" property="id"/>
-        <result column="identifier" jdbcType="VARCHAR" property="identifier"/>
-        <result column="name" jdbcType="VARCHAR" property="name"/>
-        <result column="account" jdbcType="VARCHAR" property="account"/>
+        <id column="key" jdbcType="BIGINT" property="key"/>
+        <result column="id" jdbcType="BIGINT" property="id"/>
+        <result column="username" jdbcType="VARCHAR" property="username"/>
+        <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
         <result column="password" jdbcType="VARCHAR" property="password"/>
         <result column="salt" jdbcType="VARCHAR" property="salt"/>
-        <result column="phone" jdbcType="VARCHAR" property="phone"/>
+        <result column="mobile" jdbcType="VARCHAR" property="mobile"/>
         <result column="email" jdbcType="VARCHAR" property="email"/>
-        <result column="state" jdbcType="INTEGER" property="state"/>
-        <result column="is_deleted" jdbcType="INTEGER" property="isDeleted"/>
-        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
-        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="deleted" jdbcType="INTEGER" property="deleted"/>
+        <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
+        <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime"/>
         <result column="version" jdbcType="INTEGER" property="version"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-        id, identifier, name, account, password, salt, phone, email, state, is_deleted,
-        create_time, update_time, version
+        `key`, id, username, nickname, `password`, salt, mobile, email, `type`, `status`, deleted, created_time,
+        updated_time, version
     </sql>
 
     <sql id="Simple_Column_List">
-        id, identifier, account, password, salt, auth_type, state, is_deleted
+        `key`, id, username, `password`, salt, `type`, `status`, deleted
     </sql>
 
     <sql id="Where_Condition">
         <where>
+            <if test="key != null">
+                `key` = #{key,jdbcType=BIGINT}
+            </if>
             <if test="id != null">
                 id = #{id,jdbcType=BIGINT}
             </if>
-            <if test="identifier != null and identifier != ''">
-                AND identifier = #{identifier,jdbcType=VARCHAR}
+            <if test="username != null and username != ''">
+                AND username = #{username,jdbcType=VARCHAR}
             </if>
-            <if test="name != null and name != ''">
-                AND name = #{name,jdbcType=VARCHAR}
+            <if test="nickname != null and nickname != ''">
+                AND nickname = #{nickname,jdbcType=VARCHAR}
             </if>
             <if test="account != null and account != ''">
                 AND account = #{account,jdbcType=VARCHAR}
             </if>
-            <if test="phone != null and phone != ''">
-                AND phone = #{phone,jdbcType=VARCHAR}
+            <if test="mobile != null and mobile != ''">
+                AND mobile = #{mobile,jdbcType=VARCHAR}
             </if>
             <if test="email != null and email != ''">
                 AND email = #{email,jdbcType=VARCHAR}
             </if>
-            <if test="state != null">
-                AND state = #{state,jdbcType=INTEGER}
+            <if test="status != null">
+                AND `status` = #{status,jdbcType=INTEGER}
             </if>
-            <if test="isDeleted != null">
-                AND is_deleted = #{isDeleted,jdbcType=INTEGER}
+            <if test="type != null">
+                AND `type` = #{type,jdbcType=INTEGER}
+            </if>
+            <if test="deleted != null">
+                AND deleted = #{deleted,jdbcType=INTEGER}
             </if>
         </where>
     </sql>
 
-    <update id="lockAuthUserByAccount" parameterType="java.lang.String">
-        UPDATE t_auth_user SET state = 2 WHERE account = #{account,jdbcType=VARCHAR}
+    <update id="lockAuthUserByUsername" parameterType="java.lang.String">
+        UPDATE t_auth_user SET status = 2 WHERE username = #{username,jdbcType=VARCHAR}
     </update>
 
     <update id="deleteAuthUserLogic" parameterType="java.lang.Long">
-        UPDATE t_auth_user SET is_deleted = 1 WHERE id = #{id,jdbcType=BIGINT}
+        UPDATE t_auth_user SET deleted = 1 WHERE id = #{id,jdbcType=BIGINT}
     </update>
 
-    <select id="selectByAccount" resultMap="BaseResultMap" parameterType="java.lang.String">
+    <select id="selectByUsername" resultMap="BaseResultMap" parameterType="java.lang.String">
         SELECT
         <include refid="Simple_Column_List"/>
         FROM t_auth_user
-        WHERE account = #{account,jdbcType=VARCHAR}
+        WHERE username = #{username,jdbcType=VARCHAR}
     </select>
 
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.Long">
         SELECT
         <include refid="Base_Column_List"/>
         FROM t_auth_user
         WHERE id = #{id,jdbcType=BIGINT}
     </select>
 
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <delete id="deleteById" parameterType="java.lang.Long">
         DELETE FROM t_auth_user
         WHERE id = #{id,jdbcType=BIGINT}
     </delete>
 
     <insert id="insertSelective" parameterType="com.andyadc.scaffold.showcase.auth.entity.AuthUser"
             useGeneratedKeys="true"
-            keyProperty="id">
+            keyProperty="key">
         INSERT INTO t_auth_user
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
                 id,
             </if>
-            <if test="identifier != null">
-                identifier,
+            <if test="username != null">
+                username,
             </if>
-            <if test="name != null">
-                name,
-            </if>
-            <if test="account != null">
-                account,
+            <if test="nickname != null">
+                nickname,
             </if>
             <if test="password != null">
                 password,
@@ -105,23 +109,26 @@
             <if test="salt != null">
                 salt,
             </if>
-            <if test="phone != null">
-                phone,
+            <if test="mobile != null">
+                mobile,
             </if>
             <if test="email != null">
                 email,
             </if>
-            <if test="state != null">
-                state,
+            <if test="status != null">
+                status,
             </if>
-            <if test="isDeleted != null">
-                is_deleted,
+            <if test="type != null">
+                type,
             </if>
-            <if test="createTime != null">
-                create_time,
+            <if test="deleted != null">
+                deleted,
             </if>
-            <if test="updateTime != null">
-                update_time,
+            <if test="createdTime != null">
+                created_time,
+            </if>
+            <if test="updatedTime != null">
+                updated_time,
             </if>
             <if test="version != null">
                 version,
@@ -131,14 +138,11 @@
             <if test="id != null">
                 #{id,jdbcType=BIGINT},
             </if>
-            <if test="identifier != null">
-                #{identifier,jdbcType=VARCHAR},
+            <if test="username != null">
+                #{username,jdbcType=VARCHAR},
             </if>
-            <if test="name != null">
-                #{name,jdbcType=VARCHAR},
-            </if>
-            <if test="account != null">
-                #{account,jdbcType=VARCHAR},
+            <if test="nickname != null">
+                #{nickname,jdbcType=VARCHAR},
             </if>
             <if test="password != null">
                 #{password,jdbcType=VARCHAR},
@@ -146,23 +150,26 @@
             <if test="salt != null">
                 #{salt,jdbcType=VARCHAR},
             </if>
-            <if test="phone != null">
-                #{phone,jdbcType=VARCHAR},
+            <if test="mobile != null">
+                #{mobile,jdbcType=VARCHAR},
             </if>
             <if test="email != null">
                 #{email,jdbcType=VARCHAR},
             </if>
-            <if test="state != null">
-                #{state,jdbcType=INTEGER},
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
             </if>
-            <if test="isDeleted != null">
-                #{isDeleted,jdbcType=INTEGER},
+            <if test="type != null">
+                #{type,jdbcType=INTEGER},
             </if>
-            <if test="createTime != null">
-                #{createTime,jdbcType=TIMESTAMP},
+            <if test="deleted != null">
+                #{deleted,jdbcType=INTEGER},
             </if>
-            <if test="updateTime != null">
-                #{updateTime,jdbcType=TIMESTAMP},
+            <if test="createdTime != null">
+                #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedTime != null">
+                #{updatedTime,jdbcType=TIMESTAMP},
             </if>
             <if test="version != null">
                 #{version,jdbcType=INTEGER},
@@ -170,38 +177,35 @@
         </trim>
     </insert>
 
-    <update id="updateByPrimaryKeySelective" parameterType="com.andyadc.scaffold.showcase.auth.entity.AuthUser">
+    <update id="updateByIdSelective" parameterType="com.andyadc.scaffold.showcase.auth.entity.AuthUser">
         UPDATE t_auth_user
         <set>
-            <if test="identifier != null and identifier != ''">
-                identifier = #{identifier,jdbcType=VARCHAR},
+            <if test="nickname != null and nickname != ''">
+                nickname = #{name,jdbcType=VARCHAR},
             </if>
-            <if test="name != null and name != ''">
-                name = #{name,jdbcType=VARCHAR},
-            </if>
-            <!--<if test="account != null and account != ''">
-                account = #{account,jdbcType=VARCHAR},
-            </if>-->
             <if test="password != null and password != ''">
                 password = #{password,jdbcType=VARCHAR},
             </if>
             <if test="salt != null and salt != ''">
                 salt = #{salt,jdbcType=VARCHAR},
             </if>
-            <if test="phone != null and phone != ''">
-                phone = #{phone,jdbcType=VARCHAR},
+            <if test="mobile != null and mobile != ''">
+                mobile = #{mobile,jdbcType=VARCHAR},
             </if>
             <if test="email != null and email != ''">
                 email = #{email,jdbcType=VARCHAR},
             </if>
-            <if test="state != null">
-                state = #{state,jdbcType=INTEGER},
+            <if test="type != null">
+                type = #{type,jdbcType=INTEGER},
             </if>
-            <if test="isDeleted != null">
-                is_deleted = #{isDeleted,jdbcType=INTEGER},
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted,jdbcType=INTEGER},
             </if>
             <if test="updateTime != null">
-                update_time = #{updateTime,jdbcType=TIMESTAMP},
+                updated_time = #{updatedTime,jdbcType=TIMESTAMP},
             </if>
             <if test="version != null">
                 version = #{version,jdbcType=INTEGER},

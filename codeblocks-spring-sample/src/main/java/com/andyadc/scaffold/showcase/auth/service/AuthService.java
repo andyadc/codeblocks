@@ -8,9 +8,9 @@ import com.andyadc.scaffold.showcase.auth.entity.AuthUser;
  */
 public interface AuthService {
 
-    AuthUser findAuthUserByAccount(String account);
+    AuthUser findAuthUserByUsername(String username);
 
-    boolean lockAuthUser(String account);
+    boolean lockAuthUser(String username);
 
     AuthUser saveAuthUser(AuthUser authUser);
 }

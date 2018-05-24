@@ -11,52 +11,54 @@ public class AuthUser extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    private String identifier;
+    private Long id;
 
-    private String name;
+    private String username;
 
-    private String account;
+    private String nickname;
 
     private String password;
 
     private String salt;
 
-    private String phone;
+    private String mobile;
 
     private String email;
 
-    private int state;
+    private int type;
 
-    private int isDeleted;
+    private int status;
 
-    private Date createTime;
+    private int deleted;
 
-    private Date updateTime;
+    private Date createdTime;
+
+    private Date updatedTime;
 
     private int version;
 
-    public String getIdentifier() {
-        return identifier;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdentifier(String identifier) {
-        this.identifier = identifier == null ? null : identifier.trim();
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getAccount() {
-        return account;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setAccount(String account) {
-        this.account = account == null ? null : account.trim();
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public String getPassword() {
@@ -64,7 +66,7 @@ public class AuthUser extends BaseEntity {
     }
 
     public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+        this.password = password;
     }
 
     public String getSalt() {
@@ -72,15 +74,15 @@ public class AuthUser extends BaseEntity {
     }
 
     public void setSalt(String salt) {
-        this.salt = salt == null ? null : salt.trim();
+        this.salt = salt;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getMobile() {
+        return mobile;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone == null ? null : phone.trim();
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public String getEmail() {
@@ -88,43 +90,47 @@ public class AuthUser extends BaseEntity {
     }
 
     public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
+        this.email = email;
     }
 
-    public int getState() {
-        return state;
+    public int getType() {
+        return type;
     }
 
-    public void setState(int state) {
-        this.state = state;
+    public void setType(int type) {
+        this.type = type;
     }
 
-    public int getIsDeleted() {
-        return isDeleted;
+    public int getStatus() {
+        return status;
     }
 
-    public void setIsDeleted(int isDeleted) {
-        this.isDeleted = isDeleted;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
-    public String getCredentialsSalt() {
-        return account + salt;
+    public int getDeleted() {
+        return deleted;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public void setDeleted(int deleted) {
+        this.deleted = deleted;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public Date getCreatedTime() {
+        return createdTime;
     }
 
-    public Date getUpdateTime() {
-        return updateTime;
+    public void setCreatedTime(Date createdTime) {
+        this.createdTime = createdTime;
     }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
+    public Date getUpdatedTime() {
+        return updatedTime;
+    }
+
+    public void setUpdatedTime(Date updatedTime) {
+        this.updatedTime = updatedTime;
     }
 
     public int getVersion() {
@@ -138,18 +144,23 @@ public class AuthUser extends BaseEntity {
     @Override
     public String toString() {
         return "AuthUser{" +
-                "identifier=" + identifier +
-                ", name=" + name +
-                ", account=" + account +
+                "id=" + id +
+                ", username=" + username +
+                ", nickname=" + nickname +
                 ", password=" + password +
                 ", salt=" + salt +
-                ", phone=" + phone +
+                ", mobile=" + mobile +
                 ", email=" + email +
-                ", state=" + state +
-                ", isDeleted=" + isDeleted +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
+                ", type=" + type +
+                ", status=" + status +
+                ", deleted=" + deleted +
+                ", createdTime=" + createdTime +
+                ", updatedTime=" + updatedTime +
                 ", version=" + version +
                 "} " + super.toString();
+    }
+
+    public String getCredentialsSalt() {
+        return username + "-" + salt;
     }
 }

@@ -33,19 +33,34 @@ public class PasswordHelper {
         matcher.setHashIterations(HASH_ITERATIONS);
     }
 
+    /**
+     * Encrypt user password
+     */
     public void encryptPassword(AuthUser user) {
         user.setSalt(randomNumberGenerator.nextBytes().toHex());
-        String password = new SimpleHash(ALGORITHM_NAME, user.getPassword(), ByteSource.Util.bytes(user.getCredentialsSalt()), HASH_ITERATIONS).toHex();
+        String password = new SimpleHash(ALGORITHM_NAME,
+                user.getPassword(),
+                ByteSource.Util.bytes(user.getCredentialsSalt()),
+                HASH_ITERATIONS).toHex();
         user.setPassword(password);
     }
 
+    /**
+     * Verify user password
+     *
+     * @return true/false
+     */
     public boolean verifyPassword(AuthUser user, String plainPassword) {
         try {
-            AuthenticationToken token = new UsernamePasswordToken(user.getAccount(), plainPassword);
-            AuthenticationInfo info = new SimpleAuthenticationInfo(user.getAccount(), user.getPassword(), ByteSource.Util.bytes(user.getCredentialsSalt()), "verifyPassword");
+            AuthenticationToken token = new UsernamePasswordToken(user.getUsername(), plainPassword);
+            AuthenticationInfo info = new SimpleAuthenticationInfo(user.getUsername(),
+                    user.getPassword(),
+                    ByteSource.Util.bytes(user.getCredentialsSalt()),
+                    "verifyPassword");
+
             return matcher.doCredentialsMatch(token, info);
         } catch (Exception e) {
-            LOG.error("verifyPassword error", e);
+            LOG.error("Verify password error! userId=" + user.getId(), e);
         }
         return false;
     }

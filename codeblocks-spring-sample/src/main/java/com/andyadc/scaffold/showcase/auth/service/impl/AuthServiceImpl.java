@@ -20,13 +20,13 @@ public class AuthServiceImpl implements AuthService {
     private AuthUserMapper authUserMapper;
 
     @Override
-    public AuthUser findAuthUserByAccount(String account) {
-        return authUserMapper.selectByAccount(account);
+    public AuthUser findAuthUserByUsername(String username) {
+        return authUserMapper.selectByUsername(username);
     }
 
     @Override
-    public boolean lockAuthUser(String account) {
-        return authUserMapper.lockAuthUserByAccount(account) > 0;
+    public boolean lockAuthUser(String username) {
+        return authUserMapper.lockAuthUserByUsername(username) > 0;
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -36,11 +36,11 @@ public class AuthServiceImpl implements AuthService {
             return null;
         }
         if (authUser.getId() != null && authUser.getId() > 0) {
-            authUser.setUpdateTime(new Date());
-            authUserMapper.updateByPrimaryKeySelective(authUser);
+            authUser.setUpdatedTime(new Date());
+            authUserMapper.updateByIdSelective(authUser);
         } else {
-            authUser.setCreateTime(new Date());
-            authUser.setUpdateTime(new Date());
+            authUser.setCreatedTime(new Date());
+            authUser.setUpdatedTime(new Date());
             authUserMapper.insertSelective(authUser);
         }
         return authUser;

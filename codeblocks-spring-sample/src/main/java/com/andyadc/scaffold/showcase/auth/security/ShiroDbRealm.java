@@ -2,7 +2,7 @@ package com.andyadc.scaffold.showcase.auth.security;
 
 import com.andyadc.codeblocks.common.enums.Deletion;
 import com.andyadc.scaffold.showcase.auth.entity.AuthUser;
-import com.andyadc.scaffold.showcase.auth.enums.AuthUserState;
+import com.andyadc.scaffold.showcase.auth.enums.UserStatus;
 import com.andyadc.scaffold.showcase.auth.service.AuthService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -43,18 +43,18 @@ public class ShiroDbRealm extends AuthorizingRealm {
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
         UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
-        AuthUser authUser = authService.findAuthUserByAccount(usernamePasswordToken.getUsername());
+        AuthUser authUser = authService.findAuthUserByUsername(usernamePasswordToken.getUsername());
         if (authUser == null) {
             throw new UnknownAccountException();
         }
-        if (Deletion.DELETED.getState() == authUser.getIsDeleted()) {
+        if (Deletion.DELETED.getState() == authUser.getDeleted()) {
             throw new UnknownAccountException();
         }
-        if (AuthUserState.BLOCKED.getState() == authUser.getState()) {
+        if (UserStatus.LOCKED.getStatus() == authUser.getStatus()) {
             throw new LockedAccountException();
         }
 
-        return new SimpleAuthenticationInfo(new ShiroUser(authUser.getId(), authUser.getAccount()), authUser.getPassword(),
+        return new SimpleAuthenticationInfo(new ShiroUser(authUser.getId(), authUser.getUsername()), authUser.getPassword(),
                 ByteSource.Util.bytes(authUser.getCredentialsSalt()), "Shiro Db Realm");
     }
 
@@ -64,13 +64,14 @@ public class ShiroDbRealm extends AuthorizingRealm {
 
     public static class ShiroUser implements Serializable {
 
-        private static final long serialVersionUID = 4343812234185635487L;
-        private Long id;
-        private String account;
+        private static final long serialVersionUID = 1L;
 
-        public ShiroUser(Long id, String account) {
+        private Long id;
+        private String username;
+
+        public ShiroUser(Long id, String username) {
             this.id = id;
-            this.account = account;
+            this.username = username;
         }
 
         public Long getId() {
@@ -81,18 +82,17 @@ public class ShiroDbRealm extends AuthorizingRealm {
             this.id = id;
         }
 
-        public String getAccount() {
-            return account;
+        public String getUsername() {
+            return username;
         }
 
-        public void setAccount(String account) {
-            this.account = account;
+        public void setUsername(String username) {
+            this.username = username;
         }
-
 
         @Override
         public int hashCode() {
-            return Objects.hashCode(account);
+            return Objects.hashCode(username);
         }
 
         @Override
@@ -107,9 +107,9 @@ public class ShiroDbRealm extends AuthorizingRealm {
                 return false;
             }
             ShiroUser other = (ShiroUser) obj;
-            if (account == null) {
-                return other.account == null;
-            } else return account.equals(other.account);
+            if (username == null) {
+                return other.username == null;
+            } else return username.equals(other.username);
         }
     }
 }

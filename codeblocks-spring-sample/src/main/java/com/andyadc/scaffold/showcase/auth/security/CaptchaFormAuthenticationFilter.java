@@ -69,7 +69,7 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
                 throw new CaptchaValidationException("验证码不正确");
             }
 
-            AuthUser authUser = authService.findAuthUserByAccount(username);
+            AuthUser authUser = authService.findAuthUserByUsername(username);
             if (authUser != null) {
                 Integer loginTimes = (Integer) EhCacheHandler.get(CACHE_LOGIN_FAIL_PREFIX + username);
                 if (loginTimes != null && loginTimes >= LOGIN_FAILURE_LIMIT) {
