@@ -103,7 +103,7 @@
 
     <!-- import files -->
     <import resource="applicationContext-shiro.xml"/>
-    <!--<import resource="applicationContext-redis.xml"/>-->
+    <import resource="applicationContext-redis.xml"/>
     <!--<import resource="mail/applicationContext-mail.xml"/>-->
     <import resource="applicationContext-executor.xml"/>
     <!--<import resource="applicationContext-map.xml"/>-->
