@@ -8,6 +8,8 @@ import java.util.regex.Pattern;
  */
 public final class ChineseUtils {
 
+    private static final Pattern MESSY_PATTERN = Pattern.compile("\\s*|\t*|\r*|\n*");
+
     private ChineseUtils() {
     }
 
@@ -34,8 +36,7 @@ public final class ChineseUtils {
      * @return 是否是乱码
      */
     public static boolean isMessyCode(final String strName) {
-        Pattern p = Pattern.compile("\\s*|\t*|\r*|\n*");
-        Matcher m = p.matcher(strName);
+        Matcher m = MESSY_PATTERN.matcher(strName);
         String after = m.replaceAll("");
         String temp = after.replaceAll("\\p{P}", "");
         char[] ch = temp.trim().toCharArray();
