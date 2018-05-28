@@ -53,7 +53,7 @@
         <commons-dbutils.version>1.7</commons-dbutils.version>
         <tomcat-jdbc.version>8.5.31</tomcat-jdbc.version>
         <HikariCP.version>3.1.0</HikariCP.version>
-        <druid.version>1.1.9</druid.version>
+        <druid.version>1.1.10</druid.version>
         <mysql-driver.version>5.1.46</mysql-driver.version>
         <h2.version>1.4.197</h2.version>
         <fst.version>2.57</fst.version>
