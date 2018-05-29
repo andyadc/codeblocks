@@ -13,6 +13,8 @@ import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.authc.FormAuthenticationFilter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -42,6 +44,8 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
     private static final String CACHE_LOGIN_FAIL_PREFIX = "login_fail_times_";
 
     private AuthService authService;
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
 
     @Override
     protected boolean executeLogin(ServletRequest request, ServletResponse response) throws Exception {
@@ -51,7 +55,6 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
             String username = getUsername(request);
             request.setAttribute(KEY_AUTH_USERNAME_VALUE, username);
 
-            //TODO 不能从页面获取失败次数
             String failStr = request.getParameter("failTimes");
             int times = 0;
             if (StringUtils.isNotBlank(failStr)) {
@@ -125,6 +128,11 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
 
         }
         return super.onLoginFailure(token, e, request, response);
+    }
+
+    private int getLoginFailureTimes(String username) {
+
+        return 0;
     }
 
     @Override

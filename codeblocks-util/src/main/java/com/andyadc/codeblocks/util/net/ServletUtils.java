@@ -46,6 +46,20 @@ public final class ServletUtils {
         return null;
     }
 
+    public static void removeFromCookie(HttpServletRequest request,
+                                        HttpServletResponse response,
+                                        String key) {
+        Cookie[] cookies = request.getCookies();
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals(key)) {
+                cookie.setValue(null);
+                cookie.setMaxAge(0);
+                cookie.setPath("/");
+                response.addCookie(cookie);
+            }
+        }
+    }
+
     public static void setToCookie(HttpServletResponse response,
                                    String key, String value,
                                    int maxAge) {

@@ -4,6 +4,7 @@ import com.andyadc.codeblocks.common.annotation.Performance;
 import com.andyadc.codeblocks.util.StringUtils;
 import com.andyadc.codeblocks.util.net.ServletUtils;
 import com.andyadc.scaffold.showcase.auth.security.CaptchaFormAuthenticationFilter;
+import com.andyadc.scaffold.showcase.common.Const;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -32,11 +33,7 @@ public class LoginController {
 
     private static final Logger LOG = LoggerFactory.getLogger(LoginController.class);
 
-    private static final String PAGE_LOGIN = "login";
-    private static final String PAGE_INDEX = "index";
     private static final String ATTR_MSG = "message";
-
-    private static final String LOGIN_CAPTCHA_FLAG = "captcha_flag";
 
     @GetMapping(value = "/login")
     public String login(HttpServletRequest request, HttpServletResponse response) {
@@ -44,12 +41,12 @@ public class LoginController {
         if (subject != null && subject.isAuthenticated()) {
             subject.logout();
         }
-        String v = ServletUtils.getFromCookie(request, LOGIN_CAPTCHA_FLAG);
+        String v = ServletUtils.getFromCookie(request, Const.LOGIN_CAPTCHA_UID);
         if (v == null) {
-            ServletUtils.setToCookie(response, LOGIN_CAPTCHA_FLAG, UUID.randomUUID().toString(), -1);
+            ServletUtils.setToCookie(response, Const.LOGIN_CAPTCHA_UID, UUID.randomUUID().toString(), -1);
         }
 
-        return PAGE_LOGIN;
+        return Const.PAGE_LOGIN;
     }
 
     @Performance
@@ -61,23 +58,23 @@ public class LoginController {
         if (StringUtils.isNotBlank(error_exception)) {
             if (CaptchaFormAuthenticationFilter.CaptchaValidationException.class.getName().equals(error_exception)) {
                 model.addAttribute(ATTR_MSG, "验证码错误!");
-                return PAGE_LOGIN;
+                return Const.PAGE_LOGIN;
             }
             if (IncorrectCredentialsException.class.getName().equals(error_exception)) {
                 model.addAttribute(ATTR_MSG, "用户名或密码错误!");
-                return PAGE_LOGIN;
+                return Const.PAGE_LOGIN;
             }
             if (UnknownAccountException.class.getName().equals(error_exception)) {
                 model.addAttribute(ATTR_MSG, "用户名或密码错误!");
-                return PAGE_LOGIN;
+                return Const.PAGE_LOGIN;
             }
             if (LockedAccountException.class.getName().equals(error_exception)) {
                 model.addAttribute(ATTR_MSG, "账户被锁定!");
-                return PAGE_LOGIN;
+                return Const.PAGE_LOGIN;
             }
             if (ExcessiveAttemptsException.class.getName().equals(error_exception)) {
                 model.addAttribute(ATTR_MSG, "请稍后尝试登录!");
-                return PAGE_LOGIN;
+                return Const.PAGE_LOGIN;
             }
         }
         return "redirect:/index";
@@ -85,6 +82,6 @@ public class LoginController {
 
     @GetMapping("/index")
     public String index() {
-        return PAGE_INDEX;
+        return Const.PAGE_INDEX;
     }
 }
