@@ -20,11 +20,16 @@ public class RedisTemplateTest {
     private RedisTemplate<String, Object> redisTemplate;
 
     @Test
-    public void testOpsForValue() {
+    public void testStringSet() {
         AuthUser authUser = new AuthUser();
         authUser.setId(1L);
-//        redisTemplate.opsForValue().set("date", authUser);
-        Object o = redisTemplate.opsForValue().get("date");
-        System.out.println(o);
+        redisTemplate.opsForValue().set("authUser", authUser);
+    }
+
+    @Test
+    public void testStringGet() {
+        Object o = redisTemplate.opsForValue().get("authUser");
+        AuthUser authUser = (AuthUser) o;
+        System.out.println(authUser.getId());
     }
 }

@@ -26,11 +26,11 @@ public class AuthUser extends BaseEntity {
 
     private String email;
 
-    private int type;
+    private Integer type;
 
-    private int status;
+    private Integer status;
 
-    private int deleted;
+    private Integer deleted;
 
     private Date createdTime;
 
@@ -94,27 +94,27 @@ public class AuthUser extends BaseEntity {
         this.email = email;
     }
 
-    public int getType() {
+    public Integer getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(Integer type) {
         this.type = type;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 
-    public int getDeleted() {
+    public Integer getDeleted() {
         return deleted;
     }
 
-    public void setDeleted(int deleted) {
+    public void setDeleted(Integer deleted) {
         this.deleted = deleted;
     }
 
