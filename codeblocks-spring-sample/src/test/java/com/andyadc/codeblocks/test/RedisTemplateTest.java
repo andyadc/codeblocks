@@ -1,6 +1,8 @@
 package com.andyadc.codeblocks.test;
 
 import com.andyadc.scaffold.showcase.auth.entity.AuthUser;
+import org.databene.contiperf.junit.ContiPerfRule;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations = {"classpath:/applicationContext.xml"})
 public class RedisTemplateTest {
 
+    @Rule
+    public ContiPerfRule rule = new ContiPerfRule();
+
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
@@ -26,10 +31,10 @@ public class RedisTemplateTest {
         redisTemplate.opsForValue().set("authUser", authUser);
     }
 
+    //    @PerfTest(threads = 10, invocations = 1000)
     @Test
     public void testStringGet() {
         Object o = redisTemplate.opsForValue().get("authUser");
-        AuthUser authUser = (AuthUser) o;
-        System.out.println(authUser.getId());
+        System.out.println(o);
     }
 }
