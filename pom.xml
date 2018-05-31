@@ -42,7 +42,7 @@
         <jackson.version>2.9.5</jackson.version>
         <fastjson.version>1.2.47</fastjson.version>
         <jsoniter.version>0.9.22</jsoniter.version>
-        <joda-time.version>2.9.9</joda-time.version>
+        <joda-time.version>2.10</joda-time.version>
         <guava.version>25.1-jre</guava.version>
         <orika.version>1.5.2</orika.version>
         <commons-lang.version>3.7</commons-lang.version>
@@ -52,7 +52,7 @@
         <commons-pool.version>2.5.0</commons-pool.version>
         <commons-dbutils.version>1.7</commons-dbutils.version>
         <tomcat-jdbc.version>8.5.31</tomcat-jdbc.version>
-        <HikariCP.version>3.1.0</HikariCP.version>
+        <HikariCP.version>3.2.0</HikariCP.version>
         <druid.version>1.1.10</druid.version>
         <mysql-driver.version>5.1.46</mysql-driver.version>
         <h2.version>1.4.197</h2.version>
@@ -60,7 +60,7 @@
         <kryo.version>4.0.2</kryo.version>
         <protostuff.version>1.6.0</protostuff.version>
         <freemarker.version>2.3.28</freemarker.version>
-        <zxing.version>3.3.2</zxing.version>
+        <zxing.version>3.3.3</zxing.version>
         <poi.version>3.17</poi.version>
         <cglib.version>3.2.6</cglib.version>
         <javassist.version>3.22.0-GA</javassist.version>
