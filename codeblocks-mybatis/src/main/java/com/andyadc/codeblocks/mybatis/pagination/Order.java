@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     private static final String INJECTION_REGEX = "[A-Za-z0-9\\_\\-\\+\\.]+";
     private Direction direction;
     private String property;
@@ -20,11 +21,6 @@ public class Order implements Serializable {
     public Order(Direction direction, String property) {
         this.direction = direction;
         this.property = property;
-    }
-
-    public static void main(String[] args) {
-        System.out.println(isSQLInjection("a><"));
-        System.out.println(Direction.ASC.name());
     }
 
     public static boolean isSQLInjection(String str) {

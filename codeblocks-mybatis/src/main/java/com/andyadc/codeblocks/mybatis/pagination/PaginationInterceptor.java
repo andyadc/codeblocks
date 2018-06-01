@@ -67,7 +67,6 @@ public class PaginationInterceptor implements Interceptor {
         MetaObject metaObject = SystemMetaObject.forObject(statementHandler);
 
         MappedStatement mappedStatement = (MappedStatement) metaObject.getValue("delegate.mappedStatement");
-        System.out.println(mappedStatement.getId());
 
         RowBounds rowBounds = (RowBounds) metaObject.getValue("delegate.rowBounds");
         if (!(rowBounds instanceof PageBounds)) {

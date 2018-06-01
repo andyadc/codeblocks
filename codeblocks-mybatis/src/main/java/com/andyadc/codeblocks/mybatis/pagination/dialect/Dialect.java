@@ -49,10 +49,6 @@ public abstract class Dialect {
         }
     }
 
-    public static void main(String[] args) {
-        System.out.println(splitOrderBy("select * from test where name=1 Order      BY age desc")[0]);
-    }
-
     public String getCountString(String sql) {
         return "SELECT COUNT(1) FROM ( " + sql + " ) tmp";
     }
@@ -70,16 +66,12 @@ public abstract class Dialect {
     }
 
     public String getPageString(String sql, PageBounds pageBounds) {
-
         sql = getSortString(sql, pageBounds.getOrders());
-
         return getPageString(sql, pageBounds.startIndex(), pageBounds.getLimit());
     }
 
     public enum Type {
-        MYSQL,
-        ORACLE,
-        MSSQL
+        MYSQL
     }
 
     public abstract String getPageString(final String sql, final int offset, final int limit);
