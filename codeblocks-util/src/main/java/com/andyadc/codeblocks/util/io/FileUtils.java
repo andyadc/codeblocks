@@ -153,7 +153,7 @@ public final class FileUtils {
      * @return true if and only if the file or directory is successfully deleted; false otherwise
      * @throws IOException
      */
-    public static boolean delete(String filePath) throws IOException {
+    public static boolean delete(String filePath) {
         File file = getFile(filePath);
         return file.delete();
     }
