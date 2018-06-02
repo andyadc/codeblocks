@@ -13,7 +13,8 @@
 
     <!-- log pattern -->
     <property name="LOG_PATTERN"
-              value="%d{yyyy-MM-dd HH:mm:ss.SSS}\t[level=%level]\t[thread=%thread]\t[class=%logger]\t%msg%n"/>
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS}\t[level=%level]\t[thread=%thread]\t[class=%logger{15}]\t%msg%n"
+    />
 
     <!--  Output to Console -->
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
