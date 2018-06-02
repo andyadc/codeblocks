@@ -18,14 +18,14 @@ import java.sql.SQLException;
  */
 public class SqlHelper {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SqlHelper.class);
+    private static final Logger logger = LoggerFactory.getLogger(SqlHelper.class);
 
     public static int getCount(final MappedStatement statement, final Connection connection, final Object parameterObject, Dialect dialect) throws SQLException {
         BoundSql boundSql = statement.getBoundSql(parameterObject);
         String countSql = dialect.getCountString(boundSql.getSql());
 
-        LOGGER.info("Total count SQL [{}]", countSql);
-        LOGGER.info("Total count Parameters: {} ", parameterObject);
+        logger.info("Total count SQL [{}]", countSql);
+        logger.info("Total count Parameters: {} ", parameterObject);
 
         PreparedStatement ps = null;
         ResultSet rs;
@@ -38,7 +38,7 @@ public class SqlHelper {
             if (rs.next()) {
                 count = rs.getInt(1);
             }
-            LOGGER.debug("Total count: {}", count);
+            logger.debug("Total count: {}", count);
             return count;
         } finally {
             if (ps != null) {

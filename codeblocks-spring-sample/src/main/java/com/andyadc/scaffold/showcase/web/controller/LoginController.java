@@ -31,7 +31,7 @@ import java.util.UUID;
 @Controller
 public class LoginController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(LoginController.class);
+    private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     private static final String ATTR_MSG = "message";
 
@@ -53,7 +53,7 @@ public class LoginController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(HttpServletRequest request, Model model) {
         String error_exception = (String) request.getAttribute(FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME);
-        LOG.info("login error_exception: {}", error_exception);
+        logger.info("login error_exception: {}", error_exception);
 
         if (StringUtils.isNotBlank(error_exception)) {
             if (CaptchaFormAuthenticationFilter.CaptchaValidationException.class.getName().equals(error_exception)) {

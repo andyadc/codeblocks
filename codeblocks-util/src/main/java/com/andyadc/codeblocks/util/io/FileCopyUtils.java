@@ -31,7 +31,7 @@ import java.io.Writer;
  */
 public abstract class FileCopyUtils {
 
-    private static final Logger LOG = LoggerFactory.getLogger(FileCopyUtils.class);
+    private static final Logger logger = LoggerFactory.getLogger(FileCopyUtils.class);
 
     private static final int BUFFER_SIZE = StreamUtils.BUFFER_SIZE;
 
@@ -107,12 +107,12 @@ public abstract class FileCopyUtils {
             try {
                 in.close();
             } catch (IOException ex) {
-                LOG.error("InputStream close error", ex);
+                logger.error("InputStream close error", ex);
             }
             try {
                 out.close();
             } catch (IOException ex) {
-                LOG.error("OutputStream close error", ex);
+                logger.error("OutputStream close error", ex);
             }
         }
     }
@@ -134,7 +134,7 @@ public abstract class FileCopyUtils {
             try {
                 out.close();
             } catch (IOException ex) {
-                LOG.error("OutputStream close error", ex);
+                logger.error("OutputStream close error", ex);
             }
         }
     }
@@ -184,12 +184,12 @@ public abstract class FileCopyUtils {
             try {
                 in.close();
             } catch (IOException ex) {
-                LOG.error("Reader close error", ex);
+                logger.error("Reader close error", ex);
             }
             try {
                 out.close();
             } catch (IOException ex) {
-                LOG.error("Writer close error", ex);
+                logger.error("Writer close error", ex);
             }
         }
     }

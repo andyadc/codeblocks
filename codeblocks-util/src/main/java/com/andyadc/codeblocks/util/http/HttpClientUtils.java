@@ -24,7 +24,7 @@ import java.util.Set;
 
 public class HttpClientUtils {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(HttpClientUtils.class);
+    private static final Logger logger = LoggerFactory.getLogger(HttpClientUtils.class);
 
     private static final CloseableHttpClient httpClient;
     private static final String CHARSET_UTF8 = "UTF-8";
@@ -101,7 +101,7 @@ public class HttpClientUtils {
             int statusCode = response.getStatusLine().getStatusCode();
             if (statusCode != HttpStatus.SC_OK) {
                 httpGet.abort();
-                LOGGER.error("Error status code: " + statusCode);
+                logger.error("Error status code: " + statusCode);
                 return "";
             }
             HttpEntity entity = response.getEntity();
@@ -113,7 +113,7 @@ public class HttpClientUtils {
             response.close();
             return result;
         } catch (Exception e) {
-            LOGGER.error("HTTP GET error: " + url, e);
+            logger.error("HTTP GET error: " + url, e);
         }
         return "";
     }
@@ -159,7 +159,7 @@ public class HttpClientUtils {
             int statusCode = response.getStatusLine().getStatusCode();
             if (statusCode != HttpStatus.SC_OK) {
                 httpPost.abort();
-                LOGGER.error("Error status code: " + statusCode);
+                logger.error("Error status code: " + statusCode);
                 return "";
             }
             HttpEntity entity = response.getEntity();
@@ -171,7 +171,7 @@ public class HttpClientUtils {
             response.close();
             return result;
         } catch (Exception e) {
-            LOGGER.error("HTTP POST error: " + url, e);
+            logger.error("HTTP POST error: " + url, e);
         }
         return "";
     }
@@ -198,7 +198,7 @@ public class HttpClientUtils {
             int statusCode = response.getStatusLine().getStatusCode();
             if (statusCode != HttpStatus.SC_OK) {
                 httpPost.abort();
-                LOGGER.error("Error status code: " + statusCode);
+                logger.error("Error status code: " + statusCode);
                 return "";
             }
             HttpEntity entity = response.getEntity();
@@ -210,7 +210,7 @@ public class HttpClientUtils {
             response.close();
             return result;
         } catch (Exception e) {
-            LOGGER.error("HTTP POST error: " + url, e);
+            logger.error("HTTP POST error: " + url, e);
         }
         return "";
     }

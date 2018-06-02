@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
  */
 public abstract class Dialect {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(Dialect.class);
+    private static final Logger logger = LoggerFactory.getLogger(Dialect.class);
 
     private static final Pattern ORDERBYSPLITPATTERN = Pattern.compile("(.*)ORDER\\s+BY(.*)", Pattern.CASE_INSENSITIVE);
 

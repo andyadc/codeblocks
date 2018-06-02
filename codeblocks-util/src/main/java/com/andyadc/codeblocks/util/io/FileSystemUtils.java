@@ -20,7 +20,7 @@ import java.io.IOException;
  */
 public abstract class FileSystemUtils {
 
-    private static final Logger LOG = LoggerFactory.getLogger(FileSystemUtils.class);
+    private static final Logger logger = LoggerFactory.getLogger(FileSystemUtils.class);
 
     private FileSystemUtils() {
     }
@@ -85,7 +85,7 @@ public abstract class FileSystemUtils {
                 dest.createNewFile();
             } catch (IOException ex) {
                 IOException ioex = new IOException("Failed to create file: " + dest, ex);
-                LOG.error("createNewFile error", ex);
+                logger.error("createNewFile error", ex);
                 throw ioex;
             }
             FileCopyUtils.copy(src, dest);

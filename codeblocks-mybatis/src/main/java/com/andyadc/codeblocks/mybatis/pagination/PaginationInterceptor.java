@@ -36,7 +36,7 @@ import java.util.Properties;
 })
 public class PaginationInterceptor implements Interceptor {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PaginationInterceptor.class);
+    private static final Logger logger = LoggerFactory.getLogger(PaginationInterceptor.class);
 
     private static final ThreadLocal<Integer> PAGINATION_TOTAL = ThreadLocal.withInitial(() -> 0);
 
@@ -60,7 +60,7 @@ public class PaginationInterceptor implements Interceptor {
         if (dialect == null || !dialect.supportsPage()) {
             ret = invocation.proceed();
             Instant end = Instant.now();
-            LOGGER.info("elapsed time: {}ms", Duration.between(begin, end).toMillis());
+            logger.info("elapsed time: {}ms", Duration.between(begin, end).toMillis());
             return ret;
         }
         StatementHandler statementHandler = (StatementHandler) invocation.getTarget();
@@ -72,7 +72,7 @@ public class PaginationInterceptor implements Interceptor {
         if (!(rowBounds instanceof PageBounds)) {
             ret = invocation.proceed();
             Instant end = Instant.now();
-            LOGGER.info("elapsed time: {}ms", Duration.between(begin, end).toMillis());
+            logger.info("elapsed time: {}ms", Duration.between(begin, end).toMillis());
             return ret;
         }
         PageBounds pageBounds = new PageBounds(rowBounds);
@@ -83,17 +83,17 @@ public class PaginationInterceptor implements Interceptor {
         PAGINATION_TOTAL.set(count);
 
         String originalSql = (String) metaObject.getValue("delegate.boundSql.sql");
-        LOGGER.info("originalSql: {}", originalSql);
+        logger.info("originalSql: {}", originalSql);
 
         String newSql = dialect.getPageString(originalSql, pageBounds);
-        LOGGER.info("newSql: {}", newSql);
+        logger.info("newSql: {}", newSql);
         metaObject.setValue("delegate.boundSql.sql", newSql);
         metaObject.setValue("delegate.rowBounds.offset", RowBounds.NO_ROW_OFFSET);
         metaObject.setValue("delegate.rowBounds.limit", RowBounds.NO_ROW_LIMIT);
 
         ret = invocation.proceed();
         Instant end = Instant.now();
-        LOGGER.info("elapsed time: {}ms", Duration.between(begin, end).toMillis());
+        logger.info("elapsed time: {}ms", Duration.between(begin, end).toMillis());
         return ret;
     }
 
@@ -109,7 +109,7 @@ public class PaginationInterceptor implements Interceptor {
     public void setProperties(Properties properties) {
         String dialectClass = properties.getProperty("dialectClass");
         String dialectStr = properties.getProperty("dialect");
-        LOGGER.info("dialectClass: {}, dialect: {}", dialectClass, dialectStr);
+        logger.info("dialectClass: {}, dialect: {}", dialectClass, dialectStr);
         if (StringUtils.isBlank(dialectClass)) {
             Dialect.Type databaseType = null;
             try {

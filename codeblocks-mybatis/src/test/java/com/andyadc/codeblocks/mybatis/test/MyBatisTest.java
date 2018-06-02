@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class MyBatisTest {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(MyBatisTest.class);
+    private static final Logger logger = LoggerFactory.getLogger(MyBatisTest.class);
 
     private static final String CONFIG_RESOURCE = "mybatis-config.xml";
     private static final String NAMESPACE = "com.andyadc.codeblocks.mybatis.test.BankMapper";
@@ -82,7 +82,7 @@ public class MyBatisTest {
             System.out.println(session);
 
             List list = session.selectList(NAMESPACE + ".selectBankMapping", null, new PageBounds(4, 10));
-            LOGGER.info("query total size: {}", list.size());
+            logger.info("query total size: {}", list.size());
             for (Object o : list) {
                 System.out.println(o);
             }

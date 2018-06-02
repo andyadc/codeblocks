@@ -21,7 +21,7 @@ import java.util.concurrent.locks.Lock;
  */
 public class SimpleZookeeperLock extends ZkPrimitive implements Lock {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(SimpleZookeeperLock.class);
+    private static final Logger logger = LoggerFactory.getLogger(SimpleZookeeperLock.class);
 
     /**
      * A default delimiter to separate a lockPrefix from the sequential elements set by ZooKeeper.

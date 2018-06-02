@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
  */
 public class SerializerExecutor {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SerializerExecutor.class);
+    private static final Logger logger = LoggerFactory.getLogger(SerializerExecutor.class);
 
     public static <T> byte[] serialize(T object) {
         return null;
@@ -125,9 +125,9 @@ public class SerializerExecutor {
     public static void print(byte[] bytes, Class<?> clazz, boolean serialize, boolean compress, boolean serializerLogPrint) {
         if (serializerLogPrint) {
             if (clazz != null) {
-                LOG.info("{}, size={} KB, {} Byte, compress={}, class={}", serialize ? "Serialize" : "Deserialize", (float) bytes.length / 1024, bytes.length, compress, clazz.getName());
+                logger.info("{}, size={} KB, {} Byte, compress={}, class={}", serialize ? "Serialize" : "Deserialize", (float) bytes.length / 1024, bytes.length, compress, clazz.getName());
             } else {
-                LOG.info("{}, size={} KB, {} Byte, compress={}", serialize ? "Serialize" : "Deserialize", (float) bytes.length / 1024, bytes.length, compress);
+                logger.info("{}, size={} KB, {} Byte, compress={}", serialize ? "Serialize" : "Deserialize", (float) bytes.length / 1024, bytes.length, compress);
             }
         }
     }
