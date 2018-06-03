@@ -32,7 +32,7 @@ public class AuthServiceTest {
         authUser.setStatus(1);
         authUser.setDeleted(0);
         authUser = authService.saveAuthUser(authUser);
-        System.out.println(authUser.getId());
+        System.out.println(authUser.getKey());
     }
 
     @Before

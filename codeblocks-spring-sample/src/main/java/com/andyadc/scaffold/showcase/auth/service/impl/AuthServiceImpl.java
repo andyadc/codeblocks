@@ -35,7 +35,7 @@ public class AuthServiceImpl implements AuthService {
         if (authUser == null) {
             return null;
         }
-        if (authUser.getId() != null && authUser.getId() > 0) {
+        if (authUser.getKey() != null && authUser.getKey() > 0) {
             authUser.setUpdatedTime(new Date());
             authUserMapper.updateByIdSelective(authUser);
         } else {
