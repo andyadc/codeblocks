@@ -10,6 +10,7 @@
 
     <artifactId>codeblocks-mybatis</artifactId>
     <packaging>jar</packaging>
+    <version>1.0.0</version>
 
     <name>codeblocks::mybatis</name>
 
@@ -18,15 +19,10 @@
     </properties>
 
     <dependencies>
-        <!--<dependency>
+        <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
             <scope>provided</scope>
-        </dependency>-->
-        <dependency>
-            <groupId>com.andyadc</groupId>
-            <artifactId>mybatis</artifactId>
-            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>mysql</groupId>

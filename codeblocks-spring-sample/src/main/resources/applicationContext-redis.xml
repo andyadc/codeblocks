@@ -31,7 +31,7 @@
             <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
         </property>
         <property name="valueSerializer">
-            <bean class="com.andyadc.scaffold.showcase.common.serializer.MsgpackRedisSerializer"/>
+            <bean class="com.andyadc.codeblocks.framework.redis.MsgpackRedisSerializer"/>
             <!--<bean class="org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer"/>-->
         </property>
     </bean>

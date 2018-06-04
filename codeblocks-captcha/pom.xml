@@ -9,7 +9,7 @@
 
     <artifactId>codeblocks-captcha</artifactId>
     <packaging>jar</packaging>
-
+    <version>1.0.0</version>
     <name>codeblocks::captcha</name>
 
     <properties>
