@@ -16,7 +16,7 @@ import java.util.Properties;
  */
 public class ExtPropertyPlaceholderConfigurer extends PropertyPlaceholderConfigurer {
 
-    private static final Logger LOG = LoggerFactory.getLogger(ExtPropertyPlaceholderConfigurer.class);
+    private static final Logger logger = LoggerFactory.getLogger(ExtPropertyPlaceholderConfigurer.class);
 
     // TODO
     @Override
@@ -24,7 +24,7 @@ public class ExtPropertyPlaceholderConfigurer extends PropertyPlaceholderConfigu
         super.processProperties(beanFactoryToProcess, props);
 
         for (Object key : props.keySet()) {
-            LOG.info("key: {}, value: {}", key, props.getProperty(key.toString()));
+            logger.info("key: {}, value: {}", key, props.getProperty(key.toString()));
         }
     }
 }

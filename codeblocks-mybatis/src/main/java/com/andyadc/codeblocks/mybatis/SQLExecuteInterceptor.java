@@ -37,7 +37,7 @@ import java.util.Properties;
 })
 public class SQLExecuteInterceptor implements Interceptor {
 
-    private static final Logger LOG = LoggerFactory.getLogger(SQLExecuteInterceptor.class);
+    private static final Logger logger = LoggerFactory.getLogger(SQLExecuteInterceptor.class);
 
     private static final ThreadLocal<DateFormat> DATE_FORMAT_THREAD_LOCAL = ThreadLocal.withInitial(() -> new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
 
@@ -59,7 +59,7 @@ public class SQLExecuteInterceptor implements Interceptor {
         Instant end = Instant.now();
         long duration = Duration.between(begin, end).toMillis();
 
-        LOG.info("SQL execute elapsed time: {}ms, ID: {}, detail: {}", duration, statementId, sql);
+        logger.info("SQL execute elapsed time: {}ms, ID: {}, detail: {}", duration, statementId, sql);
         return result;
     }
 

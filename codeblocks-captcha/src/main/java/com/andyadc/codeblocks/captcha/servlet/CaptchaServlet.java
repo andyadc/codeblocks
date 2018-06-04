@@ -34,7 +34,7 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public final class CaptchaServlet extends HttpServlet {
 
-    private static final Logger LOG = LoggerFactory.getLogger(CaptchaServlet.class);
+    private static final Logger logger = LoggerFactory.getLogger(CaptchaServlet.class);
     private static final long serialVersionUID = 1L;
 
     private static final String CHARACTERS = "AaBbCcDdEeFfGgHhJjKkMmNnQqXxYyPpWwSsTtRrUui123456789";
@@ -76,7 +76,7 @@ public final class CaptchaServlet extends HttpServlet {
             ImageIO.write(bufferedImage, "png", outputStream);
             outputStream.flush();
         } catch (Exception e) {
-            LOG.error("doPost error!", e);
+            logger.error("doPost error!", e);
         }
     }
 
@@ -118,7 +118,7 @@ public final class CaptchaServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) {
         String cs = config.getInitParameter("captchaSession");
-        LOG.info("captcha init param: {}", cs);
+        logger.info("captcha init param: {}", cs);
 
         configurableCaptchaService = new ConfigurableCaptchaService();
 

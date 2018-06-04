@@ -15,7 +15,7 @@ import java.util.Enumeration;
  */
 public class IPAddrFetcher {
 
-    private static final Logger LOG = LoggerFactory.getLogger(IPAddrFetcher.class);
+    private static final Logger logger = LoggerFactory.getLogger(IPAddrFetcher.class);
 
     private IPAddrFetcher() {
     }
@@ -47,7 +47,7 @@ public class IPAddrFetcher {
         return ip;
     }
 
-    public static String getServerUniqueIP() {
+    public static String getServerUniqueIp() {
         try {
             Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
             while (interfaces.hasMoreElements()) {
@@ -62,7 +62,7 @@ public class IPAddrFetcher {
                 }
             }
         } catch (Exception e) {
-            LOG.error("Get Server IP Error", e);
+            logger.error("Get server ip error", e);
         }
         return null;
     }

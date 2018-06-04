@@ -17,7 +17,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher {
 
-    private static final Logger LOG = LoggerFactory.getLogger(RetryLimitHashedCredentialsMatcher.class);
+    private static final Logger logger = LoggerFactory.getLogger(RetryLimitHashedCredentialsMatcher.class);
 
     private AuthService authService;
     private Cache<String, AtomicInteger> passwordRetryCache;
@@ -30,14 +30,14 @@ public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher
     public boolean doCredentialsMatch(AuthenticationToken token, AuthenticationInfo info) {
         String username = (String) token.getPrincipal();
         AtomicInteger retryCount = passwordRetryCache.get(username);
-        LOG.info("user: {}, retry: {}", username, retryCount);
+        logger.info("user: {}, retry: {}", username, retryCount);
         if (retryCount == null) {
             retryCount = new AtomicInteger(0);
             passwordRetryCache.put(username, retryCount);
         }
         if (retryCount.incrementAndGet() >= 5) {
             authService.lockAuthUser(username);
-            LOG.info("lock user: {}", username);
+            logger.info("lock user: {}", username);
             throw new ExcessiveAttemptsException();
         }
         boolean matches = super.doCredentialsMatch(token, info);
