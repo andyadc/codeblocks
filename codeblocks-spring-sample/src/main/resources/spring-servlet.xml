@@ -3,11 +3,13 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:util="http://www.springframework.org/schema/util"
        xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 	http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
-	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+	http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+	 http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
     <description>Spring MVC Configuration</description>
 
@@ -36,15 +38,30 @@
 
     <mvc:annotation-driven
             content-negotiation-manager="contentNegotiationManager">
-        <mvc:message-converters register-defaults="true">
+        <mvc:message-converters register-defaults="false">
             <bean class="org.springframework.http.converter.StringHttpMessageConverter">
                 <constructor-arg value="UTF-8"/>
                 <property name="writeAcceptCharset" value="false"/>
             </bean>
 
-            <!--<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">-->
-            <bean class="com.andyadc.codeblocks.framework.converter.CustomerMappingJackson2HttpMessageConverter">
+            <!-- 等价于下面 xml 配置 -->
+            <!--<bean class="com.andyadc.codeblocks.framework.converter.CustomerMappingJackson2HttpMessageConverter">-->
+
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
                 <property name="prettyPrint" value="false"/>
+                <property name="objectMapper">
+                    <bean class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">
+                        <!-- null 值不参与序列化 -->
+                        <property name="serializationInclusion" value="NON_NULL"/>
+                        <property name="featuresToDisable">
+                            <array>
+                                <util:constant
+                                        static-field="com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES"/>
+                            </array>
+                        </property>
+                        <property name="simpleDateFormat" value="yyyy-MM-dd HH:mm:ss"/>
+                    </bean>
+                </property>
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>

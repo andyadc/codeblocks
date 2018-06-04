@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
+import java.text.SimpleDateFormat;
+
 /**
  * 自定义 Jackson2 转换
  *
@@ -20,5 +22,6 @@ public class CustomerMappingJackson2HttpMessageConverter extends MappingJackson2
         // 禁用空对象转换 json 校验
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        objectMapper.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
     }
 }
