@@ -7,7 +7,7 @@
     <description>Shiro Configuration</description>
 
     <bean id="credentialsMatcher"
-          class="com.andyadc.scaffold.showcase.auth.security.RetryLimitHashedCredentialsMatcher">
+          class="com.andyadc.codeblocks.showcase.auth.security.RetryLimitHashedCredentialsMatcher">
         <constructor-arg ref="shiroCacheManager"/>
         <property name="hashAlgorithmName" value="${hash.algorithm.name}"/>
         <property name="hashIterations" value="${hash.iterations}"/>
@@ -15,7 +15,7 @@
         <property name="authService" ref="authService"/>
     </bean>
 
-    <bean id="shiroDbRealm" class="com.andyadc.scaffold.showcase.auth.security.ShiroDbRealm">
+    <bean id="shiroDbRealm" class="com.andyadc.codeblocks.showcase.auth.security.ShiroDbRealm">
         <property name="credentialsMatcher" ref="credentialsMatcher"/>
         <property name="authService" ref="authService"/>
     </bean>
@@ -71,7 +71,7 @@
     </bean>
 
     <bean id="captchaFormAuthenticationFilter"
-          class="com.andyadc.scaffold.showcase.auth.security.CaptchaFormAuthenticationFilter">
+          class="com.andyadc.codeblocks.showcase.auth.security.CaptchaFormAuthenticationFilter">
         <property name="authService" ref="authService"/>
     </bean>
 

@@ -1,7 +1,7 @@
 package com.andyadc.codeblocks.test;
 
-import com.andyadc.scaffold.showcase.auth.entity.AuthUser;
-import com.andyadc.scaffold.showcase.auth.service.AuthService;
+import com.andyadc.codeblocks.showcase.auth.entity.AuthUser;
+import com.andyadc.codeblocks.showcase.auth.service.AuthService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.andyadc.scaffold.showcase.auth.mapper.AuthUserMapper">
-    <resultMap id="BaseResultMap" type="com.andyadc.scaffold.showcase.auth.entity.AuthUser">
+<mapper namespace="com.andyadc.codeblocks.showcase.auth.mapper.AuthUserMapper">
+    <resultMap id="BaseResultMap" type="com.andyadc.codeblocks.showcase.auth.entity.AuthUser">
         <id column="key" jdbcType="BIGINT" property="key"/>
         <result column="id" jdbcType="BIGINT" property="id"/>
         <result column="username" jdbcType="VARCHAR" property="username"/>
@@ -89,7 +89,7 @@
         WHERE id = #{id,jdbcType=BIGINT}
     </delete>
 
-    <insert id="insertSelective" parameterType="com.andyadc.scaffold.showcase.auth.entity.AuthUser"
+    <insert id="insertSelective" parameterType="com.andyadc.codeblocks.showcase.auth.entity.AuthUser"
             useGeneratedKeys="true"
             keyProperty="key">
         INSERT INTO t_auth_user
@@ -177,7 +177,7 @@
         </trim>
     </insert>
 
-    <update id="updateByIdSelective" parameterType="com.andyadc.scaffold.showcase.auth.entity.AuthUser">
+    <update id="updateByIdSelective" parameterType="com.andyadc.codeblocks.showcase.auth.entity.AuthUser">
         UPDATE t_auth_user
         <set>
             <if test="nickname != null and nickname != ''">

@@ -22,7 +22,7 @@
     </bean>
 
     <!-- MIME邮件服务类 -->
-    <bean id="mimeMailService" class="com.andyadc.scaffold.showcase.mail.MimeMailService">
+    <bean id="mimeMailService" class="com.andyadc.codeblocks.showcase.mail.MimeMailService">
         <property name="mailSender" ref="mailSender"/>
         <property name="freemarkerConfiguration" ref="freemarkerConfiguration"/>
     </bean>

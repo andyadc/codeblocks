@@ -66,10 +66,10 @@
         <appender-ref ref="FILE"/>
     </appender>
 
-    <logger name="com.andyadc.scaffold.showcase.auth.mapper" level="DEBUG">
+    <logger name="com.andyadc.codeblocks.showcase.auth.mapper" level="DEBUG">
         <appender-ref ref="SQLFILE"/>
     </logger>
-    <logger name="com.andyadc.scaffold.showcase.sys.mapper" level="DEBUG">
+    <logger name="com.andyadc.codeblocks.showcase.sys.mapper" level="DEBUG">
         <appender-ref ref="SQLFILE"/>
     </logger>
 

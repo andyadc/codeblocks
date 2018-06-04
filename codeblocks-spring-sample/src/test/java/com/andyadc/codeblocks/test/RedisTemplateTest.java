@@ -1,6 +1,6 @@
 package com.andyadc.codeblocks.test;
 
-import com.andyadc.scaffold.showcase.auth.entity.AuthUser;
+import com.andyadc.codeblocks.showcase.auth.entity.AuthUser;
 import org.databene.contiperf.PerfTest;
 import org.databene.contiperf.junit.ContiPerfRule;
 import org.junit.Rule;
