@@ -1,6 +1,6 @@
 package com.andyadc.scaffold.showcase.web.controller;
 
-import com.andyadc.codeblocks.common.annotation.Performance;
+import com.andyadc.codeblocks.framework.aspect.Performance;
 import com.andyadc.codeblocks.util.StringUtils;
 import com.andyadc.codeblocks.util.net.ServletUtils;
 import com.andyadc.scaffold.showcase.auth.security.CaptchaFormAuthenticationFilter;

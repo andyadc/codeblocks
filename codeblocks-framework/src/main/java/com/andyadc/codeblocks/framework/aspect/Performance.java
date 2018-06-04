@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.common.annotation;
+package com.andyadc.codeblocks.framework.aspect;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

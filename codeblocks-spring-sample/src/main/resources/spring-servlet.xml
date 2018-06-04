@@ -78,12 +78,12 @@
     </bean>
 
     <!-- controller performance aop -->
-    <bean id="performanceMonitorAspect" class="com.andyadc.scaffold.showcase.common.monitor.PerformanceMonitor"/>
+    <bean id="performanceMonitorAspect" class="com.andyadc.codeblocks.framework.aspect.PerformanceMonitor"/>
     <aop:config>
         <aop:aspect ref="performanceMonitorAspect">
             <!--<aop:pointcut expression="execution(* com.andyadc.scaffold.web.controller..*.*(..))" id="performancePointCut"/>-->
             <aop:pointcut id="performanceAnnotationPointCut"
-                          expression="@annotation(com.andyadc.codeblocks.common.annotation.Performance)"/>
+                          expression="@annotation(com.andyadc.codeblocks.framework.aspect.Performance)"/>
             <aop:around method="doAround" pointcut-ref="performanceAnnotationPointCut"/>
         </aop:aspect>
     </aop:config>
