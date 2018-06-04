@@ -88,6 +88,13 @@
         </aop:aspect>
     </aop:config>
 
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.andyadc.codeblocks.framework.spring.RequestInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
     <import resource="spring-servlet-shiro.xml"/>
 
 </beans>
