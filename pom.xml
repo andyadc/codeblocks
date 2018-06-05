@@ -17,16 +17,17 @@
 
     <modules>
         <module>codeblocks-common</module>
+        <module>codeblocks-kit</module>
         <module>codeblocks-util</module>
         <module>codeblocks-serialization</module>
         <module>codeblocks-captcha</module>
+        <module>codeblocks-mybatis</module>
+        <module>codeblocks-lock</module>
+        <module>codeblocks-framework</module>
+        <module>codeblocks-test</module>
         <module>codeblocks-servlet-demo</module>
         <module>codeblocks-spring-sample</module>
-        <module>codeblocks-mybatis</module>
-        <module>codeblocks-test</module>
-        <module>codeblocks-lock</module>
         <module>codeblocks-springboot-backend</module>
-        <module>codeblocks-framework</module>
     </modules>
 
     <properties>
