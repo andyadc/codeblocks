@@ -28,4 +28,9 @@ public class PublicController {
         return authUser;
     }
 
+    @GetMapping("/exception")
+    public Object exception() {
+        throw new RuntimeException("no no no");
+    }
+
 }
