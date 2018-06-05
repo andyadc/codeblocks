@@ -11,7 +11,7 @@ import com.andyadc.codeblocks.captcha.service.ConfigurableCaptchaService;
 import com.andyadc.codeblocks.captcha.text.renderer.BestFitTextRenderer;
 import com.andyadc.codeblocks.captcha.text.renderer.TextRenderer;
 import com.andyadc.codeblocks.captcha.word.RandomWordFactory;
-import com.andyadc.codeblocks.util.StringUtils;
+import com.andyadc.codeblocks.kit.text.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,7 +47,7 @@ public final class CaptchaServlet extends HttpServlet {
 
     public static boolean validateCaptcha(HttpServletRequest request, String userCaptcha) {
         return request != null
-                && StringUtils.isNotBlank(userCaptcha)
+                && StringUtil.isNotBlank(userCaptcha)
                 && userCaptcha.equalsIgnoreCase(String.valueOf(request.getSession().getAttribute(CAPTCHA_SESSION)));
     }
 
@@ -90,20 +90,20 @@ public final class CaptchaServlet extends HttpServlet {
         String length = request.getParameter("length");
 
         fontFactory = new RandomFontFactory();
-        Integer fontSize = Integer.valueOf(StringUtils.defaultIfBlank(size, "25"));
+        Integer fontSize = Integer.valueOf(StringUtil.defaultIfBlank(size, "25"));
         fontFactory.setMaxSize(fontSize);
         fontFactory.setMinSize(fontSize);
         configurableCaptchaService.setFontFactory(fontFactory);
 
         wordFactory = new RandomWordFactory();
         wordFactory.setCharacters(CHARACTERS);
-        int l = Integer.parseInt(StringUtils.defaultIfBlank(length, "4"));
+        int l = Integer.parseInt(StringUtil.defaultIfBlank(length, "4"));
         wordFactory.setMaxLength(l);
         wordFactory.setMinLength(l);
         configurableCaptchaService.setWordFactory(wordFactory);
 
-        configurableCaptchaService.setHeight(Integer.parseInt(StringUtils.defaultIfBlank(height, "30")));
-        configurableCaptchaService.setWidth(Integer.parseInt(StringUtils.defaultIfBlank(width, "100")));
+        configurableCaptchaService.setHeight(Integer.parseInt(StringUtil.defaultIfBlank(height, "30")));
+        configurableCaptchaService.setWidth(Integer.parseInt(StringUtil.defaultIfBlank(width, "100")));
     }
 
     @Override

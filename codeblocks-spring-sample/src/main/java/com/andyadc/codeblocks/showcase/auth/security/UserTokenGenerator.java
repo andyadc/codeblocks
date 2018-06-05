@@ -1,6 +1,6 @@
 package com.andyadc.codeblocks.showcase.auth.security;
 
-import com.andyadc.codeblocks.util.StringUtils;
+import com.andyadc.codeblocks.kit.text.StringUtil;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.stereotype.Component;
 
@@ -22,8 +22,8 @@ public class UserTokenGenerator {
         return sign;
     }
 
-    public boolean checkToken(String token) {
-        if (StringUtils.isNotBlank(token)) {
+    public boolean verifyToken(String token) {
+        if (StringUtil.isNotBlank(token)) {
             String[] strs = token.split("-");
             if (strs.length == 3) {
                 long time = Long.parseLong(strs[1]);

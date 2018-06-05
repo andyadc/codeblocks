@@ -22,7 +22,7 @@
     <dependencies>
         <dependency>
             <groupId>com.andyadc</groupId>
-            <artifactId>codeblocks-util</artifactId>
+            <artifactId>codeblocks-kit</artifactId>
             <version>1.0.0</version>
             <scope>provided</scope>
         </dependency>

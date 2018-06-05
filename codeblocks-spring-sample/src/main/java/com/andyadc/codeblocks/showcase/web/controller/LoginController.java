@@ -1,10 +1,10 @@
 package com.andyadc.codeblocks.showcase.web.controller;
 
 import com.andyadc.codeblocks.framework.aspect.Performance;
+import com.andyadc.codeblocks.kit.http.ServletUtil;
+import com.andyadc.codeblocks.kit.text.StringUtil;
 import com.andyadc.codeblocks.showcase.auth.security.CaptchaFormAuthenticationFilter;
 import com.andyadc.codeblocks.showcase.common.Const;
-import com.andyadc.codeblocks.util.StringUtils;
-import com.andyadc.codeblocks.util.net.ServletUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -41,9 +41,9 @@ public class LoginController {
         if (subject != null && subject.isAuthenticated()) {
             subject.logout();
         }
-        String v = ServletUtils.getFromCookie(request, Const.LOGIN_CAPTCHA_UID);
+        String v = ServletUtil.getFromCookie(request, Const.LOGIN_CAPTCHA_UID);
         if (v == null) {
-            ServletUtils.setToCookie(response, Const.LOGIN_CAPTCHA_UID, UUID.randomUUID().toString(), -1);
+            ServletUtil.setToCookie(response, Const.LOGIN_CAPTCHA_UID, UUID.randomUUID().toString(), -1);
         }
 
         return Const.PAGE_LOGIN;
@@ -55,7 +55,7 @@ public class LoginController {
         String error_exception = (String) request.getAttribute(FormAuthenticationFilter.DEFAULT_ERROR_KEY_ATTRIBUTE_NAME);
         logger.info("login error_exception: {}", error_exception);
 
-        if (StringUtils.isNotBlank(error_exception)) {
+        if (StringUtil.isNotBlank(error_exception)) {
             if (CaptchaFormAuthenticationFilter.CaptchaValidationException.class.getName().equals(error_exception)) {
                 model.addAttribute(ATTR_MSG, "验证码错误!");
                 return Const.PAGE_LOGIN;

@@ -1,11 +1,11 @@
 package com.andyadc.codeblocks.showcase.auth.security;
 
 import com.andyadc.codeblocks.captcha.servlet.CaptchaServlet;
+import com.andyadc.codeblocks.kit.http.ServletUtil;
+import com.andyadc.codeblocks.kit.text.StringUtil;
 import com.andyadc.codeblocks.showcase.auth.entity.AuthUser;
 import com.andyadc.codeblocks.showcase.auth.service.AuthService;
 import com.andyadc.codeblocks.showcase.common.cache.EhCacheHandler;
-import com.andyadc.codeblocks.util.StringUtils;
-import com.andyadc.codeblocks.util.net.ServletUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.IncorrectCredentialsException;
@@ -57,7 +57,7 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
 
             String failStr = request.getParameter("failTimes");
             int times = 0;
-            if (StringUtils.isNotBlank(failStr)) {
+            if (StringUtil.isNotBlank(failStr)) {
                 times = Integer.parseInt(failStr);
             }
             if (times == LOGIN_FAILURE_LIMIT) {
@@ -65,17 +65,17 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
             }
 
             String captcha = request.getParameter(CAPTACHE_PARAM);
-            if (times > LOGIN_FAILURE_LIMIT && StringUtils.isBlank(captcha)) {
+            if (times > LOGIN_FAILURE_LIMIT && StringUtil.isBlank(captcha)) {
                 throw new CaptchaValidationException("请输入验证码");
             }
 
-            if (StringUtils.isNotBlank(captcha) && !CaptchaServlet.validateCaptcha((HttpServletRequest) request, captcha)) {
+            if (StringUtil.isNotBlank(captcha) && !CaptchaServlet.validateCaptcha((HttpServletRequest) request, captcha)) {
                 throw new CaptchaValidationException("验证码不正确");
             }
 
             AuthUser authUser = authService.findAuthUserByUsername(username);
             if (authUser != null) {
-                String uk = ServletUtils.getFromCookie((HttpServletRequest) request, "captcha_flag");
+                String uk = ServletUtil.getFromCookie((HttpServletRequest) request, "captcha_flag");
                 Integer loginTimes = (Integer) EhCacheHandler.get(CACHE_LOGIN_FAIL_PREFIX + uk);
                 if (loginTimes != null && loginTimes >= LOGIN_FAILURE_LIMIT) {
                     captcha = request.getParameter(CAPTACHE_PARAM);
@@ -113,7 +113,7 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
             UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;
             String username = usernamePasswordToken.getUsername();
 
-            String uk = ServletUtils.getFromCookie((HttpServletRequest) request, "captcha_flag");
+            String uk = ServletUtil.getFromCookie((HttpServletRequest) request, "captcha_flag");
 
             Integer loginTimes = (Integer) EhCacheHandler.get(CACHE_LOGIN_FAIL_PREFIX + uk);
             if (loginTimes != null && loginTimes >= LOGIN_FAILURE_LIMIT) {
