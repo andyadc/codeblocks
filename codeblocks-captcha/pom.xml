@@ -10,10 +10,13 @@
     <artifactId>codeblocks-captcha</artifactId>
     <packaging>jar</packaging>
     <version>1.0.0</version>
-    <name>codeblocks::captcha</name>
+
+    <name>codeblocks-captcha</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
     <dependencies>

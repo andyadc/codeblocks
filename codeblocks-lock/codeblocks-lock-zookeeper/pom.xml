@@ -9,13 +9,17 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>codeblocks-lock-zookeeper</artifactId>
+    <packaging>jar</packaging>
+    <version>1.0.0</version>
 
-    <name>codeblocks-lock-zookeeper</name>
+    <name>lock-zookeeper</name>
 
     <properties>
         <zookeeper.version>3.4.11</zookeeper.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
 
     <dependencies>
