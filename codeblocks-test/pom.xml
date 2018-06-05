@@ -10,7 +10,7 @@
 
     <artifactId>codeblocks-test</artifactId>
 
-    <name>codeblocks::test</name>
+    <name>test</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

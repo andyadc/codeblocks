@@ -36,7 +36,7 @@ public class RetryLimitHashedCredentialsMatcher extends HashedCredentialsMatcher
             passwordRetryCache.put(username, retryCount);
         }
         if (retryCount.incrementAndGet() >= 5) {
-            authService.lockAuthUser(username);
+            authService.lock(username);
             logger.info("lock user: {}", username);
             throw new ExcessiveAttemptsException();
         }

@@ -10,7 +10,9 @@ public interface AuthService {
 
     AuthUser findAuthUserByUsername(String username);
 
-    boolean lockAuthUser(String username);
+    boolean lock(String username);
 
-    AuthUser saveAuthUser(AuthUser authUser);
+    AuthUser save(AuthUser authUser);
+
+    AuthUser update(AuthUser authUser);
 }

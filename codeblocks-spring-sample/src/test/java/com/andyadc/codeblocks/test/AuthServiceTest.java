@@ -22,7 +22,14 @@ public class AuthServiceTest {
     private AuthService authService;
 
     @Test
-    public void testSaveAuthUser() {
+    public void testUpdate() {
+        AuthUser authUser = new AuthUser();
+        authUser.setId(5L);
+        authService.update(authUser);
+    }
+
+    @Test
+    public void testSave() {
         AuthUser authUser = new AuthUser();
         authUser.setId(5L);
         authUser.setUsername("");
@@ -31,7 +38,7 @@ public class AuthServiceTest {
         authUser.setSalt("ssss");
         authUser.setStatus(1);
         authUser.setDeleted(0);
-        authUser = authService.saveAuthUser(authUser);
+        authUser = authService.save(authUser);
         System.out.println(authUser.getKey());
     }
 

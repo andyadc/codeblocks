@@ -107,6 +107,6 @@
     <!--<import resource="mail/applicationContext-mail.xml"/>-->
     <import resource="applicationContext-executor.xml"/>
     <!--<import resource="applicationContext-map.xml"/>-->
-    <import resource="applicationContext-dataSource-druid.xml"/>
+    <!--<import resource="applicationContext-dataSource-druid.xml"/>-->
 
 </beans>
