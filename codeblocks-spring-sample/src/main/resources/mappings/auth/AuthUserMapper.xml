@@ -2,8 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.andyadc.codeblocks.showcase.auth.mapper.AuthUserMapper">
     <resultMap id="BaseResultMap" type="com.andyadc.codeblocks.showcase.auth.entity.AuthUser">
-        <id column="key" jdbcType="BIGINT" property="key"/>
-        <result column="id" jdbcType="BIGINT" property="id"/>
+        <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="username" jdbcType="VARCHAR" property="username"/>
         <result column="nickname" jdbcType="VARCHAR" property="nickname"/>
         <result column="password" jdbcType="VARCHAR" property="password"/>
@@ -19,19 +18,16 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        `key`, id, username, nickname, `password`, salt, mobile, email, `type`, `status`, deleted, created_time,
+        id, username, nickname, `password`, salt, mobile, email, `type`, `status`, deleted, created_time,
         updated_time, version
     </sql>
 
     <sql id="Simple_Column_List">
-        `key`, id, username, `password`, salt, `type`, `status`, deleted
+        id, username, `password`, salt, `type`, `status`, deleted
     </sql>
 
     <sql id="Where_Condition">
         <where>
-            <if test="key != null">
-                `key` = #{key,jdbcType=BIGINT}
-            </if>
             <if test="id != null">
                 id = #{id,jdbcType=BIGINT}
             </if>
@@ -91,7 +87,7 @@
 
     <insert id="insertSelective" parameterType="com.andyadc.codeblocks.showcase.auth.entity.AuthUser"
             useGeneratedKeys="true"
-            keyProperty="key">
+            keyProperty="id">
         INSERT INTO t_auth_user
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">

@@ -7,20 +7,20 @@ public abstract class BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /* PRIMARY KEY AUTO_INCREMENT */
-    private Long key;
+    private Long id;
 
-    public Long getKey() {
-        return key;
+    public Long getId() {
+        return id;
     }
 
-    public void setKey(Long key) {
-        this.key = key;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @Override
     public String toString() {
         return "BaseEntity{" +
-                "key=" + key +
+                "id=" + id +
                 "}";
     }
 }

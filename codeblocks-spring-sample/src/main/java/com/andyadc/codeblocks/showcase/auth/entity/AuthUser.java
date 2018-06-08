@@ -12,8 +12,6 @@ public class AuthUser extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    private Long id;
-
     private String username;
 
     private String nickname;
@@ -37,14 +35,6 @@ public class AuthUser extends BaseEntity {
     private Date updatedTime;
 
     private int version;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;
@@ -145,8 +135,7 @@ public class AuthUser extends BaseEntity {
     @Override
     public String toString() {
         return "AuthUser{" +
-                "id=" + id +
-                ", username=" + username +
+                "username=" + username +
                 ", nickname=" + nickname +
                 ", password=" + password +
                 ", salt=" + salt +
