@@ -10,8 +10,6 @@ import org.apache.shiro.crypto.RandomNumberGenerator;
 import org.apache.shiro.crypto.SecureRandomNumberGenerator;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 /**
@@ -19,7 +17,6 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class PasswordHelper {
-    private static final Logger LOG = LoggerFactory.getLogger(PasswordHelper.class);
 
     private static final RandomNumberGenerator randomNumberGenerator = new SecureRandomNumberGenerator();
 
@@ -51,17 +48,11 @@ public class PasswordHelper {
      * @return true/false
      */
     public boolean verifyPassword(AuthUser user, String plainPassword) {
-        try {
-            AuthenticationToken token = new UsernamePasswordToken(user.getUsername(), plainPassword);
-            AuthenticationInfo info = new SimpleAuthenticationInfo(user.getUsername(),
-                    user.getPassword(),
-                    ByteSource.Util.bytes(user.getCredentialsSalt()),
-                    "verifyPassword");
-
-            return matcher.doCredentialsMatch(token, info);
-        } catch (Exception e) {
-            LOG.error("Verify password error! userId=" + user.getId(), e);
-        }
-        return false;
+        AuthenticationToken token = new UsernamePasswordToken(user.getUsername(), plainPassword);
+        AuthenticationInfo info = new SimpleAuthenticationInfo(user.getUsername(),
+                user.getPassword(),
+                ByteSource.Util.bytes(user.getCredentialsSalt()),
+                "verifyPassword");
+        return matcher.doCredentialsMatch(token, info);
     }
 }
