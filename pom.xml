@@ -90,11 +90,6 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
-                <groupId>org.aspectj</groupId>
-                <artifactId>aspectjrt</artifactId>
-                <version>${aspectj.version}</version>
-            </dependency>
-            <dependency>
                 <groupId>org.springframework.data</groupId>
                 <artifactId>spring-data-redis</artifactId>
                 <version>${spring-data-redis.version}</version>
@@ -103,7 +98,6 @@
                 <groupId>org.aspectj</groupId>
                 <artifactId>aspectjweaver</artifactId>
                 <version>${aspectj.version}</version>
-                <scope>runtime</scope>
             </dependency>
             <dependency>
                 <groupId>mysql</groupId>

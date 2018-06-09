@@ -12,18 +12,18 @@ import java.util.Arrays;
  */
 public class LogAspect {
 
-    private static final Logger LOG = LoggerFactory.getLogger(LogAspect.class);
+    private static final Logger logger = LoggerFactory.getLogger(LogAspect.class);
 
     public Object log(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         long from = System.currentTimeMillis();
         String signature = proceedingJoinPoint.getSignature().toShortString();
-        LOG.info("Invoking {} with request {}", signature, Arrays.toString(proceedingJoinPoint.getArgs()));
+        logger.info("Invoking {} with request {}", signature, Arrays.toString(proceedingJoinPoint.getArgs()));
         Object result = null;
         try {
             result = proceedingJoinPoint.proceed();
         } finally {
             long to = System.currentTimeMillis();
-            LOG.info("Invoked {}, request {}, response {}, cost={}", signature,
+            logger.info("Invoked {}, request {}, response {}, cost={}", signature,
                     Arrays.toString(proceedingJoinPoint.getArgs()), result, (to - from));
         }
         return result;
