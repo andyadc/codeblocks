@@ -1,13 +1,13 @@
-package com.andyadc.codeblocks.util;
+package com.andyadc.codeblocks.kit;
 
 /**
  * A byte utility class that manipulates bytes.
  *
  * @author andaicheng
  */
-public final class ByteUtils {
+public final class ByteUtil {
 
-    private ByteUtils() {
+    private ByteUtil() {
         throw new UnsupportedOperationException();
     }
 
@@ -46,7 +46,7 @@ public final class ByteUtils {
         if (target.length == 1) {
             return indexOf(source, target[0], fromIndex);
         } else {
-            return ByteUtils.indexOf(source, 0, source.length, target, 0, target.length, fromIndex);
+            return ByteUtil.indexOf(source, 0, source.length, target, 0, target.length, fromIndex);
         }
     }
 
@@ -68,7 +68,7 @@ public final class ByteUtils {
             return indexOf(source, target[0], fromIndex, endIndex);
         } else {
             int sourceCount = endIndex - fromIndex;
-            return ByteUtils.indexOf(source, 0, sourceCount, target, 0, target.length, fromIndex);
+            return ByteUtil.indexOf(source, 0, sourceCount, target, 0, target.length, fromIndex);
         }
     }
 
@@ -347,8 +347,8 @@ public final class ByteUtils {
      * Checks if a byte array is empty [] or null.
      * <p>
      * <pre>
-     * ByteUtils.isEmpty(null)          = true
-     * ByteUtils.isEmpty(new byte[] {}) = true
+     * ByteUtil.isEmpty(null)          = true
+     * ByteUtil.isEmpty(new byte[] {}) = true
      * </pre>
      *
      * @param bytes

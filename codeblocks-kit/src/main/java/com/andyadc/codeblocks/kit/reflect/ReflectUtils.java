@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.util.reflect;
+package com.andyadc.codeblocks.kit.reflect;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.util;
+package com.andyadc.codeblocks.kit;
 
 
 import java.text.NumberFormat;
