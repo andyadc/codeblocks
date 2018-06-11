@@ -31,7 +31,6 @@ public class AuthServiceTest {
     @Test
     public void testSave() {
         AuthUser authUser = new AuthUser();
-        authUser.setId(5L);
         authUser.setUsername("");
         authUser.setNickname("");
         authUser.setPassword("54erwdfge2");
@@ -39,7 +38,7 @@ public class AuthServiceTest {
         authUser.setStatus(1);
         authUser.setDeleted(0);
         authUser = authService.save(authUser);
-        System.out.println(authUser.getKey());
+        System.out.println(authUser.getId());
     }
 
     @Before
