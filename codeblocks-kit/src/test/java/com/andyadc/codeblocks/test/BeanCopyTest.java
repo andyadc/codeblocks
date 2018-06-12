@@ -1,9 +1,7 @@
 package com.andyadc.codeblocks.test;
 
-import com.andyadc.codeblocks.util.mapper.BeanCopier;
-import com.andyadc.codeblocks.util.mapper.BeanMapper;
+import com.andyadc.codeblocks.kit.mapper.BeanCopier;
 import com.google.common.collect.ImmutableMap;
-import org.apache.commons.beanutils.BeanUtils;
 import org.databene.contiperf.PerfTest;
 import org.databene.contiperf.junit.ContiPerfRule;
 import org.junit.Rule;
@@ -57,18 +55,4 @@ public class BeanCopyTest {
         System.out.println(b);
     }
 
-    @PerfTest(threads = 10, invocations = 100)
-    @Test
-    public void testOrika() {
-        B b = BeanMapper.map(a, B.class);
-        System.out.println(b);
-    }
-
-    @PerfTest(threads = 10, invocations = 100)
-    @Test
-    public void testApacheBeanUtils() throws Exception {
-        B b = new B();
-        BeanUtils.copyProperties(b, a);
-        System.out.println(b);
-    }
 }

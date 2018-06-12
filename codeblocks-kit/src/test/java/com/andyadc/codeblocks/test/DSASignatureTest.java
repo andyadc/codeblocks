@@ -1,6 +1,6 @@
 package com.andyadc.codeblocks.test;
 
-import com.andyadc.codeblocks.util.crypto.DSASignature;
+import com.andyadc.codeblocks.kit.crypto.DSASignature;
 import org.junit.Test;
 
 import java.nio.charset.Charset;
