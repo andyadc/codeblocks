@@ -31,7 +31,7 @@
     </modules>
 
     <properties>
-        <spring.version>5.0.6.RELEASE</spring.version>
+        <spring.version>5.0.7.RELEASE</spring.version>
         <aspectj.version>1.9.1</aspectj.version>
         <httpcomponents.version>4.5.5</httpcomponents.version>
         <shiro.version>1.4.0</shiro.version>
@@ -41,7 +41,7 @@
         <redisson.version>3.7.1</redisson.version>
         <jedis.version>2.9.0</jedis.version>
         <lettuce.version>5.0.4.RELEASE</lettuce.version>
-        <jackson.version>2.9.5</jackson.version>
+        <jackson.version>2.9.6</jackson.version>
         <fastjson.version>1.2.47</fastjson.version>
         <jsoniter.version>0.9.22</jsoniter.version>
         <joda-time.version>2.10</joda-time.version>
