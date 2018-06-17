@@ -1,15 +1,12 @@
-package com.andyadc.codeblocks.util.net;
+package com.andyadc.codeblocks.kit.net;
 
 /**
+ * IP 地址与数字相互转换
+ *
  * @author andaicheng
  * @version 2017/1/8
  */
-public final class IPConvertor {
-
-    public static void main(String[] args) {
-        System.out.printf("%s %n", toNum("10.157.165.200"));
-        System.out.printf("%s %n", toIP(178103752));
-    }
+public final class IpConvertor {
 
     /**
      * IP地址转为数字
@@ -48,7 +45,7 @@ public final class IPConvertor {
      * @param num 数字
      * @return IP 地址
      */
-    public static String toIP(int num) {
+    public static String toIp(int num) {
         StringBuilder builder = new StringBuilder(15);
         builder.append((num & 0xff000000) >>> 24).append('.')
                 .append((num & 0x00ff0000) >>> 16).append('.')

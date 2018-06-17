@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.util.net;
+package com.andyadc.codeblocks.kit.net;
 
 /**
  * 带UTF-8 charset 定义的MediaType.

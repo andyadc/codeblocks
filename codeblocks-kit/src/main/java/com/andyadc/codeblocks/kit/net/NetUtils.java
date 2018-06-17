@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.util.net;
+package com.andyadc.codeblocks.kit.net;
 
 import javax.net.ServerSocketFactory;
 import java.net.InetAddress;

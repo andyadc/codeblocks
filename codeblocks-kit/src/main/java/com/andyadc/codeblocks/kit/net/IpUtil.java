@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.util.net;
+package com.andyadc.codeblocks.kit.net;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,17 +13,27 @@ import java.util.Enumeration;
  * @author andaicheng
  * @version 2017/1/8
  */
-public class IPAddrFetcher {
+public final class IpUtil {
 
-    private static final Logger logger = LoggerFactory.getLogger(IPAddrFetcher.class);
+    private static final Logger logger = LoggerFactory.getLogger(IpUtil.class);
 
-    private IPAddrFetcher() {
+    private static final String LOCAL_IP;
+
+    static {
+        LOCAL_IP = getLocalIpAddress();
+    }
+
+    private IpUtil() {
+    }
+
+    public static String getLocalIp() {
+        return LOCAL_IP;
     }
 
     /**
-     * 获取客户端IP地址，支持代理服务器
+     * 获取请求IP地址
      */
-    public static String getRemoteIpAddress(HttpServletRequest request) {
+    public static String getReqIp(HttpServletRequest request) {
         String ip = "";
         //匹配大小写，保证无论Nginx如何配置代理参数，系统都能正常获取代理IP
         Enumeration<?> enumeration = request.getHeaderNames();
@@ -47,7 +57,11 @@ public class IPAddrFetcher {
         return ip;
     }
 
-    public static String getServerUniqueIp() {
+    /**
+     * 获取本机 IP
+     * IPV4
+     */
+    private static String getLocalIpAddress() {
         try {
             Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
             while (interfaces.hasMoreElements()) {
