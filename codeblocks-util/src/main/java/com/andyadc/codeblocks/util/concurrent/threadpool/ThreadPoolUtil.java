@@ -1,8 +1,6 @@
 package com.andyadc.codeblocks.util.concurrent.threadpool;
 
 import com.andyadc.codeblocks.util.Assert;
-import com.andyadc.codeblocks.util.base.annotation.NotNull;
-import com.andyadc.codeblocks.util.base.annotation.Nullable;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import org.slf4j.Logger;
@@ -36,7 +34,7 @@ public class ThreadPoolUtil {
      *
      * @see MoreExecutors#shutdownAndAwaitTermination(ExecutorService, long, TimeUnit)
      */
-    public static boolean gracefulShutdown(@Nullable ExecutorService threadPool, int shutdownTimeoutMills) {
+    public static boolean gracefulShutdown(ExecutorService threadPool, int shutdownTimeoutMills) {
         return threadPool == null || MoreExecutors.shutdownAndAwaitTermination(threadPool, shutdownTimeoutMills, TimeUnit.MILLISECONDS);
 //        return threadPool != null ? MoreExecutors.shutdownAndAwaitTermination(threadPool, shutdownTimeoutMills, TimeUnit.MILLISECONDS) : true;
     }
@@ -44,7 +42,7 @@ public class ThreadPoolUtil {
     /**
      * @see #gracefulShutdown
      */
-    public static boolean gracefulShutdown(@Nullable ExecutorService threadPool, int shutdownTimeout,
+    public static boolean gracefulShutdown(ExecutorService threadPool, int shutdownTimeout,
                                            TimeUnit timeUnit) {
         return threadPool == null || MoreExecutors.shutdownAndAwaitTermination(threadPool, shutdownTimeout, timeUnit);
 //      return threadPool != null ? MoreExecutors.shutdownAndAwaitTermination(threadPool, shutdownTimeout, timeUnit) : true;
@@ -57,7 +55,7 @@ public class ThreadPoolUtil {
      *
      * @see ThreadFactoryBuilder#build()
      */
-    public static ThreadFactory buildThreadFactory(@NotNull String threadNamePrefix) {
+    public static ThreadFactory buildThreadFactory(String threadNamePrefix) {
         return new ThreadFactoryBuilder().setNameFormat(threadNamePrefix + "-%d").build();
     }
 
@@ -66,7 +64,7 @@ public class ThreadPoolUtil {
      *
      * @see #buildThreadFactory
      */
-    public static ThreadFactory buildThreadFactory(@NotNull String threadNamePrefix, @NotNull boolean daemon) {
+    public static ThreadFactory buildThreadFactory(String threadNamePrefix, boolean daemon) {
         return new ThreadFactoryBuilder().setNameFormat(threadNamePrefix + "-%d").setDaemon(daemon).build();
     }
 
@@ -75,7 +73,7 @@ public class ThreadPoolUtil {
      * <p>
      * 在无法控制第三方包的Runnable实现时，调用本函数进行包裹.
      */
-    public static Runnable safeRunnable(@NotNull Runnable runnable) {
+    public static Runnable safeRunnable(Runnable runnable) {
         return new SafeRunnable(runnable);
     }
 
