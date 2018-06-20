@@ -39,8 +39,8 @@ public class ASCIIConversions {
     private static BufferedImage scale(BufferedImage imageToScale, int dWidth, int dHeight, double fWidth, double fHeight) {
         BufferedImage dbi = null;
         // Needed to create a new BufferedImage object
-        int imageType = imageToScale.getType();
         if (imageToScale != null) {
+            int imageType = imageToScale.getType();
             dbi = new BufferedImage(dWidth, dHeight, imageType);
             Graphics2D g = dbi.createGraphics();
             AffineTransform at = AffineTransform.getScaleInstance(fWidth, fHeight);
