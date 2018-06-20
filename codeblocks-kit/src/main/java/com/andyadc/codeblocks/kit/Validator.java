@@ -26,6 +26,21 @@ public enum Validator {
     },
 
     /**
+     * This validator checks that the string represents an long.
+     */
+    LONG_NUMBER {
+        @Override
+        void validate(String str) throws ValidationException {
+            try {
+                Long.parseLong(str);
+            } catch (NumberFormatException e) {
+                throw new ValidationException("Error while validating "
+                        + str);
+            }
+        }
+    },
+
+    /**
      * This validator checks that the string represents a positive number.
      */
     POSITIVE_NUMBER {
