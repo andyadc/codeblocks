@@ -28,6 +28,7 @@
         <module>codeblocks-servlet-demo</module>
         <module>codeblocks-spring-sample</module>
         <module>codeblocks-springboot-backend</module>
+        <module>codeblocks-qrcode</module>
     </modules>
 
     <properties>
@@ -52,6 +53,7 @@
         <commons-collections.version>4.1</commons-collections.version>
         <commons-beanutils.version>1.9.3</commons-beanutils.version>
         <commons-pool.version>2.5.0</commons-pool.version>
+        <commons-io.version>2.6</commons-io.version>
         <commons-dbutils.version>1.7</commons-dbutils.version>
         <tomcat-jdbc.version>8.5.32</tomcat-jdbc.version>
         <hikaricp.version>3.2.0</hikaricp.version>
@@ -222,6 +224,11 @@
                 <groupId>commons-dbutils</groupId>
                 <artifactId>commons-dbutils</artifactId>
                 <version>${commons-dbutils.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-io</groupId>
+                <artifactId>commons-io</artifactId>
+                <version>${commons-io.version}</version>
             </dependency>
 
             <dependency>
