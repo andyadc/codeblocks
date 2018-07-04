@@ -44,7 +44,7 @@
         <lettuce.version>5.0.4.RELEASE</lettuce.version>
         <jackson.version>2.9.6</jackson.version>
         <fastjson.version>1.2.47</fastjson.version>
-        <jsoniter.version>0.9.22</jsoniter.version>
+        <jsoniter.version>0.9.23</jsoniter.version>
         <joda-time.version>2.10</joda-time.version>
         <guava.version>25.1-jre</guava.version>
         <orika.version>1.5.2</orika.version>
@@ -66,9 +66,9 @@
         <freemarker.version>2.3.28</freemarker.version>
         <zxing.version>3.3.3</zxing.version>
         <poi.version>3.17</poi.version>
-        <cglib.version>3.2.6</cglib.version>
+        <cglib.version>3.2.7</cglib.version>
         <objenesis.version>2.6</objenesis.version>
-        <javassist.version>3.23.0-GA</javassist.version>
+        <javassist.version>3.23.1-GA</javassist.version>
         <ognl.version>3.2.6</ognl.version>
         <jodd.version>5.0.2</jodd.version>
         <slf4j.version>1.7.25</slf4j.version>
