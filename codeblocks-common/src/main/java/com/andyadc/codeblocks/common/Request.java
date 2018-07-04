@@ -11,7 +11,7 @@ public class Request implements Serializable {
 
     private String version;
     private String appId;
-    private String traceId;
+    private String requestId;
     private String accessToken;
 
     public String getVersion() {
@@ -30,12 +30,12 @@ public class Request implements Serializable {
         this.appId = appId;
     }
 
-    public String getTraceId() {
-        return traceId;
+    public String getRequestId() {
+        return requestId;
     }
 
-    public void setTraceId(String traceId) {
-        this.traceId = traceId;
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
     }
 
     public String getAccessToken() {
