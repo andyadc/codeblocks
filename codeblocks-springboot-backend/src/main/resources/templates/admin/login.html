@@ -46,7 +46,7 @@
             </div>
         </div>
         <div class="col-sm-5">
-            <form id="signupForm">
+            <form id="signupForm" action="/admin/login" method="post">
                 <h3 class="text-center">用户登录</h3>
                 <p class="m-t-md text-center">欢迎登录后台管理系统</p>
                 <input type="text" name="username" class="form-control uname" title="username"/>
@@ -79,17 +79,23 @@
             </form>
         </div>
     </div>
+
     <div class="signup-footer">
-        <div class="pull-left">&copy; 2018 All Rights Reserved.
-        </div>
+        <div class="pull-left">&copy; 2018 All Rights Reserved.</div>
     </div>
 </div>
 
 <script type="text/javascript" src="../plugin/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="../plugin/jquery-validation/jquery.validate.min.js"></script>
 <script type="text/javascript" src="../plugin/jquery-validation/messages_zh.js"></script>
+<script type="text/javascript" src="../plugin/layer/layer.js"></script>
 
-<script>
+<script th:inline="javascript">
+
+    var message = [[${message}]];
+    if (message !== null) {
+        layer.msg(message);
+    }
 
     $(document).ready(function () {
         $("#login").on('click', function () {
@@ -98,11 +104,11 @@
         validateLogin();
     });
 
-    $.validator.setDefaults({
-        submitHandler: function () {
-            login();
-        }
-    });
+    // $.validator.setDefaults({
+    //     submitHandler: function () {
+    //         login();
+    //     }
+    // });
 
     function login() {
         $.ajax({
