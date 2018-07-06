@@ -41,8 +41,8 @@
     </settings>
 
     <!-- MyBatis 性能拦截器 Only for testing -->
-    <!--<plugins>
+    <!--<plugin>
         <plugin interceptor="com.andyadc.codeblocks.mybatis.SQLExecuteInterceptor"/>
-    </plugins>-->
+    </plugin>-->
 
 </configuration>
