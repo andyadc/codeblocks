@@ -22,7 +22,6 @@
         <module>codeblocks-serialization</module>
         <module>codeblocks-captcha</module>
         <module>codeblocks-mybatis</module>
-        <module>codeblocks-lock</module>
         <module>codeblocks-framework</module>
         <module>codeblocks-test</module>
         <module>codeblocks-servlet-demo</module>
