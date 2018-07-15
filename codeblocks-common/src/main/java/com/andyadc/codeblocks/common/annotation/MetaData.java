@@ -8,9 +8,6 @@ import java.lang.annotation.Target;
 
 /**
  * 用于注解类或属性的元数据，这些元数据可用于代码生成或运行时动态内容生成
- *
- * @author andaicheng
- * @version 2017/3/11
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)

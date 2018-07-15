@@ -12,9 +12,6 @@ import java.lang.annotation.Target;
  * <p>
  * Using a class marked with this annotation in production and having trouble is should not be considered
  * unexpected. Use these classes <i>AT YOUR OWN RISK</i>
- *
- * @author andaicheng
- * @version 1.0
  */
 @Documented
 @Target({ElementType.TYPE, ElementType.METHOD, ElementType.FIELD})
