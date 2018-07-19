@@ -33,31 +33,31 @@ CREATE TABLE `pay_account_0` (
   COMMENT '入账总额',
   `outcome`       BIGINT(20)          NOT NULL DEFAULT '0'
   COMMENT '出账总额',
-  `status`        TINYINT(2)          NOT NULL DEFAULT '0'
+  `status`       TINYINT(2)          NOT NULL DEFAULT '0'
   COMMENT '状态：0：创建；1、激活；2：冻结；3：销毁',
-  `rank`          TINYINT(2)          NOT NULL DEFAULT '0'
+  `rank`         TINYINT(2)          NOT NULL DEFAULT '0'
   COMMENT '账户等级',
-  `notification`  TINYINT(2)          NOT NULL DEFAULT '0'
+  `notification` TINYINT(2)          NOT NULL DEFAULT '0'
   COMMENT '通知方式',
-  `permissions`   BIGINT(20) UNSIGNED NOT NULL DEFAULT '0'
+  `permissions`  BIGINT(20) UNSIGNED NOT NULL DEFAULT '0'
   COMMENT '账户权限，可以bit位扩展',
-  `risk_level`    TINYINT(2)          NOT NULL DEFAULT '0'
+  `risk_level`   TINYINT(2)          NOT NULL DEFAULT '0'
   COMMENT '安全等级',
-  `sandbox`       TINYINT(2)          NOT NULL DEFAULT '0'
+  `sandbox`      TINYINT(2)          NOT NULL DEFAULT '0'
   COMMENT '沙盒账户：0：否；1：是',
 
-  `version`       BIGINT(12)          NOT NULL DEFAULT '1'
+  `version`      BIGINT(12)          NOT NULL DEFAULT '1'
   COMMENT '版本号',
-  `create_time`   TIMESTAMP           NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `create_time`  DATETIME            NOT NULL DEFAULT CURRENT_TIMESTAMP
   COMMENT '创建时间',
-  `update_time`   TIMESTAMP           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `update_time`  DATETIME            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
   COMMENT '更新时间',
   PRIMARY KEY (`key`),
   UNIQUE KEY `idx_account_id` (`id`) USING BTREE,
   KEY `idx_account_owner_id` (`owner_id`)
 )
   ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4;
 
 DROP TABLE IF EXISTS `pay_account_1`;
 CREATE TABLE `pay_account_1`

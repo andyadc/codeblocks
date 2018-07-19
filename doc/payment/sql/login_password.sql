@@ -37,5 +37,5 @@ CREATE TABLE `login_password` (
   UNIQUE KEY `idx_user_id` (`user_id`) USING BTREE
 )
   ENGINE = InnoDB
-  DEFAULT CHARSET = utf8
+  DEFAULT CHARSET = utf8mb4
   COMMENT ='用户登陆密码';

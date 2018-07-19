@@ -57,7 +57,7 @@ CREATE TABLE `pay_contract_account_0` (
   KEY `idx_conacccon_cont_acc` (`contract_account`)
 )
   ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4;
 
 DROP TABLE IF EXISTS `pay_contract_account_1`;
 CREATE TABLE `pay_contract_account_1`

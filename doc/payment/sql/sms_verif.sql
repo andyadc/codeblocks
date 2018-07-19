@@ -6,34 +6,34 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `sms_verif`;
 CREATE TABLE `sms_verif` (
-  `key`             BIGINT(20) NOT NULL
+  `key`             BIGINT(20)  NOT NULL
   COMMENT '内部主键，自增型',
-  `id`              BIGINT(20) NOT NULL
+  `id`              BIGINT(20)  NOT NULL
   COMMENT '短息验证码信息ID ',
-  `receiver_no`     CHAR(11)   NOT NULL
+  `receiver_no`     VARCHAR(11) NOT NULL
   COMMENT '目标手机号码',
-  `receipt_code`    CHAR(6)    NOT NULL
+  `receipt_code`    VARCHAR(6)  NOT NULL
   COMMENT '验证码回执编号',
-  `verif_code`      CHAR(6)    NOT NULL
+  `verif_code`      VARCHAR(6)  NOT NULL
   COMMENT '短信验证码',
-  `auth_status`     TINYINT(4) NOT NULL DEFAULT '0'
+  `auth_status`     TINYINT(4)  NOT NULL DEFAULT '0'
   COMMENT '鉴权状态',
-  `pre_auth_status` TINYINT(4) NOT NULL DEFAULT '0'
+  `pre_auth_status` TINYINT(4)  NOT NULL DEFAULT '0'
   COMMENT '预鉴权状态',
-  `expiration`      DATETIME   NOT NULL
+  `expiration`      DATETIME    NOT NULL
   COMMENT '验证码的有效截止时间',
-  `msg_type`        TINYINT(4) NOT NULL
+  `msg_type`        TINYINT(4)  NOT NULL
   COMMENT '短信类型',
-  `sys_id`          TINYINT(4) NOT NULL
+  `sys_id`          TINYINT(4)  NOT NULL
   COMMENT '请求系统编码',
-  `version`         INT(11)             DEFAULT '1'
+  `version`         INT(11)              DEFAULT '1'
   COMMENT '版本号',
-  `created_time`    TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_time`    DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP
   COMMENT '创建时间',
-  `updated_time`    TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `updated_time`    DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
   COMMENT '更新时间',
   PRIMARY KEY (`key`)
 )
   ENGINE = InnoDB
-  DEFAULT CHARSET = utf8
+  DEFAULT CHARSET = utf8mb4
   COMMENT ='短信验证码信息表';

@@ -111,7 +111,7 @@ CREATE TABLE `pay_order_0` (
   KEY `idx_pay_order_partner_id` (`partner_id`)
 )
   ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+  DEFAULT CHARSET = utf8mb4;
 
 DROP TABLE IF EXISTS `pay_order_1`;
 CREATE TABLE `pay_order_1`
