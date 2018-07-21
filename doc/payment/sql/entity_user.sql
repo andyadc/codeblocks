@@ -31,23 +31,23 @@ CREATE TABLE `entity_user` (
   COMMENT '开户日期',
   `activated_date`   DATETIME              DEFAULT NULL
   COMMENT '激活日期',
-  `cancelled_date`   DATETIME              DEFAULT NULL
+  `cancelled_date`   DATETIME          DEFAULT NULL
   COMMENT '销户日期',
-  `cancelled_reason` VARCHAR(255)          DEFAULT NULL
+  `cancelled_reason` VARCHAR(255)      DEFAULT NULL
   COMMENT '销户原因',
-  `register_channel` TINYINT(4)            DEFAULT NULL
+  `register_channel` TINYINT(4)        DEFAULT NULL
   COMMENT '注册渠道',
-  `register_info`    VARCHAR(255)          DEFAULT NULL
+  `register_info`    VARCHAR(255)      DEFAULT NULL
   COMMENT '预留信息',
-  `last_login_ip`    VARCHAR(32)           DEFAULT NULL
+  `last_login_ip`    VARCHAR(32)       DEFAULT NULL
   COMMENT '最后登录IP',
-  `last_login_time`  DATETIME              DEFAULT NULL
+  `last_login_time`  DATETIME          DEFAULT NULL
   COMMENT '最后登录时间',
-  `version`          INT(11)      NOT NULL DEFAULT '1'
+  `version`          INT(11)  NOT NULL DEFAULT '1'
   COMMENT '版本号',
-  `created_time`     TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `created_time`     DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
   COMMENT '创建时间',
-  `updated_time`     TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `updated_time`     DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
   COMMENT '更新时间',
   PRIMARY KEY (`key`),
   UNIQUE KEY `idx_user_id` (`id`) USING BTREE,
