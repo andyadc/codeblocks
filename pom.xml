@@ -28,6 +28,7 @@
         <module>codeblocks-spring-sample</module>
         <module>codeblocks-springboot-backend</module>
         <module>codeblocks-qrcode</module>
+        <module>permission</module>
     </modules>
 
     <properties>

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.andyadc.permission.mapper.AuthLogMapper">
+    <resultMap id="BaseResultMap" type="com.andyadc.permission.entity.AuthLog">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="target_id" jdbcType="BIGINT" property="targetId"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="operator" jdbcType="VARCHAR" property="operator"/>
+        <result column="opt_ip" jdbcType="VARCHAR" property="optIp"/>
+        <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
+        <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime"/>
+    </resultMap>
+
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.andyadc.permission.entity.AuthLogWithBLOBs">
+        <result column="old_value" jdbcType="LONGVARCHAR" property="oldValue"/>
+        <result column="new_value" jdbcType="LONGVARCHAR" property="newValue"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, `type`, target_id, `status`, `operator`, opt_ip, created_time, updated_time
+    </sql>
+    <sql id="Blob_Column_List">
+        old_value, new_value
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from t_auth_log
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from t_auth_log
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+    <insert id="insertSelective" parameterType="com.andyadc.permission.entity.AuthLogWithBLOBs">
+        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        insert into t_auth_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            `type`,
+            <if test="targetId != null">
+                target_id,
+            </if>
+            `status`,
+            <if test="operator != null">
+                `operator`,
+            </if>
+            <if test="optIp != null">
+                opt_ip,
+            </if>
+            <if test="createdTime != null">
+                created_time,
+            </if>
+            <if test="updatedTime != null">
+                updated_time,
+            </if>
+            <if test="oldValue != null">
+                old_value,
+            </if>
+            <if test="newValue != null">
+                new_value,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            #{type,jdbcType=INTEGER},
+            <if test="targetId != null">
+                #{targetId,jdbcType=BIGINT},
+            </if>
+            #{status,jdbcType=INTEGER},
+            <if test="operator != null">
+                #{operator,jdbcType=VARCHAR},
+            </if>
+            <if test="optIp != null">
+                #{optIp,jdbcType=VARCHAR},
+            </if>
+            <if test="createdTime != null">
+                #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedTime != null">
+                #{updatedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="oldValue != null">
+                #{oldValue,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="newValue != null">
+                #{newValue,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.andyadc.permission.entity.AuthLogWithBLOBs">
+        update t_auth_log
+        <set>
+            <if test="type != null">
+                `type` = #{type,jdbcType=INTEGER},
+            </if>
+            <if test="targetId != null">
+                target_id = #{targetId,jdbcType=BIGINT},
+            </if>
+            <if test="status != null">
+                `status` = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="operator != null">
+                `operator` = #{operator,jdbcType=VARCHAR},
+            </if>
+            <if test="optIp != null">
+                opt_ip = #{optIp,jdbcType=VARCHAR},
+            </if>
+            <if test="createdTime != null">
+                created_time = #{createdTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updatedTime != null">
+                updated_time = #{updatedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="oldValue != null">
+                old_value = #{oldValue,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="newValue != null">
+                new_value = #{newValue,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+</mapper>
