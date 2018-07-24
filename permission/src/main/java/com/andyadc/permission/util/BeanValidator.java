@@ -1,6 +1,6 @@
 package com.andyadc.permission.util;
 
-import com.andyadc.permission.dto.Params;
+import com.andyadc.permission.exception.ParamException;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -60,16 +60,10 @@ public class BeanValidator {
         }
     }
 
-    public static void main(String[] args) {
-        Params params = new Params();
-        Map<String, String> map = BeanValidator.validate(params);
-        System.out.println(map);
+    public static void check(Object param) throws ParamException {
+        Map<String, String> map = BeanValidator.validateObject(param);
+        if (map != null && map.size() > 0) {
+            throw new ParamException(map.toString());
+        }
     }
-
-//    public static void check(Object param) throws ParamException {
-//        Map<String, String> map = BeanValidator.validateObject(param);
-//        if (map != null && map.size() > 0) {
-//            throw new ParamException(map.toString());
-//        }
-//    }
 }

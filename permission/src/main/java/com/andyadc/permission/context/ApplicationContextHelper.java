@@ -1,4 +1,4 @@
-package com.andyadc.permission.common;
+package com.andyadc.permission.context;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
