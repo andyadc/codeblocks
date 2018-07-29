@@ -20,25 +20,24 @@ public class RequestInterceptor extends HandlerInterceptorAdapter {
 
     private static final Logger logger = LoggerFactory.getLogger(RequestInterceptor.class);
     private final static String TRACE_ID = "traceId";
-    private static ThreadLocal<Long> requestTimeCounterThreadLocal = new ThreadLocal<>();
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        requestTimeCounterThreadLocal.set(System.currentTimeMillis());
+        long now = System.currentTimeMillis();
 
         String traceId = UUID.randomUUID().toString();
         MDC.put(TRACE_ID, traceId);
         logger.info(">>> " + request.getRequestURI());
 
         RequestHolder.add(request);
+        RequestHolder.add(now);
         return true;
     }
 
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-        logger.info("Request elapsed: " + (System.currentTimeMillis() - requestTimeCounterThreadLocal.get()));
+        logger.info("Request elapsed " + (System.currentTimeMillis() - RequestHolder.getReqBeginTime()) + " ms");
         MDC.remove(TRACE_ID);
-        requestTimeCounterThreadLocal.remove();
 
         RequestHolder.remove();
     }

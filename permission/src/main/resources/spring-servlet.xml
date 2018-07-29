@@ -56,7 +56,7 @@
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <mvc:exclude-mapping path="/static/**"/>
-            <bean class="com.andyadc.codeblocks.framework.spring.RequestInterceptor"/>
+            <bean class="com.andyadc.permission.interceptor.RequestInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 
