@@ -38,10 +38,10 @@
         <shiro.version>1.4.0</shiro.version>
         <mybatis.version>3.4.6</mybatis.version>
         <mybatis-spring.version>1.3.2</mybatis-spring.version>
-        <spring-data-redis.version>2.0.8.RELEASE</spring-data-redis.version>
+        <spring-data-redis.version>2.0.9.RELEASE</spring-data-redis.version>
         <redisson.version>3.7.5</redisson.version>
         <jedis.version>2.9.0</jedis.version>
-        <lettuce.version>5.0.4.RELEASE</lettuce.version>
+        <lettuce.version>5.0.5.RELEASE</lettuce.version>
         <jackson.version>2.9.6</jackson.version>
         <fastjson.version>1.2.47</fastjson.version>
         <jsoniter.version>0.9.23</jsoniter.version>
@@ -73,7 +73,7 @@
         <jodd.version>5.0.3</jodd.version>
         <slf4j.version>1.7.25</slf4j.version>
         <logback.version>1.2.3</logback.version>
-        <mockito.version>2.20.1</mockito.version>
+        <mockito.version>2.21.0</mockito.version>
         <junit.version>4.12</junit.version>
         <jmh.version>1.21</jmh.version>
 
@@ -353,7 +353,7 @@
             <dependency>
                 <groupId>javax.servlet.jsp</groupId>
                 <artifactId>javax.servlet.jsp-api</artifactId>
-                <version>2.3.1</version>
+                <version>2.3.3</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
