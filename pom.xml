@@ -42,6 +42,7 @@
         <redisson.version>3.7.5</redisson.version>
         <jedis.version>2.9.0</jedis.version>
         <lettuce.version>5.0.5.RELEASE</lettuce.version>
+        <kafka-clients.version>1.1.1</kafka-clients.version>
         <jackson.version>2.9.6</jackson.version>
         <fastjson.version>1.2.49</fastjson.version>
         <jsoniter.version>0.9.23</jsoniter.version>
@@ -166,6 +167,11 @@
                 <groupId>redis.clients</groupId>
                 <artifactId>jedis</artifactId>
                 <version>${jedis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-clients</artifactId>
+                <version>${kafka-clients.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
