@@ -1,12 +1,13 @@
 package com.andyadc.codeblocks.util.json;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.ObjectSerializer;
 import com.alibaba.fastjson.serializer.SerializeConfig;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.serializer.SimpleDateFormatSerializer;
 
 /**
- * json utility (fastjson)
+ * json utility (via fastjson)
  *
  * @author andaicheng
  */
@@ -14,6 +15,8 @@ public final class JsonUtils {
 
     private static final SerializeConfig SERIALIZE_CONFIG;
     private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    private static final ObjectSerializer SIMPLE_DATE_FORMAT_SERIALIZER =
+            new SimpleDateFormatSerializer(DATE_FORMAT);
 
     private static final SerializerFeature[] SERIALIZER_FEATURE = {
             SerializerFeature.WriteMapNullValue,    // 输出空置字段
@@ -26,8 +29,8 @@ public final class JsonUtils {
 
     static {
         SERIALIZE_CONFIG = new SerializeConfig();
-        SERIALIZE_CONFIG.put(java.util.Date.class, new SimpleDateFormatSerializer(DATE_FORMAT));
-        SERIALIZE_CONFIG.put(java.sql.Date.class, new SimpleDateFormatSerializer(DATE_FORMAT));
+        SERIALIZE_CONFIG.put(java.util.Date.class, SIMPLE_DATE_FORMAT_SERIALIZER);
+        SERIALIZE_CONFIG.put(java.sql.Date.class, SIMPLE_DATE_FORMAT_SERIALIZER);
     }
 
     private JsonUtils() {
