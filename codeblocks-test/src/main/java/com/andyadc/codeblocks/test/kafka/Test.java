@@ -13,7 +13,7 @@ public class Test {
 
     public static void main(String[] args) {
         Properties props = new Properties();
-        props.put("bootstrap.servers", "118.25.37.52:9092");
+        props.put("bootstrap.servers", "www.qq-server.com:9092");
         props.put("acks", "all");
         props.put("retries", 0);
         props.put("batch.size", 16384);
