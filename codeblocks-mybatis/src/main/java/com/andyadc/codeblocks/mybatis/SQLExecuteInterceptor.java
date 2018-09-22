@@ -57,9 +57,9 @@ public class SQLExecuteInterceptor implements Interceptor {
         Instant begin = Instant.now();
         Object result = invocation.proceed();
         Instant end = Instant.now();
-        long duration = Duration.between(begin, end).toMillis();
+        long timing = Duration.between(begin, end).toMillis();
 
-        logger.info("SQL execute elapsed time: {}ms, ID: {}, detail: {}", duration, statementId, sql);
+        logger.info("SQL executed timing: {} ms, ID: {}, detail: {}", timing, statementId, sql);
         return result;
     }
 
