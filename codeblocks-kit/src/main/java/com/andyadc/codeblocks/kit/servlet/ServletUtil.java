@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.kit.http;
+package com.andyadc.codeblocks.kit.servlet;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;

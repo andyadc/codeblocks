@@ -1,7 +1,7 @@
 package com.andyadc.codeblocks.showcase.web.controller;
 
 import com.andyadc.codeblocks.framework.aspect.Performance;
-import com.andyadc.codeblocks.kit.http.ServletUtil;
+import com.andyadc.codeblocks.kit.servlet.ServletUtil;
 import com.andyadc.codeblocks.kit.text.StringUtil;
 import com.andyadc.codeblocks.showcase.auth.security.CaptchaFormAuthenticationFilter;
 import com.andyadc.codeblocks.showcase.common.Const;
