@@ -31,18 +31,18 @@
     </modules>
 
     <properties>
-        <spring.version>5.0.9.RELEASE</spring.version>
+        <spring.version>5.1.0.RELEASE</spring.version>
         <aspectj.version>1.9.1</aspectj.version>
         <httpcomponents.version>4.5.6</httpcomponents.version>
         <shiro.version>1.4.0</shiro.version>
         <mybatis.version>3.4.6</mybatis.version>
         <mybatis-spring.version>1.3.2</mybatis-spring.version>
-        <spring-data-redis.version>2.0.10.RELEASE</spring-data-redis.version>
+        <spring-data-redis.version>2.1.0.RELEASE</spring-data-redis.version>
         <redisson.version>3.8.1</redisson.version>
         <jedis.version>2.9.0</jedis.version>
         <lettuce.version>5.1.0.RELEASE</lettuce.version>
-        <kafka.version>1.1.1</kafka.version>
-        <kafka-clients.version>1.1.1</kafka-clients.version>
+        <kafka.version>2.0.0</kafka.version>
+        <kafka-clients.version>2.0.0</kafka-clients.version>
         <jackson.version>2.9.7</jackson.version>
         <fastjson.version>1.2.49</fastjson.version>
         <jsoniter.version>0.9.23</jsoniter.version>
@@ -56,7 +56,7 @@
         <commons-pool.version>2.6.0</commons-pool.version>
         <commons-io.version>2.6</commons-io.version>
         <commons-dbutils.version>1.7</commons-dbutils.version>
-        <tomcat-jdbc.version>8.5.33</tomcat-jdbc.version>
+        <tomcat-jdbc.version>8.5.34</tomcat-jdbc.version>
         <hikaricp.version>3.2.0</hikaricp.version>
         <druid.version>1.1.10</druid.version>
         <mysql-driver.version>5.1.47</mysql-driver.version>
