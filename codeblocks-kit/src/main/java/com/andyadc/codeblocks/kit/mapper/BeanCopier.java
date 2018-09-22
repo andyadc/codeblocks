@@ -9,7 +9,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class BeanCopier {
 
-    private static Map<String, net.sf.cglib.beans.BeanCopier> beanCopierMap = new ConcurrentHashMap<>();
+    private static final Map<String, net.sf.cglib.beans.BeanCopier> beanCopierMap = new ConcurrentHashMap<>();
 
     public static void copy(Object source, Object target) {
         if (source == null || target == null) {

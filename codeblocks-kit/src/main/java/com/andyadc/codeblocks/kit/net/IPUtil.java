@@ -13,9 +13,9 @@ import java.util.Enumeration;
  * @author andaicheng
  * @version 2017/1/8
  */
-public final class IpUtil {
+public final class IPUtil {
 
-    private static final Logger logger = LoggerFactory.getLogger(IpUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(IPUtil.class);
 
     private static final String LOCAL_IP;
 
@@ -23,7 +23,7 @@ public final class IpUtil {
         LOCAL_IP = getLocalIpAddress();
     }
 
-    private IpUtil() {
+    private IPUtil() {
     }
 
     public static String getLocalIp() {

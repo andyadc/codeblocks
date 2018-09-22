@@ -6,7 +6,7 @@ package com.andyadc.codeblocks.kit.net;
  * @author andaicheng
  * @version 2017/1/8
  */
-public final class IpConvertor {
+public final class IPConvertor {
 
     /**
      * IP地址转为数字
