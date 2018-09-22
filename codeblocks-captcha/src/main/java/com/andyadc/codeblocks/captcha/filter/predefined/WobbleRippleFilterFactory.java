@@ -6,7 +6,6 @@ import java.awt.image.BufferedImageOp;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class WobbleRippleFilterFactory extends RippleFilterFactory {
 
     protected WobbleImageOp wobble;

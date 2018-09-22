@@ -6,7 +6,6 @@ import com.andyadc.codeblocks.captcha.color.SingleColorFactory;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-
 public class SingleColorBackgroundFactory implements BackgroundFactory {
 
     private ColorFactory colorFactory;

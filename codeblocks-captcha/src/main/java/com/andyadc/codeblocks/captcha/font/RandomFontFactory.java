@@ -1,6 +1,6 @@
 package com.andyadc.codeblocks.captcha.font;
 
-import java.awt.*;
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

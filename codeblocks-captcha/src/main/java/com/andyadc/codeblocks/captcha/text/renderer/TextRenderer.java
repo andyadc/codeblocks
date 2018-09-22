@@ -16,5 +16,4 @@ public interface TextRenderer {
     void setBottomMargin(int bottomMargin);
 
     void draw(String text, BufferedImage canvas, FontFactory fontFactory, ColorFactory colorFactory);
-
 }

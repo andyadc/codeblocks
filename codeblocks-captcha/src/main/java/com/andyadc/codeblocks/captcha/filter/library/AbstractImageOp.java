@@ -103,7 +103,6 @@ public abstract class AbstractImageOp implements BufferedImageOp {
     }
 
     protected void filter(int[] inPixels, int[] outPixels, int width, int height) {
-
     }
 
     @Override

@@ -4,9 +4,9 @@ import java.util.Random;
 
 public class DiffuseImageOp extends AbstractTransformImageOp {
 
-    double[] tx;
-    double[] ty;
-    double amount;
+    private double[] tx;
+    private double[] ty;
+    private double amount;
 
     public DiffuseImageOp() {
         amount = 1.6;

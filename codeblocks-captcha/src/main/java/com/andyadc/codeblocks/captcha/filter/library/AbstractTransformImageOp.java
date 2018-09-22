@@ -19,7 +19,6 @@ public abstract class AbstractTransformImageOp extends AbstractImageOp {
             init();
             initialized = true;
         }
-        long time1 = System.currentTimeMillis();
         double[] t = new double[2];
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
@@ -28,8 +27,6 @@ public abstract class AbstractTransformImageOp extends AbstractImageOp {
                 outPixels[x + y * width] = pixel;
             }
         }
-        long time2 = System.currentTimeMillis() - time1;
-        //System.out.println("AbstractTransformImageOp " + time2);
     }
 
 }

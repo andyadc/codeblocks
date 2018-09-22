@@ -76,7 +76,6 @@ public class WobbleImageOp extends AbstractTransformImageOp {
         double ty = Math.sin((yScale * y + x) / yWavelength + yRandom);
         t[0] = x + xAmplitude * tx;
         t[1] = y + yAmplitude * ty;
-
     }
 
 }
