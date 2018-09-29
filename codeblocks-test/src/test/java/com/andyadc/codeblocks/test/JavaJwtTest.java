@@ -6,8 +6,6 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.junit.Test;
 
-import java.io.UnsupportedEncodingException;
-
 /**
  * @author andy.an
  * @since 2018/4/12
@@ -25,7 +23,7 @@ public class JavaJwtTest {
                     .sign(algorithm);
 
             System.out.println(token);
-        } catch (UnsupportedEncodingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -42,7 +40,7 @@ public class JavaJwtTest {
                     .build();
 
             DecodedJWT jwt = verifier.verify(token);
-        } catch (UnsupportedEncodingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
