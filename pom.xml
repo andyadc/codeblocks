@@ -68,7 +68,7 @@
         <zxing.version>3.3.3</zxing.version>
         <poi.version>4.0.0</poi.version>
         <cglib.version>3.2.8</cglib.version>
-        <objenesis.version>2.6</objenesis.version>
+        <objenesis.version>3.0</objenesis.version>
         <javassist.version>3.23.1-GA</javassist.version>
         <ognl.version>3.2.7</ognl.version>
         <jodd.version>5.0.5</jodd.version>
