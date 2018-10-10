@@ -42,6 +42,13 @@
             <artifactId>commons-beanutils</artifactId>
         </dependency>
 
+        <!-- uuid -->
+        <dependency>
+            <groupId>com.github.stephenc.eaio-uuid</groupId>
+            <artifactId>uuid</artifactId>
+            <version>3.4.2</version>
+        </dependency>
+
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>

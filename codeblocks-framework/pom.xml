@@ -22,6 +22,12 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.andyadc</groupId>
+            <artifactId>codeblocks-kit</artifactId>
+            <version>1.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
             <scope>provided</scope>
@@ -55,7 +61,6 @@
             <groupId>org.msgpack</groupId>
             <artifactId>jackson-dataformat-msgpack</artifactId>
             <version>0.8.16</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
