@@ -20,10 +20,12 @@ public class StartupCheck implements ApplicationListener<ContextRefreshedEvent> 
     public void onApplicationEvent(ContextRefreshedEvent event) {
         System.out.println(">>> contextRefreshedEvent: " + event);
 
-        Object val = redisTemplate.execute((RedisConnection connection) -> connection.ping());
+        Object val = redisTemplate.execute(
+//                (RedisConnection connection) -> connection.ping()
+                RedisConnection::ping
+        );
 
         System.out.println(val);
-
     }
 
     @Autowired
