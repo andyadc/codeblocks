@@ -55,21 +55,21 @@ public class ShiroDbRealm extends AuthorizingRealm {
         }
 
         return new SimpleAuthenticationInfo(new ShiroUser(authUser.getId(), authUser.getUsername()), authUser.getPassword(),
-                ByteSource.Util.bytes(authUser.getCredentialsSalt()), "Shiro Db Realm");
+                ByteSource.Util.bytes(authUser.getCredentialsSalt()), "ShiroDbRealm");
     }
 
     public void setAuthService(AuthService authService) {
         this.authService = authService;
     }
 
-    public static class ShiroUser implements Serializable {
+    public static final class ShiroUser implements Serializable {
 
         private static final long serialVersionUID = 1L;
 
         private Long id;
         private String username;
 
-        public ShiroUser(Long id, String username) {
+        ShiroUser(Long id, String username) {
             this.id = id;
             this.username = username;
         }
