@@ -11,6 +11,17 @@ import java.util.LinkedList;
 public class DataTest {
 
     @Test
+    public void testLRULinkedList1() {
+        LRULinkedList1 list = new LRULinkedList1();
+        list.add("abc");
+        list.add("wdc");
+        list.add("qwe");
+        list.add("rty");
+
+        list.show();
+    }
+
+    @Test
     public void testLinkedList() {
         LinkedList<String> linkedList = new LinkedList<>();
         linkedList.add("a");

@@ -28,6 +28,7 @@
         <module>codeblocks-spring-sample</module>
         <module>codeblocks-qrcode</module>
         <module>permission</module>
+        <module>algo</module>
     </modules>
 
     <properties>

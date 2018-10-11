@@ -6,7 +6,7 @@ package com.andyadc.codeblocks.test.data;
  */
 public class LRULinkedList1 {
 
-    Node current;
+    Node tail;
     private int max = 10;
 
     public LRULinkedList1() {
@@ -16,11 +16,44 @@ public class LRULinkedList1 {
         this.max = max;
     }
 
-    public void add(Object obj) {
-
-        if (current == null) {
-
+    public void show() {
+        Node c = tail;
+        while (c != null && c.data != null) {
+            System.out.println(c.data);
+            c = c.next;
         }
+        System.out.println();
+    }
+
+    public boolean add(Object obj) {
+        return addAfter(obj);
+    }
+
+    public boolean addBefore(Object obj) {
+        Node node = new Node(obj, null);
+        if (tail == null) {
+            tail = node;
+            return true;
+        }
+        node.next = tail;
+        tail = node;
+
+        return true;
+    }
+
+    public boolean addAfter(Object obj) {
+        Node node = new Node(obj, null);
+        if (tail == null) {
+            tail = node;
+            return true;
+        }
+        Node c = tail;
+        while (c.next != null) {
+            c = c.next;
+        }
+        c.next = node;
+
+        return true;
     }
 
     private static class Node {
