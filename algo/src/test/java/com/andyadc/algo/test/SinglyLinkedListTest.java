@@ -19,5 +19,15 @@ public class SinglyLinkedListTest {
 
         System.out.println(list.toString());
         System.out.println(list.size());
+
+        System.out.println(list.contains("a"));
+        System.out.println(list.contains("e"));
+
+        list.remove("c");
+        System.out.println(list.toString());
+
+        list.add("c");
+        System.out.println(list.toString());
     }
+
 }

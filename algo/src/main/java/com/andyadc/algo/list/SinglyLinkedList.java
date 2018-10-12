@@ -1,5 +1,7 @@
 package com.andyadc.algo.list;
 
+import java.util.Objects;
+
 /**
  * Singly-linked list
  * <p>
@@ -25,6 +27,32 @@ public class SinglyLinkedList<E> {
     public boolean add(E e) {
         addLast(e);
         return true;
+    }
+
+    public boolean remove(Object o) {
+        Node<E> t = head;
+        Node<E> preNode = head;
+        while (t != null) {
+            if (Objects.equals(o, t.e)) {
+                preNode.next = t.next;
+                return true;
+            } else {
+                preNode = t;
+                t = t.next;
+            }
+        }
+        return false;
+    }
+
+    public boolean contains(Object o) {
+        Node<E> t = head;
+        while (t != null) {
+            if (Objects.equals(o, t.e)) {
+                return true;
+            }
+            t = t.next;
+        }
+        return false;
     }
 
     void addFirst(E e) {
@@ -61,14 +89,15 @@ public class SinglyLinkedList<E> {
         if (head == null) {
             return "[]";
         }
+        Node<E> t = head;
         StringBuilder builder = new StringBuilder();
         builder.append('[');
-        while (head != null) {
-            builder.append(head.e);
-            if (head.next != null) {
+        while (t != null) {
+            builder.append(t.e);
+            if (t.next != null) {
                 builder.append(',').append(' ');
             }
-            head = head.next;
+            t = t.next;
         }
         return builder.append(']').toString();
     }
