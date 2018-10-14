@@ -29,6 +29,20 @@ public class SinglyLinkedList<E> {
         return true;
     }
 
+    // TODO
+    public boolean isLoop() {
+
+        return false;
+    }
+
+    // TODO
+    public void reverse() {
+        if (head == null) {
+            return;
+        }
+
+    }
+
     public boolean remove(Object o) {
         Node<E> t = head;
         Node<E> preNode = head;

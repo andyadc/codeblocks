@@ -17,17 +17,39 @@ public class SinglyLinkedListTest {
         list.add("c");
         list.add("d");
 
-        System.out.println(list.toString());
+        System.out.println(list);
         System.out.println(list.size());
+    }
+
+    @Test
+    public void testRemove() {
+        SinglyLinkedList<String> list = new SinglyLinkedList<>();
+        list.add("a");
+        list.add("b");
+        list.add("c");
+
+        System.out.println(list);
+        list.remove("b");
+        System.out.println(list);
+    }
+
+    @Test
+    public void testContains() {
+        SinglyLinkedList<String> list = new SinglyLinkedList<>();
+        list.add("a");
 
         System.out.println(list.contains("a"));
         System.out.println(list.contains("e"));
+    }
 
-        list.remove("c");
-        System.out.println(list.toString());
+    @Test
+    public void testReverse() {
 
-        list.add("c");
-        System.out.println(list.toString());
+    }
+
+    @Test
+    public void testIsLoop() {
+
     }
 
 }
