@@ -41,7 +41,7 @@
         <spring-data-redis.version>2.1.0.RELEASE</spring-data-redis.version>
         <redisson.version>3.8.2</redisson.version>
         <jedis.version>2.9.0</jedis.version>
-        <lettuce.version>5.1.0.RELEASE</lettuce.version>
+        <lettuce.version>5.1.1.RELEASE</lettuce.version>
         <kafka.version>2.0.0</kafka.version>
         <kafka-clients.version>2.0.0</kafka-clients.version>
         <jackson.version>2.9.7</jackson.version>
@@ -59,7 +59,7 @@
         <commons-dbutils.version>1.7</commons-dbutils.version>
         <tomcat-jdbc.version>8.5.34</tomcat-jdbc.version>
         <hikaricp.version>3.2.0</hikaricp.version>
-        <druid.version>1.1.10</druid.version>
+        <druid.version>1.1.12</druid.version>
         <mysql-driver.version>5.1.47</mysql-driver.version>
         <h2.version>1.4.197</h2.version>
         <fst.version>2.57</fst.version>
