@@ -3,7 +3,9 @@ package com.andyadc.codeblocks.test.netty.im;
 import com.andyadc.codeblocks.test.netty.im.protocol.Packet;
 import com.andyadc.codeblocks.test.netty.im.protocol.PacketCodeC;
 import com.andyadc.codeblocks.test.netty.im.protocol.request.LoginRequestPacket;
+import com.andyadc.codeblocks.test.netty.im.protocol.request.MessageRequestPacket;
 import com.andyadc.codeblocks.test.netty.im.protocol.response.LoginResponsePacket;
+import com.andyadc.codeblocks.test.netty.im.protocol.response.MessageResponsePacket;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -45,6 +47,14 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 
             ByteBuf responseByteBuf = PacketCodeC.INSTANCE().encode(ctx.alloc(), loginResponsePacket);
             ctx.writeAndFlush(responseByteBuf);
+        } else if (packet instanceof MessageRequestPacket) {
+            MessageRequestPacket messageRequestPacket = (MessageRequestPacket) packet;
+            System.out.println(new Date() + ": 收到客户端消息: " + messageRequestPacket.getMessage());
+
+            MessageResponsePacket messageResponsePacket = new MessageResponsePacket();
+            messageResponsePacket.setMessage("服务端回复【" + messageRequestPacket.getMessage() + "】");
+            ByteBuf responseByteBuf = PacketCodeC.INSTANCE().encode(ctx.alloc(), messageResponsePacket);
+            ctx.channel().writeAndFlush(responseByteBuf);
         }
     }
 

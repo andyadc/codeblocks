@@ -2,7 +2,9 @@ package com.andyadc.codeblocks.test.netty.im.protocol;
 
 import com.andyadc.codeblocks.test.netty.im.protocol.command.Command;
 import com.andyadc.codeblocks.test.netty.im.protocol.request.LoginRequestPacket;
+import com.andyadc.codeblocks.test.netty.im.protocol.request.MessageRequestPacket;
 import com.andyadc.codeblocks.test.netty.im.protocol.response.LoginResponsePacket;
+import com.andyadc.codeblocks.test.netty.im.protocol.response.MessageResponsePacket;
 import com.andyadc.codeblocks.test.netty.im.serialize.JSONSerializer;
 import com.andyadc.codeblocks.test.netty.im.serialize.Serializer;
 import io.netty.buffer.ByteBuf;
@@ -26,6 +28,8 @@ public class PacketCodeC {
         packetTypeMap = new HashMap<>();
         packetTypeMap.put(Command.LOGIN_REQUEST, LoginRequestPacket.class);
         packetTypeMap.put(Command.LOGIN_RESPONSE, LoginResponsePacket.class);
+        packetTypeMap.put(Command.MESSAGE_REQUEST, MessageRequestPacket.class);
+        packetTypeMap.put(Command.MESSAGE_RESPONSE, MessageResponsePacket.class);
 
         serializerMap = new HashMap<>();
         Serializer serializer = new JSONSerializer();
