@@ -69,7 +69,7 @@ public class ImClient {
 
     private static void startConsoleThread(Channel channel) {
         new Thread(() -> {
-            while (true) {
+            while (!Thread.interrupted()) {
                 if (LoginUtil.hasLogin(channel)) {
                     System.out.println("输入消息发送至服务端: ");
                     Scanner scanner = new Scanner(System.in);
