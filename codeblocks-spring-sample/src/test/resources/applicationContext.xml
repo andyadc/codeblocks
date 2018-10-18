@@ -44,6 +44,7 @@
     <!-- 定义aspectj -->
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
+    <import resource="applicationContext-beans.xml"/>
     <import resource="applicationContext-db.xml"/>
     <import resource="applicationContext-redis.xml"/>
 

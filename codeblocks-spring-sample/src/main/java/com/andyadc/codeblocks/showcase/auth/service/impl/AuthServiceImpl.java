@@ -1,6 +1,6 @@
 package com.andyadc.codeblocks.showcase.auth.service.impl;
 
-import com.andyadc.codeblocks.framework.log.Loggable;
+import com.andyadc.codeblocks.framework.aspect.Loggable;
 import com.andyadc.codeblocks.kit.Assert;
 import com.andyadc.codeblocks.showcase.auth.entity.AuthUser;
 import com.andyadc.codeblocks.showcase.auth.mapper.AuthUserMapper;
