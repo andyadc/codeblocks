@@ -1,10 +1,12 @@
 package com.andyadc.codeblocks.test.netty;
 
+import com.andyadc.codeblocks.test.netty.im.Spliter;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
@@ -22,15 +24,20 @@ public class NettyClient {
 
         Bootstrap bootstrap = new Bootstrap();
         bootstrap
-                // 1.指定线程模型
+                // 指定线程模型
                 .group(workerGroup)
-                // 2.指定 IO 类型为 NIO
+                // 指定 IO 类型为 NIO
                 .channel(NioSocketChannel.class)
-                // 3.IO 处理逻辑
+                .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000)
+                .option(ChannelOption.SO_KEEPALIVE, true)
+                .option(ChannelOption.TCP_NODELAY, true)
+                // IO 处理逻辑
                 .handler(new ChannelInitializer<NioSocketChannel>() {
                     @Override
-                    protected void initChannel(NioSocketChannel socketChannel) {
-                        socketChannel.pipeline().addLast(new FirstClientHandler());
+                    protected void initChannel(NioSocketChannel ch) {
+                        ch.pipeline().addLast(new Spliter());
+                        //ch.pipeline().addLast(new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 7, 4));
+                        ch.pipeline().addLast(new FirstClientHandler());
                     }
                 });
 
@@ -51,9 +58,11 @@ public class NettyClient {
         public void channelActive(ChannelHandlerContext ctx) {
             System.out.println(new Date() + ": 客户端写出数据");
 
-            ByteBuf byteBuf = getByteBuf(ctx);
+            for (int i = 0; i < 100; i++) {
+                ByteBuf byteBuf = getByteBuf(ctx);
+                ctx.channel().writeAndFlush(byteBuf);
+            }
 
-            ctx.channel().writeAndFlush(byteBuf);
         }
 
         @Override
@@ -61,7 +70,6 @@ public class NettyClient {
             ByteBuf byteBuf = (ByteBuf) msg;
 
             System.out.println(new Date() + ": Received data from server --> " + byteBuf.toString(Charset.forName("UTF-8")));
-
         }
 
         private ByteBuf getByteBuf(ChannelHandlerContext ctx) {
@@ -69,7 +77,7 @@ public class NettyClient {
             ByteBuf byteBuf = ctx.alloc().buffer();
 
             // 2. 准备数据，指定字符串的字符集为 utf-8
-            byte[] bytes = "Hello Netty!".getBytes(Charset.forName("UTF-8"));
+            byte[] bytes = "金柚满堂, 柚福同享, 柚你真好, 光彩柚人, 柚滋柚味！！".getBytes(Charset.forName("UTF-8"));
 
             // 3. 填充数据到 ByteBuf
             byteBuf.writeBytes(bytes);
