@@ -42,9 +42,9 @@ public class Snowflake {
         ThreadPoolExecutor executor = new ThreadPoolExecutor(100, 100, 60, TimeUnit.SECONDS, new LinkedBlockingQueue<>(20000));
         long start = System.currentTimeMillis();
         for (int i = 0; i < 100; i++) {
-            executor.execute(() -> {
-                System.out.println(snowflake.next());
-            });
+            executor.execute(() ->
+                    System.out.println(snowflake.next())
+            );
         }
 
         executor.shutdown();
