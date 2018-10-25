@@ -1,8 +1,8 @@
-package com.andyadc.codeblocks.util.concurrent.threadpool;
+package com.andyadc.codeblocks.kit.concurrent.threadpool;
 
-import com.andyadc.codeblocks.util.Assert;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,20 +14,26 @@ import java.util.concurrent.TimeUnit;
  * 线程池工具集
  * <p>
  * 1. 优雅关闭线程池的(via guava)
+ * <p>
  * 2. 创建可自定义线程名的ThreadFactory(via guava)
+ * <p>
  * 3. 防止第三方Runnable未捕捉异常导致线程跑飞
  *
  * @author calvin
- * @version 2017/4/23
  */
 public class ThreadPoolUtil {
+
     /**
      * 按照ExecutorService JavaDoc示例代码编写的Graceful Shutdown方法.
      * <p>
      * 先使用shutdown, 停止接收新任务并尝试完成所有已存在任务.
+     * <p>
      * 如果1/2超时时间后, 则调用shutdownNow,取消在workQueue中Pending的任务,并中断所有阻塞函数.
+     * <p>
      * 如果1/2超时仍然超時，則強制退出.
+     * <p>
      * 另对在shutdown时线程本身被调用中断做了处理.
+     * <p>
      * 返回线程最后是否被中断.
      * <p>
      * 使用了Guava的工具类
@@ -35,17 +41,16 @@ public class ThreadPoolUtil {
      * @see MoreExecutors#shutdownAndAwaitTermination(ExecutorService, long, TimeUnit)
      */
     public static boolean gracefulShutdown(ExecutorService threadPool, int shutdownTimeoutMills) {
-        return threadPool == null || MoreExecutors.shutdownAndAwaitTermination(threadPool, shutdownTimeoutMills, TimeUnit.MILLISECONDS);
-//        return threadPool != null ? MoreExecutors.shutdownAndAwaitTermination(threadPool, shutdownTimeoutMills, TimeUnit.MILLISECONDS) : true;
+        return threadPool == null
+                || MoreExecutors.shutdownAndAwaitTermination(threadPool, shutdownTimeoutMills, TimeUnit.MILLISECONDS);
     }
 
     /**
-     * @see #gracefulShutdown
+     * @see gracefulShutdown
      */
     public static boolean gracefulShutdown(ExecutorService threadPool, int shutdownTimeout,
                                            TimeUnit timeUnit) {
         return threadPool == null || MoreExecutors.shutdownAndAwaitTermination(threadPool, shutdownTimeout, timeUnit);
-//      return threadPool != null ? MoreExecutors.shutdownAndAwaitTermination(threadPool, shutdownTimeout, timeUnit) : true;
     }
 
     /**
@@ -62,7 +67,7 @@ public class ThreadPoolUtil {
     /**
      * 可设定是否daemon, daemon线程在主线程已执行完毕时, 不会阻塞应用不退出, 而非daemon线程则会阻塞.
      *
-     * @see #buildThreadFactory
+     * @see buildThreadFactory
      */
     public static ThreadFactory buildThreadFactory(String threadNamePrefix, boolean daemon) {
         return new ThreadFactoryBuilder().setNameFormat(threadNamePrefix + "-%d").setDaemon(daemon).build();
@@ -80,14 +85,14 @@ public class ThreadPoolUtil {
     /**
      * 保证不会有Exception抛出到线程池的Runnable包裹类，防止用户没有捕捉异常导致中断了线程池中的线程, 使得SchedulerService无法执行. 在无法控制第三方包的Runnalbe实现时，使用本类进行包裹.
      */
-    public static class SafeRunnable implements Runnable {
+    private static class SafeRunnable implements Runnable {
 
         private static Logger logger = LoggerFactory.getLogger(SafeRunnable.class);
 
         private Runnable runnable;
 
         public SafeRunnable(Runnable runnable) {
-            Assert.notNull(runnable);
+            Validate.notNull(runnable);
             this.runnable = runnable;
         }
 

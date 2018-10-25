@@ -1,6 +1,6 @@
-package com.andyadc.codeblocks.util.concurrent.threadpool;
+package com.andyadc.codeblocks.kit.concurrent.threadpool;
 
-import com.andyadc.codeblocks.util.Assert;
+import org.apache.commons.lang3.Validate;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
@@ -17,17 +17,16 @@ import java.util.concurrent.TimeUnit;
  * ThreadPool创建的工具类.
  * <p>
  * 对比JDK Executors中的newFixedThreadPool(), newCachedThreadPool(),newScheduledThreadPool, 提供更多有用的配置项.
+ * <p>
  * 另包含了移植自Tomcat的QueuableCachedPool.
  * <p>
  * 使用示例如下：
+ * <p>
  * <pre>
  * ExecutorService ExecutorService = new FixedThreadPoolBuilder().setPoolSize(10).build();
  * </pre>
  * <p>
  * 参考文章 《Java ThreadPool的正确打开方式》http://calvin1978.blogcn.com/articles/java-threadpool.html
- *
- * @author andaicheng
- * @version 2017/4/23
  */
 public class ThreadPoolBuilder {
 
@@ -82,7 +81,7 @@ public class ThreadPoolBuilder {
     }
 
     /**
-     * 创建FixedThreadPool.
+     * 创建FixedThreadPool.建议必须设置queueSize保证有界。
      * <p>
      * 1. 任务提交时, 如果线程数还没达到poolSize即创建新线程并绑定任务(即poolSize次提交后线程总数必达到poolSize，不会重用之前的线程)
      * <p>
@@ -90,21 +89,21 @@ public class ThreadPoolBuilder {
      * <p>
      * 2. 第poolSize次任务提交后, 新增任务放入Queue中, Pool中的所有线程从Queue中take任务执行.
      * <p>
-     * Queue默认为无限长的LinkedBlockingQueue, 也可以设置queueSize换成有界的队列.
+     * Queue默认为无限长的LinkedBlockingQueue, 但建议设置queueSize换成有界的队列.
      * <p>
      * 如果使用有界队列, 当队列满了之后,会调用RejectHandler进行处理, 默认为AbortPolicy，抛出RejectedExecutionException异常.
      * 其他可选的Policy包括静默放弃当前任务(Discard)，放弃Queue里最老的任务(DisacardOldest)，或由主线程来直接执行(CallerRuns).
      * <p>
-     * 3. 因为线程全部为core线程，所以不会在空闲回收.
+     * 3. 因为线程全部为core线程，所以不会在空闲时回收.
      */
     public static class FixedThreadPoolBuilder {
 
         private int poolSize = 1;
         private int queueSize = -1;
 
-        private ThreadFactory threadFactory = null;
-        private String threadNamePrefix = null;
-        private Boolean daemon = null;
+        private ThreadFactory threadFactory;
+        private String threadNamePrefix;
+        private Boolean daemon;
 
         private RejectedExecutionHandler rejectHandler;
 
@@ -112,13 +111,15 @@ public class ThreadPoolBuilder {
          * Pool大小，默认为1，即singleThreadPool
          */
         public FixedThreadPoolBuilder setPoolSize(int poolSize) {
-            Assert.isTrue(poolSize >= 1);
+            Validate.isTrue(poolSize >= 1);
             this.poolSize = poolSize;
             return this;
         }
 
         /**
-         * 默认为-1, 使用无限长的LinkedBlockingQueue，为正数时使用ArrayBlockingQueue
+         * 不设置时默认为-1, 使用无限长的LinkedBlockingQueue.
+         * <p>
+         * 为正数时使用ArrayBlockingQueue.
          */
         public FixedThreadPoolBuilder setQueueSize(int queueSize) {
             this.queueSize = queueSize;
@@ -176,7 +177,7 @@ public class ThreadPoolBuilder {
     }
 
     /**
-     * 创建CachedThreadPool.
+     * 创建CachedThreadPool, maxSize建议设置
      * <p>
      * 1. 任务提交时, 如果线程数还没达到minSize即创建新线程并绑定任务(即minSize次提交后线程总数必达到minSize, 不会重用之前的线程)
      * <p>
@@ -184,7 +185,7 @@ public class ThreadPoolBuilder {
      * <p>
      * 2. 第minSize次任务提交后, 新增任务提交进SynchronousQueue后，如果没有空闲线程立刻处理，则会创建新的线程, 直到总线程数达到上限.
      * <p>
-     * maxSize默认为Integer.Max, 可进行设置.
+     * maxSize默认为Integer.Max, 可以进行设置.
      * <p>
      * 如果设置了maxSize, 当总线程数达到上限, 会调用RejectHandler进行处理, 默认为AbortPolicy, 抛出RejectedExecutionException异常.
      * 其他可选的Policy包括静默放弃当前任务(Discard)，或由主线程来直接执行(CallerRuns).
@@ -198,9 +199,9 @@ public class ThreadPoolBuilder {
         private int maxSize = Integer.MAX_VALUE;
         private int keepAliveSecs = 10;
 
-        private ThreadFactory threadFactory = null;
-        private String threadNamePrefix = null;
-        private Boolean daemon = null;
+        private ThreadFactory threadFactory;
+        private String threadNamePrefix;
+        private Boolean daemon;
 
         private RejectedExecutionHandler rejectHandler;
 
@@ -209,6 +210,9 @@ public class ThreadPoolBuilder {
             return this;
         }
 
+        /**
+         * Max默认Integer.MAX_VALUE的，建议设置
+         */
         public CachedThreadPoolBuilder setMaxSize(int maxSize) {
             this.maxSize = maxSize;
             return this;
@@ -272,8 +276,8 @@ public class ThreadPoolBuilder {
     public static class ScheduledThreadPoolBuilder {
 
         private int poolSize = 1;
-        private ThreadFactory threadFactory = null;
-        private String threadNamePrefix = null;
+        private ThreadFactory threadFactory;
+        private String threadNamePrefix;
 
         /**
          * 默认为1
@@ -314,9 +318,9 @@ public class ThreadPoolBuilder {
         private int keepAliveSecs = 10;
         private int queueSize = 100;
 
-        private ThreadFactory threadFactory = null;
-        private String threadNamePrefix = null;
-        private Boolean daemon = null;
+        private ThreadFactory threadFactory;
+        private String threadNamePrefix;
+        private Boolean daemon;
 
         private RejectedExecutionHandler rejectHandler;
 
@@ -386,5 +390,4 @@ public class ThreadPoolBuilder {
                     new QueuableCachedThreadPool.ControllableQueue(queueSize), threadFactory, rejectHandler);
         }
     }
-
 }

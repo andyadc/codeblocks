@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.util.concurrent.threadpool;
+package com.andyadc.codeblocks.kit.concurrent.threadpool;
 
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.RejectedExecutionException;
@@ -8,18 +8,19 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * * From Tomcat 8.5.6, 传统的FixedThreadPool有Queue但线程数量不变，而CachedThreadPool线程数可变但没有Queue
+ * From Tomcat 8.5.6, 传统的FixedThreadPool有Queue但线程数量不变，而CachedThreadPool线程数可变但没有Queue
  * <p>
  * Tomcat的线程池，通过控制TaskQueue，线程数，但线程数到达最大时会进入Queue中.
  * <p>
  * 代码从Tomcat复制，主要修改包括：
+ * <p>
  * 1. 删除定期重启线程避免内存泄漏的功能，
+ * <p>
  * 2. TaskQueue中可能3次有锁的读取线程数量，改为只读取1次，这把锁也是这个实现里的唯一遗憾了。
- *
- * @author calvin
- * @version 2017/4/23
+ * <p>
+ * https://github.com/apache/tomcat/blob/trunk/java/org/apache/tomcat/util/threads/ThreadPoolExecutor.java
  */
-public class QueuableCachedThreadPool extends java.util.concurrent.ThreadPoolExecutor {
+public final class QueuableCachedThreadPool extends java.util.concurrent.ThreadPoolExecutor {
 
     /**
      * The number of tasks submitted but not yet finished. This includes tasks in the queue and tasks that have been
@@ -32,6 +33,7 @@ public class QueuableCachedThreadPool extends java.util.concurrent.ThreadPoolExe
                                     ControllableQueue workQueue, ThreadFactory threadFactory, RejectedExecutionHandler handler) {
         super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue, threadFactory, handler);
         workQueue.setParent(this);
+        prestartAllCoreThreads(); // NOSOANR
     }
 
     @Override
@@ -43,6 +45,9 @@ public class QueuableCachedThreadPool extends java.util.concurrent.ThreadPoolExe
         return submittedCount.get();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void execute(Runnable command) {
         execute(command, 0, TimeUnit.MILLISECONDS);
@@ -64,22 +69,29 @@ public class QueuableCachedThreadPool extends java.util.concurrent.ThreadPoolExe
         submittedCount.incrementAndGet();
         try {
             super.execute(command);
-        } catch (RejectedExecutionException rx) {
+        } catch (RejectedExecutionException rx) { // NOSONAR
+            // not to re-throw this exception because this is only used to find out whether the pool is full, not for a
+            // exception purpose
             final ControllableQueue queue = (ControllableQueue) super.getQueue();
             try {
                 if (!queue.force(command, timeout, unit)) {
                     submittedCount.decrementAndGet();
                     throw new RejectedExecutionException("Queue capacity is full.");
                 }
-            } catch (InterruptedException x) {
+            } catch (InterruptedException ignore) {
                 submittedCount.decrementAndGet();
-                throw new RejectedExecutionException(x);
+                throw new RejectedExecutionException(ignore);
             }
         }
     }
 
-    public static class ControllableQueue extends LinkedBlockingQueue<Runnable> {
-        private volatile QueuableCachedThreadPool parent = null;
+    /**
+     * https://github.com/apache/tomcat/blob/trunk/java/org/apache/tomcat/util/threads/TaskQueue.java
+     */
+    protected static class ControllableQueue extends LinkedBlockingQueue<Runnable> {
+
+        private static final long serialVersionUID = 5044057462066661171L;
+        private transient volatile QueuableCachedThreadPool parent = null;
 
         public ControllableQueue(int capacity) {
             super(capacity);
