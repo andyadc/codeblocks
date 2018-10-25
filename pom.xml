@@ -18,7 +18,6 @@
     <modules>
         <module>codeblocks-common</module>
         <module>codeblocks-kit</module>
-        <module>codeblocks-util</module>
         <module>codeblocks-serialization</module>
         <module>codeblocks-captcha</module>
         <module>codeblocks-mybatis</module>
