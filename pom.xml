@@ -32,7 +32,7 @@
 
     <properties>
         <spring.version>5.1.1.RELEASE</spring.version>
-        <aspectj.version>1.9.1</aspectj.version>
+        <aspectj.version>1.9.2</aspectj.version>
         <netty.version>4.1.30.Final</netty.version>
         <httpcomponents.version>4.5.6</httpcomponents.version>
         <shiro.version>1.4.0</shiro.version>
@@ -42,13 +42,13 @@
         <lombok.version>1.18.2</lombok.version>
         <redisson.version>3.8.2</redisson.version>
         <jedis.version>2.9.0</jedis.version>
-        <lettuce.version>5.1.1.RELEASE</lettuce.version>
+        <lettuce.version>5.1.2.RELEASE</lettuce.version>
         <kafka.version>2.0.0</kafka.version>
         <kafka-clients.version>2.0.0</kafka-clients.version>
         <jackson.version>2.9.7</jackson.version>
         <fastjson.version>1.2.51</fastjson.version>
         <jsoniter.version>0.9.23</jsoniter.version>
-        <joda-time.version>2.10</joda-time.version>
+        <joda-time.version>2.10.1</joda-time.version>
         <guava.version>27.0-jre</guava.version>
         <orika.version>1.5.2</orika.version>
         <commons-lang.version>3.8.1</commons-lang.version>
@@ -69,7 +69,7 @@
         <freemarker.version>2.3.28</freemarker.version>
         <zxing.version>3.3.3</zxing.version>
         <poi.version>4.0.0</poi.version>
-        <cglib.version>3.2.8</cglib.version>
+        <cglib.version>3.2.9</cglib.version>
         <objenesis.version>3.0.1</objenesis.version>
         <javassist.version>3.23.1-GA</javassist.version>
         <ognl.version>3.2.8</ognl.version>
