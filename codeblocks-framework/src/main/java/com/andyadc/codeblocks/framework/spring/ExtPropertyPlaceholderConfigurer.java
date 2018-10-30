@@ -6,6 +6,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -23,8 +24,8 @@ public class ExtPropertyPlaceholderConfigurer extends PropertyPlaceholderConfigu
     protected void processProperties(ConfigurableListableBeanFactory beanFactoryToProcess, Properties props) throws BeansException {
         super.processProperties(beanFactoryToProcess, props);
 
-        for (Object key : props.keySet()) {
-            logger.info("key: {}, value: {}", key, props.getProperty(key.toString()));
+        for (Map.Entry entry : props.entrySet()) {
+            logger.info("key: {}, value: {}", entry.getKey(), entry.getValue());
         }
     }
 }

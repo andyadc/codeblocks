@@ -88,7 +88,7 @@ public class SpringContextHolder implements ApplicationContextAware, DisposableB
      */
     private static void assertContextInjected() {
         if (applicationContext == null) {
-            throw new IllegalStateException("applicaitonContext is not injected, " +
+            throw new IllegalStateException("ApplicaitonContext is not injected, " +
                     "please define SpringContextHolder in applicationContext.xml");
         }
     }
