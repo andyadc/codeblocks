@@ -38,7 +38,7 @@ public class QuotationProducer {
     /**
      * Kafka 集群
      */
-    private static final String BROKER_LIST = "www.qq-server.com:9092";
+    private static final String BROKER_LIST = Const.BROKER_SERVER;
 
     // 线程安全
     private static KafkaProducer<String, String> producer;

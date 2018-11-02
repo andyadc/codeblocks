@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
  * @since 2018/6/12
  */
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
-@BenchmarkMode(Mode.AverageTime)
+@BenchmarkMode(Mode.All)
 public class TimeTest {
 
     private static final int millis = 24 * 3600 * 1000;

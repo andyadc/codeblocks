@@ -21,7 +21,7 @@ public class QuotationConsumer {
 
     private static final Logger logger = LoggerFactory.getLogger(QuotationConsumer.class);
 
-    private static final String BROKER_LIST = "www.qq-server.com:9092";
+    private static final String BROKER_LIST = Const.BROKER_SERVER;
 
     private static Properties configs;
 
