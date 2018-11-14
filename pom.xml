@@ -28,6 +28,7 @@
         <module>codeblocks-qrcode</module>
         <module>permission</module>
         <module>algo</module>
+        <module>dubbo</module>
     </modules>
 
     <properties>
