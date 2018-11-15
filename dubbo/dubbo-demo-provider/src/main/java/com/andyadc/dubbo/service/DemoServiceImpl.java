@@ -1,6 +1,8 @@
 package com.andyadc.dubbo.service;
 
 import com.andyadc.dubbo.api.DemoService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author andy.an
@@ -8,8 +10,11 @@ import com.andyadc.dubbo.api.DemoService;
  */
 public class DemoServiceImpl implements DemoService {
 
+    private static final Logger logger = LoggerFactory.getLogger(DemoServiceImpl.class);
+
     @Override
     public String hello(String message) {
+        logger.info("message={}", message);
         return "Hello " + message;
     }
 }

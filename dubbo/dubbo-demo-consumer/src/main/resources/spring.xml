@@ -7,5 +7,5 @@
 
     <context:property-placeholder ignore-unresolvable="true" location="classpath:application.properties"/>
 
-    <import resource="dubbo-demo-consumer.xml"/>
+    <import resource="classpath:spring-dubbo-consumer.xml"/>
 </beans>
