@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author andaicheng
  * @version 2017/4/24
@@ -22,10 +24,11 @@ public class AuthServiceTest {
     private AuthService authService;
 
     @Test
-    public void testUpdate() {
+    public void testUpdate() throws Exception {
         AuthUser authUser = new AuthUser();
         authUser.setId(5L);
         authService.update(authUser);
+        TimeUnit.SECONDS.sleep(10);
     }
 
     @Test

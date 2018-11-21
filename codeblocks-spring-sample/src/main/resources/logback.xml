@@ -8,7 +8,7 @@
 -->
 <configuration scan="false" scanPeriod="60 seconds" debug="true">
 
-    <property name="LOG_PATH" value="/opt/log/codeblocks/sample"/>
+    <property name="LOG_PATH" value="/opt/logs/codeblocks/sample"/>
     <property name="APP_NAME" value="sample"/>
 
     <!-- log pattern -->
@@ -65,6 +65,27 @@
         <!-- 添加附加的appender,最多只能添加一个 -->
         <appender-ref ref="FILE"/>
     </appender>
+
+    <!--perf4j配置-->
+    <appender name="statistics" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <Encoding>UTF-8</Encoding>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件输出的文件名 -->
+            <FileNamePattern>${LOG_PATH}/statistics.%d{yyyy-MM-dd}.log</FileNamePattern>
+        </rollingPolicy>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%msg%n</pattern>
+        </layout>
+    </appender>
+
+    <appender name="coalescingStatistics" class="com.andyadc.perf4j.logback.AsyncCoalescingStatisticsAppender">
+        <timeSlice>1000</timeSlice>
+        <appender-ref ref="statistics"/>
+    </appender>
+
+    <logger name="com.andyadc.perf4j.TimingLogger" level="debug" additivity="false">
+        <appender-ref ref="coalescingStatistics"/>
+    </logger>
 
     <logger name="com.andyadc.codeblocks.showcase.auth.mapper" level="DEBUG">
         <appender-ref ref="SQLFILE"/>

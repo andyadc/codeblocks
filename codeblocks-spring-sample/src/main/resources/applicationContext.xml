@@ -101,6 +101,8 @@
         </property>
     </bean>
 
+    <bean id="timingAspect" class="com.andyadc.perf4j.slf4j.aop.TimingAspect"/>
+
     <!-- import files -->
     <import resource="applicationContext-shiro.xml"/>
     <import resource="applicationContext-redis.xml"/>

@@ -5,6 +5,7 @@ import com.andyadc.codeblocks.kit.Assert;
 import com.andyadc.codeblocks.showcase.auth.entity.AuthUser;
 import com.andyadc.codeblocks.showcase.auth.mapper.AuthUserMapper;
 import com.andyadc.codeblocks.showcase.auth.service.AuthService;
+import com.andyadc.perf4j.aop.Profiled;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class AuthServiceImpl implements AuthService {
     @Autowired
     private AuthUserMapper authUserMapper;
 
+    @Profiled(logger = "authUserService")
     @Override
     public AuthUser findAuthUserByUsername(String username) {
         return authUserMapper.selectByUsername(username);
@@ -47,6 +49,7 @@ public class AuthServiceImpl implements AuthService {
         return authUser;
     }
 
+    @Profiled(logger = "authUserService")
     @Loggable
     @Transactional(rollbackFor = Exception.class)
     @Override
