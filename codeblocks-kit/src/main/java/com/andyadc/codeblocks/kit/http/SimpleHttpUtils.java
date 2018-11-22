@@ -19,6 +19,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 /**
+ * java version < java 8
  * A http utility class that sends http request and parse response.
  *
  * @author andaicheng

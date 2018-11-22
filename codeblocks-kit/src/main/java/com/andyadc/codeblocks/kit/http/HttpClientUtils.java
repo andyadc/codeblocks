@@ -16,11 +16,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 
 public class HttpClientUtils {
 
@@ -56,6 +54,11 @@ public class HttpClientUtils {
         return doPost(url, params, headers, CHARSET_UTF8);
     }
 
+    /**
+     * @param url      request url
+     * @param sendData json data
+     * @return response
+     */
     public static String doPost(String url, String sendData) {
         return doPost(url, sendData, null, CHARSET_UTF8);
     }
@@ -90,10 +93,8 @@ public class HttpClientUtils {
 
             HttpGet httpGet = new HttpGet(url);
             if (headers != null && !headers.isEmpty()) {
-                Set<String> keys = headers.keySet();
-                for (Iterator<String> i = keys.iterator(); i.hasNext(); ) {
-                    String key = i.next();
-                    httpGet.addHeader(key, headers.get(key));
+                for (Map.Entry<String, String> entry : headers.entrySet()) {
+                    httpGet.addHeader(entry.getKey(), entry.getValue());
                 }
             }
 
@@ -110,7 +111,6 @@ public class HttpClientUtils {
                 result = EntityUtils.toString(entity, CHARSET_UTF8);
             }
             EntityUtils.consume(entity);
-            response.close();
             return result;
         } catch (Exception e) {
             logger.error("HTTP GET error: " + url, e);
@@ -121,7 +121,7 @@ public class HttpClientUtils {
     /**
      * HTTP Post 获取内容
      *
-     * @param url     请求的url地址 ?之前的地址
+     * @param url     请求的url地址
      * @param params  请求的参数
      * @param charset 编码格式
      * @return response
@@ -143,10 +143,8 @@ public class HttpClientUtils {
 
         HttpPost httpPost = new HttpPost(url);
         if (headers != null && !headers.isEmpty()) {
-            Set<String> keys = headers.keySet();
-            for (Iterator<String> i = keys.iterator(); i.hasNext(); ) {
-                String key = Objects.toString(i.next());
-                httpPost.addHeader(key, headers.get(key));
+            for (Map.Entry<String, String> entry : headers.entrySet()) {
+                httpPost.addHeader(entry.getKey(), entry.getValue());
             }
         }
 
@@ -167,8 +165,8 @@ public class HttpClientUtils {
             if (entity != null) {
                 result = EntityUtils.toString(entity, CHARSET_UTF8);
             }
+            // Ensure that the entity content has been fully consumed and the underlying stream has been closed.
             EntityUtils.consume(entity);
-            response.close();
             return result;
         } catch (Exception e) {
             logger.error("HTTP POST error: " + url, e);
@@ -182,10 +180,8 @@ public class HttpClientUtils {
         }
         HttpPost httpPost = new HttpPost(url);
         if (headers != null && !headers.isEmpty()) {
-            Set<String> keys = headers.keySet();
-            for (Iterator<String> i = keys.iterator(); i.hasNext(); ) {
-                String key = Objects.toString(i.next());
-                httpPost.addHeader(key, headers.get(key));
+            for (Map.Entry<String, String> entry : headers.entrySet()) {
+                httpPost.addHeader(entry.getKey(), entry.getValue());
             }
         }
 
@@ -201,13 +197,14 @@ public class HttpClientUtils {
                 logger.error("Error status code: " + statusCode);
                 return "";
             }
+
             HttpEntity entity = response.getEntity();
             String result = null;
             if (entity != null) {
                 result = EntityUtils.toString(entity, CHARSET_UTF8);
             }
+            // Ensure that the entity content has been fully consumed and the underlying stream has been closed.
             EntityUtils.consume(entity);
-            response.close();
             return result;
         } catch (Exception e) {
             logger.error("HTTP POST error: " + url, e);
