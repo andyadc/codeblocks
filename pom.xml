@@ -46,13 +46,13 @@
         <mybatis-spring.version>1.3.2</mybatis-spring.version>
         <spring-data-redis.version>2.1.2.RELEASE</spring-data-redis.version>
         <lombok.version>1.18.4</lombok.version>
-        <redisson.version>3.9.0</redisson.version>
+        <redisson.version>3.9.1</redisson.version>
         <jedis.version>2.9.0</jedis.version>
         <lettuce.version>5.1.2.RELEASE</lettuce.version>
         <kafka.version>2.1.0</kafka.version>
-        <kafka-clients.version>2.0.1</kafka-clients.version>
+        <kafka-clients.version>2.1.0</kafka-clients.version>
         <jackson.version>2.9.7</jackson.version>
-        <fastjson.version>1.2.52</fastjson.version>
+        <fastjson.version>1.2.53</fastjson.version>
         <jsoniter.version>0.9.23</jsoniter.version>
         <joda-time.version>2.10.1</joda-time.version>
         <guava.version>27.0.1-jre</guava.version>
@@ -82,7 +82,7 @@
         <jodd.version>5.0.6</jodd.version>
         <slf4j.version>1.7.25</slf4j.version>
         <logback.version>1.2.3</logback.version>
-        <mockito.version>2.23.0</mockito.version>
+        <mockito.version>2.23.4</mockito.version>
         <junit.version>4.12</junit.version>
         <jmh.version>1.21</jmh.version>
 
