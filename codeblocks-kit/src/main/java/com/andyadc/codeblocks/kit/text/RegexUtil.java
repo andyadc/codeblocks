@@ -1,7 +1,5 @@
 package com.andyadc.codeblocks.kit.text;
 
-import com.andyadc.codeblocks.kit.base.annotation.Nullable;
-
 import java.util.regex.Pattern;
 
 /**
@@ -16,32 +14,32 @@ public class RegexUtil {
     private static final String REGEX_USERNAME = "^[a-zA-Z][a-zA-Z0-9_]{4,15}(?<!_)$";
     private static final Pattern Pattern_REGEX_USERNAME = Pattern.compile(REGEX_USERNAME);
 
-    public static boolean isUsername(@Nullable CharSequence input) {
+    public static boolean isUsername(CharSequence input) {
         return isMatch(Pattern_REGEX_USERNAME, input);
     }
 
-    public static boolean isUrl(@Nullable CharSequence input) {
+    public static boolean isUrl(CharSequence input) {
         return isMatch(RegexConstant.PATTERN_REGEX_URL, input);
     }
 
-    public static boolean isEmail(@Nullable CharSequence input) {
+    public static boolean isEmail(CharSequence input) {
         return isMatch(RegexConstant.PATTERN_REGEX_EMAIL, input);
     }
 
-    public static boolean isIdCard(@Nullable CharSequence input) {
+    public static boolean isIdCard(CharSequence input) {
         return isMatch(RegexConstant.PATTERN_REGEX_ID_CARD18, input)
                 || isMatch(RegexConstant.PATTERN_REGEX_ID_CARD15, input);
     }
 
-    public static boolean isMobileExact(@Nullable CharSequence input) {
+    public static boolean isMobileExact(CharSequence input) {
         return isMatch(RegexConstant.PATTERN_REGEX_MOBILE_EXACT, input);
     }
 
-    public static boolean isMobileSimple(@Nullable CharSequence input) {
+    public static boolean isMobileSimple(CharSequence input) {
         return isMatch(RegexConstant.PATTERN_REGEX_MOBILE_SIMPLE, input);
     }
 
-    public static boolean isIp(@Nullable CharSequence input) {
+    public static boolean isIp(CharSequence input) {
         return isMatch(RegexConstant.PATTERN_REGEX_IP, input);
     }
 

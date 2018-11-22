@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.kit.base.annotation;
+package com.andyadc.codeblocks.common.annotation;
 
 /**
  * @author andaicheng

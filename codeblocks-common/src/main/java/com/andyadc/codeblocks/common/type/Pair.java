@@ -1,6 +1,6 @@
-package com.andyadc.codeblocks.kit.base.type;
+package com.andyadc.codeblocks.common.type;
 
-import com.andyadc.codeblocks.kit.base.annotation.Nullable;
+import com.andyadc.codeblocks.common.annotation.Nullable;
 
 /**
  * 引入一个简简单单的Pair, 用于返回值返回两个元素.
