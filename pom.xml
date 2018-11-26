@@ -85,7 +85,12 @@
         <logback.version>1.2.3</logback.version>
         <mockito.version>2.23.4</mockito.version>
         <junit.version>4.12</junit.version>
+        <contiperf.version>2.3.4</contiperf.version>
         <jmh.version>1.21</jmh.version>
+
+        <!-- maven plugins -->
+        <jetty-maven-plugin.version>9.4.14.v20181114</jetty-maven-plugin.version>
+        <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -441,7 +446,7 @@
             <dependency>
                 <groupId>org.databene</groupId>
                 <artifactId>contiperf</artifactId>
-                <version>2.3.4</version>
+                <version>${contiperf.version}</version>
                 <scope>test</scope>
             </dependency>
 
@@ -473,14 +478,14 @@
                 <plugin>
                     <groupId>org.eclipse.jetty</groupId>
                     <artifactId>jetty-maven-plugin</artifactId>
-                    <version>9.4.14.v20181114</version>
+                    <version>${jetty-maven-plugin.version}</version>
                 </plugin>
 
                 <!-- The Versions Plugin is used when you want to manage the versions of artifacts -->
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>versions-maven-plugin</artifactId>
-                    <version>2.7</version>
+                    <version>${versions-maven-plugin.version}</version>
                     <configuration>
                         <includes>
                             <include>org.codehaus.plexus:*</include>
