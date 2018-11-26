@@ -11,7 +11,8 @@ JAVA_OPTS="-server -Xms1024m -Xmx1024m -Xmn384m -XX:MetaspaceSize=256m -XX:MaxMe
  -XX:-OmitStackTraceInFastThrow -XX:+PrintGCDetails
  -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -verbose:gc -Xloggc:${GC_LOG_PATH}
  -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=100M
- -Djava.lang.Integer.IntegerCache.high=1024 "
+ -Djava.lang.Integer.IntegerCache.high=1024
+ -Dapp.id=${APP_NAME}"
 
 function pid() {
     ps aux | grep java | grep $1 | grep -v grep | awk '{print $2}'

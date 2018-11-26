@@ -21,6 +21,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>com.andyadc</groupId>
             <artifactId>codeblocks-kit</artifactId>
             <version>1.0.0</version>
