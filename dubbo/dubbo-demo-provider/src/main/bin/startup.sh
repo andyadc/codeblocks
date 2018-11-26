@@ -2,13 +2,16 @@
 
 # application's name
 APP_NAME=dubbo-demo-provider
-heap_path=/opt/logs/${APP_NAME}/jvm/heap.hprof
-gc_log_path=/opt/logs/${APP_NAME}/jvm/gc.$$.log
+LOG_DIR=/opt/logs
+HEAP_PATH=${LOG_DIR}/${APP_NAME}/jvm/heap.hprof
+GC_LOG_PATH=${LOG_DIR}/${APP_NAME}/jvm/gc.log
 
 JAVA_OPTS="-server -Xms1024m -Xmx1024m -Xmn384m -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=384m
- -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=${heap_path}
+ -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=${HEAP_PATH}
  -XX:-OmitStackTraceInFastThrow -XX:+PrintGCDetails
- -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -Xloggc:${gc_log_path} "
+ -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -verbose:gc -Xloggc:${GC_LOG_PATH}
+ -XX:+UseGCLogFileRotation -XX:NumberOfGCLogFiles=10 -XX:GCLogFileSize=100M
+ -Djava.lang.Integer.IntegerCache.high=1024 "
 
 function pid() {
     ps aux | grep java | grep $1 | grep -v grep | awk '{print $2}'
