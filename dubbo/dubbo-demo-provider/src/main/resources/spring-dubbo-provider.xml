@@ -12,6 +12,6 @@
     <dubbo:protocol name="dubbo" port="20888"/>
 
     <bean id="demoService" class="com.andyadc.dubbo.service.DemoServiceImpl"/>
-    <dubbo:service interface="com.andyadc.dubbo.api.DemoService" ref="demoService"/>
+    <dubbo:service interface="com.andyadc.dubbo.api.DemoService" ref="demoService" version="1.0"/>
 
 </beans>
