@@ -4,6 +4,7 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Properties;
@@ -30,7 +31,7 @@ public class KafkaConsumerThread implements Runnable {
     public void run() {
         try {
             while (true) {
-                ConsumerRecords<String, String> records = consumer.poll(1000);
+                ConsumerRecords<String, String> records = consumer.poll(Duration.ofSeconds(1));
                 for (ConsumerRecord<String, String> record : records) {
                     // 简单打印出消息内容
                     System.out.printf("threadId = %s, partition = %d, offset = %d, key= %s, value = %s %n",

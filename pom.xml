@@ -64,10 +64,9 @@
         <commons-pool.version>2.6.0</commons-pool.version>
         <commons-io.version>2.6</commons-io.version>
         <commons-dbutils.version>1.7</commons-dbutils.version>
-        <tomcat-jdbc.version>8.5.35</tomcat-jdbc.version>
+        <tomcat-jdbc.version>9.0.13</tomcat-jdbc.version>
         <hikaricp.version>3.2.0</hikaricp.version>
         <druid.version>1.1.12</druid.version>
-        <!--<mysql-driver.version>5.1.47</mysql-driver.version>-->
         <mysql-driver.version>8.0.13</mysql-driver.version>
         <h2.version>1.4.197</h2.version>
         <fst.version>2.57</fst.version>
