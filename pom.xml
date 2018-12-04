@@ -30,7 +30,6 @@
         <module>algo</module>
         <module>dubbo</module>
         <module>perf4j</module>
-        <module>codeblocks-kafka</module>
     </modules>
 
     <prerequisites>

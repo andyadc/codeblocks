@@ -1,4 +1,4 @@
-package com.andyadc.kafka.test;
+package com.andyadc.codeblocks;
 
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.AdminClientConfig;
