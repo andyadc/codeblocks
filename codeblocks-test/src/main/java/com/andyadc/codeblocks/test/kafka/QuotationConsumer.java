@@ -97,7 +97,7 @@ public class QuotationConsumer {
 
         try {
             while (true) {
-                ConsumerRecords<String, String> records = consumer.poll(1000);
+                ConsumerRecords<String, String> records = consumer.poll(Duration.ofSeconds(1));
                 for (ConsumerRecord<String, String> record : records) {
                     logger.info(String.format("partition = %d, offset = %d, key= %s, value = %s %n",
                             record.partition(),

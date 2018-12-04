@@ -1,7 +1,6 @@
 package com.andyadc.codeblocks;
 
 import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
 
 import java.util.Collections;
 import java.util.UUID;
@@ -30,10 +29,10 @@ public class SimpleRedisLock {
      */
     private final ReentrantLock localLock = new ReentrantLock(false);
     private String lockValue;
-    private JedisPool jedisPool;
+    private Jedis jedis;
 
-    public SimpleRedisLock(JedisPool jedisPool) {
-        this.jedisPool = jedisPool;
+    public SimpleRedisLock(Jedis jedis) {
+        this.jedis = jedis;
         this.lockValue = this.getLockValue();
     }
 
@@ -43,16 +42,12 @@ public class SimpleRedisLock {
     public boolean tryLock(String lockKey,
                            int expireTime) {
         lockKey = LOCK_KEY_PREFIX + lockKey;
-        try (Jedis jedis = jedisPool.getResource()) {
-            return this.tryLockInner(jedis, lockKey, expireTime, lockValue);
-        }
+        return this.tryLockInner(jedis, lockKey, expireTime, lockValue);
     }
 
     public boolean unlock(String lockKey) {
         lockKey = LOCK_KEY_PREFIX + lockKey;
-        try (Jedis jedis = jedisPool.getResource()) {
-            return releaseLockInner(jedis, lockKey, lockValue);
-        }
+        return releaseLockInner(jedis, lockKey, lockValue);
     }
 
     /**
