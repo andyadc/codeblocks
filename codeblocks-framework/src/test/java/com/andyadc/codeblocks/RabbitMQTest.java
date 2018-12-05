@@ -125,29 +125,4 @@ public class RabbitMQTest {
         channel.close();
         connection.close();
     }
-
-    @Test
-    public void testCreate() throws Exception {
-
-        ConnectionFactory factory = new ConnectionFactory();
-        factory.setHost(HOST);
-        factory.setPort(PORT);
-        factory.setUsername("messager");
-        factory.setPassword("123");
-        factory.setVirtualHost("/");
-
-        Connection connection = factory.newConnection();
-        // 线程不安全
-        Channel channel = connection.createChannel();
-//        channel.queueDeclare(
-//                "test", // 队列名称
-//                true, // 是否持久化
-//                false, // 是否排外
-//                false,
-//                new HashMap<>());
-
-//        channel.queueDelete("test");
-
-        channel.queueDeclarePassive("test");
-    }
 }
