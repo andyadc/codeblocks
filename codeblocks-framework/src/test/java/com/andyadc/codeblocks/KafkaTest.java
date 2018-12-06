@@ -110,7 +110,7 @@ public class KafkaTest {
     }
 
     /**
-     * Consumer Auto commint
+     * Consumer Auto commit
      */
     @Test
     public void testAutoConsumer() {
@@ -133,7 +133,7 @@ public class KafkaTest {
     }
 
     /**
-     * Consumer Not auto commint
+     * Consumer Not auto commit
      */
     @Test
     public void testManualConsumer() {
@@ -174,7 +174,7 @@ public class KafkaTest {
     }
 
     private void print(ConsumerRecord record) {
-        System.out.println(String.format("topic=%s, partition= %d, offset= %d, key= %s, value= %s %n",
+        System.out.println(String.format("topic= %s, partition= %d, offset= %d, key= %s, value= %s %n",
                 record.topic(),
                 record.partition(),
                 record.offset(),
