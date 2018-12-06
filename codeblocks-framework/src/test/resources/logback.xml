@@ -7,8 +7,24 @@
         </encoder>
     </appender>
 
-    <root level="debug">
+    <appender name="kafka" class="com.andyadc.codeblocks.framework.kafka.logback.KafkaAppender">
+        <encoder>
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+        </encoder>
+        <topic>test</topic>
+        <keyingStrategy class="com.andyadc.codeblocks.framework.kafka.logback.keying.NoKeyKeyingStrategy"/>
+        <deliveryStrategy class="com.andyadc.codeblocks.framework.kafka.logback.delivery.AsynchronousDeliveryStrategy"/>
+
+        <producerConfig>bootstrap.servers=www.hw-server.com:9092</producerConfig>
+        <producerConfig>acks=0</producerConfig>
+        <producerConfig>linger.ms=1000</producerConfig>
+        <!--<producerConfig>client.id=${HOSTNAME}-${CONTEXT_NAME}-logback-kafka</producerConfig>-->
+
+    </appender>
+
+    <root level="info">
         <appender-ref ref="STDOUT"/>
+        <appender-ref ref="kafka"/>
     </root>
 
 </configuration>
