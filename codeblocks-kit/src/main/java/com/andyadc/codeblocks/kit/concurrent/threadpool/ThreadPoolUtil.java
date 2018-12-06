@@ -23,6 +23,9 @@ import java.util.concurrent.TimeUnit;
  */
 public class ThreadPoolUtil {
 
+    private ThreadPoolUtil() {
+    }
+
     /**
      * 按照ExecutorService JavaDoc示例代码编写的Graceful Shutdown方法.
      * <p>

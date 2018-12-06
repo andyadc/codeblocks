@@ -23,6 +23,9 @@ public class BeanValidator {
 
     private static ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
 
+    private BeanValidator() {
+    }
+
     public static <T> Map<String, String> validate(T t, Class... groups) {
         Validator validator = validatorFactory.getValidator();
         Set<ConstraintViolation<T>> violations = validator.validate(t, groups);
@@ -60,7 +63,7 @@ public class BeanValidator {
         }
     }
 
-    public static void check(Object param) throws ParamException {
+    public static void check(Object param) {
         Map<String, String> map = BeanValidator.validateObject(param);
         if (map != null && map.size() > 0) {
             throw new ParamException(map.toString());

@@ -8,6 +8,9 @@ package com.andyadc.codeblocks.kit.net;
  * @version 2017/1/8
  */
 public class MediaTypes {
+
+    private MediaTypes() {
+    }
     public static final String APPLICATION_XML = "application/xml";
     public static final String APPLICATION_XML_UTF_8 = "application/xml; charset=UTF-8";
 

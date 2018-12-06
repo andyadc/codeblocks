@@ -20,7 +20,7 @@ public enum Validator {
                 Integer.parseInt(str);
             } catch (NumberFormatException e) {
                 throw new ValidationException("Error while validating "
-                        + str);
+                        + str, e);
             }
         }
     },
@@ -52,7 +52,7 @@ public enum Validator {
                 }
             } catch (Exception e) {
                 throw new ValidationException("Error while validating "
-                        + str);
+                        + str, e);
             }
         }
     };

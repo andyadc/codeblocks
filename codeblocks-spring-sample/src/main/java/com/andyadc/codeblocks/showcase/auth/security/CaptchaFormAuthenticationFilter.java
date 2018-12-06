@@ -107,7 +107,7 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
     protected boolean onLoginFailure(AuthenticationToken token, AuthenticationException e, ServletRequest request, ServletResponse response) {
         if (e instanceof CaptchaValidationException) {
             request.setAttribute(KEY_AUTH_CAPTCHA_REQUIRED, Boolean.TRUE);
-        } else if (e instanceof IncorrectCredentialsException | e instanceof UnknownAccountException) {
+        } else if (e instanceof IncorrectCredentialsException || e instanceof UnknownAccountException) {
             e = new IncorrectCredentialsException("登录账号或密码不正确");
 
             UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken) token;

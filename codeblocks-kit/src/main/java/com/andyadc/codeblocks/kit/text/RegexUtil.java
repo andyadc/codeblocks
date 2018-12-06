@@ -8,6 +8,9 @@ import java.util.regex.Pattern;
  */
 public class RegexUtil {
 
+    private RegexUtil() {
+    }
+
     /**
      * 特殊用户名校验, 只允许字母数字下划线, 不允许数字开头, 不允许下划线结尾
      */

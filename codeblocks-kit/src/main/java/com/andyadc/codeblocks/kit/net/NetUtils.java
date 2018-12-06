@@ -29,15 +29,11 @@ public final class NetUtils {
         try {
             localAddress = getLocalInetAddress();
         } catch (SocketException e) {
-            throw new RuntimeException("Fail to get local ip.");
+            throw new RuntimeException("Fail to get local ip.", e);
         }
     }
 
     private NetUtils() {
-    }
-
-    public static void main(String[] args) {
-        System.out.println(NetUtils.getLocalAddress());
     }
 
     /**

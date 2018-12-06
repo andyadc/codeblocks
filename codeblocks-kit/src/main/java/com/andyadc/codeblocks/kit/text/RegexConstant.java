@@ -12,6 +12,9 @@ import java.util.regex.Pattern;
  */
 public final class RegexConstant {
 
+    private RegexConstant() {
+    }
+
     /* Regex of simple mobile. */
     private static final String REGEX_MOBILE_SIMPLE = "^[1]\\d{10}$";
     public static final Pattern PATTERN_REGEX_MOBILE_SIMPLE = Pattern.compile(REGEX_MOBILE_SIMPLE);

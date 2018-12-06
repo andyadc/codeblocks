@@ -85,12 +85,11 @@ public enum MaskType {
      * 地址
      */
     ADDRESS(0, 0, 0) {
-        private final Pattern PATTERN = Pattern.compile("[0-9一二三四五六七八九十百千万]++|[A-Za-z]+(?=\\s*[座区])");
         private final String mask = new String(Mask.MASK_3);
 
         @Override
         protected char[] internalMask(String text) {
-            return PATTERN.matcher(text).replaceAll(mask).toCharArray();
+            return ADDRESS_PATTERN.matcher(text).replaceAll(mask).toCharArray();
         }
     },
 
@@ -243,4 +242,5 @@ public enum MaskType {
         return Mask.maskToChars(text, before, after, mask);
     }
 
+    private final static Pattern ADDRESS_PATTERN = Pattern.compile("[0-9一二三四五六七八九十百千万]++|[A-Za-z]+(?=\\s*[座区])");
 }

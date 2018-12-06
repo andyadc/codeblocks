@@ -32,6 +32,9 @@ public class ThreadPoolBuilder {
 
     private static RejectedExecutionHandler defaultRejectHandler = new ThreadPoolExecutor.AbortPolicy();
 
+    private ThreadPoolBuilder() {
+    }
+
     /**
      * @see FixedThreadPoolBuilder
      */

@@ -8,12 +8,12 @@ import java.util.Arrays;
  */
 public final class Mask {
 
-    public static final char MASK_CHAR = '*';
-    public static final char[] MASK_3 = new char[3];
-    public static final char[] MASK_4 = new char[4];
-    public static final char[] MASK_6 = new char[6];
-    public static final char[] MASK_100 = new char[100];
-    public static final char[] EMPTY_CHARS = new char[0];
+    protected static final char MASK_CHAR = '*';
+    protected static final char[] MASK_3 = new char[3];
+    protected static final char[] MASK_4 = new char[4];
+    protected static final char[] MASK_6 = new char[6];
+    protected static final char[] MASK_100 = new char[100];
+    protected static final char[] EMPTY_CHARS = new char[0];
 
     static {
         Arrays.fill(MASK_3, MASK_CHAR);
