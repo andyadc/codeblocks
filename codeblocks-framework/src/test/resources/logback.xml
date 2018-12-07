@@ -1,30 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="true">
 
+    <property name="APP_ID" value="codeblocks-framework"/>
+    <property name="KAFKA_TOPIC" value="test"/>
+    <property name="BOOTSTRAP_SERVERS" value="www.hw-server.com:9092"/>
+
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
         </encoder>
     </appender>
 
-    <appender name="kafka" class="com.andyadc.codeblocks.framework.kafka.logback.KafkaAppender">
+    <appender name="KAFKA" class="com.andyadc.codeblocks.framework.kafka.logback.KafkaAppender">
         <encoder>
             <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
         </encoder>
-        <topic>test</topic>
-        <keyingStrategy class="com.andyadc.codeblocks.framework.kafka.logback.keying.NoKeyKeyingStrategy"/>
+        <topic>${KAFKA_TOPIC}</topic>
+        <!-- we don't care how the log messages will be partitioned  -->
+        <keyingStrategy class="com.andyadc.codeblocks.framework.kafka.logback.keying.NamingKeyingStrategy">
+            <keyName>${APP_ID}</keyName>
+        </keyingStrategy>
+        <!-- use async delivery. the application threads are not blocked by logging -->
         <deliveryStrategy class="com.andyadc.codeblocks.framework.kafka.logback.delivery.AsynchronousDeliveryStrategy"/>
 
-        <producerConfig>bootstrap.servers=www.hw-server.com:9092</producerConfig>
+        <producerConfig>bootstrap.servers=${BOOTSTRAP_SERVERS}</producerConfig>
+        <!-- don't wait for a broker to ack the reception of a batch.  -->
         <producerConfig>acks=0</producerConfig>
+        <!-- wait up to 1000ms and collect log messages before sending them as a batch -->
         <producerConfig>linger.ms=1000</producerConfig>
-        <!--<producerConfig>client.id=${HOSTNAME}-${CONTEXT_NAME}-logback-kafka</producerConfig>-->
+        <!-- even if the producer buffer runs full, do not block the application but start to drop messages -->
+        <producerConfig>max.block.ms=0</producerConfig>
+        <!-- define a client-id that you use to identify yourself against the kafka broker -->
+        <producerConfig>client.id=${HOSTNAME}-${APP_ID}-logback</producerConfig>
 
     </appender>
 
     <root level="info">
         <appender-ref ref="STDOUT"/>
-        <appender-ref ref="kafka"/>
+        <appender-ref ref="KAFKA"/>
     </root>
 
 </configuration>

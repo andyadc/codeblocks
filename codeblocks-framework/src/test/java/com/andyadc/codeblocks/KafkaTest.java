@@ -104,8 +104,8 @@ public class KafkaTest {
         producer.send(record, (metadata, e) ->
                 System.out.println(String.format("topic: %s, partition: %s, offset: %s, ",
                         metadata.topic(),
-                        metadata.offset(),
-                        metadata.partition()))
+                        metadata.partition(),
+                        metadata.offset()))
         );
     }
 
@@ -174,7 +174,7 @@ public class KafkaTest {
     }
 
     private void print(ConsumerRecord record) {
-        System.out.println(String.format("topic= %s, partition= %d, offset= %d, key= %s, value= %s %n",
+        System.out.println(String.format("topic= %s, partition= %d, offset= %d, key= %s, value= %s ",
                 record.topic(),
                 record.partition(),
                 record.offset(),

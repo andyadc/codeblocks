@@ -1,0 +1,23 @@
+package com.andyadc.codeblocks.framework.kafka.logback.keying;
+
+import ch.qos.logback.classic.spi.ILoggingEvent;
+
+import java.nio.ByteBuffer;
+
+/**
+ * @author andy.an
+ * @since 2018/12/7
+ */
+public class LoggerNameKeyingStrategy implements KeyingStrategy<ILoggingEvent> {
+
+    @Override
+    public byte[] createKey(ILoggingEvent e) {
+        final String loggerName;
+        if (e.getLoggerName() == null) {
+            loggerName = "";
+        } else {
+            loggerName = e.getLoggerName();
+        }
+        return ByteBuffer.allocate(4).putInt(loggerName.hashCode()).array();
+    }
+}

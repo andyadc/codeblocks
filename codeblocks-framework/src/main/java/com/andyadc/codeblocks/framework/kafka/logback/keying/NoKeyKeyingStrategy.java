@@ -11,6 +11,6 @@ public class NoKeyKeyingStrategy implements KeyingStrategy<Object> {
 
     @Override
     public byte[] createKey(Object e) {
-        return new byte[0];
+        return null;
     }
 }

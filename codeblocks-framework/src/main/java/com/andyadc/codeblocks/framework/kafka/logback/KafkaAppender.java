@@ -21,6 +21,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  */
 public class KafkaAppender<E> extends KafkaAppenderConfig<E> {
 
+    private static final Charset UTF8 = Charset.forName("UTF-8");
+
     /**
      * Kafka clients uses this prefix for its slf4j logging.
      * This appender defers appends of any Kafka logs since it could cause harmful infinite recursion/self feeding effects.
@@ -29,7 +31,12 @@ public class KafkaAppender<E> extends KafkaAppenderConfig<E> {
 
     private final AppenderAttachableImpl<E> aai = new AppenderAttachableImpl<>();
     private final ConcurrentLinkedQueue<E> queue = new ConcurrentLinkedQueue<>();
-    private final FailedDeliveryCallback<E> failedDeliveryCallback = (evt, ex) -> aai.appendLoopOnAppenders(evt);
+
+    private final FailedDeliveryCallback<E> failedDeliveryCallback = (evt, ex) -> {
+        aai.appendLoopOnAppenders(evt);
+        addError(ex.toString());
+    };
+
     private LazyProducer lazyProducer = null;
 
     public KafkaAppender() {
@@ -67,13 +74,14 @@ public class KafkaAppender<E> extends KafkaAppenderConfig<E> {
     @Override
     protected void append(E e) {
         final byte[] payload = encoder.encode(e);
-        final byte[] key = keyingStrategy.createKey(e);
+        final byte[] keys = keyingStrategy.createKey(e);
 
         final Long timestamp = getTimestamp(e);
-        String value = new String(payload, Charset.forName("UTF-8"));
+        String key = keys == null ? null : new String(keys, UTF8);
+        String value = new String(payload, UTF8);
 
-//        final ProducerRecord<byte[], byte[]> record = new ProducerRecord<>(topic, partition, timestamp, key, payload);
-        final ProducerRecord<String, String> record = new ProducerRecord<>(topic, value);
+        final ProducerRecord<String, String> record = new ProducerRecord<>(topic, partition, timestamp, key, value);
+//        final ProducerRecord<String, String> record = new ProducerRecord<>(topic, value);
         final Producer<String, String> producer = lazyProducer.get();
         if (producer != null) {
             deliveryStrategy.send(producer, record, e, failedDeliveryCallback);
