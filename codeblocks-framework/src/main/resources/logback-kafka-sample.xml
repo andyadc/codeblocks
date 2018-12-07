@@ -1,5 +1,10 @@
 <configuration>
 
+    <!--
+    https://github.com/danielwegener/logback-kafka-appender
+    https://www.jianshu.com/p/d2cbaae38014
+    -->
+
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <target>System.out</target>
         <encoder>
