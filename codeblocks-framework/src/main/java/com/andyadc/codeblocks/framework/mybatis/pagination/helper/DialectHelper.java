@@ -1,7 +1,7 @@
-package com.andyadc.codeblocks.mybatis.pagination.helper;
+package com.andyadc.codeblocks.framework.mybatis.pagination.helper;
 
-import com.andyadc.codeblocks.mybatis.pagination.dialect.Dialect;
-import com.andyadc.codeblocks.mybatis.pagination.dialect.DialectFactory;
+import com.andyadc.codeblocks.framework.mybatis.pagination.dialect.Dialect;
+import com.andyadc.codeblocks.framework.mybatis.pagination.dialect.DialectFactory;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

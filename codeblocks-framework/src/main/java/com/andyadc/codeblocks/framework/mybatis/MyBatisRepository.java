@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.mybatis;
+package com.andyadc.codeblocks.framework.mybatis;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

@@ -1,7 +1,7 @@
-package com.andyadc.codeblocks.mybatis.test;
+package com.andyadc.codeblocks.mybatis;
 
-import com.andyadc.codeblocks.mybatis.pagination.Order;
-import com.andyadc.codeblocks.mybatis.pagination.PageBounds;
+import com.andyadc.codeblocks.framework.mybatis.pagination.Order;
+import com.andyadc.codeblocks.framework.mybatis.pagination.PageBounds;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;

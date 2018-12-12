@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.mybatis.pagination;
+package com.andyadc.codeblocks.framework.mybatis.pagination;
 
 import org.apache.ibatis.session.RowBounds;
 

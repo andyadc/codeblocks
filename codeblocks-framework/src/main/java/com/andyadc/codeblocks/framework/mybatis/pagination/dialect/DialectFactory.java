@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.mybatis.pagination.dialect;
+package com.andyadc.codeblocks.framework.mybatis.pagination.dialect;
 
 /**
  * @author andy.an

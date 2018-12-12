@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.mybatis;
+package com.andyadc.codeblocks.framework.mybatis;
 
 import org.apache.ibatis.executor.Executor;
 import org.apache.ibatis.mapping.BoundSql;

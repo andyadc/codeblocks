@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.mybatis.util;
+package com.andyadc.codeblocks.framework.mybatis.util;
 
 public abstract class PatternMatchUtils {
 

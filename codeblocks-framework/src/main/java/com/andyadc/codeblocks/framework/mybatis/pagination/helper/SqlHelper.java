@@ -1,6 +1,6 @@
-package com.andyadc.codeblocks.mybatis.pagination.helper;
+package com.andyadc.codeblocks.framework.mybatis.pagination.helper;
 
-import com.andyadc.codeblocks.mybatis.pagination.dialect.Dialect;
+import com.andyadc.codeblocks.framework.mybatis.pagination.dialect.Dialect;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
 import org.apache.ibatis.scripting.defaults.DefaultParameterHandler;

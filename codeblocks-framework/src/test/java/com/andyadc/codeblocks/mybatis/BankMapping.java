@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.mybatis.test;
+package com.andyadc.codeblocks.mybatis;
 
 /**
  * @author andy.an

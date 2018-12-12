@@ -1,6 +1,6 @@
-package com.andyadc.codeblocks.mybatis.pagination;
+package com.andyadc.codeblocks.framework.mybatis.pagination;
 
-import com.andyadc.codeblocks.mybatis.util.StringUtils;
+import com.andyadc.codeblocks.kit.text.StringUtil;
 
 import java.io.Serializable;
 import java.util.Locale;
@@ -49,7 +49,7 @@ public class Order implements Serializable {
 
     @Override
     public String toString() {
-        if (StringUtils.isBlank(property)) {
+        if (StringUtil.isBlank(property)) {
             throw new IllegalArgumentException("property is null");
         }
         if (isSQLInjection(property)) {

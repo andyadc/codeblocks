@@ -1,9 +1,9 @@
-package com.andyadc.codeblocks.mybatis.pagination;
+package com.andyadc.codeblocks.framework.mybatis.pagination;
 
-import com.andyadc.codeblocks.mybatis.pagination.dialect.Dialect;
-import com.andyadc.codeblocks.mybatis.pagination.helper.DialectHelper;
-import com.andyadc.codeblocks.mybatis.pagination.helper.SqlHelper;
-import com.andyadc.codeblocks.mybatis.util.StringUtils;
+import com.andyadc.codeblocks.framework.mybatis.pagination.dialect.Dialect;
+import com.andyadc.codeblocks.framework.mybatis.pagination.helper.DialectHelper;
+import com.andyadc.codeblocks.framework.mybatis.pagination.helper.SqlHelper;
+import com.andyadc.codeblocks.kit.text.StringUtil;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.mapping.MappedStatement;
@@ -110,7 +110,7 @@ public class PaginationInterceptor implements Interceptor {
         String dialectClass = properties.getProperty("dialectClass");
         String dialectStr = properties.getProperty("dialect");
         logger.info("dialectClass: {}, dialect: {}", dialectClass, dialectStr);
-        if (StringUtils.isBlank(dialectClass)) {
+        if (StringUtil.isBlank(dialectClass)) {
             Dialect.Type databaseType = null;
             try {
                 databaseType = Dialect.Type.valueOf(dialectStr.toUpperCase());
