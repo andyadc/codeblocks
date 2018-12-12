@@ -1,6 +1,6 @@
 package com.andyadc.codeblocks.showcase.sys.mapper;
 
-import com.andyadc.codeblocks.mybatis.MyBatisRepository;
+import com.andyadc.codeblocks.framework.mybatis.MyBatisRepository;
 import com.andyadc.codeblocks.showcase.sys.entity.SpringTransaction;
 import org.apache.ibatis.annotations.Param;
 

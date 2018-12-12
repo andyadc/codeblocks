@@ -1,6 +1,6 @@
 package com.andyadc.codeblocks.showcase.auth.mapper;
 
-import com.andyadc.codeblocks.mybatis.MyBatisRepository;
+import com.andyadc.codeblocks.framework.mybatis.MyBatisRepository;
 import com.andyadc.codeblocks.showcase.auth.entity.AuthUser;
 
 @MyBatisRepository
