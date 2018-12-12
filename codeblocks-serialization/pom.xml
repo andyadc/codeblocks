@@ -9,6 +9,7 @@
 
     <artifactId>codeblocks-serialization</artifactId>
     <packaging>jar</packaging>
+    <version>1.0.0</version>
 
     <name>codeblocks-serialization</name>
 
