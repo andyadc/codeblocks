@@ -12,11 +12,11 @@
     </settings>
 
     <typeAliases>
-        <typeAlias alias="BankMapping" type="com.andyadc.codeblocks.mybatis.test.BankMapping"/>
+        <typeAlias alias="BankMapping" type="com.andyadc.codeblocks.mybatis.BankMapping"/>
     </typeAliases>
 
     <plugins>
-        <plugin interceptor="com.andyadc.codeblocks.mybatis.pagination.PaginationInterceptor">
+        <plugin interceptor="com.andyadc.codeblocks.framework.mybatis.pagination.PaginationInterceptor">
             <!--<property name="dialectClass" value="com.andyadc.codeblocks.mybatis.pagination.dialect.MySQLDialect"/>-->
             <property name="dialect" value="mysql"/>
         </plugin>
