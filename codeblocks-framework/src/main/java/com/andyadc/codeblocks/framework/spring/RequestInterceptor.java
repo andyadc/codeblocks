@@ -30,7 +30,7 @@ public class RequestInterceptor extends HandlerInterceptorAdapter {
             traceId = IDGen.uuid();
         }
         MDC.put(TRACE_ID, traceId);
-        logger.info(">>> " + request.getRequestURI());
+        logger.debug(">>> " + request.getRequestURI());
 
         return true;
     }

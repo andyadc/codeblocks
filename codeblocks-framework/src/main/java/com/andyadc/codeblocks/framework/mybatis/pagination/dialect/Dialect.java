@@ -2,8 +2,6 @@ package com.andyadc.codeblocks.framework.mybatis.pagination.dialect;
 
 import com.andyadc.codeblocks.framework.mybatis.pagination.Order;
 import com.andyadc.codeblocks.framework.mybatis.pagination.PageBounds;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -14,8 +12,6 @@ import java.util.regex.Pattern;
  * @since 2018/4/10
  */
 public abstract class Dialect {
-
-    private static final Logger logger = LoggerFactory.getLogger(Dialect.class);
 
     private static final Pattern ORDERBYSPLITPATTERN = Pattern.compile("(.*)ORDER\\s+BY(.*)", Pattern.CASE_INSENSITIVE);
 

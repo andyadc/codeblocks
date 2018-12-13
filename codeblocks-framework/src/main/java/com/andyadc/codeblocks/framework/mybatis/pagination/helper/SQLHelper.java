@@ -16,16 +16,16 @@ import java.sql.SQLException;
  * @author andy.an
  * @since 2018/4/18
  */
-public class SqlHelper {
+public class SQLHelper {
 
-    private static final Logger logger = LoggerFactory.getLogger(SqlHelper.class);
+    private static final Logger logger = LoggerFactory.getLogger(SQLHelper.class);
 
     public static int getCount(final MappedStatement statement, final Connection connection, final Object parameterObject, Dialect dialect) throws SQLException {
         BoundSql boundSql = statement.getBoundSql(parameterObject);
         String countSql = dialect.getCountString(boundSql.getSql());
 
-        logger.info("Total count SQL [{}]", countSql);
-        logger.info("Total count Parameters: {} ", parameterObject);
+        logger.debug("Total count SQL [{}]", countSql);
+        logger.debug("Total count Parameters: {} ", parameterObject);
 
         PreparedStatement ps = null;
         ResultSet rs;

@@ -2,7 +2,7 @@ package com.andyadc.codeblocks.framework.mybatis.pagination;
 
 import com.andyadc.codeblocks.framework.mybatis.pagination.dialect.Dialect;
 import com.andyadc.codeblocks.framework.mybatis.pagination.helper.DialectHelper;
-import com.andyadc.codeblocks.framework.mybatis.pagination.helper.SqlHelper;
+import com.andyadc.codeblocks.framework.mybatis.pagination.helper.SQLHelper;
 import com.andyadc.codeblocks.kit.text.StringUtil;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
@@ -79,14 +79,14 @@ public class PaginationInterceptor implements Interceptor {
 
         BoundSql boundSql = statementHandler.getBoundSql();
         Connection connection = (Connection) invocation.getArgs()[0];
-        int count = SqlHelper.getCount(mappedStatement, connection, boundSql.getParameterObject(), dialect);
+        int count = SQLHelper.getCount(mappedStatement, connection, boundSql.getParameterObject(), dialect);
         PAGINATION_TOTAL.set(count);
 
         String originalSql = (String) metaObject.getValue("delegate.boundSql.sql");
-        logger.info("originalSql: {}", originalSql);
+        logger.debug("originalSql: {}", originalSql);
 
         String newSql = dialect.getPageString(originalSql, pageBounds);
-        logger.info("newSql: {}", newSql);
+        logger.debug("newSql: {}", newSql);
         metaObject.setValue("delegate.boundSql.sql", newSql);
         metaObject.setValue("delegate.rowBounds.offset", RowBounds.NO_ROW_OFFSET);
         metaObject.setValue("delegate.rowBounds.limit", RowBounds.NO_ROW_LIMIT);
@@ -109,7 +109,7 @@ public class PaginationInterceptor implements Interceptor {
     public void setProperties(Properties properties) {
         String dialectClass = properties.getProperty("dialectClass");
         String dialectStr = properties.getProperty("dialect");
-        logger.info("dialectClass: {}, dialect: {}", dialectClass, dialectStr);
+        logger.debug("DialectClass: {}, dialect: {}", dialectClass, dialectStr);
         if (StringUtil.isBlank(dialectClass)) {
             Dialect.Type databaseType = null;
             try {

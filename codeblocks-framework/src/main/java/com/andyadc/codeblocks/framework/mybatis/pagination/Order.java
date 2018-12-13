@@ -50,7 +50,7 @@ public class Order implements Serializable {
     @Override
     public String toString() {
         if (StringUtil.isBlank(property)) {
-            throw new IllegalArgumentException("property is null");
+            throw new IllegalArgumentException("Property is null");
         }
         if (isSQLInjection(property)) {
             throw new IllegalArgumentException("SQLInjection property: " + property);
