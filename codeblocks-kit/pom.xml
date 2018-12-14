@@ -59,6 +59,13 @@
             <version>3.4.2</version>
             <scope>provided</scope>
         </dependency>
+        <!-- ipadress -->
+        <dependency>
+            <groupId>com.github.seancfoley</groupId>
+            <artifactId>ipaddress</artifactId>
+            <version>5.0.0</version>
+            <scope>provided</scope>
+        </dependency>
 
         <dependency>
             <groupId>com.alibaba</groupId>
