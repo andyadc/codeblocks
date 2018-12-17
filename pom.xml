@@ -51,7 +51,7 @@
         <kafka-clients.version>2.1.0</kafka-clients.version>
         <zkclient.version>0.11</zkclient.version>
         <rabbitmq-clients.version>5.5.1</rabbitmq-clients.version>
-        <jackson.version>2.9.7</jackson.version>
+        <jackson.version>2.9.8</jackson.version>
         <fastjson.version>1.2.54</fastjson.version>
         <joda-time.version>2.10.1</joda-time.version>
         <guava.version>27.0.1-jre</guava.version>
@@ -77,7 +77,7 @@
         <cglib.version>3.2.10</cglib.version>
         <objenesis.version>3.0.1</objenesis.version>
         <javassist.version>3.24.1-GA</javassist.version>
-        <ognl.version>3.2.9</ognl.version>
+        <ognl.version>3.2.10</ognl.version>
         <jodd.version>5.0.6</jodd.version>
         <slf4j.version>1.7.25</slf4j.version>
         <logback.version>1.2.3</logback.version>
