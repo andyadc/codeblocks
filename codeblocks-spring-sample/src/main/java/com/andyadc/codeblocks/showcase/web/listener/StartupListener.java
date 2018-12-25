@@ -6,7 +6,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.stereotype.Component;
 import org.springframework.web.context.ServletContextAware;
 
 import javax.servlet.ServletContext;
@@ -15,7 +14,7 @@ import javax.servlet.ServletContext;
  * @author andy.an
  * @since 2018/6/7
  */
-@Component
+//@Component
 public class StartupListener implements ApplicationContextAware, ServletContextAware, InitializingBean, ApplicationListener<ContextRefreshedEvent> {
 
     @Override

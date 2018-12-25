@@ -1,7 +1,6 @@
 package com.andyadc.codeblocks;
 
 import redis.clients.jedis.Jedis;
-import redis.clients.jedis.params.SetParams;
 
 import java.util.Collections;
 import java.util.UUID;
@@ -18,8 +17,8 @@ public class SimpleRedisLock {
 
     private static final String LOCK_SUCCESS = "OK";
     private static final Long RELEASE_SUCCESS = 1L;
-    private static final String SET_IF_NOT_EXIST = "NX";
-    private static final String SET_WITH_EXPIRE_TIME = "PX";
+    private static final String NX = "NX";
+    private static final String PX = "PX";
 
     private static final String LOCK_KEY_PREFIX = "lock:";
     private static final String LOCK_VALUE_PREFIX = "lock:v:";
@@ -76,10 +75,11 @@ public class SimpleRedisLock {
                            String lockKey,
                            String lockValue,
                            long expireTime) {
-        SetParams params = new SetParams();
-        params.nx();
-        params.px(expireTime);
-        return jedis.set(lockKey, lockValue, params);
+        // from jedis 3.0
+//        SetParams params = new SetParams();
+//        params.nx();
+//        params.px(expireTime);
+        return jedis.set(lockKey, lockValue, NX, PX, expireTime);
     }
 
     private void lockInner(Jedis jedis,
