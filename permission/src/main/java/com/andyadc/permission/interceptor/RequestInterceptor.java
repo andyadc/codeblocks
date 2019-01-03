@@ -20,14 +20,17 @@ public class RequestInterceptor extends HandlerInterceptorAdapter {
 
     private static final Logger logger = LoggerFactory.getLogger(RequestInterceptor.class);
     private final static String TRACE_ID = "traceId";
+    private final static String HEADER_TRACE_ID = "X-TRACE-ID";
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
         long now = System.currentTimeMillis();
 
-        String traceId = IDGen.uuid();
+        String traceId = request.getHeader(HEADER_TRACE_ID);
+        if (traceId == null || traceId.trim().isEmpty()) {
+            traceId = IDGen.uuid();
+        }
         MDC.put(TRACE_ID, traceId);
-        logger.info(">>> " + request.getRequestURI());
 
         RequestHolder.add(request);
         RequestHolder.add(now);
