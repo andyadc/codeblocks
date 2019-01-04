@@ -26,7 +26,7 @@ public class BeanValidator {
     private BeanValidator() {
     }
 
-    public static <T> Map<String, String> validate(T t, Class... groups) {
+    private static <T> Map<String, String> validate(T t, Class... groups) {
         Validator validator = validatorFactory.getValidator();
         Set<ConstraintViolation<T>> violations = validator.validate(t, groups);
         if (violations.isEmpty()) {
@@ -39,10 +39,10 @@ public class BeanValidator {
         return errors;
     }
 
-    public static Map<String, String> validate(Collection<?> collection) {
+    private static Map<String, String> validate(Collection<?> collection) {
         Preconditions.checkNotNull(collection);
         Iterator iterator = collection.iterator();
-        Map errors;
+        Map<String, String> errors;
 
         do {
             if (!iterator.hasNext()) {
