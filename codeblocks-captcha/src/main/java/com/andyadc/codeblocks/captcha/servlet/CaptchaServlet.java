@@ -1,7 +1,6 @@
 package com.andyadc.codeblocks.captcha.servlet;
 
 import com.andyadc.codeblocks.captcha.background.BackgroundFactory;
-import com.andyadc.codeblocks.captcha.color.ColorFactory;
 import com.andyadc.codeblocks.captcha.filter.ConfigurableFilterFactory;
 import com.andyadc.codeblocks.captcha.filter.library.AbstractImageOp;
 import com.andyadc.codeblocks.captcha.filter.library.WobbleImageOp;
@@ -39,6 +38,11 @@ public final class CaptchaServlet extends HttpServlet {
 
     private static final String CHARACTERS = "AaBbCcDdEeFfGgHhJjKkMmNnQqXxYyPpWwSsTtRrUui123456789";
     private static final String CAPTCHA_SESSION = "_captcha";
+    private static final String CAPTCHA_SIZE = "_size";
+    private static final String CAPTCHA_HEIGHT = "_height";
+    private static final String CAPTCHA_WIDTH = "_width";
+    private static final String CAPTCHA_LENGTH = "_length";
+
     private final ThreadLocalRandom random = ThreadLocalRandom.current();
     private ConfigurableCaptchaService configurableCaptchaService = null;
     private RandomWordFactory wordFactory = null;
@@ -84,10 +88,10 @@ public final class CaptchaServlet extends HttpServlet {
      * 常见参数设置
      */
     private void set(HttpServletRequest request) {
-        String size = request.getParameter("size");
-        String height = request.getParameter("height");
-        String width = request.getParameter("width");
-        String length = request.getParameter("length");
+        String size = request.getParameter(CAPTCHA_SIZE);
+        String height = request.getParameter(CAPTCHA_HEIGHT);
+        String width = request.getParameter(CAPTCHA_WIDTH);
+        String length = request.getParameter(CAPTCHA_LENGTH);
 
         fontFactory = new RandomFontFactory();
         Integer fontSize = Integer.valueOf(StringUtil.defaultIfBlank(size, "25"));
@@ -123,21 +127,19 @@ public final class CaptchaServlet extends HttpServlet {
         configurableCaptchaService = new ConfigurableCaptchaService();
 
         // 颜色创建工厂
-        configurableCaptchaService.setColorFactory(new ColorFactory() {
+        configurableCaptchaService.setColorFactory((int x) -> {
 
-            @Override
-            public Color getColor(int x) {
-                int[] c = new int[3];
-                int i = random.nextInt(c.length);
-                for (int fi = 0; fi < c.length; fi++) {
-                    if (fi == i) {
-                        c[fi] = random.nextInt(71);
-                    } else {
-                        c[fi] = random.nextInt(256);
-                    }
+            int[] c = new int[3];
+            int i = random.nextInt(c.length);
+            for (int fi = 0; fi < c.length; fi++) {
+                if (fi == i) {
+                    c[fi] = random.nextInt(71);
+                } else {
+                    c[fi] = random.nextInt(256);
                 }
-                return new Color(c[0], c[1], c[2]);
             }
+            return new Color(c[0], c[1], c[2]);
+
         });
 
         // 自定义验证码图片背景
