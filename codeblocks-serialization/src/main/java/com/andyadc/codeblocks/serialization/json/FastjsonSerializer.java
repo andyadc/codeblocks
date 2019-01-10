@@ -10,14 +10,14 @@ import com.alibaba.fastjson.serializer.SimpleDateFormatSerializer;
  * @version 2016/12/30
  */
 public class FastjsonSerializer {
-    private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
     private static final SerializeConfig SERIALIZE_CONFIG;
 
     private static final SerializerFeature[] SERIALIZER_FEATURE = {
             SerializerFeature.WriteMapNullValue,    // 输出空置字段
-            SerializerFeature.WriteNullStringAsEmpty,   //字符类型字段如果为null，输出为""，而不是null
-            SerializerFeature.WriteNullNumberAsZero,    //数值字段如果为null，输出为0，而不是null
-            SerializerFeature.WriteNullBooleanAsFalse,  //Boolean字段如果为null，输出为false，而不是null
+//            SerializerFeature.WriteNullStringAsEmpty,   //字符类型字段如果为null，输出为""，而不是null
+//            SerializerFeature.WriteNullNumberAsZero,    //数值字段如果为null，输出为0，而不是null
+//            SerializerFeature.WriteNullBooleanAsFalse,  //Boolean字段如果为null，输出为false，而不是null
             SerializerFeature.WriteNullListAsEmpty,  //list字段如果为null，输出为[]，而不是null
             SerializerFeature.DisableCircularReferenceDetect //关闭循环引用检查
     };
