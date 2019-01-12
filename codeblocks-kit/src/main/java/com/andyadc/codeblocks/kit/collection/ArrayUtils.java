@@ -91,6 +91,10 @@ public final class ArrayUtils {
     private ArrayUtils() {
     }
 
+    public static <T> T[] of(T... es) {
+        return es;
+    }
+
     // nullToEmpty
     //-----------------------------------------------------------------------
 
