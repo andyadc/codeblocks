@@ -8,17 +8,17 @@ import java.util.Date;
  */
 public class JsonDemo {
 
-    private int id;
+    private Integer id;
     private String name;
     private Date datetime;
     private Long num;
-    private boolean flag;
+    private Boolean flag;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -46,11 +46,11 @@ public class JsonDemo {
         this.num = num;
     }
 
-    public boolean isFlag() {
+    public Boolean isFlag() {
         return flag;
     }
 
-    public void setFlag(boolean flag) {
+    public void setFlag(Boolean flag) {
         this.flag = flag;
     }
 }

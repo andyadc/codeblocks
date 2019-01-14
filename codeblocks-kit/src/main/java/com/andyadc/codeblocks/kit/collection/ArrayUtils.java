@@ -91,6 +91,7 @@ public final class ArrayUtils {
     private ArrayUtils() {
     }
 
+    @SafeVarargs
     public static <T> T[] of(T... es) {
         return es;
     }
