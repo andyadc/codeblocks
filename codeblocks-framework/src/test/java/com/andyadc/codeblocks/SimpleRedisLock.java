@@ -10,6 +10,8 @@ import java.util.concurrent.locks.ReentrantLock;
  * <URL>http://wudashan.com/2017/10/23/Redis-Distributed-Lock-Implement/</URL>
  * <p>只考虑Redis服务端单机部署的场景</p>
  *
+ * TODO 错误的类设计
+ *
  * @author andaicheng
  * @since 2018/4/22
  */
@@ -91,6 +93,7 @@ public class SimpleRedisLock {
             try {
                 String result = setNxPx(jedis, lockKey, lockValue, expireTime);
                 if (LOCK_SUCCESS.equals(result)) {
+                    jedis.close();
                     return;
                 }
             } finally {
@@ -106,6 +109,8 @@ public class SimpleRedisLock {
         // lua script
         String script = "if redis.call('get', KEYS[1]) == ARGV[1] then return redis.call('del', KEYS[1]) else return 0 end";
         Object result = jedis.eval(script, Collections.singletonList(lockKey), Collections.singletonList(lockValue));
-        return RELEASE_SUCCESS.equals(result);
+        boolean flag = RELEASE_SUCCESS.equals(result);
+        jedis.close();
+        return flag;
     }
 }
