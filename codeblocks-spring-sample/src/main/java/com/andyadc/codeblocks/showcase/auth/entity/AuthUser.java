@@ -30,9 +30,9 @@ public class AuthUser extends BaseEntity {
 
     private Integer deleted;
 
-    private Date createdTime;
+    private Date createTime;
 
-    private Date updatedTime;
+    private Date updateTime;
 
     private int version;
 
@@ -108,20 +108,20 @@ public class AuthUser extends BaseEntity {
         this.deleted = deleted;
     }
 
-    public Date getCreatedTime() {
-        return createdTime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatedTime(Date createdTime) {
-        this.createdTime = createdTime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
-    public Date getUpdatedTime() {
-        return updatedTime;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setUpdatedTime(Date updatedTime) {
-        this.updatedTime = updatedTime;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
     public int getVersion() {
@@ -144,8 +144,8 @@ public class AuthUser extends BaseEntity {
                 ", type=" + type +
                 ", status=" + status +
                 ", deleted=" + deleted +
-                ", createdTime=" + createdTime +
-                ", updatedTime=" + updatedTime +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
                 ", version=" + version +
                 "} " + super.toString();
     }

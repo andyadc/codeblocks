@@ -43,8 +43,8 @@ public class AuthServiceImpl implements AuthService {
         if (authUser == null) {
             return null;
         }
-        authUser.setCreatedTime(new Date());
-        authUser.setUpdatedTime(new Date());
+        authUser.setCreateTime(new Date());
+        authUser.setUpdateTime(new Date());
         authUserMapper.insertSelective(authUser);
         return authUser;
     }
@@ -58,7 +58,7 @@ public class AuthServiceImpl implements AuthService {
             return null;
         }
         Assert.notNull(authUser.getId(), "UserId is null");
-        authUser.setUpdatedTime(new Date());
+        authUser.setUpdateTime(new Date());
         int changed = authUserMapper.updateByIdSelective(authUser);
         logger.info("Update authUser userId={}, result={}", authUser.getId(), changed > 0);
         return authUser;
