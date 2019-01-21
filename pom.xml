@@ -52,9 +52,9 @@
         <lettuce.version>5.1.3.RELEASE</lettuce.version>
         <kafka-clients.version>2.1.0</kafka-clients.version>
         <zkclient.version>0.11</zkclient.version>
-        <rabbitmq-clients.version>5.5.2</rabbitmq-clients.version>
+        <rabbitmq-clients.version>5.5.3</rabbitmq-clients.version>
         <jackson.version>2.9.8</jackson.version>
-        <fastjson.version>1.2.54</fastjson.version>
+        <fastjson.version>1.2.55</fastjson.version>
         <joda-time.version>2.10.1</joda-time.version>
         <guava.version>27.0.1-jre</guava.version>
         <orika.version>1.5.2</orika.version>
