@@ -36,7 +36,9 @@ import java.util.Set;
  */
 public class KafkaTest {
 
-    private static final String BROKER_SERVER = "www.hw-server.com:9092";
+    private static final String BROKER_SERVER =
+            "www.hw-server.com:9090,www.hw-server.com:9091,www.hw-server.com:9092";
+
     private static final String[] TEST_TOPICS = {"test"};
 
     private static AdminClient adminClient;
@@ -54,7 +56,9 @@ public class KafkaTest {
     private static Properties getProducerProps() {
         Properties props = new Properties();
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, BROKER_SERVER);
-        props.put(ProducerConfig.ACKS_CONFIG, "-1");
+        props.put(ProducerConfig.ACKS_CONFIG, "-1"); // 高可靠性要求则应该设置成"all" 或 "-1"
+        props.put(ProducerConfig.RETRIES_CONFIG, 3); // 启用重试机制
+        props.put(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, 1); // 避免消息重排序
 
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
                 "org.apache.kafka.common.serialization.StringSerializer");
