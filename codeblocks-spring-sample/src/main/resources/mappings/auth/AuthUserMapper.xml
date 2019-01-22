@@ -200,7 +200,7 @@
             <if test="deleted != null">
                 deleted = #{deleted,jdbcType=INTEGER},
             </if>
-            <if test="updatedTime != null">
+            <if test="updateTime != null">
                 update_time = #{updateTime,jdbcType=TIMESTAMP},
             </if>
             <if test="version != null">
