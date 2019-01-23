@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * @author andaicheng
@@ -43,8 +43,8 @@ public class AuthServiceImpl implements AuthService {
         if (authUser == null) {
             return null;
         }
-        authUser.setCreateTime(new Date());
-        authUser.setUpdateTime(new Date());
+        authUser.setCreateTime(LocalDateTime.now());
+        authUser.setUpdateTime(LocalDateTime.now());
         authUserMapper.insertSelective(authUser);
         return authUser;
     }
@@ -58,7 +58,7 @@ public class AuthServiceImpl implements AuthService {
             return null;
         }
         Assert.notNull(authUser.getId(), "UserId is null");
-        authUser.setUpdateTime(new Date());
+        authUser.setUpdateTime(LocalDateTime.now());
         int changed = authUserMapper.updateByIdSelective(authUser);
         logger.info("Update authUser userId={}, result={}", authUser.getId(), changed > 0);
         return authUser;

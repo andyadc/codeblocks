@@ -5,7 +5,7 @@ import com.andyadc.codeblocks.common.BaseEntity;
 import com.andyadc.codeblocks.common.annotation.MetaData;
 
 import java.beans.Transient;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @MetaData(desc = "系统权限用户", tableName = "t_auth_user")
 public class AuthUser extends BaseEntity {
@@ -30,9 +30,9 @@ public class AuthUser extends BaseEntity {
 
     private Integer deleted;
 
-    private Date createTime;
+    private LocalDateTime createTime;
 
-    private Date updateTime;
+    private LocalDateTime updateTime;
 
     private int version;
 
@@ -108,19 +108,19 @@ public class AuthUser extends BaseEntity {
         this.deleted = deleted;
     }
 
-    public Date getCreateTime() {
+    public LocalDateTime getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
     }
 
-    public Date getUpdateTime() {
+    public LocalDateTime getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Date updateTime) {
+    public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
     }
 
