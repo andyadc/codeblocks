@@ -59,11 +59,18 @@
     </sql>
 
     <update id="lockAuthUserByUsername" parameterType="java.lang.String">
-        UPDATE t_auth_user SET status = 2 WHERE username = #{username,jdbcType=VARCHAR}
+        UPDATE t_auth_user SET status = 2 , version = version + 1
+        WHERE username = #{username,jdbcType=VARCHAR}
+        <![CDATA[
+        AND status != 2
+
+        ]]>
     </update>
 
     <update id="deleteAuthUserLogic" parameterType="java.lang.Long">
-        UPDATE t_auth_user SET deleted = 1 WHERE id = #{id,jdbcType=BIGINT}
+        UPDATE t_auth_user
+        SET deleted = 1, version = version + 1
+        WHERE id = #{id,jdbcType=BIGINT} AND deleted = 0
     </update>
 
     <select id="selectByUsername" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -170,6 +177,9 @@
             <if test="version != null">
                 #{version,jdbcType=INTEGER},
             </if>
+            <if test="version == null">
+                0,
+            </if>
         </trim>
     </insert>
 
@@ -205,6 +215,9 @@
             </if>
             <if test="version != null">
                 version = #{version,jdbcType=INTEGER},
+            </if>
+            <if test="version == null">
+                version = version + 1,
             </if>
         </set>
         WHERE id = #{id,jdbcType=BIGINT}

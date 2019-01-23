@@ -34,7 +34,7 @@ public class AuthUser extends BaseEntity {
 
     private LocalDateTime updateTime;
 
-    private int version;
+    private Integer version;
 
     public String getUsername() {
         return username;
@@ -124,11 +124,11 @@ public class AuthUser extends BaseEntity {
         this.updateTime = updateTime;
     }
 
-    public int getVersion() {
+    public Integer getVersion() {
         return version;
     }
 
-    public void setVersion(int version) {
+    public void setVersion(Integer version) {
         this.version = version;
     }
 

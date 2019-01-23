@@ -24,15 +24,15 @@ public class AuthServiceTest {
     @Test
     public void testUpdate() {
         AuthUser authUser = new AuthUser();
-        authUser.setId(5L);
+        authUser.setId(2L);
         authService.update(authUser);
     }
 
     @Test
     public void testSave() {
         AuthUser authUser = new AuthUser();
-        authUser.setUsername("");
-        authUser.setNickname("");
+        authUser.setUsername("12");
+        authUser.setNickname("12");
         authUser.setPassword("54erwdfge2");
         authUser.setSalt("ssss");
         authUser.setStatus(1);

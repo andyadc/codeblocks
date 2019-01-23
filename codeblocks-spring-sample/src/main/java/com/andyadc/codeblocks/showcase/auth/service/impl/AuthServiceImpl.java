@@ -45,6 +45,7 @@ public class AuthServiceImpl implements AuthService {
         }
         authUser.setCreateTime(LocalDateTime.now());
         authUser.setUpdateTime(LocalDateTime.now());
+        authUser.setVersion(1);
         authUserMapper.insertSelective(authUser);
         return authUser;
     }
