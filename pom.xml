@@ -54,7 +54,7 @@
         <zkclient.version>0.11</zkclient.version>
         <rabbitmq-clients.version>5.6.0</rabbitmq-clients.version>
         <jackson.version>2.9.8</jackson.version>
-        <fastjson.version>1.2.55</fastjson.version>
+        <fastjson.version>1.2.56</fastjson.version>
         <joda-time.version>2.10.1</joda-time.version>
         <guava.version>27.0.1-jre</guava.version>
         <orika.version>1.5.2</orika.version>
