@@ -27,6 +27,7 @@ public class FSTSerializer {
         return deserialize(fstConfiguration, bytes);
     }
 
+    @SuppressWarnings({"unchecked"})
     public static <T> T deserialize(FSTConfiguration fst, byte[] bytes) {
         if (ArrayUtils.isEmpty(bytes)) {
             throw new SerializerException("Bytes is null or empty");

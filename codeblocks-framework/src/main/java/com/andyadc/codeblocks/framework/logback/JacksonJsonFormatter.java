@@ -25,7 +25,7 @@ public class JacksonJsonFormatter implements JsonFormatter {
     @Override
     public String toJsonString(Map m) throws IOException {
         StringWriter writer = new StringWriter(BUFFER_SIZE);
-        JsonGenerator generator = this.objectMapper.getFactory().createJsonGenerator(writer);
+        JsonGenerator generator = this.objectMapper.getFactory().createGenerator(writer);
 
         if (isPrettyPrint()) {
             generator.useDefaultPrettyPrinter();
