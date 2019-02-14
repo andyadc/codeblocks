@@ -21,7 +21,7 @@ import java.util.Map;
  * @author andy.an
  * @since 2018/3/4
  */
-public class DSASignature {
+public final class DSASignature {
 
     private static final String KEY_ALGORITHM = "DSA";
     private static final String SIGNATURE_ALGORITHM = "SHA1withDSA";
