@@ -1,6 +1,6 @@
 package com.andyadc.codeblocks.framework.mybatis.util;
 
-public abstract class PatternMatchUtils {
+final class PatternMatchUtils {
 
     public static void main(String[] args) {
         String id = "com.andyadc.codeblocks.mybatis.mapper.selectPagingwww";
