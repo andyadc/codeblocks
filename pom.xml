@@ -57,7 +57,7 @@
         <fastjson.version>1.2.56</fastjson.version>
         <joda-time.version>2.10.1</joda-time.version>
         <guava.version>27.0.1-jre</guava.version>
-        <orika.version>1.5.2</orika.version>
+        <orika.version>1.5.4</orika.version>
         <commons-lang.version>3.8.1</commons-lang.version>
         <commons-codec.version>1.12</commons-codec.version>
         <commons-collections.version>4.3</commons-collections.version>
@@ -80,10 +80,10 @@
         <objenesis.version>3.0.1</objenesis.version>
         <javassist.version>3.24.1-GA</javassist.version>
         <ognl.version>3.2.10</ognl.version>
-        <jodd.version>5.0.7</jodd.version>
+        <jodd.version>5.0.8</jodd.version>
         <slf4j.version>1.7.25</slf4j.version>
         <logback.version>1.2.3</logback.version>
-        <mockito.version>2.24.0</mockito.version>
+        <mockito.version>2.24.5</mockito.version>
         <junit.version>4.12</junit.version>
         <contiperf.version>2.3.4</contiperf.version>
         <jmh.version>1.21</jmh.version>
