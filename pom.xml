@@ -54,7 +54,7 @@
         <zkclient.version>0.11</zkclient.version>
         <rabbitmq-clients.version>5.7.0</rabbitmq-clients.version>
         <jackson.version>2.9.8</jackson.version>
-        <fastjson.version>1.2.56</fastjson.version>
+        <fastjson.version>1.2.57</fastjson.version>
         <joda-time.version>2.10.1</joda-time.version>
         <guava.version>27.1-jre</guava.version>
         <orika.version>1.5.4</orika.version>
@@ -62,7 +62,7 @@
         <commons-codec.version>1.12</commons-codec.version>
         <commons-collections.version>4.3</commons-collections.version>
         <commons-beanutils.version>1.9.3</commons-beanutils.version>
-        <commons-pool.version>2.6.1</commons-pool.version>
+        <commons-pool.version>2.6.2</commons-pool.version>
         <commons-io.version>2.6</commons-io.version>
         <commons-dbutils.version>1.7</commons-dbutils.version>
         <tomcat-jdbc.version>9.0.17</tomcat-jdbc.version>
@@ -75,7 +75,7 @@
         <protostuff.version>1.6.0</protostuff.version>
         <freemarker.version>2.3.28</freemarker.version>
         <zxing.version>3.3.3</zxing.version>
-        <poi.version>4.0.1</poi.version>
+        <poi.version>4.1.0</poi.version>
         <cglib.version>3.2.10</cglib.version>
         <objenesis.version>3.0.1</objenesis.version>
         <javassist.version>3.24.1-GA</javassist.version>
@@ -83,7 +83,7 @@
         <jodd.version>5.0.11</jodd.version>
         <slf4j.version>1.7.26</slf4j.version>
         <logback.version>1.2.3</logback.version>
-        <mockito.version>2.26.0</mockito.version>
+        <mockito.version>2.27.0</mockito.version>
         <junit.version>4.12</junit.version>
         <contiperf.version>2.3.4</contiperf.version>
         <jmh.version>1.21</jmh.version>
@@ -385,7 +385,7 @@
             <dependency>
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
-                <version>3.1.0</version>
+                <version>4.0.1</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
