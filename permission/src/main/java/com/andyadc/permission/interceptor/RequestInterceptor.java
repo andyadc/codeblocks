@@ -1,6 +1,6 @@
 package com.andyadc.permission.interceptor;
 
-import com.andyadc.codeblocks.kit.idgen.IDGen;
+import com.andyadc.codeblocks.kit.idgen.UUID;
 import com.andyadc.permission.context.RequestHolder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +28,7 @@ public class RequestInterceptor extends HandlerInterceptorAdapter {
 
         String traceId = request.getHeader(HEADER_TRACE_ID);
         if (traceId == null || traceId.trim().isEmpty()) {
-            traceId = IDGen.uuid();
+            traceId = UUID.uuid();
         }
         MDC.put(TRACE_ID, traceId);
 

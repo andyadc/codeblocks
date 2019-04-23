@@ -1,6 +1,6 @@
 package com.andyadc.codeblocks.framework.spring;
 
-import com.andyadc.codeblocks.kit.idgen.IDGen;
+import com.andyadc.codeblocks.kit.idgen.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -27,7 +27,7 @@ public class RequestInterceptor extends HandlerInterceptorAdapter {
 
         String traceId = request.getHeader(HTTP_HEADER_TRACE_ID);
         if (traceId == null || traceId.isEmpty()) {
-            traceId = IDGen.uuid();
+            traceId = UUID.uuid();
         }
         MDC.put(TRACE_ID, traceId);
         logger.debug(">>> " + request.getRequestURI());
