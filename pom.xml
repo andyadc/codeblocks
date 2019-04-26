@@ -68,7 +68,7 @@
         <tomcat-jdbc.version>9.0.19</tomcat-jdbc.version>
         <hikaricp.version>3.3.1</hikaricp.version>
         <druid.version>1.1.16</druid.version>
-        <mysql-driver.version>8.0.15</mysql-driver.version>
+        <mysql-driver.version>8.0.16</mysql-driver.version>
         <h2.version>1.4.199</h2.version>
         <fst.version>2.57</fst.version>
         <kryo.version>4.0.2</kryo.version>
@@ -76,7 +76,7 @@
         <freemarker.version>2.3.28</freemarker.version>
         <zxing.version>3.3.3</zxing.version>
         <poi.version>4.1.0</poi.version>
-        <cglib.version>3.2.10</cglib.version>
+        <cglib.version>3.2.11</cglib.version>
         <objenesis.version>3.0.1</objenesis.version>
         <javassist.version>3.25.0-GA</javassist.version>
         <ognl.version>3.2.10</ognl.version>
