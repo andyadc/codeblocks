@@ -6,7 +6,7 @@
 -- Unlock
 -- del the key
 --
-if redis.call('get', KEY[1]) == ARGV[1] then
+if redis.call('get', KEYS[1]) == ARGV[1] then
     return redis.call('del', KEYS[1])
 else
     return 0
