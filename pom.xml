@@ -74,7 +74,7 @@
         <kryo.version>4.0.2</kryo.version>
         <protostuff.version>1.6.0</protostuff.version>
         <freemarker.version>2.3.28</freemarker.version>
-        <zxing.version>3.3.3</zxing.version>
+        <zxing.version>3.4.0</zxing.version>
         <poi.version>4.1.0</poi.version>
         <cglib.version>3.2.12</cglib.version>
         <objenesis.version>3.0.1</objenesis.version>
