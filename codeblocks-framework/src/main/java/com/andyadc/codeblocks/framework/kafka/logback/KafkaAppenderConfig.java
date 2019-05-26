@@ -32,8 +32,7 @@ public abstract class KafkaAppenderConfig<E> extends UnsynchronizedAppenderBase<
         boolean errorFree = true;
 
         if (producerConfig.get(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG) == null) {
-            addError("No \"" + ProducerConfig.BOOTSTRAP_SERVERS_CONFIG + "\" set for the appender named [\""
-                    + name + "\"].");
+            addError("No \"" + ProducerConfig.BOOTSTRAP_SERVERS_CONFIG + "\" set for the appender named [\"" + name + "\"].");
             errorFree = false;
         }
 
