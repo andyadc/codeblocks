@@ -11,7 +11,7 @@ import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.KafkaException;
 import org.apache.kafka.common.serialization.StringSerializer;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -20,8 +20,6 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * @since 2018/12/6
  */
 public class KafkaAppender<E> extends KafkaAppenderConfig<E> {
-
-    private static final Charset UTF8 = Charset.forName("UTF-8");
 
     /**
      * Kafka clients uses this prefix for its slf4j logging.
@@ -77,8 +75,8 @@ public class KafkaAppender<E> extends KafkaAppenderConfig<E> {
         final byte[] keys = keyingStrategy.createKey(e);
 
         final Long timestamp = getTimestamp(e);
-        String key = keys == null ? null : new String(keys, UTF8);
-        String value = new String(payload, UTF8);
+        String key = keys == null ? null : new String(keys, StandardCharsets.UTF_8);
+        String value = new String(payload, StandardCharsets.UTF_8);
 
         final ProducerRecord<String, String> record = new ProducerRecord<>(topic, partition, timestamp, key, value);
 //        final ProducerRecord<String, String> record = new ProducerRecord<>(topic, value);
