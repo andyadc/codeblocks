@@ -4,6 +4,7 @@ import com.andyadc.permission.exception.ParamException;
 import com.google.common.base.Preconditions;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import org.hibernate.validator.HibernateValidator;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -22,6 +23,12 @@ import java.util.Set;
 public class BeanValidator {
 
     private static ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+
+    // 自定义ValidatorFactory
+    private static ValidatorFactory customizeFactory = Validation.byProvider(HibernateValidator.class)
+            .configure()
+            .failFast(true)
+            .buildValidatorFactory();
 
     private BeanValidator() {
     }
