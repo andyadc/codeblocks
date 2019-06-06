@@ -32,11 +32,11 @@
             <version>0.8.2</version>
         </dependency>
 
-        <dependency>
+        <!--<dependency>
             <groupId>io.etcd</groupId>
             <artifactId>jetcd-core</artifactId>
             <version>0.3.0</version>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>org.bouncycastle</groupId>
