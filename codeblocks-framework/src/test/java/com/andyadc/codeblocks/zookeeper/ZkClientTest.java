@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class ZkClientTest {
 
-    private static final String zkServers = "www.hw-server.com:2181";
+    private static final String zkServers = "www.qq-server.com:2181";
 
     @Test
     public void testConnect() {

@@ -37,7 +37,7 @@ import java.util.Set;
 public class KafkaTest {
 
     private static final String BROKER_SERVER =
-            "www.hw-server.com:9090,www.hw-server.com:9091,www.hw-server.com:9092";
+            "www.qq-server.com:9092";
 
     private static final String[] TEST_TOPICS = {"test"};
 
