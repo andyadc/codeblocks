@@ -49,7 +49,7 @@
         <redisson.version>3.11.0</redisson.version>
         <!--<jedis.version>3.0.0</jedis.version>-->
         <jedis.version>2.10.2</jedis.version>
-        <lettuce.version>5.1.6.RELEASE</lettuce.version>
+        <lettuce.version>5.1.7.RELEASE</lettuce.version>
         <kafka-clients.version>2.2.1</kafka-clients.version>
         <curator.version>4.2.0</curator.version>
         <zkclient.version>0.11</zkclient.version>
