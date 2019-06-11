@@ -18,12 +18,8 @@ public class ProtostuffSerializer {
 
     private static final Objenesis OBJENESIS = new ObjenesisStd(true);
     private static final ConcurrentHashMap<Class<?>, Schema<?>> SCHEMA_MAP = new ConcurrentHashMap<>();
-    private static final ThreadLocal<LinkedBuffer> BUFFERS = new ThreadLocal<LinkedBuffer>() {
-        @Override
-        protected LinkedBuffer initialValue() {
-            return LinkedBuffer.allocate();
-        }
-    };
+
+    private static final ThreadLocal<LinkedBuffer> BUFFERS = ThreadLocal.withInitial(LinkedBuffer::allocate);
 
     private ProtostuffSerializer() {
     }
