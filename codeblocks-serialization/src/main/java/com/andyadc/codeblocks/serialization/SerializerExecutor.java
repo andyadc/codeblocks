@@ -35,12 +35,12 @@ public class SerializerExecutor {
 
     }
 
-    public static <T> String toJson(T object) {
+    public static <T> String toJSON(T object) {
         return null;
 
     }
 
-    public static <T> T fromJson(String json, Class<T> clazz) {
+    public static <T> T fromJSON(String json, Class<T> clazz) {
         return null;
 
     }
@@ -94,9 +94,9 @@ public class SerializerExecutor {
         return object;
     }
 
-    public static <T> String toJson(T object, SerializerType serializerType) {
+    public static <T> String toJSON(T object, SerializerType serializerType) {
         if (serializerType == SerializerType.JACKSON_JSON) {
-            return JacksonSerializer.toJson(object);
+            return JacksonSerializer.toJSON(object);
         } else if (serializerType == SerializerType.FAST_JSON) {
             return FastjsonSerializer.toJSON(object);
         } else {
@@ -104,11 +104,11 @@ public class SerializerExecutor {
         }
     }
 
-    public static <T> T fromJson(String json, Class<T> clazz, SerializerType serializerType) {
+    public static <T> T fromJSON(String json, Class<T> clazz, SerializerType serializerType) {
         if (serializerType == SerializerType.JACKSON_JSON) {
-            return JacksonSerializer.fromJson(json, clazz);
+            return JacksonSerializer.fromJSON(json, clazz);
         } else if (serializerType == SerializerType.FAST_JSON) {
-            return FastjsonSerializer.fromJson(json, clazz);
+            return FastjsonSerializer.fromJSON(json, clazz);
         } else {
             throw new SerializerException("Invalid serializer type of json : " + serializerType);
         }

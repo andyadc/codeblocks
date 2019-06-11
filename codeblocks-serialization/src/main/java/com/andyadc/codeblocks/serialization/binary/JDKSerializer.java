@@ -28,7 +28,7 @@ public class JDKSerializer {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         ObjectOutputStream oos = null;
-        byte[] bytes = null;
+        byte[] bytes;
         try {
             oos = new ObjectOutputStream(baos);
             oos.writeObject(object);
@@ -70,7 +70,7 @@ public class JDKSerializer {
 
         ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
         ObjectInputStream ois = null;
-        Object object = null;
+        Object object;
         try {
             ois = new ObjectInputStream(bais);
             object = ois.readObject();

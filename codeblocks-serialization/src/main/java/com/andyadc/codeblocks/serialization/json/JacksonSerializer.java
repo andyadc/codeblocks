@@ -23,7 +23,7 @@ public class JacksonSerializer {
     private JacksonSerializer() {
     }
 
-    public static <T> String toJson(T object) {
+    public static <T> String toJSON(T object) {
         try {
             return mapper.writeValueAsString(object);
         } catch (Exception e) {
@@ -31,7 +31,7 @@ public class JacksonSerializer {
         }
     }
 
-    public static <T> T fromJson(String json, Class<T> clazz) {
+    public static <T> T fromJSON(String json, Class<T> clazz) {
         if (StringUtils.isBlank(json)) {
             throw new SerializerException("Json is null or empty");
         }

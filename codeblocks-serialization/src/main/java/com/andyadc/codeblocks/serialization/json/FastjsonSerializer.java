@@ -35,7 +35,7 @@ public class FastjsonSerializer {
         return JSON.toJSONString(o, SERIALIZE_CONFIG, SERIALIZER_FEATURE);
     }
 
-    public static <T> T fromJson(String json, Class<T> clazz) {
+    public static <T> T fromJSON(String json, Class<T> clazz) {
         return JSON.parseObject(json, clazz);
     }
 }
