@@ -20,7 +20,7 @@ public class CurvesRippleFilterFactory extends RippleFilterFactory {
 
     @Override
     protected List<BufferedImageOp> getPreRippleFilters() {
-        List<BufferedImageOp> list = new ArrayList<>();
+        List<BufferedImageOp> list = new ArrayList<>(4);
         list.add(curves);
         return list;
     }

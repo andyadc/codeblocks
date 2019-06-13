@@ -1,6 +1,6 @@
 package com.andyadc.codeblocks.captcha.font;
 
-import java.awt.Font;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,7 +14,7 @@ public class RandomFontFactory implements FontFactory {
     protected boolean randomStyle;
 
     public RandomFontFactory() {
-        families = new ArrayList<String>();
+        families = new ArrayList<>(4);
         families.add("Verdana");
         families.add("Tahoma");
         minSize = 45;

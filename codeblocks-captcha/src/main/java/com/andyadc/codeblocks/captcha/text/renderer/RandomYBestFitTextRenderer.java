@@ -7,7 +7,7 @@ public class RandomYBestFitTextRenderer extends AbstractTextRenderer {
     @Override
     protected void arrangeCharacters(int width, int height, TextString ts) {
         double widthRemaining = (width - ts.getWidth() - leftMargin - rightMargin) / ts.getCharacters().size();
-        double vmiddle = height / 2;
+        double vmiddle = height / 2D;
         double x = leftMargin + widthRemaining / 2;
         Random r = new Random();
         height -= topMargin + bottomMargin;
