@@ -22,7 +22,6 @@
         <module>codeblocks-captcha</module>
         <module>codeblocks-framework</module>
         <module>codeblocks-test</module>
-        <module>codeblocks-servlet-demo</module>
         <module>codeblocks-spring-sample</module>
         <module>codeblocks-qrcode</module>
         <module>permission</module>
