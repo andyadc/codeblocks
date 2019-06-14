@@ -8,8 +8,8 @@
 -->
 <configuration scan="false" scanPeriod="60 seconds" debug="true">
 
-    <property name="LOG_PATH" value="/opt/logs/codeblocks/sample"/>
     <property name="APP_NAME" value="sample"/>
+    <property name="LOG_PATH" value="/opt/logs/codeblocks/${APP_NAME}"/>
 
     <!-- log pattern -->
     <property name="LOG_PATTERN"
