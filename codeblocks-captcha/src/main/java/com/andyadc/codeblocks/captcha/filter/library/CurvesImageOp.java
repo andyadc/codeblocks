@@ -5,7 +5,7 @@ import com.andyadc.codeblocks.captcha.color.SingleColorFactory;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class CurvesImageOp extends AbstractImageOp {
 
@@ -61,7 +61,7 @@ public class CurvesImageOp extends AbstractImageOp {
         double height = dest.getHeight();
         Graphics2D g2 = (Graphics2D) src.getGraphics();
         g2.setRenderingHints(new RenderingHints(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON));
-        Random r = new Random();
+        ThreadLocalRandom r = ThreadLocalRandom.current();
         int cp = 4 + r.nextInt(3);
         int[] xPoints = new int[cp];
         int[] yPoints = new int[cp];

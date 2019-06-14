@@ -1,6 +1,6 @@
 package com.andyadc.codeblocks.captcha.word;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomWordFactory implements WordFactory {
 
@@ -28,7 +28,7 @@ public class RandomWordFactory implements WordFactory {
 
     @Override
     public String getNextWord() {
-        Random rnd = new Random();
+        ThreadLocalRandom rnd = ThreadLocalRandom.current();
         StringBuilder sb = new StringBuilder();
         int l = minLength + (maxLength > minLength ? rnd.nextInt(maxLength - minLength) : 0);
         for (int i = 0; i < l; i++) {

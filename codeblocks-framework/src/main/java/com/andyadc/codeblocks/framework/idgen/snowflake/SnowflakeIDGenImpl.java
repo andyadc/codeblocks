@@ -8,8 +8,7 @@ import com.google.common.base.Preconditions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.security.SecureRandom;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * andy.an
@@ -17,7 +16,6 @@ import java.util.Random;
 public class SnowflakeIDGenImpl implements IDGen {
 
     private static final Logger logger = LoggerFactory.getLogger(SnowflakeIDGenImpl.class);
-    private static final Random RANDOM = new SecureRandom();
     private final long twepoch = 1288834974657L;
     private final long workerIdBits = 10L;
     private final long maxWorkerId = -1L ^ (-1L << workerIdBits);//最大能够分配的workerid =1023
@@ -77,12 +75,12 @@ public class SnowflakeIDGenImpl implements IDGen {
             sequence = (sequence + 1) & sequenceMask;
             if (sequence == 0) {
                 //seq 为0的时候表示是下一毫秒时间开始对seq做随机
-                sequence = RANDOM.nextInt(100);
+                sequence = ThreadLocalRandom.current().nextInt(100);
                 timestamp = tilNextMillis(lastTimestamp);
             }
         } else {
             //如果是新的ms开始
-            sequence = RANDOM.nextInt(100);
+            sequence = ThreadLocalRandom.current().nextInt(100);
         }
         lastTimestamp = timestamp;
         long id = ((timestamp - twepoch) << timestampLeftShift) | (workerId << workerIdShift) | sequence;

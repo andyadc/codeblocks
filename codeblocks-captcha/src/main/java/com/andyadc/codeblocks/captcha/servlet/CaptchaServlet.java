@@ -43,7 +43,6 @@ public final class CaptchaServlet extends HttpServlet {
     private static final String CAPTCHA_WIDTH = "_width";
     private static final String CAPTCHA_LENGTH = "_length";
 
-    private final ThreadLocalRandom random = ThreadLocalRandom.current();
     private ConfigurableCaptchaService configurableCaptchaService = null;
     private RandomWordFactory wordFactory = null;
     private RandomFontFactory fontFactory = null;
@@ -129,6 +128,7 @@ public final class CaptchaServlet extends HttpServlet {
         // 颜色创建工厂
         configurableCaptchaService.setColorFactory((int x) -> {
 
+            ThreadLocalRandom random = ThreadLocalRandom.current();
             int[] c = new int[3];
             int i = random.nextInt(c.length);
             for (int fi = 0; fi < c.length; fi++) {
@@ -180,6 +180,7 @@ public final class CaptchaServlet extends HttpServlet {
             graphics.setColor(Color.white);
             graphics.fillRect(0, 0, imgWidth, imgHeight);
 
+            ThreadLocalRandom random = ThreadLocalRandom.current();
             // 画100个噪点(颜色及位置随机)
             for (int i = 0; i < 25; i++) {
                 // 随机颜色

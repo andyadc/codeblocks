@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomFontFactory implements FontFactory {
 
@@ -59,7 +59,7 @@ public class RandomFontFactory implements FontFactory {
 
     @Override
     public Font getFont(int index) {
-        Random r = new Random();
+        ThreadLocalRandom r = ThreadLocalRandom.current();
         String family = families.get(r.nextInt(families.size()));
         boolean bold = r.nextBoolean() && randomStyle;
         int size = minSize;

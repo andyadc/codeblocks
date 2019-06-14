@@ -1,6 +1,6 @@
 package com.andyadc.codeblocks.captcha.text.renderer;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomYBestFitTextRenderer extends AbstractTextRenderer {
 
@@ -9,7 +9,7 @@ public class RandomYBestFitTextRenderer extends AbstractTextRenderer {
         double widthRemaining = (width - ts.getWidth() - leftMargin - rightMargin) / ts.getCharacters().size();
         double vmiddle = height / 2D;
         double x = leftMargin + widthRemaining / 2;
-        Random r = new Random();
+        ThreadLocalRandom r = ThreadLocalRandom.current();
         height -= topMargin + bottomMargin;
         for (TextCharacter tc : ts.getCharacters()) {
             double heightRemaining = height - tc.getHeight();

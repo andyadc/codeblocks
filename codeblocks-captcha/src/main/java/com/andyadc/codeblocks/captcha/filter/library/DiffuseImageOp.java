@@ -1,6 +1,6 @@
 package com.andyadc.codeblocks.captcha.filter.library;
 
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class DiffuseImageOp extends AbstractTransformImageOp {
 
@@ -33,7 +33,7 @@ public class DiffuseImageOp extends AbstractTransformImageOp {
 
     @Override
     protected void transform(int x, int y, double[] t) {
-        Random r = new Random();
+        ThreadLocalRandom r = ThreadLocalRandom.current();
         int angle = (int) (r.nextFloat() * 255);
         t[0] = x + tx[angle];
         t[1] = y + ty[angle];

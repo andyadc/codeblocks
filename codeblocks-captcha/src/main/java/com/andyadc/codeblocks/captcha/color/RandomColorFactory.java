@@ -1,8 +1,7 @@
 package com.andyadc.codeblocks.captcha.color;
 
 import java.awt.*;
-import java.security.SecureRandom;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomColorFactory implements ColorFactory {
 
@@ -26,7 +25,7 @@ public class RandomColorFactory implements ColorFactory {
     @Override
     public Color getColor(int index) {
         if (color == null) {
-            Random r = new SecureRandom();
+            ThreadLocalRandom r = ThreadLocalRandom.current();
             color = new Color(min.getRed() + r.nextInt((max.getRed() - min.getRed())),
                     min.getGreen() + r.nextInt((max.getGreen() - min.getGreen())),
                     min.getBlue() + r.nextInt((max.getBlue() - min.getBlue())));

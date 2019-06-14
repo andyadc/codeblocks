@@ -6,7 +6,7 @@ import java.net.NetworkInterface;
 import java.net.ServerSocket;
 import java.net.SocketException;
 import java.util.Enumeration;
-import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * 关于网络的工具类.
@@ -18,7 +18,6 @@ public final class NetUtils {
 
     private static final int PORT_RANGE_MIN = 1024;
     private static final int PORT_RANGE_MAX = 65535;
-    private static final Random random = new Random();
 
     /**
      * Pre-loaded local address
@@ -111,7 +110,7 @@ public final class NetUtils {
                         String.format("Could not find an available tcp port in the range [%d, %d] after %d attempts",
                                 minPort, maxPort, searchCounter));
             }
-            candidatePort = minPort + random.nextInt(portRange + 1);
+            candidatePort = minPort + ThreadLocalRandom.current().nextInt(portRange + 1);
         } while (!isPortAvailable(candidatePort));
 
         return candidatePort;
