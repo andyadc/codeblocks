@@ -1,6 +1,6 @@
 package com.andyadc.codeblocks.showcase.web.controller;
 
-import com.andyadc.codeblocks.common.DataResponse;
+import com.andyadc.codeblocks.common.Response;
 import com.andyadc.codeblocks.showcase.auth.entity.AuthUser;
 import com.andyadc.codeblocks.showcase.auth.service.AuthService;
 import org.slf4j.Logger;
@@ -26,7 +26,7 @@ public class PublicController {
     @GetMapping("/user")
     public Object user() {
         AuthUser authUser = authService.findAuthUserByUsername("admin");
-        return DataResponse.success(authUser);
+        return Response.success(authUser);
     }
 
     @GetMapping("/exception")
