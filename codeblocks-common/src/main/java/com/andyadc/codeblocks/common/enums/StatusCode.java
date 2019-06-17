@@ -7,7 +7,8 @@ package com.andyadc.codeblocks.common.enums;
 public enum StatusCode {
 
     SUCCESS("000", "成功"),
-    FAILED("400", "失败");
+    FAILED("400", "失败"),
+    ;
 
     private String code;
     private String message;
@@ -17,11 +18,11 @@ public enum StatusCode {
         this.message = message;
     }
 
-    public String getCode() {
+    public String code() {
         return code;
     }
 
-    public String getMessage() {
+    public String message() {
         return message;
     }
 }

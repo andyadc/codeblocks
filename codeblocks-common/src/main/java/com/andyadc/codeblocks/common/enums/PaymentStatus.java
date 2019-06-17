@@ -9,7 +9,9 @@ public enum PaymentStatus {
     PAID(1, "Paid", "已支付"),
     UNPAID(2, "Unpaid", "未支付"),
     CANCELLED(3, "Cancelled", "取消"),
-    REFUNDED(4, "Refunded", "已退款");
+    REFUNDING(4, "Refunding", "退款中"),
+    REFUNDED(5, "Refunded", "已退款"),
+    ;
 
     int num;
     String code;

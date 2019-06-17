@@ -9,7 +9,8 @@ package com.andyadc.codeblocks.common.enums;
 public enum Deletion {
 
     DELETED(1, "已删除"),
-    UNDELETED(0, "未删除");
+    UNDELETED(0, "未删除"),
+    ;
 
     private int state;
     private String desc;
@@ -19,11 +20,11 @@ public enum Deletion {
         this.desc = desc;
     }
 
-    public int getState() {
+    public int state() {
         return state;
     }
 
-    public String getDesc() {
+    public String desc() {
         return desc;
     }
 }

@@ -3,7 +3,7 @@ package com.andyadc.codeblocks.common.type;
 import com.andyadc.codeblocks.common.annotation.Nullable;
 
 /**
- * 引入一个简简单单的Pair, 用于返回值返回两个元素.
+ * Pair, 用于返回值返回两个元素.
  *
  * @author andaicheng
  * @since 2018/6/2

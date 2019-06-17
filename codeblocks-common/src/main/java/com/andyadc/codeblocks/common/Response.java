@@ -28,13 +28,13 @@ public class Response<T> implements Serializable {
     }
 
     public static Response success() {
-        return new Response(StatusCode.SUCCESS.getCode(), StatusCode.SUCCESS.getMessage());
+        return new Response(StatusCode.SUCCESS.code(), StatusCode.SUCCESS.message());
     }
 
     public static <T> Response success(T t) {
         Response response = new Response<>(t);
-        response.setCode(StatusCode.SUCCESS.getCode());
-        response.setMessage(StatusCode.SUCCESS.getMessage());
+        response.setCode(StatusCode.SUCCESS.code());
+        response.setMessage(StatusCode.SUCCESS.message());
         return response;
     }
 
@@ -64,9 +64,10 @@ public class Response<T> implements Serializable {
 
     @Override
     public String toString() {
-        return "Response{" +
+        return "Response {" +
                 "code=" + code +
                 ", message=" + message +
-                "}";
+                ", data=" + data +
+                '}';
     }
 }

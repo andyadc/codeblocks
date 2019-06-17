@@ -47,7 +47,7 @@ public class ShiroDbRealm extends AuthorizingRealm {
         if (authUser == null) {
             throw new UnknownAccountException();
         }
-        if (Deletion.DELETED.getState() == authUser.getDeleted()) {
+        if (Deletion.DELETED.state() == authUser.getDeleted()) {
             throw new UnknownAccountException();
         }
         if (UserStatus.LOCKED.getStatus() == authUser.getStatus()) {
