@@ -36,14 +36,13 @@
     <properties>
         <spring.version>5.1.7.RELEASE</spring.version>
         <aspectj.version>1.9.3</aspectj.version>
+        <lombok.version>1.18.8</lombok.version>
         <netty.version>4.1.36.Final</netty.version>
         <httpcomponents.version>4.5.9</httpcomponents.version>
-        <shiro.version>1.4.1</shiro.version>
         <sentinel.version>1.6.1</sentinel.version>
         <mybatis.version>3.5.1</mybatis.version>
         <mybatis-spring.version>2.0.1</mybatis-spring.version>
         <spring-data-redis.version>2.1.9.RELEASE</spring-data-redis.version>
-        <lombok.version>1.18.8</lombok.version>
         <zookeeper.version>3.5.5</zookeeper.version>
         <redisson.version>3.11.0</redisson.version>
         <!--<jedis.version>3.0.0</jedis.version>-->
@@ -74,7 +73,6 @@
         <kryo.version>4.0.2</kryo.version>
         <protostuff.version>1.6.0</protostuff.version>
         <ehcache.version>3.7.1</ehcache.version>
-        <freemarker.version>2.3.28</freemarker.version>
         <zxing.version>3.4.0</zxing.version>
         <poi.version>4.1.0</poi.version>
         <cglib.version>3.2.12</cglib.version>
@@ -353,12 +351,6 @@
                 <groupId>org.ehcache</groupId>
                 <artifactId>ehcache</artifactId>
                 <version>${ehcache.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.freemarker</groupId>
-                <artifactId>freemarker</artifactId>
-                <version>${freemarker.version}</version>
             </dependency>
 
             <dependency>
