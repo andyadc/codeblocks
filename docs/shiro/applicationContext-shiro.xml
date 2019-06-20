@@ -73,6 +73,7 @@
     <bean id="captchaFormAuthenticationFilter"
           class="com.andyadc.codeblocks.showcase.auth.security.CaptchaFormAuthenticationFilter">
         <property name="authService" ref="authService"/>
+        <property name="redisTemplate" ref="redisTemplate"/>
     </bean>
 
 </beans>

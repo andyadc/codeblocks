@@ -44,7 +44,7 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
     private static final String CACHE_LOGIN_FAIL_PREFIX = "login_fail_times_";
 
     private AuthService authService;
-    @Autowired
+//    @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
     @Override
@@ -144,6 +144,10 @@ public class CaptchaFormAuthenticationFilter extends FormAuthenticationFilter {
 
     public void setAuthService(AuthService authService) {
         this.authService = authService;
+    }
+
+    public void setRedisTemplate(RedisTemplate<String, String> redisTemplate) {
+        this.redisTemplate = redisTemplate;
     }
 
     public static class CaptchaValidationException extends AuthenticationException {

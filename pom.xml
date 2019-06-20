@@ -73,6 +73,7 @@
         <fst.version>2.57</fst.version>
         <kryo.version>4.0.2</kryo.version>
         <protostuff.version>1.6.0</protostuff.version>
+        <ehcache.version>3.7.1</ehcache.version>
         <freemarker.version>2.3.28</freemarker.version>
         <zxing.version>3.4.0</zxing.version>
         <poi.version>4.1.0</poi.version>
@@ -344,20 +345,20 @@
             </dependency>
 
             <dependency>
-                <groupId>org.freemarker</groupId>
-                <artifactId>freemarker</artifactId>
-                <version>${freemarker.version}</version>
+                <groupId>javax.cache</groupId>
+                <artifactId>cache-api</artifactId>
+                <version>1.1.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.ehcache</groupId>
+                <artifactId>ehcache</artifactId>
+                <version>${ehcache.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>org.apache.shiro</groupId>
-                <artifactId>shiro-spring</artifactId>
-                <version>${shiro.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.shiro</groupId>
-                <artifactId>shiro-ehcache</artifactId>
-                <version>${shiro.version}</version>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>${freemarker.version}</version>
             </dependency>
 
             <dependency>
