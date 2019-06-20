@@ -57,10 +57,6 @@
     <!-- 定义aspectj -->
     <aop:aspectj-autoproxy proxy-target-class="true"/>
 
-    <bean id="ehCacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
-        <property name="configLocation" value="classpath:cache/ehcache-local.xml"/>
-    </bean>
-
     <!-- HikariCP dataSource -->
     <bean id="hikariDataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
         <constructor-arg ref="hikariConfig"/>

@@ -27,10 +27,6 @@
         <property name="dataSource" ref="hikariDataSource"/>
     </bean>
 
-    <bean id="ehCacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
-        <property name="configLocation" value="classpath:cache/ehcache-local.xml"/>
-    </bean>
-
     <!-- HikariCP configuration -->
     <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
         <property name="poolName" value="${hikari.pool.name}"/>
