@@ -25,7 +25,7 @@ public class EhCacheTest {
 
 	@Test
 	public void basicXML() {
-		Configuration configuration = new XmlConfiguration(EhCacheTest.class.getResource("/ehcache/ehcache.xml"));
+		Configuration configuration = new XmlConfiguration(EhCacheTest.class.getResource("/ehcache/ehcache-basic.xml"));
 		try (CacheManager cacheManager = new EhcacheManager(configuration)) {
 
 			cacheManager.init();
@@ -43,7 +43,8 @@ public class EhCacheTest {
 				ResourcePoolsBuilder.newResourcePoolsBuilder()
 					.heap(10, EntryUnit.ENTRIES)
 					.offheap(1, MemoryUnit.MB)
-			)).build(true);
+				)
+			).build(true);
 
 		Cache<Long, String> cache = cacheManager.getCache("basicCache", Long.class, String.class);
 		cache.put(1L, "ABC");
@@ -54,24 +55,26 @@ public class EhCacheTest {
 
 	@Test
 	public void persistenceProgrammatic() {
+		String storagePath = "d:" + File.separator + "opt/cache";
 		PersistentCacheManager cacheManager = CacheManagerBuilder
 			.newCacheManagerBuilder()
-			.with(CacheManagerBuilder.persistence("d:" + File.separator + "opt/cache"))
+			.with(CacheManagerBuilder.persistence(storagePath))
 			.withCache("persistenceCache",
 				CacheConfigurationBuilder.newCacheConfigurationBuilder(Integer.class, String.class,
 					ResourcePoolsBuilder.newResourcePoolsBuilder()
 						.heap(10, EntryUnit.ENTRIES)
 						.offheap(1, MemoryUnit.MB)
-						.disk(20, MemoryUnit.GB)))
-			.build(true);
+						.disk(20, MemoryUnit.GB, true)
+				)
+			).build(true);
 
 		Cache<Integer, String> cache = cacheManager.getCache("persistenceCache", Integer.class, String.class);
 
-		for (int i = 0; i < 1000000; i++) {
+		for (int i = 0; i < 100000; i++) {
 			cache.put(i, i + "");
 		}
 
-		for (int i = 0; i < 100000; i++) {
+		for (int i = 0; i < 10000; i++) {
 			System.out.println(cache.get(i));
 		}
 

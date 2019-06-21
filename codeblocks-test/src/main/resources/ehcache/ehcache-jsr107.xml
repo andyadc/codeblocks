@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <eh:config
-        xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
-        xmlns:eh='http://www.ehcache.org/v3'
-        xmlns:jsr107='http://www.ehcache.org/v3/jsr107'
-        xsi:schemaLocation="
+	xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+	xmlns:eh='http://www.ehcache.org/v3'
+	xmlns:jsr107='http://www.ehcache.org/v3/jsr107'
+	xsi:schemaLocation="
         http://www.ehcache.org/v3 http://www.ehcache.org/schema/ehcache-core.xsd
         http://www.ehcache.org/v3/jsr107 http://www.ehcache.org/schema/ehcache-107-ext.xsd">
 
-	<!--<eh:service>
+	<eh:service>
 		<jsr107:defaults enable-management="false" enable-statistics="true"/>
-	</eh:service>-->
+	</eh:service>
 
 	<eh:cache alias="basicCache">
 		<eh:key-type>java.lang.Long</eh:key-type>
