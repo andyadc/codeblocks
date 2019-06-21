@@ -7,6 +7,20 @@
 	<eh:cache alias="basicCache">
 		<eh:key-type>java.lang.Long</eh:key-type>
 		<eh:value-type>java.lang.String</eh:value-type>
+
+		<eh:listeners>
+			<eh:listener>
+				<eh:class>com.andyadc.codeblocks.test.ehcache.CacheEventLogger</eh:class>
+				<eh:event-firing-mode>ASYNCHRONOUS</eh:event-firing-mode>
+				<eh:event-ordering-mode>UNORDERED</eh:event-ordering-mode>
+				<eh:events-to-fire-on>CREATED</eh:events-to-fire-on>
+				<eh:events-to-fire-on>UPDATED</eh:events-to-fire-on>
+				<eh:events-to-fire-on>EVICTED</eh:events-to-fire-on>
+				<eh:events-to-fire-on>REMOVED</eh:events-to-fire-on>
+				<eh:events-to-fire-on>EXPIRED</eh:events-to-fire-on>
+			</eh:listener>
+		</eh:listeners>
+
 		<eh:resources>
 			<eh:heap unit="entries">100</eh:heap>
 			<eh:offheap unit="MB">1</eh:offheap>
