@@ -59,6 +59,7 @@ public class KafkaTest {
         props.put(ProducerConfig.ACKS_CONFIG, "-1"); // 高可靠性要求则应该设置成"all" 或 "-1"
         props.put(ProducerConfig.RETRIES_CONFIG, 3); // 启用重试机制
         props.put(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, 1); // 避免消息重排序
+		props.put(ProducerConfig.COMPRESSION_TYPE_CONFIG, "zstd"); //开启压缩 ('gzip', 'snappy', 'lz4', 'zstd')
 
         props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
                 "org.apache.kafka.common.serialization.StringSerializer");
