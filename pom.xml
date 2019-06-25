@@ -26,7 +26,6 @@
         <module>codeblocks-qrcode</module>
         <module>permission</module>
         <module>algo</module>
-        <module>perf4j</module>
     </modules>
 
     <prerequisites>
