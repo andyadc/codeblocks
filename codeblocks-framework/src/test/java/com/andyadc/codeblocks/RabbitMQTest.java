@@ -5,7 +5,7 @@ import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 import org.junit.Test;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,8 +24,6 @@ public class RabbitMQTest {
         CONNECTION_FACTORY = getConnectionFactory();
         connection = getConnection();
     }
-
-    private Charset utf8 = Charset.forName("UTF-8");
 
     private static Connection getConnection() {
         try {
@@ -59,7 +57,7 @@ public class RabbitMQTest {
         Channel channel = connection.createChannel();
 
         String message = "Hello RabbitMQ";
-        channel.basicPublish("", queue, null, message.getBytes(utf8));
+		channel.basicPublish("", queue, null, message.getBytes(StandardCharsets.UTF_8));
 
         channel.close();
         connection.close();
@@ -72,7 +70,7 @@ public class RabbitMQTest {
 
         channel.basicConsume(queue, true, (consumerTag, message) ->
                         System.out.println(
-                                "message: " + new String(message.getBody(), utf8)
+							"message: " + new String(message.getBody(), StandardCharsets.UTF_8)
                                         + ", consumerTag: " + consumerTag
                         )
                 , (consumerTag) -> {
