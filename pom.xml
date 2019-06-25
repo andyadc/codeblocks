@@ -48,7 +48,7 @@
         <!--<jedis.version>3.0.0</jedis.version>-->
         <jedis.version>2.10.2</jedis.version>
         <lettuce.version>5.1.7.RELEASE</lettuce.version>
-        <kafka-clients.version>2.2.1</kafka-clients.version>
+		<kafka-clients.version>2.3.0</kafka-clients.version>
         <curator.version>4.2.0</curator.version>
         <zkclient.version>0.11</zkclient.version>
         <rabbitmq-clients.version>5.7.1</rabbitmq-clients.version>
@@ -79,7 +79,6 @@
         <objenesis.version>3.0.1</objenesis.version>
         <javassist.version>3.25.0-GA</javassist.version>
         <ognl.version>3.2.10</ognl.version>
-        <jodd.version>5.0.13</jodd.version>
         <slf4j.version>1.7.26</slf4j.version>
         <logback.version>1.2.3</logback.version>
         <mockito.version>2.28.2</mockito.version>
@@ -334,12 +333,6 @@
                 <groupId>ognl</groupId>
                 <artifactId>ognl</artifactId>
                 <version>${ognl.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.jodd</groupId>
-                <artifactId>jodd-core</artifactId>
-                <version>${jodd.version}</version>
             </dependency>
 
             <dependency>
