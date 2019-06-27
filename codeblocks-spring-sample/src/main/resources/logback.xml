@@ -8,95 +8,74 @@
 -->
 <configuration scan="false" scanPeriod="60 seconds" debug="true">
 
-    <property name="APP_NAME" value="sample"/>
-    <property name="LOG_PATH" value="/opt/logs/codeblocks/${APP_NAME}"/>
+	<property name="APP_NAME" value="sample"/>
+	<property name="LOG_PATH" value="/opt/logs/codeblocks/${APP_NAME}"/>
 
-    <!-- log pattern -->
-    <property name="LOG_PATTERN"
-              value="%d{yyyy-MM-dd HH:mm:ss.SSS} [level=%level] [traceId=%X{traceId}] [thread=%thread] [class=%logger{39}] - %msg%n"
-    />
+	<!-- log pattern -->
+	<property name="LOG_PATTERN"
+			  value="%d{yyyy-MM-dd HH:mm:ss.SSS} [level=%level] [traceId=%X{traceId}] [thread=%thread] [class=%logger{39}] - %msg%n"
+	/>
 
-    <!--  Output to Console -->
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>${LOG_PATTERN}</pattern>
-        </encoder>
-    </appender>
+	<!--  Output to Console -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>${LOG_PATTERN}</pattern>
+		</encoder>
+	</appender>
 
-    <!-- Output to File -->
-    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_PATH}/${APP_NAME}.log</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <!-- daily rollover -->
-            <fileNamePattern>
-                ${LOG_PATH}/${APP_NAME}-%d{yyyy-MM-dd}.%i.log
-            </fileNamePattern>
-            <!-- each file should be at most 10MB, keep 30 days worth of history, but at most 20GB -->
-            <maxHistory>30</maxHistory>
-            <maxFileSize>10MB</maxFileSize>
-            <totalSizeCap>10GB</totalSizeCap>
-        </rollingPolicy>
-        <!-- 日志输出格式 -->
-        <encoder>
-            <pattern>${LOG_PATTERN}</pattern>
-        </encoder>
-    </appender>
+	<!-- Output to File -->
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_PATH}/${APP_NAME}.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<!-- daily rollover -->
+			<fileNamePattern>
+				${LOG_PATH}/${APP_NAME}-%d{yyyy-MM-dd}.%i.log
+			</fileNamePattern>
+			<!-- each file should be at most 10MB, keep 30 days worth of history, but at most 20GB -->
+			<maxHistory>30</maxHistory>
+			<maxFileSize>10MB</maxFileSize>
+			<totalSizeCap>10GB</totalSizeCap>
+		</rollingPolicy>
+		<!-- 日志输出格式 -->
+		<encoder>
+			<pattern>${LOG_PATTERN}</pattern>
+		</encoder>
+	</appender>
 
-    <!-- sql log file -->
-    <appender name="SQLFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_PATH}/${APP_NAME}_sql.log</file>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${LOG_PATH}/${APP_NAME}_sql.%d{yyyy-MM-dd}.log</fileNamePattern>
-            <maxHistory>30</maxHistory>
-        </rollingPolicy>
-        <encoder>
-            <pattern>${LOG_PATTERN}</pattern>
-        </encoder>
-    </appender>
+	<!-- sql log file -->
+	<appender name="SQLFILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_PATH}/${APP_NAME}_sql.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/${APP_NAME}_sql.%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${LOG_PATTERN}</pattern>
+		</encoder>
+	</appender>
 
-    <!-- 异步输出 -->
-    <appender name="ASYNCLOG" class="ch.qos.logback.classic.AsyncAppender">
-        <!-- 不丢失日志.默认如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 -->
-        <discardingThreshold>0</discardingThreshold>
-        <!-- 更改默认的队列的深度,该值会影响性能.默认值为256 -->
-        <queueSize>1024</queueSize>
-        <!-- If false (the default) the appender will block on appending to a full queue rather than losing the message. Set to true and the appender will just drop the message and will not block your application. -->
-        <neverBlock>true</neverBlock>
-        <!-- 添加附加的appender,最多只能添加一个 -->
-        <appender-ref ref="FILE"/>
-    </appender>
+	<!-- 异步输出 -->
+	<appender name="ASYNCLOG" class="ch.qos.logback.classic.AsyncAppender">
+		<!-- 不丢失日志.默认如果队列的80%已满,则会丢弃TRACT、DEBUG、INFO级别的日志 -->
+		<discardingThreshold>0</discardingThreshold>
+		<!-- 更改默认的队列的深度,该值会影响性能.默认值为256 -->
+		<queueSize>1024</queueSize>
+		<!-- If false (the default) the appender will block on appending to a full queue rather than losing the message. Set to true and the appender will just drop the message and will not block your application. -->
+		<neverBlock>true</neverBlock>
+		<!-- 添加附加的appender,最多只能添加一个 -->
+		<appender-ref ref="FILE"/>
+	</appender>
 
-    <!--perf4j配置-->
-    <appender name="statistics" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <Encoding>UTF-8</Encoding>
-        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <!--日志文件输出的文件名 -->
-            <FileNamePattern>${LOG_PATH}/statistics.%d{yyyy-MM-dd}.log</FileNamePattern>
-        </rollingPolicy>
-        <layout class="ch.qos.logback.classic.PatternLayout">
-            <pattern>%msg%n</pattern>
-        </layout>
-    </appender>
+	<logger name="com.andyadc.codeblocks.showcase.auth.mapper" level="DEBUG">
+		<appender-ref ref="SQLFILE"/>
+	</logger>
+	<logger name="com.andyadc.codeblocks.showcase.sys.mapper" level="DEBUG">
+		<appender-ref ref="SQLFILE"/>
+	</logger>
 
-    <appender name="coalescingStatistics" class="com.andyadc.perf4j.logback.AsyncCoalescingStatisticsAppender">
-        <timeSlice>1000</timeSlice>
-        <appender-ref ref="statistics"/>
-    </appender>
-
-    <logger name="com.andyadc.perf4j.TimingLogger" level="debug" additivity="false">
-        <appender-ref ref="coalescingStatistics"/>
-    </logger>
-
-    <logger name="com.andyadc.codeblocks.showcase.auth.mapper" level="DEBUG">
-        <appender-ref ref="SQLFILE"/>
-    </logger>
-    <logger name="com.andyadc.codeblocks.showcase.sys.mapper" level="DEBUG">
-        <appender-ref ref="SQLFILE"/>
-    </logger>
-
-    <root level="info">
-        <appender-ref ref="STDOUT"/>
-        <appender-ref ref="FILE"/>
-    </root>
+	<root level="info">
+		<appender-ref ref="STDOUT"/>
+		<appender-ref ref="ASYNCLOG"/>
+	</root>
 
 </configuration>
