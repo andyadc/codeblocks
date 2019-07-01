@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.mybatis;
+package framework.test.mybatis;
 
 import com.andyadc.codeblocks.framework.mybatis.pagination.Order;
 import com.andyadc.codeblocks.framework.mybatis.pagination.PageBounds;

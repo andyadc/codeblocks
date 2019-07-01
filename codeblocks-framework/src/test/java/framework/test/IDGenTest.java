@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks;
+package framework.test;
 
 import com.andyadc.codeblocks.framework.idgen.IDGen;
 import com.andyadc.codeblocks.framework.idgen.Result;

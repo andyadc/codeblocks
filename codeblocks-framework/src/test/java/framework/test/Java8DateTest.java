@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks;
+package framework.test;
 
 import org.junit.Test;
 

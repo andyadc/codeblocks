@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.mybatis;
+package framework.test.mybatis;
 
 import java.util.List;
 

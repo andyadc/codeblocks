@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.zookeeper;
+package framework.test.zookeeper;
 
 import org.I0Itec.zkclient.ZkClient;
 import org.junit.Test;
