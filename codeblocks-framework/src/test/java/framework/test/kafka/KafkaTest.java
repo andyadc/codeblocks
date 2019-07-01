@@ -64,6 +64,11 @@ public class KafkaTest {
 			"org.apache.kafka.common.serialization.StringSerializer");
 		props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
 			"org.apache.kafka.common.serialization.StringSerializer");
+
+		List<String> interceptors = new ArrayList<>(2);
+		interceptors.add(MyProducerInterceptor.class.getName());
+		props.put(ProducerConfig.INTERCEPTOR_CLASSES_CONFIG, interceptors);
+
 		return props;
 	}
 
@@ -76,6 +81,10 @@ public class KafkaTest {
 
 		props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
 		props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+
+		List<String> interceptors = new ArrayList<>(2);
+		interceptors.add(MyConsumerInterceptor.class.getName());
+		props.put(ConsumerConfig.INTERCEPTOR_CLASSES_CONFIG, interceptors);
 
 		return props;
 	}
@@ -103,7 +112,7 @@ public class KafkaTest {
 	public void testProducer() {
 		String topic = TEST_TOPICS[0];
 		String message = "This is a message!";
-		ProducerRecord<String, String> record = new ProducerRecord<>(topic, message);
+		ProducerRecord<String, String> record = new ProducerRecord<>(topic, null, message);
 
 		producer.send(record, (metadata, e) ->
 			System.out.println(String.format("topic: %s, partition: %s, offset: %s, ",
