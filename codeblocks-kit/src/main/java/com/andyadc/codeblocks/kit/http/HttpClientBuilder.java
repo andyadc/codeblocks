@@ -82,9 +82,9 @@ public class HttpClientBuilder {
             httpClient = HttpClients.custom()
                     .setConnectionManager(manager)
                     .setConnectionManagerShared(false)  // 连接池不是共享模式
-                    .evictIdleConnections(60, TimeUnit.SECONDS) // 定期回收空闲连接
+				.evictIdleConnections(60L, TimeUnit.SECONDS) // 定期回收空闲连接
                     .evictExpiredConnections()  // 定期回收过期连接
-                    .setConnectionTimeToLive(60, TimeUnit.SECONDS)  //连接存活时间, 如果不设置, 则根据长连接信息决定
+				.setConnectionTimeToLive(60L, TimeUnit.SECONDS)  //连接存活时间, 如果不设置, 则根据长连接信息决定
                     .setDefaultRequestConfig(requestConfig) //设置默认请求配置
                     .setConnectionReuseStrategy(DefaultConnectionReuseStrategy.INSTANCE)    //连接重用策略
                     .setKeepAliveStrategy(DefaultConnectionKeepAliveStrategy.INSTANCE)  // 长连接策略
