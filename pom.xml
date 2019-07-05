@@ -50,10 +50,10 @@
 		<kafka-clients.version>2.3.0</kafka-clients.version>
         <curator.version>4.2.0</curator.version>
         <zkclient.version>0.11</zkclient.version>
-        <rabbitmq-clients.version>5.7.1</rabbitmq-clients.version>
-        <jackson.version>2.9.9</jackson.version>
+		<rabbitmq-clients.version>5.7.2</rabbitmq-clients.version>
+		<jackson.version>2.9.9.1</jackson.version>
         <fastjson.version>1.2.58</fastjson.version>
-        <joda-time.version>2.10.2</joda-time.version>
+		<joda-time.version>2.10.3</joda-time.version>
         <guava.version>28.0-jre</guava.version>
         <orika.version>1.5.4</orika.version>
         <commons-lang.version>3.9</commons-lang.version>
@@ -96,7 +96,9 @@
         <project.build.sourceEncoding>${encoding}</project.build.sourceEncoding>
         <project.reporting.outputEncoding>${encoding}</project.reporting.outputEncoding>
         <maven.test.skip>true</maven.test.skip>
-        <argLine>-Dfile.encoding=${encoding}</argLine>
+		<argLine>
+			-Dfile.encoding=${encoding}
+		</argLine>
 
     </properties>
 
