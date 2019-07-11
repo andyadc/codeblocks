@@ -33,23 +33,30 @@
 		<constructor-arg name="standaloneConfig" ref="redisStandaloneConfiguration"/>
 	</bean>
 
-	<!-- Jedis Sentinel ConnectionFactory -->
-	<bean id="jedisSentinelConnectionFactory"
-		  class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
-		<constructor-arg name="sentinelConfig" ref="redisSentinelConfiguration"/>
-		<constructor-arg name="poolConfig" ref="jedisPoolConfig"/>
-	</bean>
-
 	<!-- redis standalone config -->
 	<bean id="redisStandaloneConfiguration"
 		  class="org.springframework.data.redis.connection.RedisStandaloneConfiguration">
 		<property name="hostName" value="${redis.host}"/>
 		<property name="port" value="${redis.port}"/>
 		<property name="database" value="${redis.database}"/>
-		<property name="password" value="${redis.password}"/>
+		<property name="password" ref="redisPassword"/>
 	</bean>
 
+	<bean id="redisPassword" class="org.springframework.data.redis.connection.RedisPassword">
+		<constructor-arg name="thePassword" value="${redis.password}"/>
+	</bean>
+
+	<!-- Jedis Sentinel ConnectionFactory -->
+	<!--
+	<bean id="jedisSentinelConnectionFactory"
+		  class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+		<constructor-arg name="sentinelConfig" ref="redisSentinelConfiguration"/>
+		<constructor-arg name="poolConfig" ref="jedisPoolConfig"/>
+	</bean>
+	-->
+
 	<!-- redis sentinel config -->
+	<!--
 	<bean id="redisSentinelConfiguration" class="org.springframework.data.redis.connection.RedisSentinelConfiguration">
 		<property name="master">
 			<bean class="org.springframework.data.redis.connection.RedisNode">
@@ -65,4 +72,5 @@
 			</set>
 		</property>
 	</bean>
+	-->
 </beans>
