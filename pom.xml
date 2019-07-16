@@ -39,8 +39,8 @@
 		<netty.version>4.1.37.Final</netty.version>
         <httpcomponents.version>4.5.9</httpcomponents.version>
 		<sentinel.version>1.6.2</sentinel.version>
-        <mybatis.version>3.5.1</mybatis.version>
-        <mybatis-spring.version>2.0.1</mybatis-spring.version>
+        <mybatis.version>3.5.2</mybatis.version>
+        <mybatis-spring.version>2.0.2</mybatis-spring.version>
         <spring-data-redis.version>2.1.9.RELEASE</spring-data-redis.version>
         <zookeeper.version>3.5.5</zookeeper.version>
 		<redisson.version>3.11.1</redisson.version>
@@ -58,7 +58,7 @@
         <orika.version>1.5.4</orika.version>
         <commons-lang.version>3.9</commons-lang.version>
         <commons-codec.version>1.12</commons-codec.version>
-        <commons-collections.version>4.3</commons-collections.version>
+        <commons-collections.version>4.4</commons-collections.version>
         <commons-beanutils.version>1.9.3</commons-beanutils.version>
         <commons-pool.version>2.6.2</commons-pool.version>
         <commons-io.version>2.6</commons-io.version>
@@ -80,7 +80,7 @@
         <ognl.version>3.2.10</ognl.version>
         <slf4j.version>1.7.26</slf4j.version>
         <logback.version>1.2.3</logback.version>
-        <mockito.version>2.28.2</mockito.version>
+        <mockito.version>3.0.0</mockito.version>
         <junit.version>4.12</junit.version>
         <contiperf.version>2.3.4</contiperf.version>
         <jmh.version>1.21</jmh.version>
