@@ -9,7 +9,7 @@
 
 	<!-- MyBatis -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="hikariDataSource"/>
+		<property name="dataSource" ref="dataSource"/>
 		<property name="typeAliasesPackage" value="com.andyadc.codeblocks.**.entity"/>
 		<property name="typeAliasesSuperType" value="com.andyadc.codeblocks.common.BaseEntity"/>
 		<property name="mapperLocations" value="classpath:/mappings/**/*Mapper.xml"/>
@@ -26,36 +26,13 @@
 	</bean>
 
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="hikariDataSource"/>
+		<property name="dataSource" ref="dataSource"/>
 	</bean>
 
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 
-	<!-- HikariCP dataSource -->
-	<bean id="hikariDataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
-		<constructor-arg ref="hikariConfig"/>
-	</bean>
-
-	<!-- HikariCP configuration -->
-	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-		<property name="poolName" value="${hikari.pool.name}"/>
-		<property name="driverClassName" value="${jdbc.driver}"/>
-		<property name="jdbcUrl" value="${jdbc.url}"/>
-		<property name="username" value="${jdbc.username}"/>
-		<property name="password" value="${jdbc.password}"/>
-		<property name="maximumPoolSize" value="${hikari.pool.maximumPoolSize}"/>
-		<property name="minimumIdle" value="${hikari.pool.minimumIdle}"/>
-		<property name="idleTimeout" value="${hikari.pool.idleTimeout}"/>
-		<property name="connectionTestQuery" value="SELECT 1"/>
-		<property name="autoCommit" value="false"/>
-		<property name="dataSourceProperties">
-			<props>
-				<prop key="cachePrepStmts">true</prop>
-				<prop key="useServerPrepStmts">true</prop>
-				<prop key="prepStmtCacheSize">250</prop>
-				<prop key="prepStmtCacheSqlLimit">2048</prop>
-			</props>
-		</property>
-	</bean>
+	<!--<import resource="applicationContext-db-hikari.xml"/>-->
+	<import resource="applicationContext-db-druid.xml"/>
+	<!--<import resource="applicationContext-db-tomcat.xml"/>-->
 
 </beans>

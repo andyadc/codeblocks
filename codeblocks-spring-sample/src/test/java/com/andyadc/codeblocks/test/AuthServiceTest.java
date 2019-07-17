@@ -1,5 +1,6 @@
 package com.andyadc.codeblocks.test;
 
+import com.andyadc.codeblocks.kit.RandomUtil;
 import com.andyadc.codeblocks.showcase.auth.entity.AuthUser;
 import com.andyadc.codeblocks.showcase.auth.service.AuthService;
 import org.junit.After;
@@ -31,10 +32,10 @@ public class AuthServiceTest {
     @Test
     public void testSave() {
         AuthUser authUser = new AuthUser();
-        authUser.setUsername("12");
-        authUser.setNickname("12");
-        authUser.setPassword("54erwdfge2");
-        authUser.setSalt("ssss");
+		authUser.setUsername(RandomUtil.genRandomStr(7));
+		authUser.setNickname(authUser.getUsername().substring(0, 5));
+		authUser.setPassword(RandomUtil.genRandomStr(11));
+		authUser.setSalt(RandomUtil.genRandomNum(9));
         authUser.setStatus(1);
         authUser.setDeleted(0);
         authUser = authService.save(authUser);
