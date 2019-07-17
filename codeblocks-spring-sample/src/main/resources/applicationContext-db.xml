@@ -17,7 +17,7 @@
 	</bean>
 
 	<bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="com.andyadc.codeblocks"/>
+		<property name="basePackage" value="com.andyadc.codeblocks.**.mapper"/>
 		<property name="annotationClass" value="com.andyadc.codeblocks.framework.mybatis.MyBatisRepository"/>
 	</bean>
 
