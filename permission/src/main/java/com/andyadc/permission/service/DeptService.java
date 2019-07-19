@@ -1,8 +1,8 @@
 package com.andyadc.permission.service;
 
+import com.andyadc.codeblocks.kit.validator.BeanValidator;
 import com.andyadc.permission.exception.PermissionException;
 import com.andyadc.permission.mapper.AuthDeptMapper;
-import com.andyadc.permission.util.BeanValidator;
 import com.andyadc.permission.vo.DeptVo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
