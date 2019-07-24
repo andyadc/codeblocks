@@ -1,6 +1,7 @@
 package framework.test.redis;
 
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.params.SetParams;
 
 import java.util.Collections;
 import java.util.UUID;
@@ -78,10 +79,10 @@ public class SimpleRedisLock {
                            String lockValue,
                            long expireTime) {
         // from jedis 3.0
-//        SetParams params = new SetParams();
-//        params.nx();
-//        params.px(expireTime);
-        return jedis.set(lockKey, lockValue, NX, PX, expireTime);
+		SetParams params = new SetParams();
+		params.nx();
+		params.px(expireTime);
+		return jedis.set(lockKey, lockValue, params);
     }
 
     private void lockInner(Jedis jedis,

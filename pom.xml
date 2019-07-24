@@ -45,8 +45,7 @@
         <spring-data-redis.version>2.1.9.RELEASE</spring-data-redis.version>
         <zookeeper.version>3.5.5</zookeeper.version>
 		<redisson.version>3.11.1</redisson.version>
-        <!--<jedis.version>3.0.0</jedis.version>-->
-        <jedis.version>2.10.2</jedis.version>
+		<jedis.version>3.1.0</jedis.version>
         <lettuce.version>5.1.7.RELEASE</lettuce.version>
 		<kafka-clients.version>2.3.0</kafka-clients.version>
         <curator.version>4.2.0</curator.version>
@@ -58,7 +57,7 @@
         <guava.version>28.0-jre</guava.version>
         <orika.version>1.5.4</orika.version>
         <commons-lang.version>3.9</commons-lang.version>
-        <commons-codec.version>1.12</commons-codec.version>
+		<commons-codec.version>1.13</commons-codec.version>
         <commons-collections.version>4.4</commons-collections.version>
         <commons-beanutils.version>1.9.3</commons-beanutils.version>
         <commons-pool.version>2.6.2</commons-pool.version>
