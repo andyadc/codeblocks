@@ -45,7 +45,7 @@
         <spring-data-redis.version>2.1.9.RELEASE</spring-data-redis.version>
         <zookeeper.version>3.5.5</zookeeper.version>
 		<redisson.version>3.11.1</redisson.version>
-		<jedis.version>3.1.0</jedis.version>
+		<jedis.version>2.10.2</jedis.version>
         <lettuce.version>5.1.7.RELEASE</lettuce.version>
 		<kafka-clients.version>2.3.0</kafka-clients.version>
         <curator.version>4.2.0</curator.version>

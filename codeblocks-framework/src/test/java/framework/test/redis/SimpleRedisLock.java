@@ -1,11 +1,12 @@
 package framework.test.redis;
 
 import redis.clients.jedis.Jedis;
-import redis.clients.jedis.params.SetParams;
 
 import java.util.Collections;
 import java.util.UUID;
 import java.util.concurrent.locks.ReentrantLock;
+
+//import redis.clients.jedis.params.SetParams;
 
 /**
  * <URL>http://wudashan.com/2017/10/23/Redis-Distributed-Lock-Implement/</URL>
@@ -79,10 +80,10 @@ public class SimpleRedisLock {
                            String lockValue,
                            long expireTime) {
         // from jedis 3.0
-		SetParams params = new SetParams();
-		params.nx();
-		params.px(expireTime);
-		return jedis.set(lockKey, lockValue, params);
+//		SetParams params = new SetParams();
+//		params.nx();
+//		params.px(expireTime);
+		return jedis.set(lockKey, lockValue, "NX", "PX", expireTime);
     }
 
     private void lockInner(Jedis jedis,
