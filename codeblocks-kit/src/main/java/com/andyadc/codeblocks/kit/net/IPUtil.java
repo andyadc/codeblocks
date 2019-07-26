@@ -8,6 +8,8 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.util.Enumeration;
+import java.util.StringTokenizer;
+import java.util.regex.Pattern;
 
 /**
  * @author andaicheng
@@ -15,70 +17,127 @@ import java.util.Enumeration;
  */
 public final class IPUtil {
 
-    private static final Logger logger = LoggerFactory.getLogger(IPUtil.class);
+	private static final Logger logger = LoggerFactory.getLogger(IPUtil.class);
 
-    private static final String LOCAL_IP;
+	private static final String _255 = "(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
+	private static final Pattern pattern = Pattern.compile("^(?:" + _255 + "\\.){3}" + _255 + "$");
 
-    static {
-        LOCAL_IP = getLocalIpAddress();
-    }
+	private static final String LOCAL_IP;
 
-    private IPUtil() {
-    }
+	static {
+		LOCAL_IP = getLocalIpAddress();
+	}
 
-    public static String getLocalIp() {
-        return LOCAL_IP;
-    }
+	private IPUtil() {
+	}
 
-    /**
-     * 获取请求IP地址
-     */
-    public static String getReqIp(HttpServletRequest request) {
-        String ip = "";
-        //匹配大小写，保证无论Nginx如何配置代理参数，系统都能正常获取代理IP
-        Enumeration<?> enumeration = request.getHeaderNames();
-        while (enumeration.hasMoreElements()) {
-            String paraName = (String) enumeration.nextElement();
-            if ("x-forward-for".equalsIgnoreCase(paraName) || "x-forwarded-for".equalsIgnoreCase(paraName)) {
-                ip = request.getHeader(paraName);
-                break;
-            }
-        }
-        final String localIP = "127.0.0.1";
-        if ((ip == null) || (ip.length() == 0) || (ip.equalsIgnoreCase(localIP)) || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("Proxy-Client-IP");
-        }
-        if ((ip == null) || (ip.length() == 0) || (ip.equalsIgnoreCase(localIP)) || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getHeader("WL-Proxy-Client-IP");
-        }
-        if ((ip == null) || (ip.length() == 0) || (ip.equalsIgnoreCase(localIP)) || "unknown".equalsIgnoreCase(ip)) {
-            ip = request.getRemoteAddr();
-        }
-        return ip;
-    }
+	public static String getLocalIp() {
+		return LOCAL_IP;
+	}
 
-    /**
-     * 获取本机 IP
-     * IPV4
-     */
-    private static String getLocalIpAddress() {
-        try {
-            Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
-            while (interfaces.hasMoreElements()) {
-                NetworkInterface ni = interfaces.nextElement();
-                Enumeration<InetAddress> inetAddresses = ni.getInetAddresses();
+	public static void main(String[] args) {
+		System.out.println(ipV4ToLong("114.141.191.195"));//1921892291
+		System.out.println(longToIpV4(1L));
+		System.out.println(LOCAL_IP);
+	}
 
-                while (inetAddresses.hasMoreElements()) {
-                    InetAddress address = inetAddresses.nextElement();
-                    if (address instanceof Inet4Address && !"127.0.0.1".equals(address.getHostAddress())) {
-                        return address.getHostAddress();
-                    }
-                }
-            }
-        } catch (Exception e) {
-            logger.error("Get server ip error", e);
-        }
-        return null;
-    }
+	public static String longToIpV4(long longIp) {
+		int octet3 = (int) ((longIp >> 24) % 256);
+		int octet2 = (int) ((longIp >> 16) % 256);
+		int octet1 = (int) ((longIp >> 8) % 256);
+		int octet0 = (int) ((longIp) % 256);
+		return octet3 + "." + octet2 + "." + octet1 + "." + octet0;
+	}
+
+	public static long ipV4ToLong(String ip) {
+		if (ip == null || ip.length() == 0) {
+			return -1;
+		}
+
+		String[] octets = ip.split("\\.");
+		return (Long.parseLong(octets[0]) << 24) + (Integer.parseInt(octets[1]) << 16)
+			+ (Integer.parseInt(octets[2]) << 8) + Integer.parseInt(octets[3]);
+	}
+
+	public static boolean isIPv4Private(String ip) {
+		long longIp = ipV4ToLong(ip);
+		return (longIp >= ipV4ToLong("10.0.0.0") && longIp <= ipV4ToLong("10.255.255.255"))
+			|| (longIp >= ipV4ToLong("172.16.0.0") && longIp <= ipV4ToLong("172.31.255.255"))
+			|| longIp >= ipV4ToLong("192.168.0.0") && longIp <= ipV4ToLong("192.168.255.255");
+	}
+
+	public static boolean isIPv4Valid(String ip) {
+		return pattern.matcher(ip).matches();
+	}
+
+	public static String getIpFromRequest(HttpServletRequest request) {
+		String ip;
+		boolean found = false;
+		if ((ip = request.getHeader("x-forwarded-for")) != null) {
+			StringTokenizer tokenizer = new StringTokenizer(ip, ",");
+			while (tokenizer.hasMoreTokens()) {
+				ip = tokenizer.nextToken().trim();
+				if (isIPv4Valid(ip) && !isIPv4Private(ip)) {
+					found = true;
+					break;
+				}
+			}
+		}
+		if (!found) {
+			ip = request.getRemoteAddr();
+		}
+		return ip;
+	}
+
+	/**
+	 * 获取请求IP地址
+	 */
+	public static String getReqIp(HttpServletRequest request) {
+		String ip = "";
+		//匹配大小写，保证无论Nginx如何配置代理参数，系统都能正常获取代理IP
+		Enumeration<?> enumeration = request.getHeaderNames();
+		while (enumeration.hasMoreElements()) {
+			String paraName = (String) enumeration.nextElement();
+			if ("x-forward-for".equalsIgnoreCase(paraName) || "x-forwarded-for".equalsIgnoreCase(paraName)) {
+				ip = request.getHeader(paraName);
+				break;
+			}
+		}
+		final String localIP = "127.0.0.1";
+		if ((ip == null) || (ip.length() == 0) || (ip.equalsIgnoreCase(localIP)) || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("Proxy-Client-IP");
+		}
+		if ((ip == null) || (ip.length() == 0) || (ip.equalsIgnoreCase(localIP)) || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getHeader("WL-Proxy-Client-IP");
+		}
+		if ((ip == null) || (ip.length() == 0) || (ip.equalsIgnoreCase(localIP)) || "unknown".equalsIgnoreCase(ip)) {
+			ip = request.getRemoteAddr();
+		}
+		return ip;
+	}
+
+	/**
+	 * 获取本机 IP
+	 * IPV4
+	 */
+	private static String getLocalIpAddress() {
+		try {
+			Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
+			while (interfaces.hasMoreElements()) {
+				NetworkInterface ni = interfaces.nextElement();
+				Enumeration<InetAddress> inetAddresses = ni.getInetAddresses();
+
+				while (inetAddresses.hasMoreElements()) {
+					InetAddress address = inetAddresses.nextElement();
+					if (address instanceof Inet4Address && !"127.0.0.1".equals(address.getHostAddress())) {
+						return address.getHostAddress();
+					}
+				}
+			}
+		} catch (Exception e) {
+			logger.error("Get server ip error", e);
+		}
+		return null;
+	}
 
 }

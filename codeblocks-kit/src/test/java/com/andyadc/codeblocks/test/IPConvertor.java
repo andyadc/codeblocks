@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.kit.net;
+package com.andyadc.codeblocks.test;
 
 /**
  * IP 地址与数字相互转换
@@ -7,6 +7,10 @@ package com.andyadc.codeblocks.kit.net;
  * @version 2017/1/8
  */
 public final class IPConvertor {
+
+	public static void main(String[] args) {
+		System.out.println(toNum("114.141.191.195"));//1921892291
+	}
 
     /**
      * IP地址转为数字
