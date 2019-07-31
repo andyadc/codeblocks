@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.kit.mapper;
+package com.andyadc.codeblocks.kit.bean;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

@@ -1,6 +1,6 @@
 package com.andyadc.codeblocks.test;
 
-import com.andyadc.codeblocks.kit.mapper.BeanCopier;
+import com.andyadc.codeblocks.kit.bean.BeanCopier;
 import com.google.common.collect.ImmutableMap;
 import org.apache.commons.beanutils.BeanUtils;
 import org.openjdk.jmh.annotations.Benchmark;
