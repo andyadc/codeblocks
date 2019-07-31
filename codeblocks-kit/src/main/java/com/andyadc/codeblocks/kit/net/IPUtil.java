@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
-import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.util.Enumeration;
@@ -20,7 +19,7 @@ public final class IPUtil {
 	private static final Logger logger = LoggerFactory.getLogger(IPUtil.class);
 
 	private static final String _255 = "(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
-	private static final Pattern pattern = Pattern.compile("^(?:" + _255 + "\\.){3}" + _255 + "$");
+	private static final Pattern ip_v4_pattern = Pattern.compile("^(?:" + _255 + "\\.){3}" + _255 + "$");
 
 	private static final String LOCAL_IP;
 
@@ -38,7 +37,7 @@ public final class IPUtil {
 	public static void main(String[] args) {
 		System.out.println(ipV4ToLong("114.141.191.195"));//1921892291
 		System.out.println(longToIpV4(1L));
-		System.out.println(LOCAL_IP);
+		System.out.println(getLocalIp());
 	}
 
 	public static String longToIpV4(long longIp) {
@@ -67,7 +66,7 @@ public final class IPUtil {
 	}
 
 	public static boolean isIPv4Valid(String ip) {
-		return pattern.matcher(ip).matches();
+		return ip_v4_pattern.matcher(ip).matches();
 	}
 
 	public static String getIpFromRequest(HttpServletRequest request) {
@@ -89,11 +88,8 @@ public final class IPUtil {
 		return ip;
 	}
 
-	/**
-	 * 获取请求IP地址
-	 */
 	public static String getReqIp(HttpServletRequest request) {
-		String ip = "";
+		String ip = null;
 		//匹配大小写，保证无论Nginx如何配置代理参数，系统都能正常获取代理IP
 		Enumeration<?> enumeration = request.getHeaderNames();
 		while (enumeration.hasMoreElements()) {
@@ -118,24 +114,29 @@ public final class IPUtil {
 
 	/**
 	 * 获取本机 IP
-	 * IPV4
 	 */
 	private static String getLocalIpAddress() {
 		try {
 			Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
 			while (interfaces.hasMoreElements()) {
 				NetworkInterface ni = interfaces.nextElement();
-				Enumeration<InetAddress> inetAddresses = ni.getInetAddresses();
+				if (ni.isLoopback()) {
+					continue;
+				}
 
+				Enumeration<InetAddress> inetAddresses = ni.getInetAddresses();
 				while (inetAddresses.hasMoreElements()) {
 					InetAddress address = inetAddresses.nextElement();
-					if (address instanceof Inet4Address && !"127.0.0.1".equals(address.getHostAddress())) {
-						return address.getHostAddress();
+
+					// ignores all invalidated addresses
+					if (address.isLinkLocalAddress() || address.isLoopbackAddress() || address.isAnyLocalAddress()) {
+						continue;
 					}
+					return address.getHostAddress();
 				}
 			}
 		} catch (Exception e) {
-			logger.error("Get server ip error", e);
+			logger.error("Get local server ip error", e);
 		}
 		return null;
 	}
