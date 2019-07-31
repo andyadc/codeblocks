@@ -6,9 +6,9 @@ import org.slf4j.LoggerFactory;
 /**
  * @author andaicheng
  */
-public final class ReflectUtils {
+public final class ReflectUtil {
 
-    private static final Logger logger = LoggerFactory.getLogger(ReflectUtils.class);
+	private static final Logger logger = LoggerFactory.getLogger(ReflectUtil.class);
 
 
 }

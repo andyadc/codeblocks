@@ -21,9 +21,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class HttpClientUtils {
+public class HttpClientUtil {
 
-	private static final Logger logger = LoggerFactory.getLogger(HttpClientUtils.class);
+	private static final Logger logger = LoggerFactory.getLogger(HttpClientUtil.class);
 
 	private static final CloseableHttpClient httpClient;
 	private static final String CHARSET_UTF8 = "UTF-8";
@@ -32,7 +32,7 @@ public class HttpClientUtils {
 		httpClient = HttpClientBuilder.buildHttpClient();
 	}
 
-	private HttpClientUtils() {
+	private HttpClientUtil() {
 	}
 
 	public static String doGet(String url) {
