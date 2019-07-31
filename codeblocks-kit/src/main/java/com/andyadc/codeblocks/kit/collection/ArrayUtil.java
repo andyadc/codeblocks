@@ -6,7 +6,7 @@ import java.lang.reflect.Array;
  * @author andaicheng
  * @version 2017/5/5
  */
-public final class ArrayUtils {
+public final class ArrayUtil {
 
     /**
      * An empty immutable {@code Object} array.
@@ -88,7 +88,7 @@ public final class ArrayUtils {
     /**
      * Cannot instantiate.
      */
-    private ArrayUtils() {
+	private ArrayUtil() {
     }
 
     @SafeVarargs
@@ -652,12 +652,12 @@ public final class ArrayUtils {
      * <p>If the input array is {@code null}, {@code 0} is returned.
      * <p>
      * <pre>
-     * ArrayUtils.getLength(null)            = 0
-     * ArrayUtils.getLength([])              = 0
-     * ArrayUtils.getLength([null])          = 1
-     * ArrayUtils.getLength([true, false])   = 2
-     * ArrayUtils.getLength([1, 2, 3])       = 3
-     * ArrayUtils.getLength(["a", "b", "c"]) = 3
+	 * ArrayUtil.getLength(null)            = 0
+	 * ArrayUtil.getLength([])              = 0
+	 * ArrayUtil.getLength([null])          = 1
+	 * ArrayUtil.getLength([true, false])   = 2
+	 * ArrayUtil.getLength([1, 2, 3])       = 3
+	 * ArrayUtil.getLength(["a", "b", "c"]) = 3
      * </pre>
      *
      * @param array the array to retrieve the length from, may be null

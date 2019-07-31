@@ -1,6 +1,6 @@
 package com.andyadc.codeblocks.kit.http;
 
-import com.andyadc.codeblocks.kit.collection.MapUtils;
+import com.andyadc.codeblocks.kit.collection.MapUtil;
 import com.andyadc.codeblocks.kit.text.StringUtil;
 
 import java.io.BufferedReader;
@@ -48,7 +48,7 @@ public final class SimpleHttpUtils {
      * @throws UnsupportedEncodingException exception
      */
     private static String buildQuery(Map<String, String> params, String charset) throws UnsupportedEncodingException {
-        if (MapUtils.isEmpty(params)) {
+		if (MapUtil.isEmpty(params)) {
             return null;
         }
 

@@ -8,12 +8,12 @@ import java.util.Map;
  *
  * @author andaicheng
  */
-public final class MapUtils {
+public final class MapUtil {
 
     /**
-     * <code>MapUtils</code> should not normally be instantiated.
+	 * <code>MapUtil</code> should not normally be instantiated.
      */
-    private MapUtils() {
+	private MapUtil() {
     }
 
     /**

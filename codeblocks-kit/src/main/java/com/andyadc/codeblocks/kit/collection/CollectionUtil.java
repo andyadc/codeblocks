@@ -6,12 +6,12 @@ import java.util.Collection;
  * @author andaicheng
  * @version 2017/4/25
  */
-public final class CollectionUtils {
+public final class CollectionUtil {
 
     /**
-     * <code>CollectionUtils</code> should not normally be instantiated.
+	 * <code>CollectionUtil</code> should not normally be instantiated.
      */
-    private CollectionUtils() {
+	private CollectionUtil() {
     }
 
     /**
