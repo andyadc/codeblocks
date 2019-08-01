@@ -133,8 +133,7 @@ public class JsonLayout extends JsonLayoutBase<ILoggingEvent> {
 
     @Override
     protected Map toJsonMap(ILoggingEvent event) {
-
-        Map<String, Object> map = new LinkedHashMap<String, Object>();
+		Map<String, Object> map = new LinkedHashMap<>();
 
         addTimestamp(TIMESTAMP_ATTR_NAME, this.includeTimestamp, event.getTimeStamp(), map);
         add(LEVEL_ATTR_NAME, this.includeLevel, String.valueOf(event.getLevel()), map);
@@ -154,7 +153,7 @@ public class JsonLayout extends JsonLayoutBase<ILoggingEvent> {
             IThrowableProxy throwableProxy = value.getThrowableProxy();
             if (throwableProxy != null) {
                 String ex = throwableProxyConverter.convert(value);
-                if (ex != null && !ex.equals("")) {
+				if (!"".equals(ex)) {
                     map.put(fieldName, ex);
                 }
             }
