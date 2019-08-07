@@ -11,9 +11,9 @@ public class MySQLDialect extends Dialect {
         StringBuilder builder = new StringBuilder(sql.length() + 20).append(getLineSql(sql));
         builder.append(" LIMIT ");
         if (offset > 0) {
-            builder.append(Integer.toString(offset)).append(", ").append(Integer.toString(limit));
+			builder.append(offset).append(", ").append(limit);
         } else {
-            builder.append(Integer.toString(limit));
+			builder.append(limit);
         }
 
         return builder.toString();

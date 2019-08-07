@@ -81,10 +81,11 @@ public class PaginationInterceptor implements Interceptor {
         PAGINATION_TOTAL.set(count);
 
         String originalSql = (String) metaObject.getValue("delegate.boundSql.sql");
-        logger.debug("originalSql: {}", originalSql);
-
         String newSql = dialect.getPageString(originalSql, pageBounds);
-        logger.debug("newSql: {}", newSql);
+		if (logger.isDebugEnabled()) {
+			logger.debug("original Sql: {}, new Sql: ", originalSql, newSql);
+		}
+
         metaObject.setValue("delegate.boundSql.sql", newSql);
         metaObject.setValue("delegate.rowBounds.offset", RowBounds.NO_ROW_OFFSET);
         metaObject.setValue("delegate.rowBounds.limit", RowBounds.NO_ROW_LIMIT);
