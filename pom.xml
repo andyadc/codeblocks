@@ -33,7 +33,7 @@
     </prerequisites>
 
     <properties>
-        <spring.version>5.1.7.RELEASE</spring.version>
+		<spring.version>5.1.9.RELEASE</spring.version>
         <aspectj.version>1.9.3</aspectj.version>
         <lombok.version>1.18.8</lombok.version>
 		<netty.version>4.1.37.Final</netty.version>
@@ -42,16 +42,16 @@
 		<sentinel.version>1.6.2</sentinel.version>
         <mybatis.version>3.5.2</mybatis.version>
         <mybatis-spring.version>2.0.2</mybatis-spring.version>
-        <spring-data-redis.version>2.1.9.RELEASE</spring-data-redis.version>
+		<spring-data-redis.version>2.1.10.RELEASE</spring-data-redis.version>
         <zookeeper.version>3.5.5</zookeeper.version>
-		<redisson.version>3.11.1</redisson.version>
+		<redisson.version>3.11.2</redisson.version>
 		<jedis.version>2.10.2</jedis.version>
 		<lettuce.version>5.1.8.RELEASE</lettuce.version>
 		<kafka-clients.version>2.3.0</kafka-clients.version>
         <curator.version>4.2.0</curator.version>
         <zkclient.version>0.11</zkclient.version>
 		<rabbitmq-clients.version>5.7.3</rabbitmq-clients.version>
-		<jackson.version>2.9.9.1</jackson.version>
+		<jackson.version>2.9.9.2</jackson.version>
 		<fastjson.version>1.2.59</fastjson.version>
 		<joda-time.version>2.10.3</joda-time.version>
         <guava.version>28.0-jre</guava.version>
