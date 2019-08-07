@@ -15,30 +15,34 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class RequestInterceptor extends HandlerInterceptorAdapter {
 
-    private static final Logger logger = LoggerFactory.getLogger(RequestInterceptor.class);
+	private static final Logger logger = LoggerFactory.getLogger(RequestInterceptor.class);
 
-    private final static String HTTP_HEADER_TRACE_ID = "X-TraceId";
-    private final static String TRACE_ID = "traceId";
-    private static ThreadLocal<Long> requestTimeCounterThreadLocal = new ThreadLocal<>();
+	private final static String HTTP_HEADER_TRACE_ID = "X-TraceId";
+	private final static String TRACE_ID = "traceId";
+	private static ThreadLocal<Long> requestTimeCounterThreadLocal = new ThreadLocal<>();
 
-    @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-        requestTimeCounterThreadLocal.set(System.currentTimeMillis());
+	@Override
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+		requestTimeCounterThreadLocal.set(System.currentTimeMillis());
 
-        String traceId = request.getHeader(HTTP_HEADER_TRACE_ID);
-        if (traceId == null || traceId.isEmpty()) {
-            traceId = UUID.uuid();
-        }
-        MDC.put(TRACE_ID, traceId);
-        logger.debug(">>> " + request.getRequestURI());
+		String traceId = request.getHeader(HTTP_HEADER_TRACE_ID);
+		if (traceId == null || traceId.isEmpty()) {
+			traceId = UUID.uuid();
+		}
+		MDC.put(TRACE_ID, traceId);
+		if (logger.isDebugEnabled()) {
+			logger.debug(">>> " + request.getRequestURI());
+		}
 
-        return true;
-    }
+		return true;
+	}
 
-    @Override
-    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-        logger.info("Request elapsed: " + (System.currentTimeMillis() - requestTimeCounterThreadLocal.get()));
-        MDC.remove(TRACE_ID);
-        requestTimeCounterThreadLocal.remove();
-    }
+	@Override
+	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+		if (logger.isDebugEnabled()) {
+			logger.info("Request elapsed: " + (System.currentTimeMillis() - requestTimeCounterThreadLocal.get()));
+		}
+		MDC.remove(TRACE_ID);
+		requestTimeCounterThreadLocal.remove();
+	}
 }

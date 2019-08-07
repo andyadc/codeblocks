@@ -59,11 +59,11 @@ final class PatternMatchUtils {
      */
     public static boolean simpleMatch(String[] patterns, String str) {
         if (patterns != null) {
-            for (int i = 0; i < patterns.length; i++) {
-                if (simpleMatch(patterns[i], str)) {
-                    return true;
-                }
-            }
+			for (String pattern : patterns) {
+				if (simpleMatch(pattern, str)) {
+					return true;
+				}
+			}
         }
         return false;
     }

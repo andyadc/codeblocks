@@ -18,32 +18,28 @@ import java.sql.SQLException;
  */
 public class SQLHelper {
 
-    private static final Logger logger = LoggerFactory.getLogger(SQLHelper.class);
+	private static final Logger logger = LoggerFactory.getLogger(SQLHelper.class);
 
-    public static int getCount(final MappedStatement statement, final Connection connection, final Object parameterObject, Dialect dialect) throws SQLException {
-        BoundSql boundSql = statement.getBoundSql(parameterObject);
-        String countSql = dialect.getCountString(boundSql.getSql());
+	public static int getCount(final MappedStatement statement, final Connection connection, final Object parameterObject, Dialect dialect) throws SQLException {
+		BoundSql boundSql = statement.getBoundSql(parameterObject);
+		String countSql = dialect.getCountString(boundSql.getSql());
 
-        logger.debug("Total count SQL [{}]", countSql);
-        logger.debug("Total count Parameters: {} ", parameterObject);
+		if (logger.isDebugEnabled()) {
+			logger.debug("Total count SQL [{}]", countSql);
+			logger.debug("Total count Parameters: {} ", parameterObject);
+		}
 
-        PreparedStatement ps = null;
-        ResultSet rs;
-        try {
-            ps = connection.prepareStatement(countSql);
-            DefaultParameterHandler handler = new DefaultParameterHandler(statement, parameterObject, boundSql);
-            handler.setParameters(ps);
-            rs = ps.executeQuery();
-            int count = 0;
-            if (rs.next()) {
-                count = rs.getInt(1);
-            }
-            logger.debug("Total count: {}", count);
-            return count;
-        } finally {
-            if (ps != null) {
-                ps.close();
-            }
-        }
-    }
+		ResultSet rs;
+		try (PreparedStatement ps = connection.prepareStatement(countSql)) {
+			DefaultParameterHandler handler = new DefaultParameterHandler(statement, parameterObject, boundSql);
+			handler.setParameters(ps);
+			rs = ps.executeQuery();
+			int count = 0;
+			if (rs.next()) {
+				count = rs.getInt(1);
+			}
+			logger.debug("Total count: {}", count);
+			return count;
+		}
+	}
 }
