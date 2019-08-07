@@ -90,8 +90,7 @@ public class PaginationInterceptor implements Interceptor {
         metaObject.setValue("delegate.rowBounds.limit", RowBounds.NO_ROW_LIMIT);
 
         ret = invocation.proceed();
-        Instant end = Instant.now();
-        logger.info("elapsed time: {}ms", Duration.between(begin, end).toMillis());
+		logger.info("elapsed time: {}ms", Duration.between(begin, Instant.now()).toMillis());
         return ret;
     }
 
