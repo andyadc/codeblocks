@@ -14,7 +14,7 @@ import java.text.SimpleDateFormat;
  */
 public class CustomerMappingJackson2HttpMessageConverter extends MappingJackson2HttpMessageConverter {
 
-    protected static final String yyyyMMddHHmmss = "yyyy-MM-dd HH:mm:ss";
+	protected static final String yyyyMMddHHmmssSSS = "yyyy-MM-dd HH:mm:ss.SSS";
 
     public CustomerMappingJackson2HttpMessageConverter() {
         super();
@@ -24,6 +24,6 @@ public class CustomerMappingJackson2HttpMessageConverter extends MappingJackson2
         // 禁用空对象转换 json 校验
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-        objectMapper.setDateFormat(new SimpleDateFormat(yyyyMMddHHmmss));
+		objectMapper.setDateFormat(new SimpleDateFormat(yyyyMMddHHmmssSSS));
     }
 }
