@@ -6,6 +6,8 @@ import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.Arrays;
 
 /**
@@ -18,21 +20,23 @@ import java.util.Arrays;
 @Aspect
 public class MethodLogger {
 
-    private static final Logger logger = LoggerFactory.getLogger(MethodLogger.class);
+	private static final Logger logger = LoggerFactory.getLogger(MethodLogger.class);
 
-    @Around("execution(* *(..)) && @annotation(com.andyadc.codeblocks.framework.aspect.Loggable)")
-    public Object around(ProceedingJoinPoint point) throws Throwable {
-        long from = System.currentTimeMillis();
-        String signature = point.getSignature().toShortString();
-        logger.info("Invoking {} with request {}", signature, Arrays.toString(point.getArgs()));
-        Object result = null;
-        try {
-            result = point.proceed();
-        } finally {
-            long to = System.currentTimeMillis();
-            logger.info("Invoked {}, request={}, response={}, timing={}", signature,
-                    Arrays.toString(point.getArgs()), result, (to - from));
-        }
-        return result;
-    }
+	@Around("execution(* *(..)) && @annotation(com.andyadc.codeblocks.framework.aspect.Loggable)")
+	public Object around(ProceedingJoinPoint point) throws Throwable {
+		Instant start = Instant.now();
+		String signature = point.getSignature().toShortString();
+		logger.info("Invoking {} with request {}", signature, Arrays.toString(point.getArgs()));
+		Object result = null;
+		try {
+			result = point.proceed();
+		} finally {
+			logger.info("Invoked {}, request={}, response={}, timing={}",
+				signature,
+				Arrays.toString(point.getArgs()),
+				result, Duration.between(start, Instant.now()).toMillis()
+			);
+		}
+		return result;
+	}
 }

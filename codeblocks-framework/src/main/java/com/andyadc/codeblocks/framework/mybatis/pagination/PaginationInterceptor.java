@@ -59,8 +59,7 @@ public class PaginationInterceptor implements Interceptor {
         Object ret;
         if (dialect == null || !dialect.supportsPage()) {
             ret = invocation.proceed();
-            Instant end = Instant.now();
-            logger.info("elapsed time: {}ms", Duration.between(begin, end).toMillis());
+			logger.info("elapsed time: {}ms", Duration.between(begin, Instant.now()).toMillis());
             return ret;
         }
         StatementHandler statementHandler = (StatementHandler) invocation.getTarget();
@@ -71,8 +70,7 @@ public class PaginationInterceptor implements Interceptor {
         RowBounds rowBounds = (RowBounds) metaObject.getValue("delegate.rowBounds");
         if (!(rowBounds instanceof PageBounds)) {
             ret = invocation.proceed();
-            Instant end = Instant.now();
-            logger.info("elapsed time: {}ms", Duration.between(begin, end).toMillis());
+			logger.info("elapsed time: {}ms", Duration.between(begin, Instant.now()).toMillis());
             return ret;
         }
         PageBounds pageBounds = new PageBounds(rowBounds);
