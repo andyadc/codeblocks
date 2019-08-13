@@ -51,7 +51,7 @@
         <curator.version>4.2.0</curator.version>
         <zkclient.version>0.11</zkclient.version>
 		<rabbitmq-clients.version>5.7.3</rabbitmq-clients.version>
-		<jackson.version>2.9.9.2</jackson.version>
+		<jackson.version>2.9.9.3</jackson.version>
 		<fastjson.version>1.2.59</fastjson.version>
 		<joda-time.version>2.10.3</joda-time.version>
         <guava.version>28.0-jre</guava.version>
@@ -74,7 +74,7 @@
 		<ehcache.version>3.8.0</ehcache.version>
         <zxing.version>3.4.0</zxing.version>
         <poi.version>4.1.0</poi.version>
-        <cglib.version>3.2.12</cglib.version>
+        <cglib.version>3.3.0</cglib.version>
         <objenesis.version>3.0.1</objenesis.version>
         <javassist.version>3.25.0-GA</javassist.version>
         <ognl.version>3.2.10</ognl.version>
