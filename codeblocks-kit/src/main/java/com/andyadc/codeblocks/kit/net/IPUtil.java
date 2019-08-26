@@ -24,7 +24,7 @@ public final class IPUtil {
 	private static final String LOCAL_IP;
 
 	static {
-		LOCAL_IP = getLocalIpAddress();
+		LOCAL_IP = getHostAddress();
 	}
 
 	private IPUtil() {
@@ -115,7 +115,7 @@ public final class IPUtil {
 	/**
 	 * 获取本机 IP
 	 */
-	private static String getLocalIpAddress() {
+	private static String getHostAddress() {
 		try {
 			Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
 			while (interfaces.hasMoreElements()) {
@@ -136,7 +136,7 @@ public final class IPUtil {
 				}
 			}
 		} catch (Exception e) {
-			logger.error("Get local server ip error", e);
+			logger.error("Get host address error", e);
 		}
 		return null;
 	}
