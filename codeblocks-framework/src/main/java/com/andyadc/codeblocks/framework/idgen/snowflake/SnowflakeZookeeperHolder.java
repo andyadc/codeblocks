@@ -29,7 +29,8 @@ import java.util.concurrent.TimeUnit;
 public class SnowflakeZookeeperHolder {
 
     private static final Logger logger = LoggerFactory.getLogger(SnowflakeZookeeperHolder.class);
-    private static final String CURR_NODE_NAME = IDGenPropertyFactory.getProperties().getProperty("idgen.name");
+
+	private static final String CURR_NODE_NAME = IDGenPropertyFactory.getProperties().getProperty("idgen.name");
     private static final String PREFIX_ZK_PATH = "/idgen/snowflake/" + CURR_NODE_NAME;
     private static final String PATH_PERSIST = PREFIX_ZK_PATH + "/persist";//保存所有数据持久的永久节点
     private static final String PROP_PATH = System.getProperty("java.io.tmpdir") + File.separator + CURR_NODE_NAME + "/conf/{port}/workerID.properties";

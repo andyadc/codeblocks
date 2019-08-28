@@ -16,13 +16,14 @@ import java.util.concurrent.ThreadLocalRandom;
 public class SnowflakeIDGenImpl implements IDGen {
 
     private static final Logger logger = LoggerFactory.getLogger(SnowflakeIDGenImpl.class);
-    private final long twepoch = 1288834974657L;
-    private final long workerIdBits = 10L;
-    private final long maxWorkerId = -1L ^ (-1L << workerIdBits);//最大能够分配的workerid =1023
-    private final long sequenceBits = 12L;
-    private final long workerIdShift = sequenceBits;
-    private final long timestampLeftShift = sequenceBits + workerIdBits;
-    private final long sequenceMask = -1L ^ (-1L << sequenceBits);
+
+	private static final long twepoch = 1288834974657L;
+	private static final long workerIdBits = 10L;
+	private static final long maxWorkerId = -1L ^ (-1L << workerIdBits);//最大能够分配的workerid =1023
+	private static final long sequenceBits = 12L;
+	private static final long workerIdShift = sequenceBits;
+	private static final long timestampLeftShift = sequenceBits + workerIdBits;
+	private static final long sequenceMask = -1L ^ (-1L << sequenceBits);
     public boolean initFlag = false;
     private long workerId;
     private long sequence = 0L;
