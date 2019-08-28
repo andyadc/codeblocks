@@ -7,7 +7,7 @@ import java.util.List;
 public interface IDAllocDao {
 	List<IdAlloc> getAllIdAllocs();
 
-	IdAlloc updateMaxIdAndGetLeafAlloc(String tag);
+	IdAlloc updateMaxIdAndGetIdAlloc(String tag);
 
 	IdAlloc updateMaxIdByCustomStepAndGetIdAlloc(IdAlloc leafAlloc);
 

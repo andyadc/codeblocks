@@ -66,7 +66,7 @@ public class SegmentIDGenImpl implements IDGen {
 	private void updateCacheFromDbAtEveryMinute() {
 		ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor((r) -> {
 			Thread t = new Thread(r);
-			t.setName("check-idCache-thread");
+			t.setName("Check-idCache-thread");
 			t.setDaemon(true);
 			return t;
 		});
@@ -123,7 +123,7 @@ public class SegmentIDGenImpl implements IDGen {
 					if (!buffer.isInitOk()) {
 						try {
 							updateSegmentFromDb(key, buffer.getCurrent());
-							logger.info("Init buffer. Update leafkey {} {} from db", key, buffer.getCurrent());
+							logger.info("Init buffer. Update idkey {} {} from db", key, buffer.getCurrent());
 							buffer.setInitOk(true);
 						} catch (Exception e) {
 							logger.warn("Init buffer {} exception", buffer.getCurrent(), e);
@@ -142,11 +142,11 @@ public class SegmentIDGenImpl implements IDGen {
 		SegmentBuffer buffer = segment.getBuffer();
 		IdAlloc idAlloc;
 		if (!buffer.isInitOk()) {
-			idAlloc = dao.updateMaxIdAndGetLeafAlloc(key);
+			idAlloc = dao.updateMaxIdAndGetIdAlloc(key);
 			buffer.setStep(idAlloc.getStep());
 			buffer.setMinStep(idAlloc.getStep());//idAlloc 中的step为DB中的step
 		} else if (buffer.getUpdateTimestamp() == 0) {
-			idAlloc = dao.updateMaxIdAndGetLeafAlloc(key);
+			idAlloc = dao.updateMaxIdAndGetIdAlloc(key);
 			buffer.setUpdateTimestamp(System.currentTimeMillis());
 			buffer.setMinStep(idAlloc.getStep());//idAlloc 中的step为DB中的step
 		} else {
@@ -163,14 +163,19 @@ public class SegmentIDGenImpl implements IDGen {
 			} else {
 				nextStep = nextStep / 2 >= buffer.getMinStep() ? nextStep / 2 : nextStep;
 			}
-			logger.info("leafKey[{}], step[{}], duration[{}mins], nextStep[{}]", key, buffer.getStep(), String.format("%.2f", ((double) duration / (1000 * 60))), nextStep);
+			logger.info("idKey[{}], step[{}], duration[{}mins], nextStep[{}]",
+				key,
+				buffer.getStep(),
+				String.format("%.2f", ((double) duration / (1000 * 60))),
+				nextStep);
+
 			IdAlloc temp = new IdAlloc();
 			temp.setKey(key);
 			temp.setStep(nextStep);
 			idAlloc = dao.updateMaxIdByCustomStepAndGetIdAlloc(temp);
 			buffer.setUpdateTimestamp(System.currentTimeMillis());
 			buffer.setStep(nextStep);
-			buffer.setMinStep(idAlloc.getStep());//leafAlloc的step为DB中的step
+			buffer.setMinStep(idAlloc.getStep());//idAlloc的step为DB中的step
 		}
 		// must set value before set max
 		long value = idAlloc.getMaxId() - buffer.getStep();
@@ -254,7 +259,7 @@ public class SegmentIDGenImpl implements IDGen {
 		}
 	}
 
-	public List<IdAlloc> getAllLeafAllocs() {
+	public List<IdAlloc> getAllIdAllocs() {
 		return dao.getAllIdAllocs();
 	}
 
