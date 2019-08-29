@@ -7,7 +7,6 @@ import com.andyadc.codeblocks.framework.idgen.segment.dao.IDAllocDao;
 import com.andyadc.codeblocks.framework.idgen.segment.model.IdAlloc;
 import com.andyadc.codeblocks.framework.idgen.segment.model.Segment;
 import com.andyadc.codeblocks.framework.idgen.segment.model.SegmentBuffer;
-import com.andyadc.codeblocks.kit.StopWatch;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,15 +30,15 @@ public class SegmentIDGenImpl implements IDGen {
 	/**
 	 * IDCache未初始化成功时的异常码
 	 */
-	private static final long EXCEPTION_ID_IDCACHE_INIT_FALSE = -1;
+	private static final int EXCEPTION_ID_IDCACHE_INIT_FALSE = -1;
 	/**
 	 * key不存在时的异常码
 	 */
-	private static final long EXCEPTION_ID_KEY_NOT_EXISTS = -2;
+	private static final int EXCEPTION_ID_KEY_NOT_EXISTS = -2;
 	/**
 	 * SegmentBuffer中的两个Segment均未从DB中装载时的异常码
 	 */
-	private static final long EXCEPTION_ID_TWO_SEGMENTS_ARE_NULL = -3;
+	private static final int EXCEPTION_ID_TWO_SEGMENTS_ARE_NULL = -3;
 	/**
 	 * 最大步长不超过100,0000
 	 */
@@ -76,8 +75,6 @@ public class SegmentIDGenImpl implements IDGen {
 
 	private void updateCacheFromDb() {
 		logger.info("update cache from db");
-		StopWatch sw = new StopWatch();
-		sw.start("updateCacheFromDb");
 		try {
 			List<String> dbTags = dao.getAllTags();
 			if (dbTags == null || dbTags.isEmpty()) {
@@ -106,9 +103,6 @@ public class SegmentIDGenImpl implements IDGen {
 			}
 		} catch (Exception e) {
 			logger.warn("update cache from db exception", e);
-		} finally {
-			sw.stop();
-			logger.info(sw.prettyPrint());
 		}
 	}
 
@@ -138,8 +132,6 @@ public class SegmentIDGenImpl implements IDGen {
 	}
 
 	public void updateSegmentFromDb(String key, Segment segment) {
-		StopWatch sw = new StopWatch();
-		sw.start("updateSegmentFromDb " + key + " " + segment);
 		SegmentBuffer buffer = segment.getBuffer();
 		IdAlloc idAlloc;
 		if (!buffer.isInitOk()) {
@@ -183,8 +175,6 @@ public class SegmentIDGenImpl implements IDGen {
 		segment.getValue().set(value);
 		segment.setMax(idAlloc.getMaxId());
 		segment.setStep(buffer.getStep());
-		sw.stop();
-		logger.info(sw.prettyPrint());
 	}
 
 	public Result getIdFromSegmentBuffer(final SegmentBuffer buffer) {
