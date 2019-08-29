@@ -9,7 +9,7 @@ public interface IDAllocDao {
 
 	IdAlloc updateMaxIdAndGetIdAlloc(String tag);
 
-	IdAlloc updateMaxIdByCustomStepAndGetIdAlloc(IdAlloc leafAlloc);
+	IdAlloc updateMaxIdByCustomStepAndGetIdAlloc(IdAlloc idAlloc);
 
 	List<String> getAllTags();
 }

@@ -3,7 +3,7 @@
 
     <property name="APP_ID" value="codeblocks-framework"/>
     <property name="KAFKA_TOPIC" value="test"/>
-    <property name="BOOTSTRAP_SERVERS" value="www.hw-server.com:9092"/>
+	<property name="BOOTSTRAP_SERVERS" value="www.qq-server.com:9092"/>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>

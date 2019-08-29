@@ -28,47 +28,35 @@ public class IDAllocDaoImpl implements IDAllocDao {
 
 	@Override
 	public List<IdAlloc> getAllIdAllocs() {
-		SqlSession sqlSession = sqlSessionFactory.openSession(false);
-		try {
-			return sqlSession.selectList("com.andyadc.codeblocks.framework.idgen.segment.dao.IDAllocMapper.IDAllocMapper.getAllLeafAllocs");
-		} finally {
-			sqlSession.close();
+		try (SqlSession sqlSession = sqlSessionFactory.openSession(false)) {
+			return sqlSession.selectList("com.andyadc.codeblocks.framework.idgen.segment.dao.IDAllocMapper.getAllIdAllocs");
 		}
 	}
 
 	@Override
-	public IdAlloc updateMaxIdAndGetLeafAlloc(String tag) {
-		SqlSession sqlSession = sqlSessionFactory.openSession();
-		try {
-			sqlSession.update("com.andyadc.codeblocks.framework.idgen.segment.dao.IDAllocMapper.IDAllocMapper.updateMaxId", tag);
-			IdAlloc result = sqlSession.selectOne("com.andyadc.codeblocks.framework.idgen.segment.dao.IDAllocMapper.IDAllocMapper.getLeafAlloc", tag);
+	public IdAlloc updateMaxIdAndGetIdAlloc(String tag) {
+		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+			sqlSession.update("com.andyadc.codeblocks.framework.idgen.segment.dao.IDAllocMapper.updateMaxId", tag);
+			IdAlloc result = sqlSession.selectOne("com.andyadc.codeblocks.framework.idgen.segment.dao.IDAllocMapper.getIdAlloc", tag);
 			sqlSession.commit();
 			return result;
-		} finally {
-			sqlSession.close();
 		}
 	}
 
 	@Override
-	public IdAlloc updateMaxIdByCustomStepAndGetIdAlloc(IdAlloc leafAlloc) {
-		SqlSession sqlSession = sqlSessionFactory.openSession();
-		try {
-			sqlSession.update("com.andyadc.codeblocks.framework.idgen.segment.dao.IDAllocMapper.IDAllocMapper.updateMaxIdByCustomStep", leafAlloc);
-			IdAlloc result = sqlSession.selectOne("com.andyadc.codeblocks.framework.idgen.segment.dao.IDAllocMapper.IDAllocMapper.getLeafAlloc", leafAlloc.getKey());
+	public IdAlloc updateMaxIdByCustomStepAndGetIdAlloc(IdAlloc idAlloc) {
+		try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
+			sqlSession.update("com.andyadc.codeblocks.framework.idgen.segment.dao.IDAllocMapper.updateMaxIdByCustomStep", idAlloc);
+			IdAlloc result = sqlSession.selectOne("com.andyadc.codeblocks.framework.idgen.segment.dao.IDAllocMapper.getIdAlloc", idAlloc.getKey());
 			sqlSession.commit();
 			return result;
-		} finally {
-			sqlSession.close();
 		}
 	}
 
 	@Override
 	public List<String> getAllTags() {
-		SqlSession sqlSession = sqlSessionFactory.openSession(false);
-		try {
-			return sqlSession.selectList("com.andyadc.codeblocks.framework.idgen.segment.dao.IDAllocMapper.IDAllocMapper.getAllTags");
-		} finally {
-			sqlSession.close();
+		try (SqlSession sqlSession = sqlSessionFactory.openSession(false)) {
+			return sqlSession.selectList("com.andyadc.codeblocks.framework.idgen.segment.dao.IDAllocMapper.getAllTags");
 		}
 	}
 }

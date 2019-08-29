@@ -108,6 +108,7 @@ public class SegmentIDGenImpl implements IDGen {
 			logger.warn("update cache from db exception", e);
 		} finally {
 			sw.stop();
+			logger.info(sw.prettyPrint());
 		}
 	}
 
@@ -183,6 +184,7 @@ public class SegmentIDGenImpl implements IDGen {
 		segment.setMax(idAlloc.getMaxId());
 		segment.setStep(buffer.getStep());
 		sw.stop();
+		logger.info(sw.prettyPrint());
 	}
 
 	public Result getIdFromSegmentBuffer(final SegmentBuffer buffer) {
@@ -191,26 +193,23 @@ public class SegmentIDGenImpl implements IDGen {
 				buffer.rLock().lock();
 				final Segment segment = buffer.getCurrent();
 				if (!buffer.isNextReady() && (segment.getIdle() < 0.9 * segment.getStep()) && buffer.getThreadRunning().compareAndSet(false, true)) {
-					service.execute(new Runnable() {
-						@Override
-						public void run() {
-							Segment next = buffer.getSegments()[buffer.nextPos()];
-							boolean updateOk = false;
-							try {
-								updateSegmentFromDb(buffer.getKey(), next);
-								updateOk = true;
-								logger.info("update segment {} from db {}", buffer.getKey(), next);
-							} catch (Exception e) {
-								logger.warn(buffer.getKey() + " updateSegmentFromDb exception", e);
-							} finally {
-								if (updateOk) {
-									buffer.wLock().lock();
-									buffer.setNextReady(true);
-									buffer.getThreadRunning().set(false);
-									buffer.wLock().unlock();
-								} else {
-									buffer.getThreadRunning().set(false);
-								}
+					service.execute(() -> {
+						Segment next = buffer.getSegments()[buffer.nextPos()];
+						boolean updateOk = false;
+						try {
+							updateSegmentFromDb(buffer.getKey(), next);
+							updateOk = true;
+							logger.info("update segment {} from db {}", buffer.getKey(), next);
+						} catch (Exception e) {
+							logger.warn(buffer.getKey() + " updateSegmentFromDb exception", e);
+						} finally {
+							if (updateOk) {
+								buffer.wLock().lock();
+								buffer.setNextReady(true);
+								buffer.getThreadRunning().set(false);
+								buffer.wLock().unlock();
+							} else {
+								buffer.getThreadRunning().set(false);
 							}
 						}
 					});
