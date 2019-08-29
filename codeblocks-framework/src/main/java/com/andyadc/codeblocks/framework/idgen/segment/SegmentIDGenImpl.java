@@ -47,7 +47,12 @@ public class SegmentIDGenImpl implements IDGen {
 	 * 一个Segment维持时间为15分钟
 	 */
 	private static final long SEGMENT_DURATION = 15 * 60 * 1000L;
-	private ExecutorService service = new ThreadPoolExecutor(5, Integer.MAX_VALUE, 60L, TimeUnit.SECONDS, new SynchronousQueue<>(), new UpdateThreadFactory());
+	private ExecutorService service = new ThreadPoolExecutor(5,
+		Integer.MAX_VALUE,
+		60L,
+		TimeUnit.SECONDS,
+		new SynchronousQueue<>(),
+		new UpdateThreadFactory());
 	private volatile boolean initOK = false;
 	private Map<String, SegmentBuffer> cache = new ConcurrentHashMap<>();
 	private IDAllocDao dao;
@@ -70,7 +75,7 @@ public class SegmentIDGenImpl implements IDGen {
 			return t;
 		});
 
-		service.scheduleWithFixedDelay(this::updateCacheFromDb, 60, 60, TimeUnit.SECONDS);
+		service.scheduleWithFixedDelay(this::updateCacheFromDb, 60L, 60L, TimeUnit.SECONDS);
 	}
 
 	private void updateCacheFromDb() {
@@ -78,6 +83,7 @@ public class SegmentIDGenImpl implements IDGen {
 		try {
 			List<String> dbTags = dao.getAllTags();
 			if (dbTags == null || dbTags.isEmpty()) {
+				logger.warn("No tags found");
 				return;
 			}
 			List<String> cacheTags = new ArrayList<>(cache.keySet());
@@ -137,11 +143,11 @@ public class SegmentIDGenImpl implements IDGen {
 		if (!buffer.isInitOk()) {
 			idAlloc = dao.updateMaxIdAndGetIdAlloc(key);
 			buffer.setStep(idAlloc.getStep());
-			buffer.setMinStep(idAlloc.getStep());//idAlloc 中的step为DB中的step
+			buffer.setMinStep(idAlloc.getStep()); //idAlloc 中的step为DB中的step
 		} else if (buffer.getUpdateTimestamp() == 0) {
 			idAlloc = dao.updateMaxIdAndGetIdAlloc(key);
 			buffer.setUpdateTimestamp(System.currentTimeMillis());
-			buffer.setMinStep(idAlloc.getStep());//idAlloc 中的step为DB中的step
+			buffer.setMinStep(idAlloc.getStep()); //idAlloc 中的step为DB中的step
 		} else {
 			long duration = System.currentTimeMillis() - buffer.getUpdateTimestamp();
 			int nextStep = buffer.getStep();
