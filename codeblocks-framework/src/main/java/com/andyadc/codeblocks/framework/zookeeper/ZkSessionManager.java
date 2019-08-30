@@ -8,11 +8,6 @@ import org.apache.zookeeper.ZooKeeper;
  * This is in place to abstract away the details of managing a ZooKeeper client, and to allow
  * multiple different objects to attach themselves as connection listeners on the same ZooKeeper
  * object.
- *
- * @author Scott Fines
- * @version 1.0
- * Date: 20-Nov-2010
- * Time: 17:11:32
  */
 public interface ZkSessionManager {
 

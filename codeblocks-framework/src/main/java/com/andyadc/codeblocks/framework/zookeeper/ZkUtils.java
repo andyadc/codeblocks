@@ -15,9 +15,6 @@ import java.util.List;
 /**
  * Static utility class for manipulating ZooKeeper-related strings.
  * <p>
- *
- * @author Scott Fines
- * @version 1.0
  */
 public class ZkUtils {
 

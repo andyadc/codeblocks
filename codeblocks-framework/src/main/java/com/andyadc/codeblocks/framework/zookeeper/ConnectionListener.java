@@ -3,10 +3,6 @@ package com.andyadc.codeblocks.framework.zookeeper;
 /**
  * A Listener which is fired when certain connection events happen with respect to the
  * ZooKeeper service.
- * <p>
- *
- * @author Scott Fines
- * @version 1.0
  */
 public interface ConnectionListener {
 
@@ -25,8 +21,8 @@ public interface ConnectionListener {
      * <p>NOTE: ZooKeeper does NOT fire session expired events until AFTER a reconnect to ZooKeeper occurs.
      * In the event of a total network partition which lasts forever, no expiration event will be fired. This
      * Means that this method may never be called. If understanding that this behavior is necessary, polling with
-     * timeout is required. To do this, use {@link org.menagerie.ZkSessionPoller} manually, or as an underlying part
-     * of your {@link org.menagerie.ZkSessionManager} instance. {@link org.menagerie.DefaultZkSessionManager} has
+	 * timeout is required. To do this, use {@link ZkSessionPoller} manually, or as an underlying part
+	 * of your {@link ZkSessionManager} instance. {@link DefaultZkSessionManager} has
      * an implementation which will poll for these session events.
      */
     void expired();

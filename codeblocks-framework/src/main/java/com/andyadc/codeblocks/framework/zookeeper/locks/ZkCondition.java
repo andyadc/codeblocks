@@ -67,7 +67,8 @@ public class ZkCondition extends ZkPrimitive implements Condition {
 
     /*--------------------------------------------------------------------------------------------------------------------*/
     /*private helper methods*/
-    private boolean checkTimeout(ZooKeeper zooKeeper, String nodeName, long timeLeft)
+
+	private boolean checkTimeout(ZooKeeper zooKeeper, String nodeName, long timeLeft)
             throws InterruptedException, KeeperException {
         if (timeLeft <= 0) {
             //timed out
