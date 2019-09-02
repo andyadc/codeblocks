@@ -43,7 +43,7 @@ public class ThreadPoolUtil {
      *
      * @see MoreExecutors#shutdownAndAwaitTermination(ExecutorService, long, TimeUnit)
      */
-    public static boolean gracefulShutdown(ExecutorService threadPool, int shutdownTimeoutMills) {
+	public static boolean gracefulShutdown(ExecutorService threadPool, long shutdownTimeoutMills) {
         return threadPool == null
                 || MoreExecutors.shutdownAndAwaitTermination(threadPool, shutdownTimeoutMills, TimeUnit.MILLISECONDS);
     }
@@ -51,8 +51,8 @@ public class ThreadPoolUtil {
     /**
      * @see gracefulShutdown
      */
-    public static boolean gracefulShutdown(ExecutorService threadPool, int shutdownTimeout,
-                                           TimeUnit timeUnit) {
+	public static boolean gracefulShutdown(ExecutorService threadPool, long shutdownTimeout,
+										   TimeUnit timeUnit) {
         return threadPool == null || MoreExecutors.shutdownAndAwaitTermination(threadPool, shutdownTimeout, timeUnit);
     }
 

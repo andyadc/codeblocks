@@ -100,7 +100,6 @@ public class ThreadPoolBuilder {
      * 3. 因为线程全部为core线程，所以不会在空闲时回收.
      */
     public static class FixedThreadPoolBuilder {
-
         private int poolSize = 1;
         private int queueSize = -1;
 
@@ -161,7 +160,7 @@ public class ThreadPoolBuilder {
         }
 
         public ThreadPoolExecutor build() {
-            BlockingQueue<Runnable> queue = null;
+			BlockingQueue<Runnable> queue;
             if (queueSize < 1) {
                 queue = new LinkedBlockingQueue<>();
             } else {
@@ -261,7 +260,6 @@ public class ThreadPoolBuilder {
         }
 
         public ThreadPoolExecutor build() {
-
             threadFactory = createThreadFactory(threadFactory, threadNamePrefix, daemon);
 
             if (rejectHandler == null) {
@@ -269,7 +267,7 @@ public class ThreadPoolBuilder {
             }
 
             return new ThreadPoolExecutor(minSize, maxSize, keepAliveSecs, TimeUnit.SECONDS,
-                    new SynchronousQueue<Runnable>(), threadFactory, rejectHandler);
+				new SynchronousQueue<>(), threadFactory, rejectHandler);
         }
     }
 
@@ -277,7 +275,6 @@ public class ThreadPoolBuilder {
      * 创建ScheduledPool.
      */
     public static class ScheduledThreadPoolBuilder {
-
         private int poolSize = 1;
         private ThreadFactory threadFactory;
         private String threadNamePrefix;
@@ -382,7 +379,6 @@ public class ThreadPoolBuilder {
         }
 
         public QueuableCachedThreadPool build() {
-
             threadFactory = createThreadFactory(threadFactory, threadNamePrefix, daemon);
 
             if (rejectHandler == null) {
