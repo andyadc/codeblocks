@@ -8,15 +8,16 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public final class UUID {
 
-    public static String uuid() {
+	public static String fastUUID() {
         return new com.eaio.uuid.UUID().toString();
     }
 
     /*
      * 返回使用ThreadLocalRandm的UUID，比默认的UUID性能更优
      */
-    public static java.util.UUID fastUUID() {
+	public static String randomUUID() {
         ThreadLocalRandom random = ThreadLocalRandom.current();
-        return new java.util.UUID(random.nextLong(), random.nextLong());
+		return new java.util.UUID(random.nextLong(), random.nextLong()).toString();
     }
+
 }
