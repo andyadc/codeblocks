@@ -125,7 +125,7 @@ public final class SimpleHttpUtil {
     public static String doPost(String url, String contentType, byte[] content, Map<String, String> header, int connectTimeout, int readTimeout) throws IOException {
         HttpURLConnection conn = null;
         OutputStream out = null;
-        String rsp = null;
+		String rsp;
         try {
             conn = getConnection(new URL(url), "POST", contentType, header);
             conn.setConnectTimeout(connectTimeout);
