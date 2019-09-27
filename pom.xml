@@ -46,7 +46,7 @@
         <zookeeper.version>3.5.5</zookeeper.version>
 		<redisson.version>3.11.3</redisson.version>
 		<jedis.version>2.10.2</jedis.version>
-		<lettuce.version>5.1.8.RELEASE</lettuce.version>
+		<lettuce.version>5.2.0.RELEASE</lettuce.version>
 		<kafka-clients.version>2.3.0</kafka-clients.version>
         <curator.version>4.2.0</curator.version>
         <zkclient.version>0.11</zkclient.version>
