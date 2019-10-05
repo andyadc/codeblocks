@@ -27,7 +27,7 @@ public class RequestInterceptor extends HandlerInterceptorAdapter {
 
 		String traceId = request.getHeader(HTTP_HEADER_TRACE_ID);
 		if (traceId == null || traceId.isEmpty()) {
-			traceId = UUID.uuid();
+			traceId = UUID.randomUUID();
 		}
 		MDC.put(TRACE_ID, traceId);
 		if (logger.isDebugEnabled()) {

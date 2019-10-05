@@ -42,10 +42,10 @@
 		<sentinel.version>1.6.2</sentinel.version>
         <mybatis.version>3.5.2</mybatis.version>
         <mybatis-spring.version>2.0.2</mybatis-spring.version>
-		<spring-data-redis.version>2.1.10.RELEASE</spring-data-redis.version>
+		<spring-data-redis.version>2.2.0.RELEASE</spring-data-redis.version>
         <zookeeper.version>3.5.5</zookeeper.version>
 		<redisson.version>3.11.3</redisson.version>
-		<jedis.version>2.10.2</jedis.version>
+		<jedis.version>3.1.0</jedis.version>
 		<lettuce.version>5.2.0.RELEASE</lettuce.version>
 		<kafka-clients.version>2.3.0</kafka-clients.version>
         <curator.version>4.2.0</curator.version>
@@ -70,17 +70,17 @@
         <h2.version>1.4.199</h2.version>
         <fst.version>2.57</fst.version>
         <kryo.version>4.0.2</kryo.version>
-        <protostuff.version>1.6.0</protostuff.version>
+		<protostuff.version>1.6.1</protostuff.version>
 		<ehcache.version>3.8.1</ehcache.version>
         <zxing.version>3.4.0</zxing.version>
         <poi.version>4.1.0</poi.version>
         <cglib.version>3.3.0</cglib.version>
         <objenesis.version>3.0.1</objenesis.version>
-        <javassist.version>3.25.0-GA</javassist.version>
+		<javassist.version>3.26.0-GA</javassist.version>
 		<ognl.version>3.2.11</ognl.version>
 		<slf4j.version>1.7.28</slf4j.version>
         <logback.version>1.2.3</logback.version>
-        <mockito.version>3.0.0</mockito.version>
+		<mockito.version>3.1.0</mockito.version>
         <junit.version>4.12</junit.version>
         <contiperf.version>2.3.4</contiperf.version>
         <jmh.version>1.21</jmh.version>
