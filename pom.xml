@@ -34,7 +34,7 @@
 
     <properties>
 		<spring.version>5.1.9.RELEASE</spring.version>
-        <aspectj.version>1.9.3</aspectj.version>
+		<aspectj.version>1.9.4</aspectj.version>
 		<lombok.version>1.18.10</lombok.version>
 		<netty.version>4.1.41.Final</netty.version>
 		<httpcomponents.version>4.5.10</httpcomponents.version>
@@ -44,22 +44,22 @@
         <mybatis-spring.version>2.0.2</mybatis-spring.version>
 		<spring-data-redis.version>2.2.0.RELEASE</spring-data-redis.version>
         <zookeeper.version>3.5.5</zookeeper.version>
-		<redisson.version>3.11.3</redisson.version>
+		<redisson.version>3.11.4</redisson.version>
 		<jedis.version>3.1.0</jedis.version>
 		<lettuce.version>5.2.0.RELEASE</lettuce.version>
 		<kafka-clients.version>2.3.0</kafka-clients.version>
         <curator.version>4.2.0</curator.version>
         <zkclient.version>0.11</zkclient.version>
 		<rabbitmq-clients.version>5.7.3</rabbitmq-clients.version>
-		<jackson.version>2.9.9.3</jackson.version>
+		<jackson.version>2.10.0</jackson.version>
 		<fastjson.version>1.2.62</fastjson.version>
-		<joda-time.version>2.10.3</joda-time.version>
+		<joda-time.version>2.10.4</joda-time.version>
 		<guava.version>28.1-jre</guava.version>
         <orika.version>1.5.4</orika.version>
         <commons-lang.version>3.9</commons-lang.version>
 		<commons-codec.version>1.13</commons-codec.version>
         <commons-collections.version>4.4</commons-collections.version>
-        <commons-beanutils.version>1.9.3</commons-beanutils.version>
+		<commons-beanutils.version>1.9.4</commons-beanutils.version>
 		<commons-pool.version>2.7.0</commons-pool.version>
         <commons-io.version>2.6</commons-io.version>
         <commons-dbutils.version>1.7</commons-dbutils.version>
