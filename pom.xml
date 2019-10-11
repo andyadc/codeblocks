@@ -36,7 +36,7 @@
 		<spring.version>5.1.9.RELEASE</spring.version>
 		<aspectj.version>1.9.4</aspectj.version>
 		<lombok.version>1.18.10</lombok.version>
-		<netty.version>4.1.41.Final</netty.version>
+		<netty.version>4.1.42.Final</netty.version>
 		<httpcomponents.version>4.5.10</httpcomponents.version>
 		<hibernate-validator.version>6.0.17.Final</hibernate-validator.version>
 		<sentinel.version>1.6.2</sentinel.version>
