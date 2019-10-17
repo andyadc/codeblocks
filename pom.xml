@@ -36,14 +36,14 @@
 		<spring.version>5.1.9.RELEASE</spring.version>
 		<aspectj.version>1.9.4</aspectj.version>
 		<lombok.version>1.18.10</lombok.version>
-		<netty.version>4.1.41.Final</netty.version>
+		<netty.version>4.1.42.Final</netty.version>
 		<httpcomponents.version>4.5.10</httpcomponents.version>
 		<hibernate-validator.version>6.0.17.Final</hibernate-validator.version>
 		<sentinel.version>1.6.2</sentinel.version>
         <mybatis.version>3.5.2</mybatis.version>
         <mybatis-spring.version>2.0.2</mybatis-spring.version>
 		<spring-data-redis.version>2.2.0.RELEASE</spring-data-redis.version>
-        <zookeeper.version>3.5.5</zookeeper.version>
+		<zookeeper.version>3.5.6</zookeeper.version>
 		<redisson.version>3.11.4</redisson.version>
 		<jedis.version>3.1.0</jedis.version>
 		<lettuce.version>5.2.0.RELEASE</lettuce.version>
@@ -86,7 +86,7 @@
         <jmh.version>1.21</jmh.version>
 
         <!-- maven plugins -->
-		<jetty-maven-plugin.version>9.4.20.v20190813</jetty-maven-plugin.version>
+		<jetty-maven-plugin.version>9.4.21.v20190926</jetty-maven-plugin.version>
         <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
 
         <java.version>1.8</java.version>
