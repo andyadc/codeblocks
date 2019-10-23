@@ -12,8 +12,8 @@ CREATE TABLE `t_template` (
   `status`           TINYINT(4)   NOT NULL DEFAULT '0' COMMENT 'status',
   `birthday`         DATE  DEFAULT NULL COMMENT 'birthday',
   `version`          INT(11)  NOT NULL DEFAULT '1' COMMENT 'version',
-  `created_time`     DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'created_time',
-  `updated_time`     DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'updated_time',
+  `create_time`     DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'create_time',
+  `update_time`     DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'update_time',
   PRIMARY KEY (`id`),
   UNIQUE KEY `idx_name` (`name`) USING BTREE
 )
