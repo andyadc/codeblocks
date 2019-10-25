@@ -47,13 +47,13 @@
 		<redisson.version>3.11.4</redisson.version>
 		<jedis.version>3.1.0</jedis.version>
 		<lettuce.version>5.2.0.RELEASE</lettuce.version>
-		<kafka-clients.version>2.3.0</kafka-clients.version>
+		<kafka-clients.version>2.3.1</kafka-clients.version>
         <curator.version>4.2.0</curator.version>
         <zkclient.version>0.11</zkclient.version>
 		<rabbitmq-clients.version>5.7.3</rabbitmq-clients.version>
 		<jackson.version>2.10.0</jackson.version>
 		<fastjson.version>1.2.62</fastjson.version>
-		<joda-time.version>2.10.4</joda-time.version>
+		<joda-time.version>2.10.5</joda-time.version>
 		<guava.version>28.1-jre</guava.version>
         <orika.version>1.5.4</orika.version>
         <commons-lang.version>3.9</commons-lang.version>
