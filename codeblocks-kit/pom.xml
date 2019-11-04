@@ -24,7 +24,6 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>cglib</groupId>
@@ -68,7 +67,7 @@
         <dependency>
             <groupId>com.github.seancfoley</groupId>
             <artifactId>ipaddress</artifactId>
-            <version>5.0.2</version>
+			<version>5.1.0</version>
             <scope>provided</scope>
         </dependency>
 
@@ -91,8 +90,8 @@
         </dependency>
 
 		<dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
