@@ -27,74 +27,75 @@ import java.io.IOException;
  */
 public class MsgpackRedisSerializer implements RedisSerializer<Object> {
 
-    private static final byte[] EMPTY_ARRAY = new byte[0];
-    private final ObjectMapper mapper;
+	private static final byte[] EMPTY_ARRAY = new byte[0];
+	private final ObjectMapper mapper;
 
-    public MsgpackRedisSerializer() {
-        this.mapper = new ObjectMapper(new MessagePackFactory());
-        this.mapper.registerModule(new SimpleModule().addSerializer(new NullValueSerializer(null)));
-        this.mapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
-    }
+	public MsgpackRedisSerializer() {
+		this.mapper = new ObjectMapper(new MessagePackFactory());
+		this.mapper.registerModule(new SimpleModule().addSerializer(new NullValueSerializer(null)));
+//		this.mapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
+		this.mapper.activateDefaultTyping(this.mapper.getPolymorphicTypeValidator(), ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
+	}
 
-    @Override
-    public byte[] serialize(@Nullable Object source) throws SerializationException {
-        if (source == null) {
-            return EMPTY_ARRAY;
-        }
-        try {
-            return mapper.writeValueAsBytes(source);
-        } catch (JsonProcessingException e) {
-            throw new SerializationException("Could not write JSON: " + e.getMessage(), e);
-        }
-    }
+	@Override
+	public byte[] serialize(@Nullable Object source) throws SerializationException {
+		if (source == null) {
+			return EMPTY_ARRAY;
+		}
+		try {
+			return mapper.writeValueAsBytes(source);
+		} catch (JsonProcessingException e) {
+			throw new SerializationException("Could not write JSON: " + e.getMessage(), e);
+		}
+	}
 
-    @Override
-    public Object deserialize(@Nullable byte[] bytes) throws SerializationException {
-        return this.deserialize(bytes, Object.class);
-    }
+	@Override
+	public Object deserialize(@Nullable byte[] bytes) throws SerializationException {
+		return this.deserialize(bytes, Object.class);
+	}
 
-    @Nullable
-    private <T> T deserialize(@Nullable byte[] source, Class<T> type) throws SerializationException {
-        Assert.notNull(type, "Deserialization type must not be null! Pleaes provide Object.class to make use of Jackson2 default typing.");
-        if (source == null || source.length == 0) {
-            return null;
-        } else {
-            try {
-                return this.mapper.readValue(source, type);
-            } catch (Exception ex) {
-                throw new SerializationException("Could not read JSON: " + ex.getMessage(), ex);
-            }
-        }
-    }
+	@Nullable
+	private <T> T deserialize(@Nullable byte[] source, Class<T> type) throws SerializationException {
+		Assert.notNull(type, "Deserialization type must not be null! Pleaes provide Object.class to make use of Jackson2 default typing.");
+		if (source == null || source.length == 0) {
+			return null;
+		} else {
+			try {
+				return this.mapper.readValue(source, type);
+			} catch (Exception ex) {
+				throw new SerializationException("Could not read JSON: " + ex.getMessage(), ex);
+			}
+		}
+	}
 
-    /**
-     * @see GenericJackson2JsonRedisSerializer
-     */
-    private class NullValueSerializer extends StdSerializer<NullValue> {
+	/**
+	 * @see GenericJackson2JsonRedisSerializer
+	 */
+	private class NullValueSerializer extends StdSerializer<NullValue> {
 
-        private static final long serialVersionUID = 1L;
-        private final String classIdentifier;
+		private static final long serialVersionUID = 1L;
+		private final String classIdentifier;
 
-        /**
-         * @param classIdentifier can be {@literal null} and will be defaulted to {@code @class}.
-         */
-        NullValueSerializer(@Nullable String classIdentifier) {
+		/**
+		 * @param classIdentifier can be {@literal null} and will be defaulted to {@code @class}.
+		 */
+		NullValueSerializer(@Nullable String classIdentifier) {
 
-            super(NullValue.class);
-            this.classIdentifier = StringUtils.hasText(classIdentifier) ? classIdentifier : "@class";
-        }
+			super(NullValue.class);
+			this.classIdentifier = StringUtils.hasText(classIdentifier) ? classIdentifier : "@class";
+		}
 
-        /*
-         * (non-Javadoc)
-         * @see com.fasterxml.jackson.databind.ser.std.StdSerializer#serialize(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator, com.fasterxml.jackson.databind.SerializerProvider)
-         */
-        @Override
-        public void serialize(NullValue value, JsonGenerator jgen, SerializerProvider provider)
-                throws IOException {
+		/*
+		 * (non-Javadoc)
+		 * @see com.fasterxml.jackson.databind.ser.std.StdSerializer#serialize(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator, com.fasterxml.jackson.databind.SerializerProvider)
+		 */
+		@Override
+		public void serialize(NullValue value, JsonGenerator jgen, SerializerProvider provider)
+			throws IOException {
 
-            jgen.writeStartObject();
-            jgen.writeStringField(classIdentifier, NullValue.class.getName());
-            jgen.writeEndObject();
-        }
-    }
+			jgen.writeStartObject();
+			jgen.writeStringField(classIdentifier, NullValue.class.getName());
+			jgen.writeEndObject();
+		}
+	}
 }
