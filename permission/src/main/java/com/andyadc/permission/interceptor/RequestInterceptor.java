@@ -28,7 +28,7 @@ public class RequestInterceptor extends HandlerInterceptorAdapter {
 
         String traceId = request.getHeader(HEADER_TRACE_ID);
         if (traceId == null || traceId.trim().isEmpty()) {
-            traceId = UUID.uuid();
+			traceId = UUID.fastUUID();
         }
         MDC.put(TRACE_ID, traceId);
 
