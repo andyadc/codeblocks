@@ -42,7 +42,7 @@
 		<sentinel.version>1.6.2</sentinel.version>
 		<mybatis.version>3.5.3</mybatis.version>
 		<mybatis-spring.version>2.0.3</mybatis-spring.version>
-		<spring-data-redis.version>2.2.1.RELEASE</spring-data-redis.version>
+		<spring-data-redis.version>2.2.2.RELEASE</spring-data-redis.version>
 		<zookeeper.version>3.5.6</zookeeper.version>
 		<redisson.version>3.11.5</redisson.version>
 		<jedis.version>3.1.0</jedis.version>
@@ -71,6 +71,7 @@
         <fst.version>2.57</fst.version>
         <kryo.version>4.0.2</kryo.version>
 		<protostuff.version>1.6.2</protostuff.version>
+		<hessian.version>4.0.63</hessian.version>
 		<ehcache.version>3.8.1</ehcache.version>
         <zxing.version>3.4.0</zxing.version>
 		<poi.version>4.1.1</poi.version>
@@ -313,6 +314,12 @@
                 <artifactId>protostuff-runtime</artifactId>
                 <version>${protostuff.version}</version>
             </dependency>
+
+			<dependency>
+				<groupId>com.caucho</groupId>
+				<artifactId>hessian</artifactId>
+				<version>${hessian.version}</version>
+			</dependency>
 
             <dependency>
                 <groupId>cglib</groupId>
