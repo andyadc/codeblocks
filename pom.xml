@@ -39,7 +39,7 @@
 		<netty.version>4.1.43.Final</netty.version>
 		<httpcomponents.version>4.5.10</httpcomponents.version>
 		<hibernate-validator.version>6.1.0.Final</hibernate-validator.version>
-		<sentinel.version>1.6.2</sentinel.version>
+		<sentinel.version>1.7.0</sentinel.version>
 		<mybatis.version>3.5.3</mybatis.version>
 		<mybatis-spring.version>2.0.3</mybatis-spring.version>
 		<spring-data-redis.version>2.2.2.RELEASE</spring-data-redis.version>
