@@ -38,7 +38,7 @@
         <property name="asyncInit" value="true"/>
 
         <!-- 配置监控统计拦截的filters -->
-        <!-- <property name="filters" value="stat"/> -->
+		<property name="filters" value="stat,wall,slf4j"/>
         <property name="proxyFilters">
             <list>
                 <ref bean="logFilter"/>
@@ -49,7 +49,13 @@
 
     <bean id="logFilter" class="com.alibaba.druid.filter.logging.Slf4jLogFilter">
         <property name="statementExecutableSqlLogEnable" value="true"/>
-        <property name="resultSetLogEnabled" value="false"/>
+		<property name="statementSqlPrettyFormat" value="true"/>
+
+		<property name="resultSetLogEnabled" value="false"/>
+		<property name="statementCreateAfterLogEnabled" value="false"/>
+		<property name="statementCloseAfterLogEnabled" value="false"/>
+		<property name="resultSetCloseAfterLogEnabled" value="false"/>
+		<property name="resultSetOpenAfterLogEnabled" value="false"/>
     </bean>
 
     <bean id="statFilter" class="com.alibaba.druid.filter.stat.StatFilter">

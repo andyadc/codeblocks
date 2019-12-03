@@ -18,7 +18,7 @@
 
 	<!-- Console log pattern -->
 	<property name="CONSOLE_LOG_PATTERN"
-			  value="%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5level) --- %magenta([%thread]) %X{traceId} %logger{39}.%M - %msg%n"
+			  value="%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5level) --- %magenta([%thread]) %X{traceId} %logger{56}.%M - %msg%n"
 	/>
 
 	<!--  Output to Console -->
@@ -31,6 +31,9 @@
 	<!-- Output to File -->
 	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>${LOG_PATH}/${APP_NAME}.log</file>
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>INFO</level>
+		</filter>
 		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
 			<!-- daily rollover -->
 			<fileNamePattern>
@@ -71,10 +74,13 @@
 		<appender-ref ref="FILE"/>
 	</appender>
 
-	<logger name="com.andyadc.codeblocks.showcase.auth.mapper" level="DEBUG">
+	<logger name="com.andyadc.codeblocks.showcase.*.mapper" level="DEBUG">
 		<appender-ref ref="SQLFILE"/>
 	</logger>
-	<logger name="com.andyadc.codeblocks.showcase.sys.mapper" level="DEBUG">
+	<!--<logger name="com.andyadc.codeblocks.showcase.sys.mapper" level="DEBUG">
+		<appender-ref ref="SQLFILE"/>
+	</logger>-->
+	<logger name="druid.sql.Statement" level="DEBUG">
 		<appender-ref ref="SQLFILE"/>
 	</logger>
 
