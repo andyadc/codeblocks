@@ -3,6 +3,7 @@ package com.andyadc.codeblocks.framework.concurrent;
 import org.slf4j.MDC;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.task.TaskDecorator;
+import org.springframework.lang.NonNull;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
@@ -33,7 +34,8 @@ public class ThreadPoolTaskExecutorConfig {
 	class MDCTaskDecorator implements TaskDecorator {
 
 		@Override
-		public Runnable decorate(Runnable runnable) {
+		@NonNull
+		public Runnable decorate(@NonNull Runnable runnable) {
 			Map<String, String> contextMap = MDC.getCopyOfContextMap();
 			return () -> {
 				try {

@@ -1,4 +1,4 @@
-package framework.test;
+package com.andyadc.codeblocks.framework.concurrent;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.google.common.util.concurrent.Uninterruptibles;
@@ -17,9 +17,9 @@ import java.util.concurrent.TimeUnit;
 /**
  * andy.an
  */
-public class ThreadPoolDemo {
+public class ThreadPoolCreator {
 
-	private static final Logger logger = LoggerFactory.getLogger(ThreadPoolDemo.class);
+	private static final Logger logger = LoggerFactory.getLogger(ThreadPoolCreator.class);
 
 	private static final int DEFAULT_QUEUE_SIZE = 10;
 	private static final int DEFAULT_CORE_POOL_SIZE = 10;
@@ -87,8 +87,8 @@ public class ThreadPoolDemo {
 				executor.shutdownNow();
 			}
 		} catch (InterruptedException e) {
-			e.printStackTrace();
 			executor.shutdownNow();
+			logger.error("ThreadPoolExecutor close error. shutdownNow", e);
 		}
 	}
 }
