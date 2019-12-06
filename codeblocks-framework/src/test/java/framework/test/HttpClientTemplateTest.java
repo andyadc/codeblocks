@@ -13,6 +13,7 @@ public class HttpClientTemplateTest {
 	@Test
 	public void testGet() {
 		HttpClientTemplate template = new HttpComponentsClientTemplate();
+		template.init();
 		String response = template.get("https://www.baidu.com/");
 		System.out.println(response);
 	}
