@@ -28,6 +28,11 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
         </dependency>
+		<dependency>
+			<groupId>com.andyadc</groupId>
+			<artifactId>codeblocks-common</artifactId>
+			<version>1.0.0</version>
+		</dependency>
         <dependency>
             <groupId>com.andyadc</groupId>
             <artifactId>codeblocks-kit</artifactId>
@@ -73,6 +78,17 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpmime</artifactId>
+			<scope>provided</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
         <dependency>
             <groupId>commons-io</groupId>
