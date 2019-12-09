@@ -3,10 +3,23 @@ package framework.test;
 import com.andyadc.codeblocks.framework.concurrent.ThreadPoolCreator;
 import com.andyadc.codeblocks.framework.http.HttpClientTemplate;
 import com.andyadc.codeblocks.framework.http.OkHttpClientTemplate;
+import com.andyadc.codeblocks.framework.http.interceptor.DefaultOkHttpInterceptor;
+import com.andyadc.codeblocks.framework.http.interceptor.DefaultRequestInterceptor;
+import com.andyadc.codeblocks.framework.http.interceptor.DefaultResponseInterceptor;
+import com.andyadc.codeblocks.kit.idgen.UUID;
+import okhttp3.Interceptor;
+import okhttp3.logging.HttpLoggingInterceptor;
+import org.apache.http.HttpRequestInterceptor;
+import org.apache.http.HttpResponseInterceptor;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -16,12 +29,39 @@ import java.util.concurrent.ThreadPoolExecutor;
  */
 public class HttpClientTemplateTest {
 
+	private static final Logger logger = LoggerFactory.getLogger(HttpClientTemplateTest.class);
+
 	HttpClientTemplate template = null;
+
+	private static List<HttpRequestInterceptor> requestInterceptorList;
+	private static List<HttpResponseInterceptor> responseInterceptorList;
+
+	private static List<Interceptor> interceptorList;
+
+	static {
+		requestInterceptorList = Arrays.asList(
+			new DefaultRequestInterceptor()
+		);
+		responseInterceptorList = Arrays.asList(
+			new DefaultResponseInterceptor()
+		);
+
+		HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+		loggingInterceptor.level(HttpLoggingInterceptor.Level.HEADERS);
+		interceptorList = Arrays.asList(
+			new DefaultOkHttpInterceptor(),
+			loggingInterceptor
+		);
+	}
 
 	@Before
 	public void init() {
 //		template = new HttpComponentsClientTemplate();
+//		((HttpComponentsClientTemplate) template).setRequestInterceptors(requestInterceptorList);
+//		((HttpComponentsClientTemplate) template).setResponseInterceptors(responseInterceptorList);
+
 		template = new OkHttpClientTemplate();
+		((OkHttpClientTemplate) template).setInterceptors(interceptorList);
 		template.init();
 	}
 
@@ -34,11 +74,13 @@ public class HttpClientTemplateTest {
 		for (int i = 0; i < count; i++) {
 			executor.execute(() -> {
 				try {
+					MDC.put("traceId", UUID.randomUUID());
 					String response = template.get("https://www.baidu.com/");
-					System.out.println(Thread.currentThread().getName() + " >>> " + response);
+					logger.info(Thread.currentThread().getName() + " >>> " + response);
 				} catch (Exception e) {
-					System.out.println(e.getMessage());
+					logger.error(e.getMessage());
 				} finally {
+					MDC.clear();
 					latch.countDown();
 				}
 			});
