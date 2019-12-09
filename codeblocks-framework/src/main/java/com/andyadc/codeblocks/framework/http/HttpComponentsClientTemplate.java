@@ -65,7 +65,7 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 			return;
 		}
 		super.init();
-		httpClient = HttpComonentsClientBuilder.build(configuration, requestInterceptors, responseInterceptors);
+		httpClient = HttpComponentsClientBuilder.build(configuration, requestInterceptors, responseInterceptors);
 		init = true;
 		logger.info("HttpComponentsClient init timing={}", Duration.between(begin, Instant.now()).toMillis());
 	}
@@ -208,11 +208,11 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 		}
 	}
 
-	public List<HttpRequestInterceptor> getRequestInterceptors() {
-		return requestInterceptors;
+	public void setRequestInterceptors(List<HttpRequestInterceptor> requestInterceptors) {
+		this.requestInterceptors = requestInterceptors;
 	}
 
-	public List<HttpResponseInterceptor> getResponseInterceptors() {
-		return responseInterceptors;
+	public void setResponseInterceptors(List<HttpResponseInterceptor> responseInterceptors) {
+		this.responseInterceptors = responseInterceptors;
 	}
 }
