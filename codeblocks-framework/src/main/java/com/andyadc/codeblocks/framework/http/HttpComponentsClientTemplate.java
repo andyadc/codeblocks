@@ -6,6 +6,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpRequestInterceptor;
 import org.apache.http.HttpResponseInterceptor;
+import org.apache.http.HttpStatus;
 import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -149,7 +150,7 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 		try (CloseableHttpResponse response = httpClient.execute(request)) {
 			StatusLine statusLine = response.getStatusLine();
 			int statusCode = statusLine.getStatusCode();
-			if (statusCode != 200) {
+			if (statusCode != HttpStatus.SC_OK) { // 200
 				request.abort();
 				throw new RuntimeException("HttpClient error, status=" + statusCode + ", message=" + statusLine.getReasonPhrase());
 			}
@@ -158,6 +159,7 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 			if (entity != null) {
 				result = EntityUtils.toString(entity, charset);
 			}
+			EntityUtils.consume(entity);
 			return result;
 		}
 	}
