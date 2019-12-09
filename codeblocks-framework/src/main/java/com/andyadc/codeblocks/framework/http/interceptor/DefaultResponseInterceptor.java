@@ -12,9 +12,9 @@ import java.time.Instant;
  * andy.an
  * 2019/12/9
  */
-public class DefaultHttpResponseInterceptor implements HttpResponseInterceptor {
+public class DefaultResponseInterceptor implements HttpResponseInterceptor {
 
-	private static final Logger logger = LoggerFactory.getLogger(DefaultHttpResponseInterceptor.class);
+	private static final Logger logger = LoggerFactory.getLogger(DefaultResponseInterceptor.class);
 
 	@Override
 	public void process(HttpResponse httpResponse, HttpContext httpContext) {
