@@ -1,5 +1,6 @@
 package com.andyadc.codeblocks.framework.http;
 
+import com.andyadc.codeblocks.kit.collection.MapUtil;
 import com.andyadc.codeblocks.kit.text.StringUtil;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
@@ -175,10 +176,10 @@ public class OkHttpClientTemplate extends AbstractHttpClientTemplate {
 		}
 
 		Map<String, String> _headers = new HashMap<>();
-		if (globalHeaders != null && !globalHeaders.isEmpty()) {
+		if (MapUtil.isNotEmpty(globalHeaders)) {
 			_headers.putAll(globalHeaders);
 		}
-		if (headers != null && !headers.isEmpty()) {
+		if (MapUtil.isNotEmpty(headers)) {
 			_headers.putAll(headers); // 允许自定义header覆盖全局
 		}
 

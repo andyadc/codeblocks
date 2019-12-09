@@ -1,5 +1,6 @@
 package com.andyadc.codeblocks.framework.http;
 
+import com.andyadc.codeblocks.kit.collection.MapUtil;
 import com.andyadc.codeblocks.kit.text.StringUtil;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
@@ -150,7 +151,7 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 			int statusCode = statusLine.getStatusCode();
 			if (statusCode != 200) {
 				request.abort();
-				throw new RuntimeException("HttpClient error, status:" + statusCode + ", message:" + statusLine.getReasonPhrase());
+				throw new RuntimeException("HttpClient error, status=" + statusCode + ", message=" + statusLine.getReasonPhrase());
 			}
 			HttpEntity entity = response.getEntity();
 			String result = null;
@@ -177,10 +178,10 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 		}
 
 		Map<String, String> _headers = new HashMap<>();
-		if (globalHeaders != null && !globalHeaders.isEmpty()) {
+		if (MapUtil.isNotEmpty(globalHeaders)) {
 			_headers.putAll(globalHeaders);
 		}
-		if (headers != null && !headers.isEmpty()) {
+		if (MapUtil.isNotEmpty(headers)) {
 			_headers.putAll(headers);
 		}
 
