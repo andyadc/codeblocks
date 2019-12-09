@@ -1,10 +1,20 @@
 package com.andyadc.codeblocks.framework.http;
 
 import com.andyadc.codeblocks.kit.text.StringUtil;
-import okhttp3.*;
+import okhttp3.Interceptor;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.URLEncoder;
 import java.text.MessageFormat;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +24,8 @@ import java.util.Map;
  * 2019-12-07
  */
 public class OkHttpClientTemplate extends AbstractHttpClientTemplate {
+
+	private static final Logger logger = LoggerFactory.getLogger(OkHttpClientTemplate.class);
 
 	private OkHttpClient httpClient;
 	private volatile boolean init = false;
@@ -29,12 +41,14 @@ public class OkHttpClientTemplate extends AbstractHttpClientTemplate {
 
 	@Override
 	public synchronized void init() {
+		Instant begin = Instant.now();
 		if (init) {
 			return;
 		}
 		super.init();
 		httpClient = OkHttpClientBuilder.build(configuration(), interceptors);
 		init = true;
+		logger.info("OkHttpClient init timing={}", Duration.between(begin, Instant.now()).toMillis());
 	}
 
 	@Override
@@ -139,7 +153,7 @@ public class OkHttpClientTemplate extends AbstractHttpClientTemplate {
 		}
 
 		StringBuilder builder = new StringBuilder(uri);
-		if (uri.indexOf("?") != -1) {
+		if (!uri.contains("?")) {
 			builder.append("?1=1");
 		}
 		for (Map.Entry<String, String> entry : parameters.entrySet()) {

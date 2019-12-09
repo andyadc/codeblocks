@@ -2,7 +2,6 @@ package framework.test;
 
 import com.andyadc.codeblocks.framework.http.HttpClientTemplate;
 import com.andyadc.codeblocks.framework.http.HttpComponentsClientTemplate;
-import com.andyadc.codeblocks.framework.http.OkHttpClientTemplate;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,8 +16,8 @@ public class HttpClientTemplateTest {
 
 	@Before
 	public void init() {
-//		template = new HttpComponentsClientTemplate();
-		template = new OkHttpClientTemplate();
+		template = new HttpComponentsClientTemplate();
+//		template = new OkHttpClientTemplate();
 		template.init();
 	}
 

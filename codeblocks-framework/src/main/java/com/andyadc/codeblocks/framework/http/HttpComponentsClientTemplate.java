@@ -15,10 +15,14 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.text.MessageFormat;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +38,8 @@ import java.util.Map;
  * 2019/12/6
  */
 public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
+
+	private static final Logger logger = LoggerFactory.getLogger(HttpComponentsClientTemplate.class);
 
 	private CloseableHttpClient httpClient;
 
@@ -51,22 +57,16 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 		super(configuration);
 	}
 
-	public List<HttpRequestInterceptor> getRequestInterceptors() {
-		return requestInterceptors;
-	}
-
-	public List<HttpResponseInterceptor> getResponseInterceptors() {
-		return responseInterceptors;
-	}
-
 	@Override
 	public synchronized void init() {
+		Instant begin = Instant.now();
 		if (init) {
 			return;
 		}
 		super.init();
 		httpClient = HttpComonentsClientBuilder.build(configuration, requestInterceptors, responseInterceptors);
 		init = true;
+		logger.info("HttpComponentsClient init timing={}", Duration.between(begin, Instant.now()).toMillis());
 	}
 
 	@Override
@@ -98,7 +98,7 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 		try {
 			return process(request);
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new RuntimeException("HttpComponentsClient error", e);
 		}
 	}
 
@@ -140,7 +140,7 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 		try {
 			return process(request);
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new RuntimeException("HttpComponentsClient error", e);
 		}
 	}
 
@@ -175,6 +175,7 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 		if (headers == null && globalHeaders == null) {
 			return;
 		}
+
 		Map<String, String> _headers = new HashMap<>();
 		if (globalHeaders != null && !globalHeaders.isEmpty()) {
 			_headers.putAll(globalHeaders);
@@ -182,6 +183,7 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 		if (headers != null && !headers.isEmpty()) {
 			_headers.putAll(headers);
 		}
+
 		for (Map.Entry<String, String> entry : _headers.entrySet()) {
 			String value = entry.getValue() == null ? "" : entry.getValue();
 			requestBuilder.addHeader(entry.getKey(), value);
@@ -203,5 +205,13 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 		if (httpClient != null) {
 			httpClient.close();
 		}
+	}
+
+	public List<HttpRequestInterceptor> getRequestInterceptors() {
+		return requestInterceptors;
+	}
+
+	public List<HttpResponseInterceptor> getResponseInterceptors() {
+		return responseInterceptors;
 	}
 }
