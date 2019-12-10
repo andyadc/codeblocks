@@ -49,7 +49,7 @@ public class OkHttpClientTemplate extends AbstractHttpClientTemplate {
 		super.init();
 		httpClient = OkHttpClientBuilder.build(configuration(), interceptors);
 		init = true;
-		logger.info("OkHttpClient init timing={}", Duration.between(begin, Instant.now()).toMillis());
+		logger.info("OkHttpClient init timing: {}", Duration.between(begin, Instant.now()).toMillis());
 	}
 
 	@Override
@@ -112,7 +112,7 @@ public class OkHttpClientTemplate extends AbstractHttpClientTemplate {
 			Request request = builder.build();
 			return process(request);
 		} catch (Exception e) {
-			throw new RuntimeException("OkHttpClient error.", e);
+			throw new RuntimeException("OkHttpClient error", e);
 		}
 	}
 
@@ -137,7 +137,7 @@ public class OkHttpClientTemplate extends AbstractHttpClientTemplate {
 		try (Response response = httpClient.newCall(request).execute()) {
 			int code = response.code();
 			if (code != 200) {
-				throw new RuntimeException("OkHttpClient error, status=" + code + ", message=" + response.message());
+				throw new RuntimeException("OkHttpClient error, code: " + code + ", message: " + response.message());
 			}
 			ResponseBody body = response.body();
 			String result = null;

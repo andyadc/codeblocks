@@ -68,7 +68,7 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 		super.init();
 		httpClient = HttpComponentsClientBuilder.build(configuration, requestInterceptors, responseInterceptors);
 		init = true;
-		logger.info("HttpComponentsClient init timing={}", Duration.between(begin, Instant.now()).toMillis());
+		logger.info("HttpComponentsClient init timing: {}", Duration.between(begin, Instant.now()).toMillis());
 	}
 
 	@Override
@@ -152,7 +152,7 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 			int statusCode = statusLine.getStatusCode();
 			if (statusCode != HttpStatus.SC_OK) { // 200
 				request.abort();
-				throw new RuntimeException("HttpClient error, status=" + statusCode + ", message=" + statusLine.getReasonPhrase());
+				throw new RuntimeException("HttpClient error, code: " + statusCode + ", message: " + statusLine.getReasonPhrase());
 			}
 			HttpEntity entity = response.getEntity();
 			String result = null;
