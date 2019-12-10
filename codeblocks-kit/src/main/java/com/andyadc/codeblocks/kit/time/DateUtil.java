@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.test.time;
+package com.andyadc.codeblocks.kit.time;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -14,7 +14,7 @@ import java.util.TimeZone;
  * @author andaicheng
  * @version 2016/12/4
  */
-public final class DateUtils {
+public final class DateUtil {
 
 	/**
 	 * thread safe
@@ -22,7 +22,7 @@ public final class DateUtils {
 	private static final ThreadLocal<DateFormat> PATTERN_YYYY_MM_DD_HH_MM_SS_SSS
 		= ThreadLocal.withInitial(() -> new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS"));
 
-	private DateUtils() {
+	private DateUtil() {
 	}
 
 	/**
