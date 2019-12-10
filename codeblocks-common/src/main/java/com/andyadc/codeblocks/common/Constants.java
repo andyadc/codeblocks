@@ -1,5 +1,7 @@
 package com.andyadc.codeblocks.common;
 
+import java.time.ZoneId;
+
 /**
  * andy.an
  * 2019/12/6
@@ -7,6 +9,6 @@ package com.andyadc.codeblocks.common;
 public final class Constants {
 
 	public static final String DEFAULT_CHARSET = "UTF-8";
-
+	public static final ZoneId DEFAULT_ZONE_ID = ZoneId.of("Asia/Shanghai");
 
 }
