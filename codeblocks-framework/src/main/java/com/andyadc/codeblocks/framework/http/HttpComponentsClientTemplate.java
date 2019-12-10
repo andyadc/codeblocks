@@ -200,7 +200,7 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 
 	@Override
 	public String clientType() {
-		return configuration.getClientType();
+		return HttpClientConfiguration.HTTP_CLIENT_TYPE_HTTP_COMPONENTS;
 	}
 
 	@Override
