@@ -45,8 +45,6 @@ public class HttpClientConfiguration implements Serializable {
 
 	private int connectionRequestTimeout = 1500;
 
-	private String clientType = HTTP_CLIENT_TYPE_HTTP_COMPONENTS;
-
 	private HttpClientConfiguration() {
 	}
 
@@ -136,13 +134,4 @@ public class HttpClientConfiguration implements Serializable {
 	public void setConnectionRequestTimeout(int connectionRequestTimeout) {
 		this.connectionRequestTimeout = connectionRequestTimeout;
 	}
-
-	public String getClientType() {
-		return clientType;
-	}
-
-	public void setClientType(String clientType) {
-		this.clientType = clientType;
-	}
-
 }

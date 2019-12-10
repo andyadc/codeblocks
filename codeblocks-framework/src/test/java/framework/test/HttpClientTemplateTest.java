@@ -19,7 +19,9 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -63,6 +65,16 @@ public class HttpClientTemplateTest {
 		template = new OkHttpClientTemplate();
 		((OkHttpClientTemplate) template).setInterceptors(interceptorList);
 		template.init();
+	}
+
+	@Test
+	public void testRequest() {
+		String json = "{\"name\": \"adc\"}";
+		Map<String, String> params = new HashMap<>();
+		params.put("name", "aaaa");
+		String result = template.post("http://localhost:9999/echo", json, params);
+
+		System.out.println(result);
 	}
 
 	@Test
