@@ -5,8 +5,10 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.cache.RemovalListener;
+import com.google.common.cache.RemovalListeners;
 import org.junit.Test;
 
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -25,7 +27,9 @@ public class CacheTest {
 			.maximumSize(2)
 //			.expireAfterWrite(3, TimeUnit.SECONDS) // 对象被写入到缓存后多久过期
 			.expireAfterAccess(3, TimeUnit.SECONDS) // 对象多久没有被访问后过期
-			.removalListener(listener)
+//			.refreshAfterWrite(3, TimeUnit.SECONDS)
+//			.removalListener(listener)
+			.removalListener(RemovalListeners.asynchronous(listener, Executors.newSingleThreadExecutor()))
 			.build();
 		cache.put("k1", "andy");
 		cache.put("k2", "andy");
