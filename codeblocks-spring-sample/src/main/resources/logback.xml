@@ -18,7 +18,7 @@
 
 	<!-- Console log pattern -->
 	<property name="CONSOLE_LOG_PATTERN"
-			  value="%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5level) --- %magenta([%thread]) %X{traceId} %logger{56}.%M - %msg%n"
+			  value="%d{yyyy-MM-dd HH:mm:ss.SSS} %highlight(%-5level) --- %magenta([%thread]) %X{traceId} %logger{39}.%M - %msg%n"
 	/>
 
 	<!--  Output to Console -->

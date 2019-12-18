@@ -31,6 +31,10 @@
 	<!-- 定义aspectj -->
 	<aop:aspectj-autoproxy proxy-target-class="true"/>
 
+	<!-- 自定义bean -->
+	<bean class="com.andyadc.codeblocks.framework.aspect.MethodLogger"/>
+	<bean class="com.andyadc.codeblocks.framework.profiler.ProfilerApsect"/>
+
 	<!-- import files -->
 	<import resource="applicationContext-db.xml"/>
 	<import resource="applicationContext-executor.xml"/>

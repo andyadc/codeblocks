@@ -22,10 +22,16 @@ public class AuthServiceTest {
     @Autowired
     private AuthService authService;
 
+	@Test
+	public void testGet() throws Exception {
+		AuthUser authUser = authService.findAuthUserById(43L);
+		System.out.println(authUser);
+	}
+
     @Test
-    public void testUpdate() {
+	public void testUpdate() throws Exception {
         AuthUser authUser = new AuthUser();
-        authUser.setId(2L);
+		authUser.setId(21L);
         authService.update(authUser);
     }
 
@@ -34,6 +40,7 @@ public class AuthServiceTest {
         AuthUser authUser = new AuthUser();
 		authUser.setUsername(RandomUtil.genRandomStr(7));
 		authUser.setNickname(authUser.getUsername().substring(0, 5));
+		authUser.setNickname("😉emojis!~");
 		authUser.setPassword(RandomUtil.genRandomStr(11));
 		authUser.setSalt(RandomUtil.genRandomNum(9));
         authUser.setStatus(1);
