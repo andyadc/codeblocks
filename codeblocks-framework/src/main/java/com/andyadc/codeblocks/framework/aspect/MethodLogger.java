@@ -18,7 +18,7 @@ import java.util.Arrays;
  * @since 2018/10/17
  */
 @Aspect
-public class MethodLogger {
+public final class MethodLogger {
 
 	private static final Logger logger = LoggerFactory.getLogger(MethodLogger.class);
 
@@ -26,15 +26,16 @@ public class MethodLogger {
 	public Object around(ProceedingJoinPoint point) throws Throwable {
 		Instant start = Instant.now();
 		String signature = point.getSignature().toShortString();
-		logger.info("Invoking {} with request {}", signature, Arrays.toString(point.getArgs()));
 		Object result = null;
 		try {
 			result = point.proceed();
 		} finally {
-			logger.info("Invoked {}, request={}, response={}, timing={}",
+			logger.info(
+				"Invoked {}, request={}, response={}, timing={}",
 				signature,
 				Arrays.toString(point.getArgs()),
-				result, Duration.between(start, Instant.now()).toMillis()
+				result,
+				Duration.between(start, Instant.now()).toMillis()
 			);
 		}
 		return result;
