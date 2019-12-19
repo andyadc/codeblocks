@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * andy.an
  */
-public class ThreadPoolCreator {
+public final class ThreadPoolCreator {
 
 	private static final Logger logger = LoggerFactory.getLogger(ThreadPoolCreator.class);
 
@@ -27,7 +27,7 @@ public class ThreadPoolCreator {
 
 	private static ThreadPoolExecutor EXECUTOR = null;
 
-	public ThreadPoolExecutor create() {
+	public static ThreadPoolExecutor create() {
 		BlockingQueue<Runnable> queue = new ArrayBlockingQueue<>(DEFAULT_QUEUE_SIZE);
 		EXECUTOR = new ThreadPoolExecutor(
 			DEFAULT_CORE_POOL_SIZE,
@@ -79,16 +79,16 @@ public class ThreadPoolCreator {
 		return EXECUTOR;
 	}
 
-	public void close(ThreadPoolExecutor executor) {
+	public static void close(ThreadPoolExecutor executor) {
 		executor.shutdown();
 		try {
 			if (!executor.awaitTermination(10L, TimeUnit.SECONDS)) {
-				logger.warn("wait 10 seconds then shut down thread pool");
+				logger.warn("Wait 10 seconds then force shutdown thread pool");
 				executor.shutdownNow();
 			}
 		} catch (InterruptedException e) {
 			executor.shutdownNow();
-			logger.error("ThreadPoolExecutor close error. shutdownNow", e);
+			logger.error("ThreadPoolExecutor close error.", e);
 		}
 	}
 }
