@@ -1,7 +1,6 @@
 package com.andyadc.codeblocks.showcase.auth.service.impl;
 
 import com.andyadc.codeblocks.framework.aspect.Loggable;
-import com.andyadc.codeblocks.framework.profiler.ProfilerAnno;
 import com.andyadc.codeblocks.kit.Assert;
 import com.andyadc.codeblocks.showcase.auth.entity.AuthUser;
 import com.andyadc.codeblocks.showcase.auth.mapper.AuthUserMapper;
@@ -17,7 +16,6 @@ import java.time.LocalDateTime;
  * @author andaicheng
  * @version 2017/1/4
  */
-@ProfilerAnno
 @Service("authService")
 public class AuthServiceImpl implements AuthService {
 
