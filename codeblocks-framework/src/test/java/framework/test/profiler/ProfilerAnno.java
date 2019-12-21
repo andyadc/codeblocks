@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.framework.profiler;
+package framework.test.profiler;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

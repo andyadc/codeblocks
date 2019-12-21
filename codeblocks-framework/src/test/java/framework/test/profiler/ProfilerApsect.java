@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.framework.profiler;
+package framework.test.profiler;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -15,8 +15,8 @@ public class ProfilerApsect {
 
 	private final static Logger logger = LoggerFactory.getLogger(ProfilerApsect.class);
 
-	@Around("execution(* *(..)) && ( @annotation(com.andyadc.codeblocks.framework.profiler.ProfilerAnno) "
-		+ "|| @within(com.andyadc.codeblocks.framework.profiler.ProfilerAnno) )")
+	@Around("execution(* *(..)) && ( @annotation(framework.test.profiler.ProfilerAnno) "
+		+ "|| @within(framework.test.profiler.ProfilerAnno) )")
 	public Object invoke(final ProceedingJoinPoint joinPoint) throws Throwable {
 		if (!ProfilerSwitch.getInstance().isOpenProfilerTree()) {
 			return joinPoint.proceed();

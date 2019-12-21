@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.framework.profiler;
+package framework.test.profiler;
 
 /**
  * profiler的开关这是，目前仅仅是一个静态单例，需要外部来触发修改

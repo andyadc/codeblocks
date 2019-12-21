@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.framework.profiler;
+package framework.test.profiler;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
