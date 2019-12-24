@@ -25,11 +25,11 @@ public final class ThreadPoolCreator {
 	private static final int DEFAULT_CORE_POOL_SIZE = 10;
 	private static final int DEFAULT_MAX_POOL_SIZE = 10;
 
-	private static ThreadPoolExecutor EXECUTOR = null;
+	private static ThreadPoolExecutor executor = null;
 
-	public static ThreadPoolExecutor create() {
+	public synchronized static ThreadPoolExecutor create() {
 		BlockingQueue<Runnable> queue = new ArrayBlockingQueue<>(DEFAULT_QUEUE_SIZE);
-		EXECUTOR = new ThreadPoolExecutor(
+		executor = new ThreadPoolExecutor(
 			DEFAULT_CORE_POOL_SIZE,
 			DEFAULT_MAX_POOL_SIZE,
 			60,
@@ -74,9 +74,9 @@ public final class ThreadPoolCreator {
 				}
 			}
 		};
-		EXECUTOR.prestartAllCoreThreads();
+		executor.prestartAllCoreThreads();
 
-		return EXECUTOR;
+		return executor;
 	}
 
 	public static void close(ThreadPoolExecutor executor) {
