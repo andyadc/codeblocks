@@ -202,9 +202,9 @@
                     <httpConnector>
                         <port>${webserver.port}</port>
                     </httpConnector>
-                    <webAppConfig>
+					<webApp>
                         <contextPath>/${project.build.finalName}</contextPath>
-                    </webAppConfig>
+					</webApp>
                 </configuration>
             </plugin>
 
