@@ -114,9 +114,21 @@ public class ReentrantZkLock extends ZkPrimitive implements Lock {
 		}
 	}
 
+	/**
+	 * Acquires the lock, unless the current thread is interrupted.
+	 * <p><p>
+	 * Note: If the ZooKeeper Session expires while this thread is waiting, an {@link InterruptedException} will be
+	 * thrown.
+	 *
+	 * @throws InterruptedException if the current thread is interrupted, or if the ZooKeeper session expires
+	 * @throws RuntimeException     wrapping a {@link org.apache.zookeeper.KeeperException} if there is a ZooKeeper
+	 *                              server problem.
+	 * @inheritDoc
+	 * @see java.util.concurrent.locks.Lock#lockInterruptibly()
+	 */
 	@Override
 	public void lockInterruptibly() throws InterruptedException {
-
+		tryLock(Long.MAX_VALUE, TimeUnit.DAYS);
 	}
 
 	/**
@@ -234,12 +246,31 @@ public class ReentrantZkLock extends ZkPrimitive implements Lock {
 	}
 
 	@Override
-	public void unlock() {
+	public final void unlock() {
+		LockHolder nodeToRemove = locks.get();
+		if (nodeToRemove == null)
+			throw new IllegalMonitorStateException("Attempting to unlock without first obtaining that lock on this thread");
+
+		int numLocks = nodeToRemove.decrementLock();
+		if (numLocks == 0) {
+			locks.remove();
+			try {
+				ZkUtils.safeDelete(zkSessionManager.getZooKeeper(), nodeToRemove.lockNode(), -1);
+			} catch (InterruptedException | KeeperException e) {
+				throw new RuntimeException(e);
+			}
+		}
 	}
 
+	/**
+	 * Gets a new {@link java.util.concurrent.locks.Condition} for this lock.
+	 *
+	 * @return a new {@link java.util.concurrent.locks.Condition} instance for this {@code Lock}
+	 * @inheritDoc
+	 */
 	@Override
 	public Condition newCondition() {
-		return null;
+		return new ZkCondition(baseNode, zkSessionManager, privileges, this);
 	}
 
 	/**
@@ -287,6 +318,30 @@ public class ReentrantZkLock extends ZkPrimitive implements Lock {
 			}
 		}
 		return true;
+	}
+
+	/**
+	 * Determines whether or not this party owns the lock.
+	 *
+	 * @return true if the current party(i.e. Thread and ZooKeeper client) owns the Lock
+	 */
+	public final boolean hasLock() {
+		return locks.get() != null;
+	}
+
+	/**
+	 * Gets the name of the lock which this thread holds.
+	 * <p>
+	 * Note: This method will return {@code null} <i>unless</i> the current thread is the lock owner. This method
+	 * is primarily intended to ease the use of shared lock implementations between threads, and should not be used
+	 * to manage lock state.
+	 *
+	 * @return the name of the lock which this thread owns, or null.
+	 */
+	protected final String getLockName() {
+		LockHolder lockHolder = locks.get();
+		if (lockHolder == null) return null;
+		return lockHolder.lockNode();
 	}
 
 	/**

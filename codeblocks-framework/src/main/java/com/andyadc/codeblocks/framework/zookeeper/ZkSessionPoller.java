@@ -15,92 +15,94 @@ import java.util.concurrent.TimeUnit;
  */
 public final class ZkSessionPoller {
 
-    private static final Logger logger = LoggerFactory.getLogger(ZkSessionPoller.class);
+	private static final Logger logger = LoggerFactory.getLogger(ZkSessionPoller.class);
 
-    /*Poll interval in milliseconds*/
-    private final long pollIntervalMs;
+	/*Poll interval in milliseconds*/
+	private final long pollIntervalMs;
 
-    /*The zookeeper instance to check*/
-    private final ZooKeeper zk;
+	/*The zookeeper instance to check*/
+	private final ZooKeeper zk;
 
-    private final ConnectionListener pollListener;
+	private final ConnectionListener pollListener;
 
-    private final Object disconnectTimeLock = "Lock";
-    /*executor to poll*/
-    private final ScheduledExecutorService poller = Executors.newScheduledThreadPool(1,
-            (runnable) -> {
-                Thread t = new Thread(runnable);
-                t.setName("Codeblocks-ZkConnectionPoller");
-                return t;
-            });
-    private Long startDisconnectTime;
+	private final Object disconnectTimeLock = "Lock";
 
-    public ZkSessionPoller(ZooKeeper zk, long pollIntervalMs, ConnectionListener pollListener) {
-        this.zk = zk;
-        this.pollIntervalMs = pollIntervalMs;
-        this.pollListener = pollListener;
-    }
+	/*executor to poll*/
+	private final ScheduledExecutorService poller = Executors.newScheduledThreadPool(1,
+		(runnable) -> {
+			Thread t = new Thread(runnable);
+			t.setName("ZkSessionPoller");
+			return t;
+		});
 
-    public void startPolling() {
-        poller.scheduleWithFixedDelay(new SessionPoller(), 0L, pollIntervalMs, TimeUnit.MILLISECONDS);
-    }
+	private Long startDisconnectTime;
 
-    public void stopPolling() {
-        poller.shutdownNow();
-    }
+	public ZkSessionPoller(ZooKeeper zk, long pollIntervalMs, ConnectionListener pollListener) {
+		this.zk = zk;
+		this.pollIntervalMs = pollIntervalMs;
+		this.pollListener = pollListener;
+	}
 
-    private void expire() {
-        //session expired!
-        logger.info("Session has expired, notifying listenerand shutting down poller");
-        ZkSessionPoller.this.stopPolling();
-        pollListener.expired();
-    }
+	public void startPolling() {
+		poller.scheduleWithFixedDelay(new SessionPoller(), 0L, pollIntervalMs, TimeUnit.MILLISECONDS);
+	}
 
-    private class SessionPoller implements Runnable {
+	public void stopPolling() {
+		poller.shutdownNow();
+	}
 
-        private final int sessionTimeoutPeriod;
+	private void expire() {
+		//session expired!
+		logger.info("Session has expired, notifying listenerand shutting down poller");
+		ZkSessionPoller.this.stopPolling();
+		pollListener.expired();
+	}
 
-        public SessionPoller() {
-            sessionTimeoutPeriod = zk.getSessionTimeout();
-        }
+	private class SessionPoller implements Runnable {
 
-        @Override
-        public void run() {
-            if (Thread.currentThread().isInterrupted()) {
-                return;
-            }
+		private final int sessionTimeoutPeriod;
 
-            if (logger.isTraceEnabled()) {
-                logger.trace("Current state of ZooKeeper object: " + zk.getState());
-            }
+		public SessionPoller() {
+			sessionTimeoutPeriod = zk.getSessionTimeout();
+		}
 
-            try {
-                zk.exists("/", false);
-                synchronized (disconnectTimeLock) {
-                    startDisconnectTime = null;
-                }
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (KeeperException e) {
-                if (e.code() == KeeperException.Code.SESSIONEXPIRED) {
-                    expire();
-                } else if (e.code() == KeeperException.Code.CONNECTIONLOSS) {
-                    logger.debug("Received a ConnectionLoss Exception, determining if our session has expired");
-                    long currentTime = System.currentTimeMillis();
-                    boolean shouldExpire = false;
-                    synchronized (disconnectTimeLock) {
-                        if (startDisconnectTime == null) {
-                            startDisconnectTime = currentTime;
-                        } else if ((currentTime - startDisconnectTime) > sessionTimeoutPeriod) {
-                            shouldExpire = true;
-                        }
-                    }
-                    if (shouldExpire)
-                        expire();
-                } else {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
+		@Override
+		public void run() {
+			if (Thread.currentThread().isInterrupted()) {
+				return;
+			}
+
+			if (logger.isTraceEnabled()) {
+				logger.trace("Current state of ZooKeeper object: " + zk.getState());
+			}
+
+			try {
+				zk.exists("/", false);
+				synchronized (disconnectTimeLock) {
+					startDisconnectTime = null;
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			} catch (KeeperException e) {
+				if (e.code() == KeeperException.Code.SESSIONEXPIRED) {
+					expire();
+				} else if (e.code() == KeeperException.Code.CONNECTIONLOSS) {
+					logger.debug("Received a ConnectionLoss Exception, determining if our session has expired");
+					long currentTime = System.currentTimeMillis();
+					boolean shouldExpire = false;
+					synchronized (disconnectTimeLock) {
+						if (startDisconnectTime == null) {
+							startDisconnectTime = currentTime;
+						} else if ((currentTime - startDisconnectTime) > sessionTimeoutPeriod) {
+							shouldExpire = true;
+						}
+					}
+					if (shouldExpire)
+						expire();
+				} else {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
 }
