@@ -26,6 +26,7 @@ import java.util.concurrent.Executors;
 public class DefaultZkSessionManager implements ZkSessionManager {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultZkSessionManager.class);
+
 	private final String connectionString;
 	private final int timeout;
 	private final ExecutorService executor;

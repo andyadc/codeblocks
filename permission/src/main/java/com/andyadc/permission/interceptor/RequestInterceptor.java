@@ -19,7 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 public class RequestInterceptor extends HandlerInterceptorAdapter {
 
     private static final Logger logger = LoggerFactory.getLogger(RequestInterceptor.class);
-    private final static String TRACE_ID = "traceId";
+
+	private final static String TRACE_ID = "traceId";
     private final static String HEADER_TRACE_ID = "X-TRACE-ID";
 
     @Override

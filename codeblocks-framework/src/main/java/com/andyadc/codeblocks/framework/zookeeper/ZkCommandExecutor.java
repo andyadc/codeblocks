@@ -12,8 +12,9 @@ import java.util.concurrent.TimeUnit;
  */
 public class ZkCommandExecutor {
 
-	protected static final int DEFAULT_MAX_RETRIES = 3;
 	private static final Logger logger = LoggerFactory.getLogger(ZkCommandExecutor.class);
+
+	protected static final int DEFAULT_MAX_RETRIES = 3;
 	private static final long DEFAULT_DELAY_MILLIS = 1000;
 	private final int maxRetries;
 	private final long delayMillis;
