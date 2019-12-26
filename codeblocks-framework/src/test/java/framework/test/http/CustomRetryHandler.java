@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.kit.http;
+package framework.test.http;
 
 import org.apache.http.HttpEntityEnclosingRequest;
 import org.apache.http.HttpRequest;

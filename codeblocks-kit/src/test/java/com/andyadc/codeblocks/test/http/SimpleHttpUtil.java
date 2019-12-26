@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.kit.http;
+package com.andyadc.codeblocks.test.http;
 
 import com.andyadc.codeblocks.kit.collection.MapUtil;
 import com.andyadc.codeblocks.kit.text.StringUtil;

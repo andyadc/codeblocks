@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.kit.http;
+package framework.test.http;
 
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.config.Registry;

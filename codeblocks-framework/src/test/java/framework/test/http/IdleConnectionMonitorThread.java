@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.kit.http;
+package framework.test.http;
 
 import org.apache.http.conn.HttpClientConnectionManager;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
