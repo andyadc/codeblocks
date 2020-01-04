@@ -58,7 +58,7 @@
 		<guava.version>28.2-jre</guava.version>
         <orika.version>1.5.4</orika.version>
         <commons-lang.version>3.9</commons-lang.version>
-		<commons-codec.version>1.13</commons-codec.version>
+		<commons-codec.version>1.14</commons-codec.version>
         <commons-collections.version>4.4</commons-collections.version>
 		<commons-beanutils.version>1.9.4</commons-beanutils.version>
 		<commons-pool.version>2.8.0</commons-pool.version>
