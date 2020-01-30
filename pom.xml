@@ -85,7 +85,7 @@
 		<mockito.version>3.2.4</mockito.version>
 		<junit.version>4.13</junit.version>
         <contiperf.version>2.3.4</contiperf.version>
-		<jmh.version>1.22</jmh.version>
+		<jmh.version>1.23</jmh.version>
 
         <!-- maven plugins -->
 		<jetty-maven-plugin.version>9.4.26.v20200117</jetty-maven-plugin.version>
