@@ -44,7 +44,7 @@
 		<mybatis.version>3.5.4</mybatis.version>
 		<mybatis-spring.version>2.0.3</mybatis-spring.version>
 		<spring-data-redis.version>2.2.4.RELEASE</spring-data-redis.version>
-		<zookeeper.version>3.5.6</zookeeper.version>
+		<zookeeper.version>3.5.7</zookeeper.version>
 		<redisson.version>3.12.1</redisson.version>
 		<jedis.version>3.2.0</jedis.version>
 		<lettuce.version>5.2.2.RELEASE</lettuce.version>
@@ -75,7 +75,7 @@
 		<hessian.version>4.0.63</hessian.version>
 		<ehcache.version>3.8.1</ehcache.version>
         <zxing.version>3.4.0</zxing.version>
-		<poi.version>4.1.1</poi.version>
+		<poi.version>4.1.2</poi.version>
         <cglib.version>3.3.0</cglib.version>
 		<objenesis.version>3.1</objenesis.version>
 		<javassist.version>3.26.0-GA</javassist.version>
