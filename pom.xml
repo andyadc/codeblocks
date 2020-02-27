@@ -43,7 +43,7 @@
 		<sentinel.version>1.7.1</sentinel.version>
 		<mybatis.version>3.5.4</mybatis.version>
 		<mybatis-spring.version>2.0.3</mybatis-spring.version>
-		<spring-data-redis.version>2.2.4.RELEASE</spring-data-redis.version>
+		<spring-data-redis.version>2.2.5.RELEASE</spring-data-redis.version>
 		<zookeeper.version>3.5.7</zookeeper.version>
 		<redisson.version>3.12.2</redisson.version>
 		<jedis.version>3.2.0</jedis.version>
@@ -82,7 +82,7 @@
 		<ognl.version>3.2.13</ognl.version>
 		<slf4j.version>1.7.30</slf4j.version>
         <logback.version>1.2.3</logback.version>
-		<mockito.version>3.3.0</mockito.version>
+		<mockito.version>3.3.1</mockito.version>
 		<junit.version>4.13</junit.version>
         <contiperf.version>2.3.4</contiperf.version>
 		<jmh.version>1.23</jmh.version>
