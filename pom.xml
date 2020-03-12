@@ -48,7 +48,7 @@
 		<redisson.version>3.12.3</redisson.version>
 		<jedis.version>3.2.0</jedis.version>
 		<lettuce.version>5.2.2.RELEASE</lettuce.version>
-		<kafka-clients.version>2.4.0</kafka-clients.version>
+		<kafka-clients.version>2.4.1</kafka-clients.version>
         <curator.version>4.3.0</curator.version>
         <zkclient.version>0.11</zkclient.version>
 		<rabbitmq-clients.version>5.8.0</rabbitmq-clients.version>
