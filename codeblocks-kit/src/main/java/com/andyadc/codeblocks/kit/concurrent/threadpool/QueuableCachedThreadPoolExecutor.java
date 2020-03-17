@@ -20,7 +20,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * <p>
  * https://github.com/apache/tomcat/blob/trunk/java/org/apache/tomcat/util/threads/ThreadPoolExecutor.java
  */
-public final class QueuableCachedThreadPool extends java.util.concurrent.ThreadPoolExecutor {
+public final class QueuableCachedThreadPoolExecutor extends java.util.concurrent.ThreadPoolExecutor {
 
     /**
      * The number of tasks submitted but not yet finished. This includes tasks in the queue and tasks that have been
@@ -29,8 +29,8 @@ public final class QueuableCachedThreadPool extends java.util.concurrent.ThreadP
      */
     private final AtomicInteger submittedCount = new AtomicInteger(0);
 
-    public QueuableCachedThreadPool(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit,
-                                    ControllableQueue workQueue, ThreadFactory threadFactory, RejectedExecutionHandler handler) {
+	public QueuableCachedThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit,
+											ControllableQueue workQueue, ThreadFactory threadFactory, RejectedExecutionHandler handler) {
         super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue, threadFactory, handler);
         workQueue.setParent(this);
         prestartAllCoreThreads(); // NOSOANR
@@ -91,13 +91,13 @@ public final class QueuableCachedThreadPool extends java.util.concurrent.ThreadP
     protected static class ControllableQueue extends LinkedBlockingQueue<Runnable> {
 
         private static final long serialVersionUID = 5044057462066661171L;
-        private transient volatile QueuableCachedThreadPool parent = null;
+		private transient volatile QueuableCachedThreadPoolExecutor parent = null;
 
         public ControllableQueue(int capacity) {
             super(capacity);
         }
 
-        public void setParent(QueuableCachedThreadPool tp) {
+		public void setParent(QueuableCachedThreadPoolExecutor tp) {
             parent = tp;
         }
 
