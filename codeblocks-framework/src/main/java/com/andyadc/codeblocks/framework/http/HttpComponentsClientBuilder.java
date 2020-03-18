@@ -73,6 +73,8 @@ public final class HttpComponentsClientBuilder {
 		DefaultHttpRequestRetryHandler retryHandler = new DefaultHttpRequestRetryHandler(configuration.getRetryTimes(), configuration.getRetryOnFailure());
 		builder.setRetryHandler(retryHandler);
 
+//		builder.disableAutomaticRetries();
+
 		builder.setKeepAliveStrategy(DefaultConnectionKeepAliveStrategy.INSTANCE);  // 长连接策略
 		builder.setConnectionReuseStrategy(DefaultConnectionReuseStrategy.INSTANCE);//连接重用策略
 
