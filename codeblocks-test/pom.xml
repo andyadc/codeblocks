@@ -46,12 +46,12 @@
         <dependency>
             <groupId>com.auth0</groupId>
             <artifactId>java-jwt</artifactId>
-			<version>3.9.0</version>
+			<version>3.10.1</version>
         </dependency>
         <dependency>
             <groupId>com.auth0</groupId>
             <artifactId>jwks-rsa</artifactId>
-			<version>0.9.0</version>
+			<version>0.11.0</version>
         </dependency>
 
         <!--<dependency>
