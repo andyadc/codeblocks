@@ -15,7 +15,6 @@ import org.apache.http.conn.socket.PlainConnectionSocketFactory;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.impl.DefaultConnectionReuseStrategy;
 import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.DefaultConnectionKeepAliveStrategy;
 import org.apache.http.impl.client.DefaultHttpRequestRetryHandler;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.conn.ManagedHttpClientConnectionFactory;
@@ -75,8 +74,9 @@ public final class HttpComponentsClientBuilder {
 
 //		builder.disableAutomaticRetries();
 
-		builder.setKeepAliveStrategy(DefaultConnectionKeepAliveStrategy.INSTANCE);  // 长连接策略
-		builder.setConnectionReuseStrategy(DefaultConnectionReuseStrategy.INSTANCE);//连接重用策略
+//		builder.setKeepAliveStrategy(DefaultConnectionKeepAliveStrategy.INSTANCE);  // 默认长连接策略
+		builder.setKeepAliveStrategy(new CustomConnectionKeepAliveStrategy());  // 自定义长连接策略
+		builder.setConnectionReuseStrategy(DefaultConnectionReuseStrategy.INSTANCE);// 连接重用策略
 
 		return builder.build();
 	}
