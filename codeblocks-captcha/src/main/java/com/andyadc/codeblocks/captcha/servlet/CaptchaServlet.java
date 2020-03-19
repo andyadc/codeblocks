@@ -79,7 +79,7 @@ public final class CaptchaServlet extends HttpServlet {
             ImageIO.write(bufferedImage, "png", outputStream);
             outputStream.flush();
         } catch (Exception e) {
-            logger.error("doPost error!", e);
+            logger.error("CaptchaServlet handle error", e);
         }
     }
 
@@ -93,7 +93,7 @@ public final class CaptchaServlet extends HttpServlet {
         String length = request.getParameter(CAPTCHA_LENGTH);
 
         fontFactory = new RandomFontFactory();
-        Integer fontSize = Integer.valueOf(StringUtil.defaultIfBlank(size, "25"));
+        int fontSize = Integer.parseInt(StringUtil.defaultIfBlank(size, "25"));
         fontFactory.setMaxSize(fontSize);
         fontFactory.setMinSize(fontSize);
         configurableCaptchaService.setFontFactory(fontFactory);
@@ -121,7 +121,7 @@ public final class CaptchaServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) {
         String cs = config.getInitParameter("captchaSession");
-        logger.info("captcha init param: {}", cs);
+        logger.info("CaptchaServlet init param: {}", cs);
 
         configurableCaptchaService = new ConfigurableCaptchaService();
 
