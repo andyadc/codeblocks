@@ -10,24 +10,24 @@ import org.apache.http.protocol.HttpContext;
 import java.util.Arrays;
 
 /**
+ * 自定义 KeepAlive 策略
  * andy.an
  * 2020/3/18
  */
 public class CustomConnectionKeepAliveStrategy implements ConnectionKeepAliveStrategy {
 
-	private final long DEFAULT_SECONDS = 30L;
+	private static final long DEFAULT_KEEP_ALIVE_SECONDS = 30L;
 
 	public CustomConnectionKeepAliveStrategy() {
 	}
 
 	@Override
 	public long getKeepAliveDuration(HttpResponse response, HttpContext context) {
-		return Arrays.asList(response.getHeaders(HTTP.CONN_KEEP_ALIVE))
-			.stream()
+		return Arrays.stream(response.getHeaders(HTTP.CONN_KEEP_ALIVE))
 			.filter(h -> StringUtils.equalsIgnoreCase(h.getName(), "timeout")
 				&& StringUtils.isNumeric(h.getValue()))
 			.findFirst()
-			.map(h -> NumberUtils.toLong(h.getValue(), DEFAULT_SECONDS))
-			.orElse(DEFAULT_SECONDS) * 1000;
+			.map(h -> NumberUtils.toLong(h.getValue(), DEFAULT_KEEP_ALIVE_SECONDS))
+			.orElse(DEFAULT_KEEP_ALIVE_SECONDS) * 1000;
 	}
 }
