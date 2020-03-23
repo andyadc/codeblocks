@@ -20,14 +20,13 @@ public class ThreadPoolTaskExecutorConfig {
 	@Bean(value = "defaultTaskExecutor")
 	public ThreadPoolTaskExecutor defaultTaskExecutor() {
 		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-		executor.setThreadNamePrefix("Default-");
+		executor.setThreadNamePrefix("DefaultThreadPool-");
 		executor.setCorePoolSize(2);
 		executor.setMaxPoolSize(4);
 		executor.setQueueCapacity(100);
 		executor.setKeepAliveSeconds(60);
 		executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
 		executor.setTaskDecorator(new MDCTaskDecorator());
-		executor.initialize();
 		return executor;
 	}
 
