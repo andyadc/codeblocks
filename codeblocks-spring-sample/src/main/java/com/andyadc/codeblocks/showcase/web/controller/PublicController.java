@@ -6,6 +6,8 @@ import com.andyadc.codeblocks.showcase.auth.service.AuthService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +24,14 @@ public class PublicController {
 
     @Autowired
     private AuthService authService;
+
+	@Qualifier(value = "taskExecutor")
+	@Autowired
+	private ThreadPoolTaskExecutor taskExecutor;
+
+	@Qualifier(value = "defaultTaskExecutor")
+	@Autowired
+	private ThreadPoolTaskExecutor defaultTaskExecutor;
 
     @GetMapping("/user")
     public Object user() {
