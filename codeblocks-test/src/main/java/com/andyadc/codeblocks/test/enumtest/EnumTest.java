@@ -1,5 +1,8 @@
 package com.andyadc.codeblocks.test.enumtest;
 
+import java.util.EnumMap;
+import java.util.EnumSet;
+
 /**
  * andy.an
  * 2020/3/24
@@ -32,6 +35,7 @@ public class EnumTest {
 		System.out.println(UserRole.valueOf("ROLE_ORDER_ADMIN"));
 		System.out.println(UserRole.valueOf("ROLE_NORMAL"));
 
+		// switch
 		UserRole userRole = UserRole.valueOf("ROLE_NORMAL");
 		switch (userRole) {
 			case ROLE_NORMAL:
@@ -45,12 +49,24 @@ public class EnumTest {
 				break;
 		}
 
+		// EnumSet
+		EnumSet<UserRole> roleEnumSet = EnumSet.of(
+			UserRole.ROLE_ORDER_ADMIN,
+			UserRole.ROLE_ROOT_ADMIN
+		);
+		System.out.println(roleEnumSet.contains(role1));
+
+		// EnumMap
+		EnumMap<UserRole, Integer> userRoleEnumMap = new EnumMap<>(UserRole.class);
+		userRoleEnumMap.put(role1, 12345);
+		System.out.println(userRoleEnumMap);
+
 		System.out.println(RoleEnum.ROLE_ORDER_ADMIN.op());
 		System.out.println(RoleEnum.ROLE_NORMAL.op());
 		System.out.println(RoleEnum.ROLE_ROOT_ADMIN.op());
 
-		System.out.println(Calculator.ADDITION.execute(1D, 23D));
-		System.out.println(Calculator.DIVISION.execute(1D, 21D));
+		System.out.println(Calculator.ADDITION.execute(11D, 23D));
+		System.out.println(Calculator.DIVISION.execute(51D, 21D));
 		System.out.println(Calculator.MULTIPLICATION.execute(15D, 26D));
 		System.out.println(Calculator.SUBTRACTION.execute(31D, 29D));
 	}
