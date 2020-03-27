@@ -1,107 +1,156 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.andyadc.codeblocks.showcase.sys.mapper.SpringTransactionMapper">
-    <resultMap id="BaseResultMap" type="com.andyadc.codeblocks.showcase.sys.entity.SpringTransaction">
-        <id column="id" jdbcType="BIGINT" property="id"/>
-        <result column="name" jdbcType="VARCHAR" property="name"/>
-        <result column="age" jdbcType="INTEGER" property="age"/>
-        <result column="number" jdbcType="BIGINT" property="number"/>
-        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
-        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
-        <result column="version" jdbcType="INTEGER" property="version"/>
-    </resultMap>
+	<resultMap id="BaseResultMap" type="com.andyadc.codeblocks.showcase.sys.entity.SpringTransaction">
+		<id column="id" jdbcType="BIGINT" property="id"/>
+		<result column="name" jdbcType="VARCHAR" property="name"/>
+		<result column="age" jdbcType="INTEGER" property="age"/>
+		<result column="number" jdbcType="BIGINT" property="number"/>
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+		<result column="version" jdbcType="INTEGER" property="version"/>
+	</resultMap>
 
-    <sql id="Base_Column_List">
+	<sql id="Base_Column_List">
     id, name, age, number, create_time, update_time, version
   </sql>
 
-    <update id="updateIfNumberIsZero">
+	<insert id="batchInsert">
+		insert into spring_transaction (name, age, number)
+		values
+		<foreach collection="list" item="st" separator=",">
+			(#{st.name}, #{st.age}, #{st.number})
+		</foreach>
+	</insert>
+
+	<select id="selectByIdList" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from spring_transaction
+		where id in
+		<foreach collection="list" open="(" close=")" separator="," item="id" index="i">
+			#{id}
+		</foreach>
+	</select>
+
+	<select id="selectByIdArray" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from spring_transaction
+		where id in
+		<foreach collection="array" open="(" close=")" separator="," item="id" index="i">
+			#{id}
+		</foreach>
+	</select>
+
+	<update id="updateByMap">
+		update spring_transaction
+		set
+		<foreach collection="_parameter" item="val" index="key" separator=",">
+			${key} = #{val}
+		</foreach>
+		where id = #{id}
+	</update>
+
+	<select id="selectByName" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from spring_transaction
+		where 1 = 1
+
+		<bind name="nameLike" value="'%' + name + '%'"/>
+		and name like #{nameLike}
+
+		-- and name like concat('%', #{name}, '%')
+	</select>
+
+	<update id="updateIfNumberIsZero">
         UPDATE spring_transaction SET number = #{number} WHERE id = #{id} AND (ISNULL(number) OR number = 0)
     </update>
 
-    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from spring_transaction
-        where id = #{id,jdbcType=BIGINT}
-    </select>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from spring_transaction
+		where id = #{id,jdbcType=BIGINT}
+	</select>
 
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from spring_transaction
     where id = #{id,jdbcType=BIGINT}
   </delete>
 
-    <insert id="insertSelective" parameterType="com.andyadc.codeblocks.showcase.sys.entity.SpringTransaction">
-        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
-            SELECT LAST_INSERT_ID()
-        </selectKey>
-        insert into spring_transaction
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="name != null">
-                name,
-            </if>
-            <if test="age != null">
-                age,
-            </if>
-            <if test="number != null">
-                number,
-            </if>
-            <if test="createTime != null">
-                create_time,
-            </if>
-            <if test="updateTime != null">
-                update_time,
-            </if>
-            <if test="version != null">
-                version,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="name != null">
-                #{name,jdbcType=VARCHAR},
-            </if>
-            <if test="age != null">
-                #{age,jdbcType=INTEGER},
-            </if>
-            <if test="number != null">
-                #{number,jdbcType=BIGINT},
-            </if>
-            <if test="createTime != null">
-                #{createTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="updateTime != null">
-                #{updateTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="version != null">
-                #{version,jdbcType=INTEGER},
-            </if>
-        </trim>
-    </insert>
+	<insert id="insertSelective" parameterType="com.andyadc.codeblocks.showcase.sys.entity.SpringTransaction">
+		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into spring_transaction
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				name,
+			</if>
+			<if test="age != null">
+				age,
+			</if>
+			<if test="number != null">
+				number,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+			<if test="version != null">
+				version,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="age != null">
+				#{age,jdbcType=INTEGER},
+			</if>
+			<if test="number != null">
+				#{number,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="version != null">
+				#{version,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
 
-    <update id="updateByPrimaryKeySelective"
-            parameterType="com.andyadc.codeblocks.showcase.sys.entity.SpringTransaction">
-        update spring_transaction
-        <set>
-            <if test="name != null">
-                name = #{name,jdbcType=VARCHAR},
-            </if>
-            <if test="age != null">
-                age = #{age,jdbcType=INTEGER},
-            </if>
-            <if test="number != null">
-                number = #{number,jdbcType=BIGINT},
-            </if>
-            <if test="createTime != null">
-                create_time = #{createTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="updateTime != null">
-                update_time = #{updateTime,jdbcType=TIMESTAMP},
-            </if>
-            <if test="version != null">
-                version = #{version,jdbcType=INTEGER},
-            </if>
-        </set>
-        where id = #{id,jdbcType=BIGINT}
-    </update>
+	<update id="updateByPrimaryKeySelective"
+			parameterType="com.andyadc.codeblocks.showcase.sys.entity.SpringTransaction">
+		update spring_transaction
+		<set>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="age != null">
+				age = #{age,jdbcType=INTEGER},
+			</if>
+			<if test="number != null">
+				number = #{number,jdbcType=BIGINT},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="version != null">
+				version = #{version,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
 
 </mapper>

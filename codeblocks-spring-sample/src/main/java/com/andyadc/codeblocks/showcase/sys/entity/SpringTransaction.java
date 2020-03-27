@@ -20,11 +20,20 @@ public class SpringTransaction extends BaseEntity {
 
     private Integer version;
 
-    public SpringTransaction(String name) {
+	public SpringTransaction() {
+	}
+
+	public SpringTransaction(String name) {
         this.name = name;
     }
 
-    public String getName() {
+	public SpringTransaction(String name, Integer age, Long number) {
+		this.name = name;
+		this.age = age;
+		this.number = number;
+	}
+
+	public String getName() {
         return name;
     }
 
