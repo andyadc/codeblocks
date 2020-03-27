@@ -24,7 +24,6 @@
         <module>codeblocks-test</module>
         <module>codeblocks-spring-sample</module>
         <module>codeblocks-qrcode</module>
-        <module>permission</module>
     </modules>
 
     <prerequisites>
