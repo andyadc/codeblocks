@@ -52,6 +52,9 @@
 		where id = #{id}
 	</update>
 
+	<!--
+	and name like concat('%', #{name}, '%')
+	-->
 	<select id="selectByName" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List"/>
@@ -60,8 +63,6 @@
 
 		<bind name="nameLike" value="'%' + name + '%'"/>
 		and name like #{nameLike}
-
-		-- and name like concat('%', #{name}, '%')
 	</select>
 
 	<update id="updateIfNumberIsZero">
