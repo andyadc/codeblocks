@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.andyadc.ssm.mapper.DemoMapper">
+	<resultMap id="BaseResultMap" type="com.andyadc.ssm.entity.Demo">
+		<id column="id" jdbcType="BIGINT" property="id"/>
+		<result column="name" jdbcType="VARCHAR" property="name"/>
+		<result column="type" jdbcType="TINYINT" property="type"/>
+		<result column="status" jdbcType="TINYINT" property="status"/>
+		<result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+		<result column="version" jdbcType="INTEGER" property="version"/>
+	</resultMap>
+
+	<sql id="Base_Column_List">
+        id, `name`, type, `status`, version, create_time, update_time
+    </sql>
+
+	<insert id="batchInsert">
+		insert into demo (name, type, status, version, create_time, update_time)
+		values
+		<foreach collection="list" item="d" separator=",">
+			(#{d.name}, #{d.type}, #{d.status}, 1, NOW(), NOW())
+		</foreach>
+	</insert>
+
+	<update id="updateByMap">
+		update demo
+		set
+		<foreach collection="_parameter" item="val" index="key" separator=",">
+			${key} = #{val}
+		</foreach>
+		where id = #{id}
+	</update>
+
+	<!--
+	and name like concat('%', #{name}, '%')
+	-->
+	<select id="selectByNameLike" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from demo
+		where 1 = 1
+
+		<bind name="nameLike" value="'%' + name + '%'"/>
+		and name like #{nameLike}
+	</select>
+
+	<select id="selectByTypeList" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List"/>
+		from demo
+		where type IN
+		<foreach collection="list" item="type" index="index" open="(" close=")" separator=",">
+			#{type}
+		</foreach>
+	</select>
+
+	<select id="selectByTypeArray" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List"/>
+		from demo
+		where type IN
+		<foreach collection="array" item="type" index="index" open="(" close=")" separator=",">
+			#{type}
+		</foreach>
+	</select>
+
+	<!--
+    -->
+
+	<select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from demo
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from demo
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+
+	<insert id="insertSelective" parameterType="com.andyadc.ssm.entity.Demo"
+			useGeneratedKeys="true"
+			keyProperty="id">
+		insert into demo
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="name != null">
+				`name`,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			`status`,
+			<if test="version != null">
+				version,
+			</if>
+			<if test="createTime != null">
+				create_time,
+			</if>
+			<if test="updateTime != null">
+				update_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=BIGINT},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=INTEGER},
+			</if>
+			#{status,jdbcType=TINYINT},
+			<if test="version != null">
+				#{version,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				#{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				#{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+
+	<update id="updateByPrimaryKeySelective" parameterType="com.andyadc.ssm.entity.Demo">
+		update demo
+		<set>
+			<if test="name != null">
+				`name` = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=INTEGER},
+			</if>
+			<if test="status != null">
+				`status` = #{status,jdbcType=TINYINT},
+			</if>
+			<if test="version != null">
+				version = #{version,jdbcType=INTEGER},
+			</if>
+			<if test="createTime != null">
+				create_time = #{createTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updateTime != null">
+				update_time = #{updateTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+</mapper>

@@ -24,7 +24,8 @@
         <module>codeblocks-test</module>
         <module>codeblocks-spring-sample</module>
         <module>codeblocks-qrcode</module>
-    </modules>
+		<module>ssm-demo</module>
+	</modules>
 
     <prerequisites>
         <maven>3.0</maven>
