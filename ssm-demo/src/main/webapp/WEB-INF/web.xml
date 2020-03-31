@@ -71,7 +71,7 @@
 
 	<error-page>
 		<error-code>404</error-code>
-		<location>/WEB-INF/views/common/error/404.jsp</location>
+		<location>/views/common/error/404.jsp</location>
 	</error-page>
 
 	<distributable/>
