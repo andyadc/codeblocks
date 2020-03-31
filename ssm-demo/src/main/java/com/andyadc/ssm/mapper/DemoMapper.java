@@ -25,4 +25,8 @@ public interface DemoMapper {
 	List<Demo> selectByNameLike(String name);
 
 	int updateByMap(Map<String, Object> map);
+
+	List<Demo> selectByChoose(Demo demo);
+
+	List<Demo> selectByWhere(Demo demo);
 }

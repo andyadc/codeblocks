@@ -27,6 +27,22 @@ public class MapperTests {
 	private DemoMapper demoMapper;
 
 	@Test
+	public void testSelectByChoose() {
+		Demo demo = new Demo();
+		demo.setId(231L);
+		List<Demo> demoList = demoMapper.selectByChoose(demo);
+		demoList.forEach(d -> System.out.println(d.getId() + " - " + d.getName()));
+	}
+
+	@Test
+	public void testSelectByWhere() {
+		Demo demo = new Demo();
+//		demo.setId(231L);
+		List<Demo> demoList = demoMapper.selectByWhere(demo);
+		demoList.forEach(d -> System.out.println(d.getId() + " - " + d.getName()));
+	}
+
+	@Test
 	public void testSelectByArray() {
 		Long[] idArray = {1L, 2L, 3L};
 		List<Demo> demoList = demoMapper.selectByTypeArray(idArray);

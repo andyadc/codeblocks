@@ -15,6 +15,40 @@
         id, `name`, type, `status`, version, create_time, update_time
     </sql>
 
+	<!-- choose -->
+	<select id="selectByChoose" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from demo
+		where 1 = 1
+		<choose>
+			<when test="id != null">
+				AND id = #{id}
+			</when>
+			<when test="name != null and name !=''">
+				AND name = #{name}
+			</when>
+			<otherwise>
+				AND 1 = 2
+			</otherwise>
+		</choose>
+	</select>
+
+	<!-- where -->
+	<select id="selectByWhere" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from demo
+		<where>
+			<if test="id != null">
+				AND id = #{id}
+			</if>
+			<if test="name != null and name !=''">
+				AND name = #{name}
+			</if>
+		</where>
+	</select>
+
 	<insert id="batchInsert">
 		insert into demo (name, type, status, version, create_time, update_time)
 		values
@@ -23,6 +57,7 @@
 		</foreach>
 	</insert>
 
+	<!-- 默认: _parameter, 也可以使用 `@Param` 指定-->
 	<update id="updateByMap">
 		update demo
 		set
@@ -64,9 +99,6 @@
 			#{type}
 		</foreach>
 	</select>
-
-	<!--
-    -->
 
 	<select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
 		select
