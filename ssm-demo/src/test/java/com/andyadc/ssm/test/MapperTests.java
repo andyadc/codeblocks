@@ -61,7 +61,7 @@ public class MapperTests {
 	@Test
 	public void testSelectByNameLike() {
 		List<Demo> demoList = demoMapper.selectByNameLike("u-");
-		demoList.forEach(d -> System.out.println(d.getName()));
+		demoList.forEach(d -> System.out.println(d.getName() + " - " + d.getCreateTime()));
 	}
 
 	@Test

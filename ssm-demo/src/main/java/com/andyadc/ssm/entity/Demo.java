@@ -2,11 +2,13 @@ package com.andyadc.ssm.entity;
 
 import com.andyadc.ssm.common.BaseEntity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class Demo extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
+
+	private Long id;
 
 	private String name;
 
@@ -16,9 +18,17 @@ public class Demo extends BaseEntity {
 
 	private Integer version;
 
-	private Date createTime;
+	private LocalDateTime createTime;
 
-	private Date updateTime;
+	private LocalDateTime updateTime;
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
@@ -52,19 +62,19 @@ public class Demo extends BaseEntity {
 		this.version = version;
 	}
 
-	public Date getCreateTime() {
+	public LocalDateTime getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(Date createTime) {
+	public void setCreateTime(LocalDateTime createTime) {
 		this.createTime = createTime;
 	}
 
-	public Date getUpdateTime() {
+	public LocalDateTime getUpdateTime() {
 		return updateTime;
 	}
 
-	public void setUpdateTime(Date updateTime) {
+	public void setUpdateTime(LocalDateTime updateTime) {
 		this.updateTime = updateTime;
 	}
 }
