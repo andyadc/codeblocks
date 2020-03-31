@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.andyadc.ssm.mapper.DemoMapper">
-	<resultMap id="BaseResultMap" type="com.andyadc.ssm.entity.Demo">
+<mapper namespace="com.andyadc.ssm.persistence.mapper.DemoMapper">
+	<resultMap id="BaseResultMap" type="com.andyadc.ssm.persistence.entity.Demo">
 		<id column="id" jdbcType="BIGINT" property="id"/>
 		<result column="name" jdbcType="VARCHAR" property="name"/>
 		<result column="type" jdbcType="TINYINT" property="type"/>
@@ -112,7 +112,7 @@
         where id = #{id,jdbcType=BIGINT}
     </delete>
 
-	<insert id="insertSelective" parameterType="com.andyadc.ssm.entity.Demo"
+	<insert id="insertSelective" parameterType="com.andyadc.ssm.persistence.entity.Demo"
 			useGeneratedKeys="true"
 			keyProperty="id">
 		insert into demo
@@ -160,7 +160,7 @@
 		</trim>
 	</insert>
 
-	<update id="updateByPrimaryKeySelective" parameterType="com.andyadc.ssm.entity.Demo">
+	<update id="updateByPrimaryKeySelective" parameterType="com.andyadc.ssm.persistence.entity.Demo">
 		update demo
 		<set>
 			<if test="name != null">

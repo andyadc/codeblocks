@@ -1,6 +1,6 @@
 package com.andyadc.ssm.test;
 
-import com.andyadc.ssm.entity.Demo;
+import com.andyadc.ssm.persistence.entity.Demo;
 import com.andyadc.ssm.service.DemoService;
 import org.junit.Test;
 import org.junit.runner.RunWith;

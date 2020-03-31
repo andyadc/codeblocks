@@ -1,6 +1,6 @@
-package com.andyadc.ssm.entity;
+package com.andyadc.ssm.persistence.entity;
 
-import com.andyadc.ssm.common.BaseEntity;
+import com.andyadc.ssm.persistence.common.BaseEntity;
 
 import java.time.LocalDateTime;
 

@@ -1,7 +1,7 @@
 package com.andyadc.ssm.service;
 
-import com.andyadc.ssm.entity.Demo;
-import com.andyadc.ssm.mapper.DemoMapper;
+import com.andyadc.ssm.persistence.entity.Demo;
+import com.andyadc.ssm.persistence.mapper.DemoMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

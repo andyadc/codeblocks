@@ -1,7 +1,7 @@
 package com.andyadc.ssm.test;
 
-import com.andyadc.ssm.entity.Demo;
-import com.andyadc.ssm.mapper.DemoMapper;
+import com.andyadc.ssm.persistence.entity.Demo;
+import com.andyadc.ssm.persistence.mapper.DemoMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

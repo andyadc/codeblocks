@@ -1,4 +1,4 @@
-package com.andyadc.ssm.common;
+package com.andyadc.ssm.persistence.common;
 
 import java.io.Serializable;
 
