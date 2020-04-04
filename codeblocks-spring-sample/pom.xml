@@ -132,7 +132,7 @@
 		<dependency>
 			<groupId>p6spy</groupId>
 			<artifactId>p6spy</artifactId>
-			<version>3.8.7</version>
+			<version>3.9.0</version>
 		</dependency>
 
 		<!-- util -->
