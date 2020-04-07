@@ -2,6 +2,7 @@ package framework.test;
 
 import com.andyadc.codeblocks.framework.concurrent.ThreadPoolCreator;
 import com.andyadc.codeblocks.framework.http.HttpClientTemplate;
+import com.andyadc.codeblocks.framework.http.HttpComponentsClientTemplate;
 import com.andyadc.codeblocks.framework.http.OkHttpClientTemplate;
 import com.andyadc.codeblocks.framework.http.interceptor.DefaultOkHttpInterceptor;
 import com.andyadc.codeblocks.framework.http.interceptor.DefaultRequestInterceptor;
@@ -58,10 +59,18 @@ public class HttpClientTemplateTest {
 
 	@Before
 	public void init() {
-//		template = new HttpComponentsClientTemplate();
-//		((HttpComponentsClientTemplate) template).setRequestInterceptors(requestInterceptorList);
-//		((HttpComponentsClientTemplate) template).setResponseInterceptors(responseInterceptorList);
+		initOkHttpClient();
+//		initHttpComponentsClient();
+	}
 
+	private void initHttpComponentsClient() {
+		template = new HttpComponentsClientTemplate();
+		((HttpComponentsClientTemplate) template).setRequestInterceptors(requestInterceptorList);
+		((HttpComponentsClientTemplate) template).setResponseInterceptors(responseInterceptorList);
+		template.init();
+	}
+
+	private void initOkHttpClient() {
 		template = new OkHttpClientTemplate();
 		((OkHttpClientTemplate) template).setInterceptors(interceptorList);
 		template.init();
@@ -82,7 +91,7 @@ public class HttpClientTemplateTest {
 		int count = 100;
 		CountDownLatch latch = new CountDownLatch(count);
 
-		ThreadPoolExecutor executor = new ThreadPoolCreator().create();
+		ThreadPoolExecutor executor = ThreadPoolCreator.create();
 		for (int i = 0; i < count; i++) {
 			executor.execute(() -> {
 				try {
