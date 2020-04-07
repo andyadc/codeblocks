@@ -37,7 +37,7 @@
 		<lombok.version>1.18.12</lombok.version>
 		<netty.version>4.1.47.Final</netty.version>
 		<httpcomponents.version>4.5.12</httpcomponents.version>
-		<okhttp.version>4.4.1</okhttp.version>
+		<okhttp.version>4.5.0</okhttp.version>
 		<hibernate-validator.version>6.1.2.Final</hibernate-validator.version>
 		<sentinel.version>1.7.1</sentinel.version>
 		<mybatis.version>3.5.4</mybatis.version>
@@ -65,7 +65,7 @@
         <commons-dbutils.version>1.7</commons-dbutils.version>
 		<tomcat-jdbc.version>9.0.33</tomcat-jdbc.version>
 		<hikaricp.version>3.4.2</hikaricp.version>
-		<druid.version>1.1.21</druid.version>
+		<druid.version>1.1.22</druid.version>
 		<mysql-driver.version>8.0.19</mysql-driver.version>
 		<h2.version>1.4.200</h2.version>
 		<jsqlparser.version>3.1</jsqlparser.version>
