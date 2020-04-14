@@ -24,45 +24,31 @@ public class FileCopyTests {
 		StopWatch stopWatch = new StopWatch();
 
 		stopWatch.start("init");
-		System.out.println("init...");
 		init();
-		System.out.println("inited");
 		stopWatch.stop();
 
 //		stopWatch.start("perByteOperation");
-//		System.out.println("perByteOperating...");
 //		perByteOperation();
-//		System.out.println("perByteOperated");
 //		stopWatch.stop();
 
 		stopWatch.start("bufferOperationWith100Buffer");
-		System.out.println("bufferOperationWith100BufferOperating...");
 		bufferOperationWith100Buffer();
-		System.out.println("bufferOperationWith100BufferOperated");
 		stopWatch.stop();
 
 		stopWatch.start("largerBufferOperation");
-		System.out.println("largerBufferOperating...");
 		largerBufferOperation();
-		System.out.println("largerBufferOperated");
 		stopWatch.stop();
 
 		stopWatch.start("bufferedStreamByteOperation");
-		System.out.println("bufferedStreamByteOperating...");
 		bufferedStreamByteOperation();
-		System.out.println("bufferedStreamByteOperated");
 		stopWatch.stop();
 
 		stopWatch.start("bufferedStreamBufferOperation");
-		System.out.println("bufferedStreamBufferOperating...");
 		bufferedStreamBufferOperation();
-		System.out.println("bufferedStreamBufferOperated");
 		stopWatch.stop();
 
 		stopWatch.start("fileChannelOperation");
-		System.out.println("fileChannelOperating...");
 		fileChannelOperation();
-		System.out.println("fileChannelOperated");
 		stopWatch.stop();
 
 		System.out.println(stopWatch.prettyPrint());
