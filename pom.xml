@@ -70,7 +70,7 @@
 		<jsqlparser.version>3.1</jsqlparser.version>
         <fst.version>2.57</fst.version>
         <kryo.version>4.0.2</kryo.version>
-		<protostuff.version>1.7.1</protostuff.version>
+		<protostuff.version>1.7.2</protostuff.version>
 		<hessian.version>4.0.63</hessian.version>
 		<ehcache.version>3.8.1</ehcache.version>
         <zxing.version>3.4.0</zxing.version>
