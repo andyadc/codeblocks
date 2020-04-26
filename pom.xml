@@ -50,7 +50,7 @@
         <curator.version>4.3.0</curator.version>
         <zkclient.version>0.11</zkclient.version>
 		<rabbitmq-clients.version>5.9.0</rabbitmq-clients.version>
-		<jackson.version>2.10.3</jackson.version>
+		<jackson.version>2.11.0</jackson.version>
 		<fastjson.version>1.2.68</fastjson.version>
 		<joda-time.version>2.10.6</joda-time.version>
 		<guava.version>29.0-jre</guava.version>
@@ -63,7 +63,7 @@
         <commons-io.version>2.6</commons-io.version>
         <commons-dbutils.version>1.7</commons-dbutils.version>
 		<tomcat-jdbc.version>9.0.33</tomcat-jdbc.version>
-		<hikaricp.version>3.4.2</hikaricp.version>
+		<hikaricp.version>3.4.3</hikaricp.version>
 		<druid.version>1.1.22</druid.version>
 		<mysql-driver.version>8.0.19</mysql-driver.version>
 		<h2.version>1.4.200</h2.version>
