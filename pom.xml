@@ -45,7 +45,7 @@
 		<zookeeper.version>3.6.0</zookeeper.version>
 		<redisson.version>3.12.5</redisson.version>
 		<jedis.version>3.2.0</jedis.version>
-		<lettuce.version>5.2.2.RELEASE</lettuce.version>
+		<lettuce.version>5.3.0.RELEASE</lettuce.version>
 		<kafka-clients.version>2.5.0</kafka-clients.version>
         <curator.version>4.3.0</curator.version>
         <zkclient.version>0.11</zkclient.version>
@@ -65,7 +65,7 @@
 		<tomcat-jdbc.version>9.0.33</tomcat-jdbc.version>
 		<hikaricp.version>3.4.3</hikaricp.version>
 		<druid.version>1.1.22</druid.version>
-		<mysql-driver.version>8.0.19</mysql-driver.version>
+		<mysql-driver.version>8.0.20</mysql-driver.version>
 		<h2.version>1.4.200</h2.version>
 		<jsqlparser.version>3.1</jsqlparser.version>
         <fst.version>2.57</fst.version>
