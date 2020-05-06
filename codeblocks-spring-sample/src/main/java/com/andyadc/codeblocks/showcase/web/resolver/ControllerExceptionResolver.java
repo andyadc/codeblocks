@@ -17,17 +17,17 @@ import java.util.Map;
  */
 public class ControllerExceptionResolver implements HandlerExceptionResolver {
 
-    private static final Logger logger = LoggerFactory.getLogger(ControllerExceptionResolver.class);
+	private static final Logger logger = LoggerFactory.getLogger(ControllerExceptionResolver.class);
 
-    @Override
-    public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-        logger.error("Catched exception: {}", ex);
-        FastJsonJsonView jsonView = new FastJsonJsonView();
-        Map<String, Object> data = new HashMap<>(8);
-        data.put("code", "500");
-        data.put("message", ex.getMessage());
+	@Override
+	public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
+		logger.error("Process url [{}] failed", request.getRequestURL().toString(), ex);
+		FastJsonJsonView jsonView = new FastJsonJsonView();
+		Map<String, Object> data = new HashMap<>(8);
+		data.put("code", "500");
+		data.put("message", ex.getMessage());
 
-        jsonView.setAttributesMap(data);
-        return new ModelAndView(jsonView);
-    }
+		jsonView.setAttributesMap(data);
+		return new ModelAndView(jsonView);
+	}
 }
