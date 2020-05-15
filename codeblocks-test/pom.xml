@@ -31,12 +31,12 @@
 		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
-			<version>4.2.2</version>
+			<version>4.2.3</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject.extensions</groupId>
 			<artifactId>guice-multibindings</artifactId>
-			<version>4.2.2</version>
+			<version>4.2.3</version>
 		</dependency>
 
 		<dependency>
@@ -52,7 +52,7 @@
         <dependency>
             <groupId>com.auth0</groupId>
             <artifactId>java-jwt</artifactId>
-			<version>3.10.1</version>
+			<version>3.10.3</version>
         </dependency>
         <dependency>
             <groupId>com.auth0</groupId>
@@ -69,7 +69,7 @@
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcprov-jdk15on</artifactId>
-			<version>1.64</version>
+			<version>1.65</version>
         </dependency>
 
         <dependency>
