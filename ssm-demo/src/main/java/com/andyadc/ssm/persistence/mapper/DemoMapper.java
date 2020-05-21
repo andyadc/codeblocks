@@ -29,4 +29,6 @@ public interface DemoMapper {
 	List<Demo> selectByChoose(Demo demo);
 
 	List<Demo> selectByWhere(Demo demo);
+
+	int batchUpdate(List<Long> ids);
 }

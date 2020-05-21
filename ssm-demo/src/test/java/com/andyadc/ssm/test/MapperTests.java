@@ -27,6 +27,11 @@ public class MapperTests {
 	private DemoMapper demoMapper;
 
 	@Test
+	public void testBatchUpdate() {
+		demoMapper.batchUpdate(Arrays.asList(220L, 221L, 222L, 223L, 5L));
+	}
+
+	@Test
 	public void testSelectByChoose() {
 		Demo demo = new Demo();
 		demo.setId(231L);

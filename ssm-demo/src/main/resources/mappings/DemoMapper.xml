@@ -57,6 +57,15 @@
 		</foreach>
 	</insert>
 
+	<update id="batchUpdate">
+		update demo
+		set status = 1
+		where id in
+		<foreach collection="list" item="id" index="index" open="(" close=")" separator=",">
+			#{id}
+		</foreach>
+	</update>
+
 	<!-- 默认: _parameter, 也可以使用 `@Param` 指定-->
 	<update id="updateByMap">
 		update demo
