@@ -13,7 +13,7 @@
 		</encoder>
 	</appender>
 
-	<logger name="com.andyadc.ssm" level="debug"/>
+	<logger name="com.andyadc.ssm.persistence.mapper" level="debug"/>
 
 	<logger name="com.zaxxer.hikari" level="debug" additivity="false">
 		<appender-ref ref="STDOUT"/>
