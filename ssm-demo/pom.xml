@@ -16,8 +16,8 @@
 
 		<spring.version>5.2.6.RELEASE</spring.version>
 		<aspectj.version>1.9.5</aspectj.version>
-		<mybatis.version>3.5.4</mybatis.version>
-		<mybatis-spring.version>2.0.4</mybatis-spring.version>
+		<mybatis.version>3.5.5</mybatis.version>
+		<mybatis-spring.version>2.0.5</mybatis-spring.version>
 		<mysql-driver.version>8.0.20</mysql-driver.version>
 		<hikaricp.version>3.4.5</hikaricp.version>
 		<cglib.version>3.3.0</cglib.version>
