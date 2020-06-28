@@ -51,7 +51,7 @@
         <zkclient.version>0.11</zkclient.version>
 		<rabbitmq-clients.version>5.9.0</rabbitmq-clients.version>
 		<jackson.version>2.11.1</jackson.version>
-		<fastjson.version>1.2.71</fastjson.version>
+		<fastjson.version>1.2.72</fastjson.version>
 		<joda-time.version>2.10.6</joda-time.version>
 		<guava.version>29.0-jre</guava.version>
         <orika.version>1.5.4</orika.version>
@@ -64,7 +64,7 @@
         <commons-dbutils.version>1.7</commons-dbutils.version>
 		<tomcat-jdbc.version>9.0.36</tomcat-jdbc.version>
 		<hikaricp.version>3.4.5</hikaricp.version>
-		<druid.version>1.1.22</druid.version>
+		<druid.version>1.1.23</druid.version>
 		<mysql-driver.version>8.0.20</mysql-driver.version>
 		<h2.version>1.4.200</h2.version>
 		<jsqlparser.version>3.1</jsqlparser.version>
