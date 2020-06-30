@@ -1,24 +1,3 @@
-/*
- * Copyright 2018 Patrick Favre-Bulle
- *
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-
 package com.andyadc.codeblocks.kit.bytes;
 
 import java.io.IOException;
@@ -34,11 +13,9 @@ import java.util.Objects;
  * See: https://github.com/google/guava/blob/v26.0/guava/src/com/google/common/io/BaseEncoding.java
  */
 final class BaseEncoding implements BinaryToTextEncoding.EncoderDecoder {
-	private static final char ASCII_MAX = 127;
-
 	static final Alphabet BASE32_RFC4848 = new Alphabet("ABCDEFGHIJKLMNOPQRSTUVWXYZ234567".toCharArray());
 	static final char BASE32_RFC4848_PADDING = '=';
-
+	private static final char ASCII_MAX = 127;
 	private final Alphabet alphabet;
 	private final Character paddingChar;
 
@@ -46,6 +23,31 @@ final class BaseEncoding implements BinaryToTextEncoding.EncoderDecoder {
 	public BaseEncoding(Alphabet alphabet, Character paddingChar) {
 		this.alphabet = Objects.requireNonNull(alphabet);
 		this.paddingChar = paddingChar;
+	}
+
+	private static byte[] extract(byte[] result, int length) {
+		if (length == result.length) {
+			return result;
+		} else {
+			byte[] trunc = new byte[length];
+			System.arraycopy(result, 0, trunc, 0, length);
+			return trunc;
+		}
+	}
+
+	private static int divide(int p, int q) {
+		int div = p / q;
+		int rem = p - q * div; // equal to p % q
+
+		if (rem == 0) {
+			return div;
+		}
+		int signum = 1 | ((p ^ q) >> (Integer.SIZE - 1));
+		return signum > 0 ? div + signum : div;
+	}
+
+	private static int log2(int x) {
+		return (Integer.SIZE - 1) - Integer.numberOfLeadingZeros(x);
 	}
 
 	private int maxEncodedSize(int bytes) {
@@ -123,16 +125,6 @@ final class BaseEncoding implements BinaryToTextEncoding.EncoderDecoder {
 		return extract(tmp, len);
 	}
 
-	private static byte[] extract(byte[] result, int length) {
-		if (length == result.length) {
-			return result;
-		} else {
-			byte[] trunc = new byte[length];
-			System.arraycopy(result, 0, trunc, 0, length);
-			return trunc;
-		}
-	}
-
 	private int decodeTo(byte[] target, CharSequence chars) {
 		Objects.requireNonNull(target);
 		chars = trimTrailingPadding(chars);
@@ -155,12 +147,12 @@ final class BaseEncoding implements BinaryToTextEncoding.EncoderDecoder {
 	}
 
 	static final class Alphabet {
-		// this is meant to be immutable -- don't modify it!
-		private final char[] chars;
 		final int mask;
 		final int bitsPerChar;
 		final int charsPerChunk;
 		final int bytesPerChunk;
+		// this is meant to be immutable -- don't modify it!
+		private final char[] chars;
 		private final byte[] decodabet;
 
 		Alphabet(char[] chars) {
@@ -192,20 +184,5 @@ final class BaseEncoding implements BinaryToTextEncoding.EncoderDecoder {
 		int decode(char ch) {
 			return (int) decodabet[ch];
 		}
-	}
-
-	private static int divide(int p, int q) {
-		int div = p / q;
-		int rem = p - q * div; // equal to p % q
-
-		if (rem == 0) {
-			return div;
-		}
-		int signum = 1 | ((p ^ q) >> (Integer.SIZE - 1));
-		return signum > 0 ? div + signum : div;
-	}
-
-	private static int log2(int x) {
-		return (Integer.SIZE - 1) - Integer.numberOfLeadingZeros(x);
 	}
 }
