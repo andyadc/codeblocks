@@ -42,10 +42,10 @@ public class OkHttpClientTemplate extends AbstractHttpClientTemplate {
 
 	@Override
 	public synchronized void init() {
-		Instant begin = Instant.now();
 		if (init) {
 			return;
 		}
+		Instant begin = Instant.now();
 		super.init();
 		httpClient = OkHttpClientBuilder.build(configuration(), interceptors);
 		init = true;

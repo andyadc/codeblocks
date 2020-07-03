@@ -61,10 +61,10 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 
 	@Override
 	public synchronized void init() {
-		Instant begin = Instant.now();
 		if (init) {
 			return;
 		}
+		Instant begin = Instant.now();
 		super.init();
 		httpClient = HttpComponentsClientBuilder.build(configuration, requestInterceptors, responseInterceptors);
 		init = true;
