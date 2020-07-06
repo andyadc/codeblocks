@@ -135,9 +135,8 @@ public class OkHttpClientTemplate extends AbstractHttpClientTemplate {
 
 	private String process(Request request) throws Exception {
 		try (Response response = httpClient.newCall(request).execute()) {
-			int code = response.code();
-			if (code != 200) {
-				throw new RuntimeException("OkHttpClient error, code: " + code + ", message: " + response.message());
+			if (!response.isSuccessful()) {
+				throw new RuntimeException("OkHttpClient unexpected code " + response);
 			}
 			ResponseBody body = response.body();
 			String result = null;
