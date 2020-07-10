@@ -36,6 +36,8 @@
         <property name="maxPoolPreparedStatementPerConnectionSize" value="20"/>
 
         <property name="asyncInit" value="true"/>
+		<!-- 设置连接池非公平锁模式 -->
+		<property name="useUnfairLock" value="true"/>
 
         <!-- 配置监控统计拦截的filters -->
 		<property name="filters" value="stat,wall,slf4j"/>
