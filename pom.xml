@@ -32,20 +32,20 @@
     </prerequisites>
 
     <properties>
-		<spring.version>5.2.7.RELEASE</spring.version>
+		<spring.version>5.2.8.RELEASE</spring.version>
 		<aspectj.version>1.9.6</aspectj.version>
 		<lombok.version>1.18.12</lombok.version>
-		<netty.version>4.1.50.Final</netty.version>
+		<netty.version>4.1.51.Final</netty.version>
 		<httpcomponents.version>4.5.12</httpcomponents.version>
 		<okhttp.version>4.8.0</okhttp.version>
 		<hibernate-validator.version>6.1.5.Final</hibernate-validator.version>
 		<mybatis.version>3.5.5</mybatis.version>
 		<mybatis-spring.version>2.0.5</mybatis-spring.version>
-		<spring-data-redis.version>2.3.1.RELEASE</spring-data-redis.version>
+		<spring-data-redis.version>2.3.2.RELEASE</spring-data-redis.version>
 		<zookeeper.version>3.6.1</zookeeper.version>
 		<redisson.version>3.13.2</redisson.version>
 		<jedis.version>3.3.0</jedis.version>
-		<lettuce.version>5.3.1.RELEASE</lettuce.version>
+		<lettuce.version>5.3.2.RELEASE</lettuce.version>
 		<kafka-clients.version>2.5.0</kafka-clients.version>
 		<curator.version>5.1.0</curator.version>
         <zkclient.version>0.11</zkclient.version>
