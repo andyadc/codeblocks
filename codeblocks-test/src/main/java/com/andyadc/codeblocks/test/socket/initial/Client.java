@@ -1,4 +1,6 @@
-package com.andyadc.codeblocks.test.socket;
+package com.andyadc.codeblocks.test.socket.initial;
+
+import com.andyadc.codeblocks.test.socket.Tools;
 
 import java.io.InputStream;
 import java.io.OutputStream;

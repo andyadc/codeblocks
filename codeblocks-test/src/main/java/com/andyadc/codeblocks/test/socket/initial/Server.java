@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.test.socket;
+package com.andyadc.codeblocks.test.socket.initial;
 
 import java.io.IOException;
 import java.io.InputStream;
