@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.test.udp;
+package com.andyadc.codeblocks.test.socket.udp;
 
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
