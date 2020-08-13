@@ -41,11 +41,11 @@
 		<hibernate-validator.version>6.1.5.Final</hibernate-validator.version>
 		<mybatis.version>3.5.5</mybatis.version>
 		<mybatis-spring.version>2.0.5</mybatis-spring.version>
-		<spring-data-redis.version>2.3.2.RELEASE</spring-data-redis.version>
+		<spring-data-redis.version>2.3.3.RELEASE</spring-data-redis.version>
 		<zookeeper.version>3.6.1</zookeeper.version>
 		<redisson.version>3.13.3</redisson.version>
 		<jedis.version>3.3.0</jedis.version>
-		<lettuce.version>5.3.2.RELEASE</lettuce.version>
+		<lettuce.version>5.3.3.RELEASE</lettuce.version>
 		<kafka-clients.version>2.6.0</kafka-clients.version>
 		<curator.version>5.1.0</curator.version>
         <zkclient.version>0.11</zkclient.version>
