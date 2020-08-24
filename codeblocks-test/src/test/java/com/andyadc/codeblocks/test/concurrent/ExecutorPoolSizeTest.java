@@ -1,8 +1,12 @@
 package com.andyadc.codeblocks.test.concurrent;
 
+import com.andyadc.codeblocks.kit.concurrent.ThreadUtil;
+import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ThreadFactory;
@@ -17,11 +21,11 @@ public class ExecutorPoolSizeTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(ExecutorPoolSizeTest.class);
 
-	private static ThreadPoolExecutor executor = new ThreadPoolExecutor(
+	private static final ThreadPoolExecutor executor = new ThreadPoolExecutor(
 		2,
 		4,
 		60, TimeUnit.SECONDS,
-		new ArrayBlockingQueue<>(1000),
+		new ArrayBlockingQueue<>(100),
 		new ThreadFactory() {
 			private String prefix = "DefaultThreadPool";
 			AtomicInteger i = new AtomicInteger(0);
@@ -37,6 +41,47 @@ public class ExecutorPoolSizeTest {
 		},
 		new ThreadPoolExecutor.CallerRunsPolicy()
 	);
+
+	@Test
+	public void testAdd() throws Exception {
+		AtomicInteger c = new AtomicInteger(0);
+		int times = 1000;
+		CountDownLatch latch = new CountDownLatch(times);
+		for (int i = 0; i < times; i++) {
+			executor.execute(() -> {
+				c.incrementAndGet();
+				latch.countDown();
+			});
+		}
+
+		latch.await();
+		System.out.println(c);
+	}
+
+	@Test
+	public void testCountDownLatch() throws Exception {
+		int times = 1000;
+		CountDownLatch latch = new CountDownLatch(times);
+
+		Instant begin = Instant.now();
+		for (int i = 0; i < times; i++) {
+			executor.execute(() -> {
+				try {
+					System.out.println(Thread.currentThread().getName() + "");
+					ThreadUtil.sleep(100);
+				} catch (Exception e) {
+					e.printStackTrace();
+				} finally {
+					latch.countDown();
+				}
+			});
+		}
+
+		System.out.println("-------------------");
+		latch.await();
+		System.out.println("Done " + Duration.between(begin, Instant.now()).toMillis() / 1000);
+		executor.shutdown();
+	}
 
 	public static void main(String[] args) throws Exception {
 		int count = 1500;
