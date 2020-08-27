@@ -28,8 +28,15 @@ public final class DateUtil {
 	/**
 	 * @return yyyy-MM-dd HH:mm:ss.SSS
 	 */
-	public static String currentDate() {
-		return PATTERN_YYYY_MM_DD_HH_MM_SS_SSS.get().format(new Date());
+	public static String currentDateTime() {
+		return date2String(new Date());
+	}
+
+	/**
+	 * @return yyyy-MM-dd HH:mm:ss.SSS
+	 */
+	public static String date2String(Date date) {
+		return PATTERN_YYYY_MM_DD_HH_MM_SS_SSS.get().format(date);
 	}
 
 	//-----------------------------------------------------------------------
