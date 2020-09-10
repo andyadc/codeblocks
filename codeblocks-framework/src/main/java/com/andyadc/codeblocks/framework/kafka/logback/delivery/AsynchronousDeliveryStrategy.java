@@ -1,7 +1,6 @@
 package com.andyadc.codeblocks.framework.kafka.logback.delivery;
 
 import ch.qos.logback.core.spi.ContextAwareBase;
-import org.apache.kafka.clients.producer.BufferExhaustedException;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.errors.TimeoutException;
@@ -24,7 +23,7 @@ public class AsynchronousDeliveryStrategy extends ContextAwareBase implements De
             });
 
             return true;
-        } catch (BufferExhaustedException | TimeoutException e) {
+		} catch (TimeoutException e) {
             failedDeliveryCallback.onFailedDelivery(event, e);
             return false;
         }
