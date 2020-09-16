@@ -32,7 +32,7 @@
     </prerequisites>
 
     <properties>
-		<spring.version>5.2.8.RELEASE</spring.version>
+		<spring.version>5.2.9.RELEASE</spring.version>
 		<aspectj.version>1.9.6</aspectj.version>
 		<lombok.version>1.18.12</lombok.version>
 		<netty.version>4.1.51.Final</netty.version>
