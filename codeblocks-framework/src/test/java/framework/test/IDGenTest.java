@@ -3,7 +3,7 @@ package framework.test;
 import com.andyadc.codeblocks.framework.idgen.IDGen;
 import com.andyadc.codeblocks.framework.idgen.Result;
 import com.andyadc.codeblocks.framework.idgen.snowflake.SnowflakeIDGenImpl;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * andy.an

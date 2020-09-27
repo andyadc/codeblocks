@@ -4,9 +4,9 @@ import com.andyadc.codeblocks.framework.zookeeper.ZkSessionManager;
 import com.andyadc.codeblocks.framework.zookeeper.locks.ReentrantZkLock;
 import framework.test.zookeeper.BaseZkSessionManager;
 import org.apache.zookeeper.ZooKeeper;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.locks.Lock;
 
@@ -23,7 +23,7 @@ public class ReentrantZkLockTestShadow {
 	private static ZooKeeper zk;
 	private static ZkSessionManager zkSessionManager;
 
-	@Before
+	@BeforeAll
 	public void setup() throws Exception {
 		zk = newZookeeper();
 
@@ -45,7 +45,7 @@ public class ReentrantZkLockTestShadow {
 		}
 	}
 
-	@After
+	@AfterAll
 	public void teardown() throws Exception {
 //		Stat stat = zk.exists(baseLockPath, false);
 //		if (stat != null) {

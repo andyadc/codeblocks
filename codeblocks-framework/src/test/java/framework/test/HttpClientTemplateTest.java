@@ -12,9 +12,9 @@ import okhttp3.Interceptor;
 import okhttp3.logging.HttpLoggingInterceptor;
 import org.apache.http.HttpRequestInterceptor;
 import org.apache.http.HttpResponseInterceptor;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
@@ -36,10 +36,10 @@ public class HttpClientTemplateTest {
 
 	HttpClientTemplate template = null;
 
-	private static List<HttpRequestInterceptor> requestInterceptorList;
-	private static List<HttpResponseInterceptor> responseInterceptorList;
+	private static final List<HttpRequestInterceptor> requestInterceptorList;
+	private static final List<HttpResponseInterceptor> responseInterceptorList;
 
-	private static List<Interceptor> interceptorList;
+	private static final List<Interceptor> interceptorList;
 
 	static {
 		requestInterceptorList = Arrays.asList(
@@ -57,7 +57,7 @@ public class HttpClientTemplateTest {
 		);
 	}
 
-	@Before
+	@BeforeAll
 	public void init() {
 		initOkHttpClient();
 //		initHttpComponentsClient();
@@ -117,7 +117,7 @@ public class HttpClientTemplateTest {
 		System.out.println(response);
 	}
 
-	@After
+	@AfterAll
 	public void close() throws Exception {
 		template.close();
 	}

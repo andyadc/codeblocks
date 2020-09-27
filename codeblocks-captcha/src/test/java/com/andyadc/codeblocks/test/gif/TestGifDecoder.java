@@ -1,7 +1,7 @@
 package com.andyadc.codeblocks.test.gif;
 
 import com.andyadc.codeblocks.captcha.gif.GifDecoder;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import sun.misc.IOUtils;
 
 import javax.imageio.ImageIO;

@@ -1,8 +1,8 @@
 package com.andyadc.codeblocks.test.gif;
 
 import com.andyadc.codeblocks.captcha.gif.AnimatedGifEncoder;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -22,7 +22,7 @@ public class TestAnimatedGifEncoder {
     private BufferedImage agif;
     private BufferedImage bgif;
 
-    @Before
+	@BeforeAll
     public void setUp() throws IOException {
         sonic1 = getImage("/sonic1.png");
         sonic2 = getImage("/sonic2.png");

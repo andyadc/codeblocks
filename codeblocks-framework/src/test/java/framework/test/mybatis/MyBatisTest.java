@@ -6,8 +6,8 @@ import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +29,7 @@ public class MyBatisTest {
     private SqlSession session;
     private SqlSessionFactory factory;
 
-    @Before
+	@BeforeAll
     public void build() throws Exception {
         InputStream inputStream = Resources.getResourceAsStream(CONFIG_RESOURCE);
         factory = new SqlSessionFactoryBuilder().build(inputStream);

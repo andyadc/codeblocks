@@ -1,6 +1,6 @@
 package com.andyadc.codeblocks.test;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
 import java.util.Properties;

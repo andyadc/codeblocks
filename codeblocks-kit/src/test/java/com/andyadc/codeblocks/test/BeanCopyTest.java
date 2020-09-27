@@ -2,9 +2,6 @@ package com.andyadc.codeblocks.test;
 
 import com.andyadc.codeblocks.kit.bean.BeanCopier;
 import com.google.common.collect.ImmutableMap;
-import org.databene.contiperf.PerfTest;
-import org.databene.contiperf.junit.ContiPerfRule;
-import org.junit.Rule;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -16,7 +13,7 @@ import java.util.Date;
  */
 public class BeanCopyTest {
 
-    private static A a;
+    private static final A a;
 
     static {
         a = new A();
@@ -30,10 +27,6 @@ public class BeanCopyTest {
         System.out.println(a);
     }
 
-    @Rule
-    public ContiPerfRule rule = new ContiPerfRule();
-
-    @PerfTest(threads = 10, invocations = 100)
     @Test
     public void testPure() {
         B b = new B();
@@ -47,7 +40,6 @@ public class BeanCopyTest {
         System.out.println(b);
     }
 
-    @PerfTest(threads = 10, invocations = 100)
     @Test
     public void testCglib() {
         B b = new B();

@@ -6,7 +6,7 @@ import com.andyadc.codeblocks.qrcode.ZxingEntity;
 import com.andyadc.codeblocks.qrcode.ZxingUtil;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 

@@ -1,8 +1,8 @@
 package framework.test.redis;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -17,8 +17,8 @@ public class RedisTest {
     private static final String HOST = "www.qq-server.com";
     private static final int PORT = 6377;
 
-    private static JedisPool pool;
-    private static Jedis jedis;
+	private static final JedisPool pool;
+	private static Jedis jedis;
 
     static {
         JedisPoolConfig config = new JedisPoolConfig();
@@ -30,12 +30,12 @@ public class RedisTest {
         pool = new JedisPool(config, HOST, PORT, 3000, "andyadc");
     }
 
-    @BeforeClass
+	@BeforeAll
     public static void before() {
         jedis = pool.getResource();
     }
 
-    @AfterClass
+	@AfterAll
     public static void after() {
         jedis.close();
     }

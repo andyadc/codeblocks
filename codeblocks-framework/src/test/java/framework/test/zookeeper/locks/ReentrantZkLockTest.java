@@ -9,9 +9,9 @@ import org.apache.zookeeper.ZooDefs;
 import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.data.Stat;
 import org.jetbrains.annotations.NotNull;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -42,7 +42,7 @@ public class ReentrantZkLockTest {
 	private static ZooKeeper zk;
 	private static ZkSessionManager zkSessionManager;
 
-	@Before
+	@BeforeAll
 	public void setup() throws Exception {
 		zk = newZookeeper();
 		//be sure that the lock-place is created
@@ -66,7 +66,7 @@ public class ReentrantZkLockTest {
 		}
 	}
 
-	@After
+	@AfterAll
 	public void teardown() throws Exception {
 		Stat stat = zk.exists(baseLockPath, false);
 		if (stat != null) {

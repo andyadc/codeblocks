@@ -3,7 +3,7 @@ package framework.test;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
@@ -18,7 +18,7 @@ public class RabbitMQTest {
 	private static final String HOST = "www.qq-server.com";
 	private static final int PORT = 5672;
 	private static final ConnectionFactory CONNECTION_FACTORY;
-	private static Connection connection;
+	private static final Connection connection;
 
 	static {
 		CONNECTION_FACTORY = getConnectionFactory();

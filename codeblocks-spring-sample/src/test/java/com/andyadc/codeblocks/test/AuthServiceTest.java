@@ -3,19 +3,19 @@ package com.andyadc.codeblocks.test;
 import com.andyadc.codeblocks.kit.RandomUtil;
 import com.andyadc.codeblocks.showcase.auth.entity.AuthUser;
 import com.andyadc.codeblocks.showcase.auth.service.AuthService;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
  * @author andaicheng
  * @version 2017/4/24
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = {"classpath:/applicationContext.xml"})
 public class AuthServiceTest {
 
@@ -49,12 +49,12 @@ public class AuthServiceTest {
         System.out.println(authUser.getId());
     }
 
-    @Before
+	@BeforeAll
     public void before() {
         System.out.println("------------------------------------------------");
     }
 
-    @After
+	@AfterAll
     public void after() {
         System.out.println("------------------------------------------------");
     }
