@@ -1,0 +1,4 @@
+junit4 vs junit 5
+
+@RunWith/@ExtendWith
+>>> https://www.baeldung.com/junit-5-runwith

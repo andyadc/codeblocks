@@ -85,6 +85,7 @@
         <logback.version>1.2.3</logback.version>
 		<mockito.version>3.5.13</mockito.version>
 		<junit.version>4.13</junit.version>
+		<junit-jupiter.version>5.7.0</junit-jupiter.version>
         <contiperf.version>2.3.4</contiperf.version>
 		<jmh.version>1.25.2</jmh.version>
 
@@ -489,6 +490,18 @@
                 <version>${junit.version}</version>
                 <scope>test</scope>
             </dependency>
+			<dependency>
+				<groupId>org.junit.jupiter</groupId>
+				<artifactId>junit-jupiter-api</artifactId>
+				<version>${junit-jupiter.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.junit.jupiter</groupId>
+				<artifactId>junit-jupiter-engine</artifactId>
+				<version>${junit-jupiter.version}</version>
+				<scope>test</scope>
+			</dependency>
         </dependencies>
     </dependencyManagement>
 
