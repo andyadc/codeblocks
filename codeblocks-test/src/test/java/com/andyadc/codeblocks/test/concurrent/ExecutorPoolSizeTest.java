@@ -1,17 +1,13 @@
 package com.andyadc.codeblocks.test.concurrent;
 
 import com.andyadc.codeblocks.kit.concurrent.ThreadUtil;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -27,8 +23,8 @@ public class ExecutorPoolSizeTest {
 		60, TimeUnit.SECONDS,
 		new ArrayBlockingQueue<>(100),
 		new ThreadFactory() {
-			private String prefix = "DefaultThreadPool";
-			AtomicInteger i = new AtomicInteger(0);
+			final AtomicInteger i = new AtomicInteger(0);
+			private final String prefix = "DefaultThreadPool";
 
 			@Override
 			public Thread newThread(Runnable r) {

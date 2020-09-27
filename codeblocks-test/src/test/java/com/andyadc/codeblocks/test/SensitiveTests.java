@@ -1,7 +1,7 @@
 package com.andyadc.codeblocks.test;
 
 import com.andyadc.codeblocks.test.sensitive.SensitiveStrategy;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class SensitiveTests {
 

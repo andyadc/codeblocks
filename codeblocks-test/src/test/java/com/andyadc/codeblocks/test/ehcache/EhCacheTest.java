@@ -11,7 +11,7 @@ import org.ehcache.config.units.EntryUnit;
 import org.ehcache.config.units.MemoryUnit;
 import org.ehcache.core.EhcacheManager;
 import org.ehcache.xml.XmlConfiguration;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.io.File;
 

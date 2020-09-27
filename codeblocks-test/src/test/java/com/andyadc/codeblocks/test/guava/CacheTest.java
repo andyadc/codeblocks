@@ -1,12 +1,7 @@
 package com.andyadc.codeblocks.test.guava;
 
-import com.google.common.cache.Cache;
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
-import com.google.common.cache.RemovalListener;
-import com.google.common.cache.RemovalListeners;
-import org.junit.Test;
+import com.google.common.cache.*;
+import org.junit.jupiter.api.Test;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
