@@ -43,12 +43,12 @@
 		<mybatis-spring.version>2.0.5</mybatis-spring.version>
 		<spring-data-redis.version>2.3.4.RELEASE</spring-data-redis.version>
 		<zookeeper.version>3.6.2</zookeeper.version>
-		<redisson.version>3.13.4</redisson.version>
+		<redisson.version>3.13.5</redisson.version>
 		<jedis.version>3.3.0</jedis.version>
 		<lettuce.version>5.3.3.RELEASE</lettuce.version>
 		<kafka-clients.version>2.6.0</kafka-clients.version>
 		<curator.version>5.1.0</curator.version>
-        <zkclient.version>0.11</zkclient.version>
+		<zkclient.version>0.11</zkclient.version>
 		<rabbitmq-clients.version>5.9.0</rabbitmq-clients.version>
 		<jackson.version>2.11.2</jackson.version>
 		<fastjson.version>1.2.73</fastjson.version>
