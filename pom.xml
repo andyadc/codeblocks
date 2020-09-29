@@ -35,7 +35,7 @@
 		<spring.version>5.2.9.RELEASE</spring.version>
 		<aspectj.version>1.9.6</aspectj.version>
 		<lombok.version>1.18.12</lombok.version>
-		<netty.version>4.1.51.Final</netty.version>
+		<netty.version>4.1.52.Final</netty.version>
 		<httpcomponents.version>4.5.12</httpcomponents.version>
 		<okhttp.version>4.9.0</okhttp.version>
 		<hibernate-validator.version>6.1.5.Final</hibernate-validator.version>
@@ -48,7 +48,6 @@
 		<lettuce.version>5.3.3.RELEASE</lettuce.version>
 		<kafka-clients.version>2.6.0</kafka-clients.version>
 		<curator.version>5.1.0</curator.version>
-		<zkclient.version>0.11</zkclient.version>
 		<rabbitmq-clients.version>5.9.0</rabbitmq-clients.version>
 		<jackson.version>2.11.2</jackson.version>
 		<fastjson.version>1.2.73</fastjson.version>
@@ -196,11 +195,6 @@
                 <groupId>redis.clients</groupId>
                 <artifactId>jedis</artifactId>
                 <version>${jedis.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.101tec</groupId>
-                <artifactId>zkclient</artifactId>
-                <version>${zkclient.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.curator</groupId>
