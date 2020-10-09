@@ -1,7 +1,7 @@
 package com.andyadc.codeblocks.test;
 
 import com.andyadc.codeblocks.kit.mask.MaskType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author andaicheng

@@ -1,7 +1,7 @@
 package com.andyadc.codeblocks.test;
 
 import com.andyadc.codeblocks.kit.image.ASCIIConversions;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -16,7 +16,7 @@ public class ASCIIConversionsTest {
     @Test
     public void testConversion() throws Exception {
 
-        BufferedImage image = ImageIO.read(new FileInputStream("e://1.gif"));
+		BufferedImage image = ImageIO.read(new FileInputStream("D://1.gif"));
 
         ASCIIConversions conversions = new ASCIIConversions();
         String ascii = conversions.convert(image, false);

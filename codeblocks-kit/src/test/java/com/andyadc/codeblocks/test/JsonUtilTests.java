@@ -9,20 +9,20 @@ import java.util.Map;
 /**
  * andy.an
  */
-public class JsonDTO {
+public class JsonUtilTests {
 
-    private int a;
-    private Integer b;
-    private long c;
-    private Long d;
-    private Date date;
-    private String s;
-    private int[] arr;
-    private List<String> list;
-    private Map<String, Integer> map;
+	private int a;
+	private Integer b;
+	private long c;
+	private Long d;
+	private Date date;
+	private String s;
+	private int[] arr;
+	private List<String> list;
+	private Map<String, Integer> map;
 
     public static void main(String[] args) {
-        JsonDTO dto = new JsonDTO();
+		JsonUtilTests dto = new JsonUtilTests();
 
         System.out.println(JsonUtil.toJSONString(dto));
     }

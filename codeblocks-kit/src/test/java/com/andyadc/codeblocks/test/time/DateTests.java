@@ -1,7 +1,7 @@
 package com.andyadc.codeblocks.test.time;
 
 import com.andyadc.codeblocks.kit.time.DateUtil;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

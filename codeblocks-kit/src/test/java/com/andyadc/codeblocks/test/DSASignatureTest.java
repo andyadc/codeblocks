@@ -1,9 +1,9 @@
 package com.andyadc.codeblocks.test;
 
 import com.andyadc.codeblocks.kit.crypto.DSASignature;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 import java.util.Map;
 
@@ -13,14 +13,12 @@ import java.util.Map;
  */
 public class DSASignatureTest {
 
-    private static final Charset UTF8 = Charset.forName("UTF-8");
-
     @Test
     public void testSign() throws Exception {
         String data = "Hello";
         String privateKeyStr = "MIIBSwIBADCCASwGByqGSM44BAEwggEfAoGBAP1/U4EddRIpUt9KnC7s5Of2EbdSPO9EAMMeP4C2USZpRV1AIlH7WT2NWPq/xfW6MPbLm1Vs14E7gB00b/JmYLdrmVClpJ+f6AR7ECLCT7up1/63xhv4O1fnxqimFQ8E+4P208UewwI1VBNaFpEy9nXzrith1yrv8iIDGZ3RSAHHAhUAl2BQjxUjC8yykrmCouuEC/BYHPUCgYEA9+GghdabPd7LvKtcNrhXuXmUr7v6OuqC+VdMCz0HgmdRWVeOutRZT+ZxBxCBgLRJFnEj6EwoFhO3zwkyjMim4TwWeotUfI0o4KOuHiuzpnWRbqN/C/ohNWLx+2J6ASQ7zKTxvqhRkImog9/hWuWfBpKLZl6Ae1UlZAFMO/7PSSoEFgIUPKsU1ajHqczCFLT0eIcoqLgSwYU=";
 
-        byte[] sign = DSASignature.sign(UTF8.encode(data).array(), Base64.getDecoder().decode(privateKeyStr));
+		byte[] sign = DSASignature.sign(StandardCharsets.UTF_8.encode(data).array(), Base64.getDecoder().decode(privateKeyStr));
         System.out.println("sign:\n\t" + Base64.getEncoder().encodeToString(sign));
     }
 
@@ -29,8 +27,8 @@ public class DSASignatureTest {
         String data = "Hello";
         String publicKeyStr = "MIIBuDCCASwGByqGSM44BAEwggEfAoGBAP1/U4EddRIpUt9KnC7s5Of2EbdSPO9EAMMeP4C2USZpRV1AIlH7WT2NWPq/xfW6MPbLm1Vs14E7gB00b/JmYLdrmVClpJ+f6AR7ECLCT7up1/63xhv4O1fnxqimFQ8E+4P208UewwI1VBNaFpEy9nXzrith1yrv8iIDGZ3RSAHHAhUAl2BQjxUjC8yykrmCouuEC/BYHPUCgYEA9+GghdabPd7LvKtcNrhXuXmUr7v6OuqC+VdMCz0HgmdRWVeOutRZT+ZxBxCBgLRJFnEj6EwoFhO3zwkyjMim4TwWeotUfI0o4KOuHiuzpnWRbqN/C/ohNWLx+2J6ASQ7zKTxvqhRkImog9/hWuWfBpKLZl6Ae1UlZAFMO/7PSSoDgYUAAoGBALUOlzCt3oM/AL1zF5ZnT9KhYnh4MVjMXycUn427blMj5I0hUsA8PMAk/IgE9rcNxiVbDV0vWV0t+d7wETgcPZkzgTHTnrUt0crjGauow4H4iBpSFDXVArnQfh0/wsBIqjG/pEMUhaZ1eNl6wM18B1MJkKSoTU5xQJ2jt3svrz9c";
 
-        byte[] sign = Base64.getDecoder().decode("MCwCFCgZw4KAki24MxSdUzodtQ0TRNkKAhRwSDPtNdG8/GO5fptlTi4RrXchQg==");
-        boolean flag = DSASignature.verify(UTF8.encode(data).array(), Base64.getDecoder().decode(publicKeyStr), sign);
+		byte[] sign = Base64.getDecoder().decode("MCwCFCgZw4KAki24MxSdUzodtQ0TRNkKAhRwSDPtNdG8/GO5fptlTi4RrXchQg==");
+		boolean flag = DSASignature.verify(StandardCharsets.UTF_8.encode(data).array(), Base64.getDecoder().decode(publicKeyStr), sign);
         System.out.println("verify:\n\t" + flag);
     }
 

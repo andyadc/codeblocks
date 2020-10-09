@@ -2,7 +2,7 @@ package com.andyadc.codeblocks.test;
 
 import com.andyadc.codeblocks.kit.bean.BeanCopier;
 import com.google.common.collect.ImmutableMap;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Date;
