@@ -76,7 +76,7 @@
 		<ehcache.version>3.9.0</ehcache.version>
         <zxing.version>3.4.1</zxing.version>
 		<poi.version>4.1.2</poi.version>
-        <cglib.version>3.3.0</cglib.version>
+		<cglib.version>3.3.0</cglib.version>
 		<objenesis.version>3.1</objenesis.version>
 		<javassist.version>3.27.0-GA</javassist.version>
 		<ognl.version>3.2.15</ognl.version>
@@ -85,7 +85,7 @@
 		<mockito.version>3.5.13</mockito.version>
 		<junit.version>4.13</junit.version>
 		<junit-jupiter.version>5.7.0</junit-jupiter.version>
-		<jmh.version>1.25.2</jmh.version>
+		<jmh.version>1.26</jmh.version>
 
 		<!-- maven plugins -->
 		<jetty-maven-plugin.version>9.4.32.v20200930</jetty-maven-plugin.version>
