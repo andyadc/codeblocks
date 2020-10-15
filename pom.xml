@@ -43,7 +43,7 @@
 		<mybatis-spring.version>2.0.5</mybatis-spring.version>
 		<spring-data-redis.version>2.3.4.RELEASE</spring-data-redis.version>
 		<zookeeper.version>3.6.2</zookeeper.version>
-		<redisson.version>3.13.5</redisson.version>
+		<redisson.version>3.13.6</redisson.version>
 		<jedis.version>3.3.0</jedis.version>
 		<lettuce.version>6.0.0.RELEASE</lettuce.version>
 		<kafka-clients.version>2.6.0</kafka-clients.version>
