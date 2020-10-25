@@ -1,6 +1,6 @@
 package com.andyadc.codeblocks.test.singleton;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * https://www.cnblogs.com/rjzheng/p/8946889.html
