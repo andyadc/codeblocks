@@ -39,7 +39,7 @@
 		<okhttp.version>4.9.0</okhttp.version>
 		<hibernate-validator.version>6.1.6.Final</hibernate-validator.version>
 		<mybatis.version>3.5.6</mybatis.version>
-		<mybatis-spring.version>2.0.5</mybatis-spring.version>
+		<mybatis-spring.version>2.0.6</mybatis-spring.version>
 		<spring-data-redis.version>2.4.1</spring-data-redis.version>
 		<zookeeper.version>3.6.2</zookeeper.version>
 		<redisson.version>3.13.6</redisson.version>
@@ -66,7 +66,7 @@
 		<cglib.version>3.3.0</cglib.version>
 		<objenesis.version>3.1</objenesis.version>
 		<javassist.version>3.27.0-GA</javassist.version>
-		<ognl.version>3.2.15</ognl.version>
+		<ognl.version>3.2.16</ognl.version>
 		<commons-lang.version>3.11</commons-lang.version>
 		<commons-text.version>1.9</commons-text.version>
 		<commons-codec.version>1.15</commons-codec.version>
