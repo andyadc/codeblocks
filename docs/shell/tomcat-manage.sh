@@ -17,7 +17,7 @@ start(){
         checkrun
         if [[ ${RETVAL} -eq 0 ]]; then
                 echo "-- Starting tomcat..."
-                ${basedir}/bin/startup.sh
+                "${basedir}"/bin/startup.sh
                 touch /var/lock/subsys/${tcNo}
                 checklog
                 status
@@ -31,7 +31,7 @@ stop(){
         checkrun
         if [[ ${RETVAL} -eq 1 ]]; then
                 echo "-- Shutting down tomcat..."
-                ${basedir}/bin/shutdown.sh
+                "${basedir}"/bin/shutdown.sh
                 if [[ "$1" != "re" ]]; then
                   checklog
                 else
@@ -81,7 +81,7 @@ kill(){
 }
 
 checkrun(){
-        ps ax --width=1000 |grep ${tcName}| grep "[o]rg.apache.catalina.startup.Bootstrap start" | awk '{printf $1 " "}' | wc | awk '{print $2}' >/tmp/tomcat_process_count.txt
+        ps ax --width=1000 |grep "${tcName}"| grep "[o]rg.apache.catalina.startup.Bootstrap start" | awk '{printf $1 " "}' | wc | awk '{print $2}' >/tmp/tomcat_process_count.txt
         read line < /tmp/tomcat_process_count.txt
         if [[ ${line} -gt 0 ]]; then
                 RETVAL=1
