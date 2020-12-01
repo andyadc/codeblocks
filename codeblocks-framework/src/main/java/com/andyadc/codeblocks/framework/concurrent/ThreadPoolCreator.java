@@ -5,6 +5,8 @@ import com.google.common.util.concurrent.Uninterruptibles;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CancellationException;
@@ -21,9 +23,12 @@ public final class ThreadPoolCreator {
 
 	private static final Logger logger = LoggerFactory.getLogger(ThreadPoolCreator.class);
 
+	private static final String THREAD_POOL_NAME_PREFIX = "StatisticsTask";
 	private static final int DEFAULT_QUEUE_SIZE = 10;
 	private static final int DEFAULT_CORE_POOL_SIZE = 10;
 	private static final int DEFAULT_MAX_POOL_SIZE = 10;
+
+	private static final ThreadLocal<Instant> start = new ThreadLocal<>();
 
 	public synchronized static ThreadPoolExecutor create() {
 		BlockingQueue<Runnable> queue = new ArrayBlockingQueue<>(DEFAULT_QUEUE_SIZE);
@@ -36,7 +41,7 @@ public final class ThreadPoolCreator {
 			queue,
 			new ThreadFactoryBuilder().setThreadFactory(new ThreadFactory() {
 				private int count = 0;
-				private String prefix = "StatisticsTask";
+				private final String prefix = THREAD_POOL_NAME_PREFIX;
 
 				@Override
 				public Thread newThread(Runnable r) {
@@ -44,15 +49,21 @@ public final class ThreadPoolCreator {
 				}
 			}).setUncaughtExceptionHandler((t, e) -> {
 				String threadName = t.getName();
-				logger.error("statisticsThreadPool error occurred! threadName: {}, error msg: {}", threadName, e.getMessage(), e);
+				logger.error("ThreadPool error occurred! threadName: {}, error message: {}", threadName, e.getMessage(), e);
 			}).build(),
 			(r, e) -> {
 				if (!e.isShutdown()) {
-					logger.warn("statisticsThreadPool is too busy! waiting to insert task to queue! ");
+					logger.warn("ThreadPool is too busy! Waiting to insert task to queue! ");
 					Uninterruptibles.putUninterruptibly(e.getQueue(), r);
 				}
 			}
 		) {
+			@Override
+			protected void beforeExecute(Thread t, Runnable r) {
+				super.beforeExecute(t, r);
+				start.set(Instant.now());
+			}
+
 			@Override
 			protected void afterExecute(Runnable r, Throwable t) {
 				super.afterExecute(r, t);
@@ -69,9 +80,11 @@ public final class ThreadPoolCreator {
 					}
 				}
 				if (t != null) {
-					logger.error("statisticsThreadPool error msg: {}", t.getMessage(), t);
+					logger.error("ThreadPool error message: {}", t.getMessage(), t);
 				}
+				logger.warn("Timing: {}ms", Duration.between(Instant.now(), start.get()).toMillis());
 			}
+
 		};
 		executor.prestartAllCoreThreads();
 
