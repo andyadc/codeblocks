@@ -42,7 +42,7 @@
 		<mybatis-spring.version>2.0.6</mybatis-spring.version>
 		<spring-data-redis.version>2.4.1</spring-data-redis.version>
 		<zookeeper.version>3.6.2</zookeeper.version>
-		<redisson.version>3.13.6</redisson.version>
+		<redisson.version>3.14.0</redisson.version>
 		<jedis.version>3.3.0</jedis.version>
 		<lettuce.version>6.0.1.RELEASE</lettuce.version>
 		<kafka-clients.version>2.6.0</kafka-clients.version>
@@ -53,7 +53,7 @@
 		<joda-time.version>2.10.8</joda-time.version>
 		<guava.version>30.0-jre</guava.version>
 		<orika.version>1.5.4</orika.version>
-		<tomcat-jdbc.version>9.0.39</tomcat-jdbc.version>
+		<tomcat-jdbc.version>9.0.40</tomcat-jdbc.version>
 		<hikaricp.version>3.4.5</hikaricp.version>
 		<druid.version>1.2.3</druid.version>
 		<mysql-driver.version>8.0.22</mysql-driver.version>
@@ -81,7 +81,7 @@
 		<poi.version>4.1.2</poi.version>
 		<slf4j.version>1.7.30</slf4j.version>
 		<logback.version>1.2.3</logback.version>
-		<mockito.version>3.6.0</mockito.version>
+		<mockito.version>3.6.28</mockito.version>
 		<junit.version>4.13.1</junit.version>
 		<junit-jupiter.version>5.7.0</junit-jupiter.version>
 		<jmh.version>1.26</jmh.version>
