@@ -51,7 +51,7 @@
 		<jackson.version>2.12.0</jackson.version>
 		<fastjson.version>1.2.75</fastjson.version>
 		<joda-time.version>2.10.8</joda-time.version>
-		<guava.version>30.0-jre</guava.version>
+		<guava.version>30.1-jre</guava.version>
 		<orika.version>1.5.4</orika.version>
 		<tomcat-jdbc.version>9.0.40</tomcat-jdbc.version>
 		<hikaricp.version>3.4.5</hikaricp.version>
