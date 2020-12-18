@@ -16,89 +16,38 @@ import java.io.ObjectOutputStream;
  */
 public class JDKSerializer {
 
-    private static final Logger logger = LoggerFactory.getLogger(JDKSerializer.class);
+	private static final Logger logger = LoggerFactory.getLogger(JDKSerializer.class);
 
-    private JDKSerializer() {
-    }
+	private JDKSerializer() {
+	}
 
-    public static <T> byte[] serialize(T object) {
-        if (object == null) {
-            throw new SerializerException("Object is null");
-        }
+	public static <T> byte[] serialize(T object) {
+		if (object == null) {
+			throw new SerializerException("Object is null");
+		}
+		byte[] bytes;
+		try (ByteArrayOutputStream baos = new ByteArrayOutputStream(); ObjectOutputStream oos = new ObjectOutputStream(baos)) {
+			oos.writeObject(object);
+			bytes = baos.toByteArray();
+		} catch (Exception e) {
+			logger.error("JDKSerializer serialize error!", e);
+			throw new SerializerException(e.getMessage(), e);
+		}
+		return bytes;
+	}
 
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ObjectOutputStream oos = null;
-        byte[] bytes;
-        try {
-            oos = new ObjectOutputStream(baos);
-            oos.writeObject(object);
-            bytes = baos.toByteArray();
-        } catch (Exception e) {
-            logger.error("JDKSerializer serialize error!", e);
-            throw new SerializerException(e.getMessage(), e);
-        } finally {
-            try {
-                if (oos != null) {
-                    oos.close();
-                }
-            } catch (Exception e) {
-                logger.error("JDKSerializer serialize ObjectOutputStream close error!", e);
-            } finally {
-                oos = null;
-            }
-
-            try {
-                if (baos != null) {
-                    baos.close();
-                }
-            } catch (Exception e) {
-                logger.error("JDKSerializer serialize ByteArrayOutputStream close error!", e);
-            } finally {
-                baos = null;
-            }
-
-        }
-
-        return bytes;
-    }
-
-    @SuppressWarnings("unchecked")
-    public static <T> T deserialize(byte[] bytes) {
-        if (ArrayUtils.isEmpty(bytes)) {
-            throw new SerializerException("Bytes is null or empty");
-        }
-
-        ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
-        ObjectInputStream ois = null;
-        Object object;
-        try {
-            ois = new ObjectInputStream(bais);
-            object = ois.readObject();
-        } catch (Exception e) {
-            logger.error("JDKSerializer deserialize error!", e);
-            throw new SerializerException(e.getMessage(), e);
-        } finally {
-            try {
-                if (ois != null) {
-                    ois.close();
-                }
-            } catch (Exception e) {
-                logger.error("JDKSerializer deserialize ObjectInputStream close error!", e);
-            } finally {
-                ois = null;
-            }
-
-            try {
-                if (bais != null) {
-                    bais.close();
-                }
-            } catch (Exception e) {
-                logger.error("JDKSerializer deserialize ByteArrayInputStream close error!", e);
-            } finally {
-                bais = null;
-            }
-        }
-
-        return (T) object;
-    }
+	@SuppressWarnings("unchecked")
+	public static <T> T deserialize(byte[] bytes) {
+		if (ArrayUtils.isEmpty(bytes)) {
+			throw new SerializerException("Bytes is null or empty");
+		}
+		Object object;
+		try (ByteArrayInputStream bais = new ByteArrayInputStream(bytes); ObjectInputStream ois = new ObjectInputStream(bais)) {
+			object = ois.readObject();
+		} catch (Exception e) {
+			logger.error("JDKSerializer deserialize error!", e);
+			throw new SerializerException(e.getMessage(), e);
+		}
+		return (T) object;
+	}
 }
