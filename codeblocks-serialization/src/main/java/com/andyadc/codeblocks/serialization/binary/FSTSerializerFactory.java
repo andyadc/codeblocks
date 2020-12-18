@@ -16,7 +16,7 @@ public class FSTSerializerFactory {
     // 官方文档说，FSTConfiguration太重了，需要通过ThreadLocal或者静态对象去维护它
     private static FSTConfiguration fstConfiguration;
     private static ObjectPool<FSTConfiguration> fstConfigurationObjectPool;
-    private static boolean usePool = false;
+	private static final boolean usePool = false;
 
     public static void initialize() {
         if (usePool) {

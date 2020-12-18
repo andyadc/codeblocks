@@ -29,7 +29,7 @@ public class CompressorExecutor {
                 throw new CompressorException(e);
             }
         } else {
-            throw new CompressorException("Invalid compressor type : " + type);
+            throw new CompressorException("Invalid compressor type: " + type);
         }
     }
 
@@ -43,7 +43,7 @@ public class CompressorExecutor {
                 throw new CompressorException(e);
             }
         } else {
-            throw new CompressorException("Invalid compressor type : " + type);
+			throw new CompressorException("Invalid compressor type: " + type);
         }
     }
 }

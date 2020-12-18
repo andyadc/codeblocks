@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
 public class JacksonSerializer {
 
     private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-    private static ObjectMapper mapper;
+	private static final ObjectMapper mapper;
 
     static {
         mapper = new ObjectMapper();
