@@ -1,13 +1,18 @@
 package com.andyadc.codeblocks.test.concurrent;
 
 import com.andyadc.codeblocks.kit.concurrent.ThreadUtil;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.util.concurrent.*;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -38,6 +43,44 @@ public class ExecutorPoolSizeTest {
 		new ThreadPoolExecutor.CallerRunsPolicy()
 	);
 
+	@BeforeAll
+	public static void init() {
+		executor.prestartAllCoreThreads();
+	}
+
+	public static void main(String[] args) throws Exception {
+		int count = 1500;
+		CountDownLatch latch = new CountDownLatch(count);
+
+//		ThreadPoolExecutor executor = ThreadPoolCreator.create("ExceptionTest", 2, 4, 100);
+//		ThreadPoolExecutor executor = Executors.newFixedThreadPool(10);
+
+		AtomicInteger n = new AtomicInteger(0);
+		for (int i = 0; i < count; i++) {
+
+			executor.execute(() -> {
+				try {
+					int num = n.incrementAndGet();
+					logger.info(Thread.currentThread().getName() + " >>> " + num + "\r\n" + executor);
+
+					if (num % 3 == 0) {
+						num = num / 0;
+					}
+					ThreadUtil.sleep(num / 10);
+				}
+//				catch (Exception e) { e.printStackTrace(); }
+				finally {
+					latch.countDown();
+				}
+
+			});
+		}
+
+		latch.await();
+		System.out.println(">>>> " + n.get());
+		executor.shutdown();
+	}
+
 	@Test
 	public void testAdd() throws Exception {
 		AtomicInteger c = new AtomicInteger(0);
@@ -46,6 +89,7 @@ public class ExecutorPoolSizeTest {
 		for (int i = 0; i < times; i++) {
 			executor.execute(() -> {
 				c.incrementAndGet();
+				logger.info(Thread.currentThread().getName());
 				latch.countDown();
 			});
 		}
@@ -76,34 +120,6 @@ public class ExecutorPoolSizeTest {
 		System.out.println("-------------------");
 		latch.await();
 		System.out.println("Done " + Duration.between(begin, Instant.now()).toMillis() / 1000);
-		executor.shutdown();
-	}
-
-	public static void main(String[] args) throws Exception {
-		int count = 1500;
-		CountDownLatch latch = new CountDownLatch(count);
-
-		AtomicInteger n = new AtomicInteger(0);
-		for (int i = 0; i < count; i++) {
-			executor.execute(() -> {
-				try {
-					logger.info(Thread.currentThread().getName());
-					int num = n.incrementAndGet();
-					if (num % 3 == 0) {
-						num = num / 0;
-					}
-					Thread.sleep(num);
-				} catch (Exception e) {
-					logger.error("", e);
-				} finally {
-					latch.countDown();
-				}
-
-			});
-		}
-
-		latch.await();
-		System.out.println(">>>> " + n.get());
 		executor.shutdown();
 	}
 }

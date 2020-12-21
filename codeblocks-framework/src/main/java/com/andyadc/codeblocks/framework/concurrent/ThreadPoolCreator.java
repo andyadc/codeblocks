@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.CancellationException;
@@ -30,18 +31,28 @@ public final class ThreadPoolCreator {
 
 	private static final ThreadLocal<Instant> start = new ThreadLocal<>();
 
+	private String poolName;
+
 	public synchronized static ThreadPoolExecutor create() {
-		BlockingQueue<Runnable> queue = new ArrayBlockingQueue<>(DEFAULT_QUEUE_SIZE);
+		return create(THREAD_POOL_NAME_PREFIX);
+	}
+
+	public synchronized static ThreadPoolExecutor create(String poolName) {
+		return create(poolName, DEFAULT_CORE_POOL_SIZE, DEFAULT_MAX_POOL_SIZE, DEFAULT_QUEUE_SIZE);
+	}
+
+	public synchronized static ThreadPoolExecutor create(String poolName, int corePoolSize, int maxPoolSize, int queueSize) {
+		BlockingQueue<Runnable> queue = new ArrayBlockingQueue<>(queueSize);
 		// ignore/reset
 		ThreadPoolExecutor executor = new ThreadPoolExecutor(
-			DEFAULT_CORE_POOL_SIZE,
-			DEFAULT_MAX_POOL_SIZE,
+			corePoolSize,
+			maxPoolSize,
 			60,
 			TimeUnit.SECONDS,
 			queue,
 			new ThreadFactoryBuilder().setThreadFactory(new ThreadFactory() {
+				private final String prefix = poolName;
 				private int count = 0;
-				private final String prefix = THREAD_POOL_NAME_PREFIX;
 
 				@Override
 				public Thread newThread(Runnable r) {
@@ -82,9 +93,27 @@ public final class ThreadPoolCreator {
 				if (t != null) {
 					logger.error("ThreadPool error message: {}", t.getMessage(), t);
 				}
-				logger.warn("Timing: {}ms", Duration.between(Instant.now(), start.get()).toMillis());
+				logger.warn("Timing: {}ms", Duration.between(start.get(), Instant.now()).toMillis());
 			}
 
+			@Override
+			public void shutdown() {
+				logger.info("{}\r\n activeCount: {}, poolSize: {}, corePoolSize: {}, maximumPoolSize: {}, completedTaskCount: {}, taskCount: {}, largestPoolSize: {}", poolName,
+					this.getActiveCount(),
+					this.getPoolSize(),
+					this.getCorePoolSize(),
+					this.getMaximumPoolSize(),
+					this.getCompletedTaskCount(),
+					this.getTaskCount(),
+					this.getLargestPoolSize()
+				);
+				super.shutdown();
+			}
+
+			@Override
+			public List<Runnable> shutdownNow() {
+				return super.shutdownNow();
+			}
 		};
 		executor.prestartAllCoreThreads();
 
