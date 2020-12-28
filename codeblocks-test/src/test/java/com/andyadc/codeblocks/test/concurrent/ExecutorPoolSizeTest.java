@@ -22,6 +22,9 @@ public class ExecutorPoolSizeTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(ExecutorPoolSizeTest.class);
 
+	/**
+	 * TODO
+	 */
 	private static final ThreadPoolExecutor executor = new ThreadPoolExecutor(
 		2,
 		4,
