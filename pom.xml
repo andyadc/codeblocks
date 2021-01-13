@@ -32,7 +32,7 @@
     </prerequisites>
 
     <properties>
-		<spring.version>5.3.2</spring.version>
+		<spring.version>5.3.3</spring.version>
 		<aspectj.version>1.9.6</aspectj.version>
 		<netty.version>4.1.55.Final</netty.version>
 		<httpcomponents.version>4.5.13</httpcomponents.version>
@@ -44,7 +44,7 @@
 		<zookeeper.version>3.6.2</zookeeper.version>
 		<redisson.version>3.14.1</redisson.version>
 		<jedis.version>3.4.1</jedis.version>
-		<lettuce.version>6.0.1.RELEASE</lettuce.version>
+		<lettuce.version>6.0.2.RELEASE</lettuce.version>
 		<kafka-clients.version>2.7.0</kafka-clients.version>
 		<curator.version>5.1.0</curator.version>
 		<rabbitmq-clients.version>5.10.0</rabbitmq-clients.version>
