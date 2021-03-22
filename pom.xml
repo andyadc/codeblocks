@@ -42,7 +42,7 @@
 		<mybatis-spring.version>2.0.6</mybatis-spring.version>
 		<spring-data-redis.version>2.4.3</spring-data-redis.version>
 		<zookeeper.version>3.6.2</zookeeper.version>
-		<redisson.version>3.15.1</redisson.version>
+		<redisson.version>3.15.2</redisson.version>
 		<jedis.version>3.5.2</jedis.version>
 		<lettuce.version>6.0.3.RELEASE</lettuce.version>
 		<kafka-clients.version>2.7.0</kafka-clients.version>
@@ -64,7 +64,7 @@
 		<protostuff.version>1.7.2</protostuff.version>
 		<hessian.version>4.0.65</hessian.version>
 		<cglib.version>3.3.0</cglib.version>
-		<objenesis.version>3.1</objenesis.version>
+		<objenesis.version>3.2</objenesis.version>
 		<javassist.version>3.27.0-GA</javassist.version>
 		<ognl.version>3.2.19</ognl.version>
 		<commons-lang.version>3.12.0</commons-lang.version>
