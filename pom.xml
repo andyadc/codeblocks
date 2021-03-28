@@ -41,7 +41,7 @@
 		<mybatis.version>3.5.6</mybatis.version>
 		<mybatis-spring.version>2.0.6</mybatis-spring.version>
 		<spring-data-redis.version>2.4.3</spring-data-redis.version>
-		<zookeeper.version>3.6.2</zookeeper.version>
+		<zookeeper.version>3.7.0</zookeeper.version>
 		<redisson.version>3.15.2</redisson.version>
 		<jedis.version>3.5.2</jedis.version>
 		<lettuce.version>6.0.3.RELEASE</lettuce.version>
