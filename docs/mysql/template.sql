@@ -16,10 +16,11 @@ CREATE TABLE `t_template`
     `create_time` DATETIME            NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'create_time',
     `update_time` DATETIME            NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'update_time',
     PRIMARY KEY (`id`),
-    UNIQUE KEY `idx_name` (`name`) USING BTREE
+    UNIQUE KEY `idx_name` (`name`) USING BTREE,
+    KEY `idx_create_time` (`create_time`)
 )
     ENGINE = InnoDB
     AUTO_INCREMENT = 1000
     DEFAULT CHARSET = utf8mb4
     COLLATE = utf8mb4_unicode_ci
-    COMMENT ='xxoo';
+    COMMENT ='table template';
