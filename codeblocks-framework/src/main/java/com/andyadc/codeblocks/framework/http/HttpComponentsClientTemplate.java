@@ -68,7 +68,7 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 		super.init();
 		httpClient = HttpComponentsClientBuilder.build(configuration, requestInterceptors, responseInterceptors);
 		init = true;
-		logger.info("HttpComponentsClient init timing: {}", Duration.between(begin, Instant.now()).toMillis());
+		logger.info("HttpComponentsClient init elapsed time: {}", Duration.between(begin, Instant.now()).toMillis());
 	}
 
 	@Override

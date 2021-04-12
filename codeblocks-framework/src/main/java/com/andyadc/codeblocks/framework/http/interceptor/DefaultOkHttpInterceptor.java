@@ -24,7 +24,7 @@ public class DefaultOkHttpInterceptor implements Interceptor {
 	public Response intercept(@NotNull Chain chain) throws IOException {
 		Instant begin = Instant.now();
 		Response response = chain.proceed(chain.request());
-		logger.info("Request timing={}", Duration.between(begin, Instant.now()).toMillis());
+		logger.info("Request elapsed time={}", Duration.between(begin, Instant.now()).toMillis());
 		return response;
 	}
 }

@@ -14,21 +14,24 @@ import redis.clients.jedis.Pipeline;
  */
 public class RedisTest {
 
-    private static final String HOST = "www.qq-server.com";
-    private static final int PORT = 6377;
+	private static final String HOST = "192.168.55.9";
+	private static final int PORT = 6379;
+//    private static final String HOST = "www.qq-server.com";
+//    private static final int PORT = 6377;
 
 	private static final JedisPool pool;
 	private static Jedis jedis;
 
-    static {
-        JedisPoolConfig config = new JedisPoolConfig();
-        config.setMaxTotal(30);
-        config.setMaxIdle(10);
-        config.setTestOnBorrow(true);
-        config.setTestOnReturn(true);
+	static {
+		JedisPoolConfig config = new JedisPoolConfig();
+		config.setMaxTotal(30);
+		config.setMaxIdle(10);
+		config.setTestOnBorrow(true);
+		config.setTestOnReturn(true);
 
-        pool = new JedisPool(config, HOST, PORT, 3000, "andyadc");
-    }
+//        pool = new JedisPool(config, HOST, PORT, 3000, "andyadc");
+		pool = new JedisPool(config, HOST, PORT, 3000);
+	}
 
 	@BeforeAll
     public static void before() {
@@ -54,7 +57,7 @@ public class RedisTest {
         for (int i = 0; i < 1000; i++) {
             jedis.set("key" + i, "v" + i);
         }
-        System.out.println("timing: " + (System.currentTimeMillis() - start));
+		System.out.println("Elapsed time: " + (System.currentTimeMillis() - start));
     }
 
     @Test
@@ -72,7 +75,7 @@ public class RedisTest {
             }
         }
 
-        System.out.println("timing: " + (System.currentTimeMillis() - start));
+		System.out.println("Elapsed time: " + (System.currentTimeMillis() - start));
     }
 
     @Test

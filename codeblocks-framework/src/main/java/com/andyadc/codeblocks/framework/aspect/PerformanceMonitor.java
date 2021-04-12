@@ -19,7 +19,7 @@ public class PerformanceMonitor {
 	public Object doAround(ProceedingJoinPoint point) throws Throwable {
 		Instant begin = Instant.now();
 		Object ret = point.proceed();
-		logger.info("{}, method: {}, timing: {} ms",
+		logger.info("{}, method: {}, elapsed time: {} ms",
 			point.getTarget().getClass(),
 			point.getSignature().getName(),
 			Duration.between(begin, Instant.now()).toMillis()

@@ -31,7 +31,7 @@ public final class MethodLogger {
 			result = point.proceed();
 		} finally {
 			logger.info(
-				"Invoked {}, request={}, response={}, timing={}",
+				"Invoked {}, request={}, response={}, elapsed time={}",
 				signature,
 				Arrays.toString(point.getArgs()),
 				result,

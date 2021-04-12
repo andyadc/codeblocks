@@ -49,7 +49,7 @@ public class OkHttpClientTemplate extends AbstractHttpClientTemplate {
 		super.init();
 		httpClient = OkHttpClientBuilder.build(configuration(), interceptors);
 		init = true;
-		logger.info("OkHttpClient init timing: {}", Duration.between(begin, Instant.now()).toMillis());
+		logger.info("OkHttpClient init elapsed time: {}", Duration.between(begin, Instant.now()).toMillis());
 	}
 
 	@Override

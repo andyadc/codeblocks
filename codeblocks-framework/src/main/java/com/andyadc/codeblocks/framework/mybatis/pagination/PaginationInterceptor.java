@@ -58,10 +58,10 @@ public class PaginationInterceptor implements Interceptor {
         Instant begin = Instant.now();
         Object ret;
         if (dialect == null || !dialect.supportsPage()) {
-            ret = invocation.proceed();
-			logger.info("elapsed time: {}ms", Duration.between(begin, Instant.now()).toMillis());
-            return ret;
-        }
+			ret = invocation.proceed();
+			logger.info("Elapsed time: {}ms", Duration.between(begin, Instant.now()).toMillis());
+			return ret;
+		}
         StatementHandler statementHandler = (StatementHandler) invocation.getTarget();
         MetaObject metaObject = SystemMetaObject.forObject(statementHandler);
 
@@ -69,10 +69,10 @@ public class PaginationInterceptor implements Interceptor {
 
         RowBounds rowBounds = (RowBounds) metaObject.getValue("delegate.rowBounds");
         if (!(rowBounds instanceof PageBounds)) {
-            ret = invocation.proceed();
-			logger.info("elapsed time: {}ms", Duration.between(begin, Instant.now()).toMillis());
-            return ret;
-        }
+			ret = invocation.proceed();
+			logger.info("Elapsed time: {}ms", Duration.between(begin, Instant.now()).toMillis());
+			return ret;
+		}
         PageBounds pageBounds = new PageBounds(rowBounds);
 
         BoundSql boundSql = statementHandler.getBoundSql();
@@ -81,19 +81,19 @@ public class PaginationInterceptor implements Interceptor {
         PAGINATION_TOTAL.set(count);
 
         String originalSql = (String) metaObject.getValue("delegate.boundSql.sql");
-        String newSql = dialect.getPageString(originalSql, pageBounds);
+		String newSql = dialect.getPageString(originalSql, pageBounds);
 		if (logger.isDebugEnabled()) {
 			logger.debug("original Sql: {}, new Sql: ", originalSql, newSql);
 		}
 
-        metaObject.setValue("delegate.boundSql.sql", newSql);
-        metaObject.setValue("delegate.rowBounds.offset", RowBounds.NO_ROW_OFFSET);
-        metaObject.setValue("delegate.rowBounds.limit", RowBounds.NO_ROW_LIMIT);
+		metaObject.setValue("delegate.boundSql.sql", newSql);
+		metaObject.setValue("delegate.rowBounds.offset", RowBounds.NO_ROW_OFFSET);
+		metaObject.setValue("delegate.rowBounds.limit", RowBounds.NO_ROW_LIMIT);
 
-        ret = invocation.proceed();
-		logger.info("elapsed time: {}ms", Duration.between(begin, Instant.now()).toMillis());
-        return ret;
-    }
+		ret = invocation.proceed();
+		logger.info("Elapsed time: {}ms", Duration.between(begin, Instant.now()).toMillis());
+		return ret;
+	}
 
     @Override
     public Object plugin(Object target) {

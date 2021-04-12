@@ -93,7 +93,7 @@ public final class ThreadPoolCreator {
 				if (t != null) {
 					logger.error("ThreadPool error message: {}", t.getMessage(), t);
 				}
-				logger.warn("Timing: {}ms", Duration.between(start.get(), Instant.now()).toMillis());
+				logger.warn("Elapsed time: {}ms", Duration.between(start.get(), Instant.now()).toMillis());
 			}
 
 			@Override
