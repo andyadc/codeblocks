@@ -27,6 +27,14 @@ public class InterestCalc {
 		System.out.println(Math.pow(2d, 3d));
 		double rate = Math.pow((1d + 0.0365d / 1d), 10d);
 		System.out.println(115000d * rate);
+
+
+		// https://geek-docs.com/java/java-examples/calculate-compound-interest.html
+		double rate1 = Math.pow((1d + 0.08d / 12d), 60);
+		System.out.println(rate1);
+		System.out.println(rate1 * 2000d);
+		System.out.println(rate1 * 5d);
+		System.out.println(rate1 * 5d * 2000d);
 	}
 
 	public static void calculate(int p, int t, double r, int n) {
