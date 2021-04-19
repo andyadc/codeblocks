@@ -25,20 +25,40 @@ public class InterestCalc {
 	public static void main(String[] args) {
 
 		System.out.println(Math.pow(2d, 3d));
-		double rate = Math.pow((1d + 0.0365d / 1d), 10d);
-		System.out.println(115000d * rate);
+		double rate = Math.pow((1d + 0.05d / 1d), 10d);
+		System.out.println(1000000d * rate);
 
 
 		// https://geek-docs.com/java/java-examples/calculate-compound-interest.html
-		double rate1 = Math.pow((1d + 0.08d / 12d), 60);
-		System.out.println(rate1);
-		System.out.println(rate1 * 2000d);
-		System.out.println(rate1 * 5d);
-		System.out.println(rate1 * 5d * 2000d);
+//		double rate1 = Math.pow((1d + 0.08d / 12d), 60);
+//		System.out.println(rate1);
+//		System.out.println(rate1 * 2000d);
+//		System.out.println(rate1 * 5d);
+//		System.out.println(rate1 * 5d * 2000d);
+
+		System.out.println("------------");
+		calculate(1000000, 10, 0.035d, 1);
+		// 12-418344.82228688314
+		// 1-410598.7606211209
+
+		System.out.println(calcCompoundRate(1000000d, 0.035d, 10, 1d));
+		System.out.println(calcCompoundRate(1000000d, 0.035d, 10, 10.43d));
+	}
+
+	/**
+	 * 复利计算
+	 *
+	 * @param principal 本金
+	 * @param rate      年利率
+	 * @param year      时间(年)
+	 * @param times     每年复利次数
+	 */
+	private static double calcCompoundRate(double principal, double rate, int year, double times) {
+		return principal * Math.pow(1d + (rate / times), year * times);
 	}
 
 	public static void calculate(int p, int t, double r, int n) {
-		double amount = p * Math.pow(1 + (r / n), n * t);
+		double amount = p * Math.pow(1d + (r / n), n * t);
 		double cinterest = amount - p;
 		System.out.println("Compound Interest after " + t + " years: " + cinterest);
 		System.out.println("Amount after " + t + " years: " + amount);
