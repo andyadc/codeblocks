@@ -59,7 +59,7 @@
                                         static-field="com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES"/>
                             </array>
                         </property>
-                        <property name="simpleDateFormat" value="yyyy-MM-dd HH:mm:ss"/>
+                        <property name="simpleDateFormat" value="yyyy-MM-dd HH:mm:ss.SSS"/>
                     </bean>
                 </property>
             </bean>
