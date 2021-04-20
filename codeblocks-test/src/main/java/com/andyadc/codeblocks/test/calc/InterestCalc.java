@@ -24,9 +24,9 @@ public class InterestCalc {
 	// P (1 + R/n) (nt) - P
 	public static void main(String[] args) {
 
-		System.out.println(Math.pow(2d, 3d));
-		double rate = Math.pow((1d + 0.05d / 1d), 10d);
-		System.out.println(1000000d * rate);
+//		System.out.println(Math.pow(2d, 3d));
+//		double rate = Math.pow((1d + 0.05d / 1d), 10d);
+//		System.out.println(1000000d * rate);
 
 
 		// https://geek-docs.com/java/java-examples/calculate-compound-interest.html
@@ -37,12 +37,13 @@ public class InterestCalc {
 //		System.out.println(rate1 * 5d * 2000d);
 
 		System.out.println("------------");
-		calculate(1000000, 10, 0.035d, 1);
+//		calculate(1000000, 10, 0.035d, 1);
 		// 12-418344.82228688314
 		// 1-410598.7606211209
 
-		System.out.println(calcCompoundRate(1000000d, 0.035d, 10, 1d));
-		System.out.println(calcCompoundRate(1000000d, 0.035d, 10, 10.43d));
+		System.out.println(calcCompoundRate(1000000d, 0.035d, 10, 10d));
+		System.out.println(calcCompoundRate(1000000d, 0.036d, 10, 4d));
+		System.out.println(calcCompoundRate(1000000d, 0.0385d, 10, 2d));
 	}
 
 	/**
