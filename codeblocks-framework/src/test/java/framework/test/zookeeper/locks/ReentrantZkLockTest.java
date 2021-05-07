@@ -1,5 +1,6 @@
 package framework.test.zookeeper.locks;
 
+import com.andyadc.codeblocks.common.annotation.NotNull;
 import com.andyadc.codeblocks.framework.zookeeper.ZkSessionManager;
 import com.andyadc.codeblocks.framework.zookeeper.ZkUtils;
 import com.andyadc.codeblocks.framework.zookeeper.locks.ReentrantZkLock;
@@ -8,7 +9,6 @@ import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.ZooDefs;
 import org.apache.zookeeper.ZooKeeper;
 import org.apache.zookeeper.data.Stat;
-import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;

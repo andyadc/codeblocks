@@ -1,8 +1,8 @@
 package com.andyadc.codeblocks.framework.http.interceptor.okhttp;
 
+import com.andyadc.codeblocks.common.annotation.NotNull;
 import okhttp3.Interceptor;
 import okhttp3.Response;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
