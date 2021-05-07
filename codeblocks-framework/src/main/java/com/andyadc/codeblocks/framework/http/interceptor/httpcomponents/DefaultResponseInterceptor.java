@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.framework.http.interceptor;
+package com.andyadc.codeblocks.framework.http.interceptor.httpcomponents;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpResponseInterceptor;

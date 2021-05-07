@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.framework.http.interceptor;
+package com.andyadc.codeblocks.framework.http.interceptor.httpcomponents;
 
 import com.andyadc.codeblocks.kit.idgen.UUID;
 import org.apache.http.HttpRequest;

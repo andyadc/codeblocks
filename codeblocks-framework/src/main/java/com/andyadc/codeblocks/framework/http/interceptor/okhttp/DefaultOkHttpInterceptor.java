@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.framework.http.interceptor;
+package com.andyadc.codeblocks.framework.http.interceptor.okhttp;
 
 import okhttp3.Interceptor;
 import okhttp3.Response;
