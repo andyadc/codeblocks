@@ -92,6 +92,35 @@ public class AesGcmTest {
 		System.out.println();
 	}
 
+	static SecretKey key;
+	static IvParameterSpec spec = generateIv();
+
+	static {
+		try {
+			key = generateKey(256);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Test
+	public void test000() throws Exception {
+		String ciperText = encrypt("andyadc");
+		System.out.println(ciperText);
+		String plainText = decrypt(ciperText);
+		System.out.println(plainText);
+	}
+
+	public String encrypt(String plainText) throws Exception {
+		String algorithm = "AES/CBC/PKCS5Padding";
+		return this.encrypt(algorithm, plainText, key, spec);
+	}
+
+	public String decrypt(String cipherText) throws Exception {
+		String algorithm = "AES/CBC/PKCS5Padding";
+		return this.decrypt(algorithm, cipherText, key, spec);
+	}
+
 	private String encrypt(String algorithm, String plaintext, SecretKey key, AlgorithmParameterSpec spec) throws Exception {
 		Cipher cipher = Cipher.getInstance(algorithm);
 		cipher.init(Cipher.ENCRYPT_MODE, key, spec);
