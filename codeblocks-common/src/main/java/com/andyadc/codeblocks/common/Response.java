@@ -18,31 +18,31 @@ public class Response<T> implements Serializable {
     public Response() {
     }
 
-    public Response(String code, String message) {
-        this.code = code;
-        this.message = message;
-    }
+	public Response(String code, String message) {
+		this.code = code;
+		this.message = message;
+	}
 
-    public Response(T data) {
-        this.data = data;
-    }
+	public Response(T data) {
+		this.data = data;
+	}
 
-    public static Response success() {
-        return new Response(StatusCode.SUCCESS.code(), StatusCode.SUCCESS.message());
-    }
+	public static Response<?> success() {
+		return new Response<>(StatusCode.SUCCESS.code(), StatusCode.SUCCESS.message());
+	}
 
-    public static <T> Response success(T t) {
-        Response response = new Response<>(t);
-        response.setCode(StatusCode.SUCCESS.code());
-        response.setMessage(StatusCode.SUCCESS.message());
-        return response;
-    }
+	public static <T> Response<?> success(T t) {
+		Response<T> response = new Response<>(t);
+		response.setCode(StatusCode.SUCCESS.code());
+		response.setMessage(StatusCode.SUCCESS.message());
+		return response;
+	}
 
-    public String getCode() {
-        return code;
-    }
+	public String getCode() {
+		return code;
+	}
 
-    public void setCode(String code) {
+	public void setCode(String code) {
         this.code = code;
     }
 
