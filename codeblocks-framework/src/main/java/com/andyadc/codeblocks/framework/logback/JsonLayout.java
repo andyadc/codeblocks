@@ -132,17 +132,17 @@ public class JsonLayout extends JsonLayoutBase<ILoggingEvent> {
     }
 
     @Override
-    protected Map toJsonMap(ILoggingEvent event) {
+	protected Map<String, Object> toJsonMap(ILoggingEvent event) {
 		Map<String, Object> map = new LinkedHashMap<>();
 
-        addTimestamp(TIMESTAMP_ATTR_NAME, this.includeTimestamp, event.getTimeStamp(), map);
-        add(LEVEL_ATTR_NAME, this.includeLevel, String.valueOf(event.getLevel()), map);
-        add(THREAD_ATTR_NAME, this.includeThreadName, event.getThreadName(), map);
-        addMap(MDC_ATTR_NAME, this.includeMDC, event.getMDCPropertyMap(), map);
-        add(LOGGER_ATTR_NAME, this.includeLoggerName, event.getLoggerName(), map);
-        add(FORMATTED_MESSAGE_ATTR_NAME, this.includeFormattedMessage, event.getFormattedMessage(), map);
-        add(MESSAGE_ATTR_NAME, this.includeMessage, event.getMessage(), map);
-        add(CONTEXT_ATTR_NAME, this.includeContextName, event.getLoggerContextVO().getName(), map);
+		addTimestamp(TIMESTAMP_ATTR_NAME, this.includeTimestamp, event.getTimeStamp(), map);
+		add(LEVEL_ATTR_NAME, this.includeLevel, String.valueOf(event.getLevel()), map);
+		add(THREAD_ATTR_NAME, this.includeThreadName, event.getThreadName(), map);
+		addMap(MDC_ATTR_NAME, this.includeMDC, event.getMDCPropertyMap(), map);
+		add(LOGGER_ATTR_NAME, this.includeLoggerName, event.getLoggerName(), map);
+		add(FORMATTED_MESSAGE_ATTR_NAME, this.includeFormattedMessage, event.getFormattedMessage(), map);
+		add(MESSAGE_ATTR_NAME, this.includeMessage, event.getMessage(), map);
+		add(CONTEXT_ATTR_NAME, this.includeContextName, event.getLoggerContextVO().getName(), map);
         addThrowableInfo(EXCEPTION_ATTR_NAME, this.includeException, event, map);
         addCustomDataToJsonMap(map, event);
         return map;

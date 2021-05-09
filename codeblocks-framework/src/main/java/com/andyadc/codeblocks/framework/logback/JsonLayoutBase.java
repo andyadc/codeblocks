@@ -27,7 +27,7 @@ public abstract class JsonLayoutBase<E> extends LayoutBase<E> {
 
     @Override
     public String doLayout(E event) {
-        Map map = toJsonMap(event);
+        Map<String, Object> map = toJsonMap(event);
         if (map == null || map.isEmpty()) {
             return null;
         }
@@ -35,17 +35,17 @@ public abstract class JsonLayoutBase<E> extends LayoutBase<E> {
         return isAppendLineSeparator() ? result + CoreConstants.LINE_SEPARATOR : result;
     }
 
-    private String getStringFromFormatter(Map map) {
-        JsonFormatter formatter = getJsonFormatter();
-        if (formatter == null) {
-            addError("JsonFormatter has not been configured on JsonLayout instance " + getClass().getName() + ".  Defaulting to map.toString().");
-            return map.toString();
-        }
+	private String getStringFromFormatter(Map<String, Object> map) {
+		JsonFormatter formatter = getJsonFormatter();
+		if (formatter == null) {
+			addError("JsonFormatter has not been configured on JsonLayout instance " + getClass().getName() + ".  Defaulting to map.toString().");
+			return map.toString();
+		}
 
-        try {
-            return formatter.toJsonString(map);
-        } catch (Exception e) {
-            addError("JsonFormatter failed.  Defaulting to map.toString().  Message: " + e.getMessage(), e);
+		try {
+			return formatter.toJsonString(map);
+		} catch (Exception e) {
+			addError("JsonFormatter failed.  Defaulting to map.toString().  Message: " + e.getMessage(), e);
             return map.toString();
         }
     }
@@ -94,7 +94,7 @@ public abstract class JsonLayoutBase<E> extends LayoutBase<E> {
         return format.format(date);
     }
 
-    protected abstract Map toJsonMap(E e);
+	protected abstract Map<String, Object> toJsonMap(E e);
 
     @Override
     public String getContentType() {

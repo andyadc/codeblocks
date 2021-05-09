@@ -23,18 +23,17 @@ public class JacksonJsonFormatter implements JsonFormatter {
     }
 
     @Override
-    public String toJsonString(Map m) throws IOException {
-        StringWriter writer = new StringWriter(BUFFER_SIZE);
-        JsonGenerator generator = this.objectMapper.getFactory().createGenerator(writer);
+	public String toJsonString(Map<String, Object> m) throws IOException {
+		StringWriter writer = new StringWriter(BUFFER_SIZE);
+		JsonGenerator generator = this.objectMapper.getFactory().createGenerator(writer);
 
-        if (isPrettyPrint()) {
-            generator.useDefaultPrettyPrinter();
-        }
+		if (isPrettyPrint()) {
+			generator.useDefaultPrettyPrinter();
+		}
 
-        this.objectMapper.writeValue(generator, m);
+		this.objectMapper.writeValue(generator, m);
 
-        writer.flush();
-
+		writer.flush();
         return writer.toString();
     }
 
