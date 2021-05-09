@@ -19,7 +19,7 @@ public class RequestInterceptor extends HandlerInterceptorAdapter {
 
 	private final static String HTTP_HEADER_TRACE_ID = "X-TraceId";
 	private final static String TRACE_ID = "traceId";
-	private static ThreadLocal<Long> requestTimeCounterThreadLocal = new ThreadLocal<>();
+	private static final ThreadLocal<Long> requestTimeCounterThreadLocal = new ThreadLocal<>();
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {

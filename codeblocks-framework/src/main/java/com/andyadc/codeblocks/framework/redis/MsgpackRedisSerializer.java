@@ -71,7 +71,7 @@ public class MsgpackRedisSerializer implements RedisSerializer<Object> {
 	/**
 	 * @see GenericJackson2JsonRedisSerializer
 	 */
-	private class NullValueSerializer extends StdSerializer<NullValue> {
+	private static class NullValueSerializer extends StdSerializer<NullValue> {
 
 		private static final long serialVersionUID = 1L;
 		private final String classIdentifier;
