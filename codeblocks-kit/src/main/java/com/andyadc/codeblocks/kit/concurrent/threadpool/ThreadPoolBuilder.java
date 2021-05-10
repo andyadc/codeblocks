@@ -30,7 +30,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class ThreadPoolBuilder {
 
-	private static RejectedExecutionHandler defaultRejectHandler = new ThreadPoolExecutor.AbortPolicy();
+	private static final RejectedExecutionHandler defaultRejectHandler = new ThreadPoolExecutor.AbortPolicy();
 
 	private ThreadPoolBuilder() {
 	}
@@ -66,7 +66,8 @@ public class ThreadPoolBuilder {
 	/**
 	 * 优先使用threadFactory，否则如果threadNamePrefix不为空则使用自建ThreadFactory，否则使用defaultThreadFactory
 	 */
-	private static ThreadFactory createThreadFactory(ThreadFactory threadFactory, String threadNamePrefix,
+	private static ThreadFactory createThreadFactory(ThreadFactory threadFactory,
+													 String threadNamePrefix,
 													 Boolean daemon) {
 		if (threadFactory != null) {
 			return threadFactory;
@@ -173,7 +174,9 @@ public class ThreadPoolBuilder {
 				rejectHandler = defaultRejectHandler;
 			}
 
-			return new ThreadPoolExecutor(poolSize, poolSize, 0L, TimeUnit.MILLISECONDS, queue, threadFactory,
+			return new ThreadPoolExecutor(poolSize, poolSize, 0L, TimeUnit.MILLISECONDS,
+				queue,
+				threadFactory,
 				rejectHandler);
 		}
 	}
