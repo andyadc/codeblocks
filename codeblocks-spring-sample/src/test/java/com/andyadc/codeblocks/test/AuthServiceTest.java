@@ -50,12 +50,12 @@ public class AuthServiceTest {
     }
 
 	@BeforeAll
-    public void before() {
-        System.out.println("------------------------------------------------");
-    }
+	static void before() {
+		System.out.println("------------------------------------------------");
+	}
 
 	@AfterAll
-    public void after() {
-        System.out.println("------------------------------------------------");
-    }
+	static void after() {
+		System.out.println("------------------------------------------------");
+	}
 }
