@@ -164,6 +164,11 @@
 			<artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.apache.taglibs</groupId>
+			<artifactId>taglibs-standard-impl</artifactId>
+			<version>1.2.5</version>
+		</dependency>
 
 		<!-- log -->
 		<dependency>
@@ -171,9 +176,9 @@
 			<artifactId>slf4j-api</artifactId>
 		</dependency>
 		<dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-        </dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+		</dependency>
 
 		<!-- test -->
 		<dependency>
