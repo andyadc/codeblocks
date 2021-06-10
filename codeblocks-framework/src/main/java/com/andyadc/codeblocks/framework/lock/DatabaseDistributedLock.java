@@ -3,6 +3,10 @@ package com.andyadc.codeblocks.framework.lock;
 import org.jetbrains.annotations.NotNull;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
+import java.sql.DatabaseMetaData;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -23,6 +27,13 @@ public class DatabaseDistributedLock implements Lock {
 
 	private static final Long DUPLICATED_LOCK_ID = Long.MIN_VALUE;
 
+	private final ThreadLocal<String> resourceNameHolder = new ThreadLocal<String>() {
+		@Override
+		protected String initialValue() {
+			return super.initialValue();
+		}
+	};
+
 	private final Object lock = new Object();
 
 	private DataSource dataSource;
@@ -38,6 +49,15 @@ public class DatabaseDistributedLock implements Lock {
 
 	private void initTables() {
 
+	}
+
+	private ResultSet getTables(Connection connection) throws SQLException {
+		DatabaseMetaData databaseMetaData = connection.getMetaData();
+		return databaseMetaData.getTables(null, null, null, new String[]{"TABLE"});
+	}
+
+	private String getResourceName() {
+		return resourceNameHolder.get();
 	}
 
 	@Override
