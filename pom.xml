@@ -43,7 +43,7 @@
 		<spring-data-redis.version>2.5.1</spring-data-redis.version>
 		<zookeeper.version>3.7.0</zookeeper.version>
 		<redisson.version>3.15.6</redisson.version>
-		<jedis.version>3.6.0</jedis.version>
+		<jedis.version>3.6.1</jedis.version>
 		<lettuce.version>6.1.2.RELEASE</lettuce.version>
 		<kafka-clients.version>2.8.0</kafka-clients.version>
 		<curator.version>5.1.0</curator.version>
@@ -81,7 +81,7 @@
 		<poi.version>5.0.0</poi.version>
 		<slf4j.version>1.7.30</slf4j.version>
 		<logback.version>1.2.3</logback.version>
-		<mockito.version>3.11.0</mockito.version>
+		<mockito.version>3.11.1</mockito.version>
 		<junit.version>4.13.2</junit.version>
 		<junit-jupiter.version>5.7.2</junit-jupiter.version>
 		<jmh.version>1.32</jmh.version>
