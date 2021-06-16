@@ -13,7 +13,7 @@
 <body style="background-size: cover;">
 <form class="layui-form" action="javascript:void(0);">
 	<div class="layui-form-item">
-		<img class="logo" src="admin/images/logo.png"/>
+		<img class="logo" src="${ctx}/static/pear/admin/images/logo.png"/>
 		<div class="title">Pear Admin</div>
 		<div class="desc">
 			~~~~~~~~~~~~~~~~~~~~
@@ -27,7 +27,7 @@
 	</div>
 	<div class="layui-form-item">
 		<input placeholder="验证码 : " hover lay-verify="required" class="code layui-input layui-input-inline"/>
-		<img src="admin/images/captcha.gif" class="codeImage"/>
+		<img src="${ctx}/static/pear/admin/images/captcha.gif" class="codeImage"/>
 	</div>
 	<div class="layui-form-item">
 		<input type="checkbox" name="" title="记住密码" lay-skin="primary" checked>
