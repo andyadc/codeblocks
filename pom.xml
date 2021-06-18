@@ -16,15 +16,16 @@
     </scm>
 
     <modules>
-        <module>codeblocks-common</module>
-        <module>codeblocks-kit</module>
-        <module>codeblocks-serialization</module>
-        <module>codeblocks-captcha</module>
-        <module>codeblocks-framework</module>
-        <module>codeblocks-test</module>
-        <module>codeblocks-spring-sample</module>
-        <module>codeblocks-qrcode</module>
+		<module>codeblocks-common</module>
+		<module>codeblocks-kit</module>
+		<module>codeblocks-serialization</module>
+		<module>codeblocks-captcha</module>
+		<module>codeblocks-framework</module>
+		<module>codeblocks-test</module>
+		<module>codeblocks-spring-sample</module>
+		<module>codeblocks-qrcode</module>
 		<module>ssm-demo</module>
+		<module>tinyrpc</module>
 	</modules>
 
     <prerequisites>
