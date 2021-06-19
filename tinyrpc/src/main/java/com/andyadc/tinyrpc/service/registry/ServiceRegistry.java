@@ -1,14 +1,15 @@
 package com.andyadc.tinyrpc.service.registry;
 
 import com.andyadc.tinyrpc.service.ServiceInstance;
-import com.andyadc.tinyrpc.util.ServiceLoaders;
 
 import java.util.List;
 import java.util.Map;
 
+import static com.andyadc.tinyrpc.util.ServiceLoaders.loadDefault;
+
 public interface ServiceRegistry {
 
-	ServiceRegistry DEFAULT = ServiceLoaders.loadDefault(ServiceRegistry.class);
+	ServiceRegistry DEFAULT = loadDefault(ServiceRegistry.class);
 
 	void initialize(Map<String, Object> config);
 
