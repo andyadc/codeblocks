@@ -11,6 +11,7 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class ServiceInvocationHandler implements InvocationHandler {
 
@@ -42,6 +43,18 @@ public class ServiceInvocationHandler implements InvocationHandler {
 	private Object execute(InvocationRequest request, Object proxy) {
 		ServiceInstance serviceInstance = selectServiceProviderInstance();
 
+		InvocationClient invocationClient = new InvocationClient(serviceInstance);
+		ChannelFuture channelFuture = invocationClient.connect().awaitUninterruptibly();
+
+		sendRequest(request, channelFuture);
+
+		ExchangeFuture exchangeFuture = ExchangeFuture.createExchangeFuture(request);
+
+		try {
+			return exchangeFuture.get(1000, TimeUnit.MICROSECONDS);
+		} catch (Exception e) {
+			ExchangeFuture.removeExchangeFuture(request.getRequestId());
+		}
 
 		throw new IllegalStateException("Invocation failed!");
 	}
