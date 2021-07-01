@@ -59,7 +59,7 @@
 		<druid.version>1.2.6</druid.version>
 		<mysql-driver.version>8.0.25</mysql-driver.version>
 		<h2.version>1.4.200</h2.version>
-		<jsqlparser.version>4.0</jsqlparser.version>
+		<jsqlparser.version>4.1</jsqlparser.version>
 		<fst.version>2.57</fst.version>
 		<kryo.version>4.0.2</kryo.version>
 		<protostuff.version>1.7.4</protostuff.version>
