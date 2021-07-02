@@ -2,15 +2,26 @@ package com.andyadc.codeblocks.common.reflect;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.lang.reflect.TypeVariable;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
+import static com.andyadc.codeblocks.common.function.Predicates.and;
+import static com.andyadc.codeblocks.common.function.Streams.filterAll;
+import static com.andyadc.codeblocks.common.function.Streams.filterList;
+import static com.andyadc.codeblocks.common.reflect.ClassUtils.*;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static java.util.Collections.unmodifiableList;
 import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toSet;
+import static java.util.stream.StreamSupport.stream;
 
 public class TypeUtils {
 

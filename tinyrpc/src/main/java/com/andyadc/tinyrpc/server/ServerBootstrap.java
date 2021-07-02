@@ -1,7 +1,7 @@
 package com.andyadc.tinyrpc.server;
 
-import com.andyadc.tinyrpc.codec.InvocationRequestEncoder;
-import com.andyadc.tinyrpc.codec.InvocationResponseDecoder;
+import com.andyadc.tinyrpc.codec.MessageDecoder;
+import com.andyadc.tinyrpc.codec.MessageEncoder;
 import com.andyadc.tinyrpc.context.ServiceContext;
 import com.andyadc.tinyrpc.service.DefaultServiceInstance;
 import com.andyadc.tinyrpc.service.registry.ServiceRegistry;
@@ -50,8 +50,8 @@ public class ServerBootstrap implements AutoCloseable {
 			.handler(new ChannelInitializer<SocketChannel>() {
 				@Override
 				protected void initChannel(SocketChannel ch) throws Exception {
-					ch.pipeline().addLast("request-encoder", new InvocationRequestEncoder());
-					ch.pipeline().addLast("response-decoder", new InvocationResponseDecoder());
+					ch.pipeline().addLast("request-encoder", new MessageEncoder());
+					ch.pipeline().addLast("response-decoder", new MessageDecoder());
 					ch.pipeline().addLast("request-handler", new InvocationRequestHandler(serviceContext));
 				}
 			});

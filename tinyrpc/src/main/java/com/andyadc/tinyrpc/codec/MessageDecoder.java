@@ -1,6 +1,5 @@
 package com.andyadc.tinyrpc.codec;
 
-import com.andyadc.tinyrpc.InvocationResponse;
 import com.andyadc.tinyrpc.serializer.Serializer;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
@@ -8,7 +7,7 @@ import io.netty.handler.codec.ByteToMessageDecoder;
 
 import java.util.List;
 
-public class InvocationResponseDecoder extends ByteToMessageDecoder {
+public class MessageDecoder extends ByteToMessageDecoder {
 
 	@Override
 	protected void decode(ChannelHandlerContext ctx, ByteBuf byteBuf, List<Object> list) throws Exception {
@@ -21,7 +20,7 @@ public class InvocationResponseDecoder extends ByteToMessageDecoder {
 		byte[] data = new byte[dataLen];
 		byteBuf.readBytes(data);
 		Serializer serializer = Serializer.DEFAULT;
-		Object result = serializer.deserialize(data, InvocationResponse.class);
+		Object result = serializer.deserialize(data, Object.class);
 		list.add(result);
 	}
 }

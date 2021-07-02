@@ -1,7 +1,7 @@
 package com.andyadc.tinyrpc.client;
 
-import com.andyadc.tinyrpc.codec.InvocationRequestEncoder;
-import com.andyadc.tinyrpc.codec.InvocationResponseDecoder;
+import com.andyadc.tinyrpc.codec.MessageDecoder;
+import com.andyadc.tinyrpc.codec.MessageEncoder;
 import com.andyadc.tinyrpc.service.ServiceInstance;
 import com.andyadc.tinyrpc.transport.InvocationResponseHandler;
 import io.netty.bootstrap.Bootstrap;
@@ -37,8 +37,8 @@ public class InvocationClient implements AutoCloseable {
 			.handler(new ChannelInitializer<SocketChannel>() {
 				@Override
 				protected void initChannel(SocketChannel channel) throws Exception {
-					channel.pipeline().addLast("request-encoder", new InvocationRequestEncoder());
-					channel.pipeline().addLast("response-decoder", new InvocationResponseDecoder());
+					channel.pipeline().addLast("request-encoder", new MessageEncoder());
+					channel.pipeline().addLast("response-decoder", new MessageDecoder());
 					channel.pipeline().addLast("response-handler", new InvocationResponseHandler());
 				}
 			});
