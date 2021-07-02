@@ -25,7 +25,7 @@ import static java.util.stream.StreamSupport.stream;
 
 public class TypeUtils {
 
-	Predicate<Class<?>> NON_OBJECT_TYPE_FILTER = t -> !Objects.equals(Object.class, t);
+	static Predicate<Class<?>> NON_OBJECT_TYPE_FILTER = t -> !Objects.equals(Object.class, t);
 
 	static boolean isParameterizedType(Type type) {
 		return type instanceof ParameterizedType;

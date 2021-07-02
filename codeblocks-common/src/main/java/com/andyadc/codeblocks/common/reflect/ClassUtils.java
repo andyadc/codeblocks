@@ -384,9 +384,7 @@ public class ClassUtils {
 		resolved.add(type);
 		Class<?> clazz = type;
 		while (clazz != null) {
-
 			Class<?>[] interfaces = clazz.getInterfaces();
-
 			if (interfaces.length > 0) {
 				// add current interfaces
 				Arrays.stream(interfaces)
