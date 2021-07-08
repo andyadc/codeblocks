@@ -22,7 +22,7 @@
 		<hikaricp.version>4.0.3</hikaricp.version>
 		<cglib.version>3.3.0</cglib.version>
 
-		<jackson.version>2.12.3</jackson.version>
+		<jackson.version>2.12.4</jackson.version>
 		<slf4j.version>1.7.31</slf4j.version>
 		<logback.version>1.2.3</logback.version>
 		<junit-jupiter.version>5.7.2</junit-jupiter.version>
@@ -144,7 +144,7 @@
 			<plugin>
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
-				<version>9.4.41.v20210516</version>
+				<version>9.4.43.v20210629</version>
 				<configuration>
 					<reload>manual</reload>
 					<httpConnector>
