@@ -41,7 +41,7 @@
 		<hibernate-validator.version>6.2.0.Final</hibernate-validator.version>
 		<mybatis.version>3.5.7</mybatis.version>
 		<mybatis-spring.version>2.0.6</mybatis-spring.version>
-		<spring-data-redis.version>2.5.1</spring-data-redis.version>
+		<spring-data-redis.version>2.5.3</spring-data-redis.version>
 		<zookeeper.version>3.7.0</zookeeper.version>
 		<redisson.version>3.16.0</redisson.version>
 		<jedis.version>3.6.2</jedis.version>
