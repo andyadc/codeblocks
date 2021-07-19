@@ -74,7 +74,7 @@
 		<commons-collections.version>4.4</commons-collections.version>
 		<commons-beanutils.version>1.9.4</commons-beanutils.version>
 		<commons-pool.version>2.10.0</commons-pool.version>
-		<commons-io.version>2.10.0</commons-io.version>
+		<commons-io.version>2.11.0</commons-io.version>
 		<commons-dbutils.version>1.7</commons-dbutils.version>
 		<caffeine.version>2.9.1</caffeine.version>
 		<ehcache.version>3.9.4</ehcache.version>
