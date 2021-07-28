@@ -11,22 +11,25 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
-import java.util.concurrent.TimeUnit;
 
+/**
+ * 服务调用处理
+ */
 public class ServiceInvocationHandler implements InvocationHandler {
 
 	private final String serviceName;
+
+	private final RpcClient rpcClient;
 
 	private final ServiceRegistry serviceRegistry;
 
 	private final ServiceInstanceSelector selector;
 
-	public ServiceInvocationHandler(String serviceName,
-									ServiceRegistry serviceRegistry,
-									ServiceInstanceSelector selector) {
+	public ServiceInvocationHandler(String serviceName, RpcClient rpcClient) {
 		this.serviceName = serviceName;
-		this.serviceRegistry = serviceRegistry;
-		this.selector = selector;
+		this.rpcClient = rpcClient;
+		this.serviceRegistry = rpcClient.getServiceRegistry();
+		this.selector = rpcClient.getSelector();
 	}
 
 	@Override
@@ -34,7 +37,6 @@ public class ServiceInvocationHandler implements InvocationHandler {
 		if (isObjectDeclaredMethod(method)) {
 			return handleObjectMethod(proxy, method, args);
 		}
-
 		InvocationRequest request = createRequest(method, args);
 
 		return execute(request, proxy);
@@ -43,15 +45,14 @@ public class ServiceInvocationHandler implements InvocationHandler {
 	private Object execute(InvocationRequest request, Object proxy) {
 		ServiceInstance serviceInstance = selectServiceProviderInstance();
 
-		InvocationClient invocationClient = new InvocationClient(serviceInstance);
-		ChannelFuture channelFuture = invocationClient.connect().awaitUninterruptibly();
+		ChannelFuture channelFuture = rpcClient.connect(serviceInstance);
 
 		sendRequest(request, channelFuture);
 
 		ExchangeFuture exchangeFuture = ExchangeFuture.createExchangeFuture(request);
 
 		try {
-			return exchangeFuture.get(1000, TimeUnit.MICROSECONDS);
+			return exchangeFuture.get();
 		} catch (Exception e) {
 			ExchangeFuture.removeExchangeFuture(request.getRequestId());
 		}
