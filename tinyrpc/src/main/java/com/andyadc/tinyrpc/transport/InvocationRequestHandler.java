@@ -6,8 +6,12 @@ import com.andyadc.tinyrpc.context.ServiceContext;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import org.apache.commons.lang3.reflect.MethodUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class InvocationRequestHandler extends SimpleChannelInboundHandler<InvocationRequest> {
+
+	private static final Logger logger = LoggerFactory.getLogger(InvocationRequestHandler.class);
 
 	private final ServiceContext serviceContext;
 
@@ -20,7 +24,7 @@ public class InvocationRequestHandler extends SimpleChannelInboundHandler<Invoca
 		String serviceName = request.getServiceName();
 		String methodName = request.getMethodName();
 		Object[] parameters = request.getParameters();
-		Class[] parameterTypes = request.getParameterTypes();
+		Class<?>[] parameterTypes = request.getParameterTypes();
 
 		Object service = serviceContext.getService(serviceName);
 		Object entity = null;
@@ -37,5 +41,7 @@ public class InvocationRequestHandler extends SimpleChannelInboundHandler<Invoca
 		response.setErrorMessage(errorMessage);
 
 		ctx.writeAndFlush(response);
+
+		logger.info("Write and Flush {}", response);
 	}
 }
