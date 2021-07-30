@@ -199,7 +199,7 @@ public class TypeUtils {
 			.collect(toSet());
 	}
 
-	static List<Class<?>> resolveTypeArguments(Class<?> targetClass) {
+	public static List<Class<?>> resolveTypeArguments(Class<?> targetClass) {
 		List<Class<?>> typeArguments = emptyList();
 		while (targetClass != null) {
 			typeArguments = resolveTypeArgumentsFromInterfaces(targetClass);
