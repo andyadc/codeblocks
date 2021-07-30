@@ -1,4 +1,4 @@
-package com.andyadc.tinyrpc.demo;
+package com.andyadc.tinyrpc.test;
 
 /**
  * 默认 {@link EchoService} 实现

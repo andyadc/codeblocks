@@ -1,4 +1,4 @@
-package com.andyadc.tinyrpc.demo;
+package com.andyadc.tinyrpc.test;
 
 import com.andyadc.tinyrpc.client.RpcClient;
 
