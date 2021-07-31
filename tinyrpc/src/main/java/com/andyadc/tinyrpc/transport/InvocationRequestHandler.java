@@ -33,6 +33,7 @@ public class InvocationRequestHandler extends SimpleChannelInboundHandler<Invoca
 			entity = MethodUtils.invokeMethod(service, methodName, parameters, parameterTypes);
 		} catch (Exception e) {
 			errorMessage = e.getMessage();
+			logger.error("Method {} invoke error", methodName, e);
 		}
 
 		InvocationResponse response = new InvocationResponse();

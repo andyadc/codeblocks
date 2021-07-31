@@ -37,8 +37,8 @@ public class RpcClient implements AutoCloseable {
 		this.bootstrap = new Bootstrap();
 		this.group = new NioEventLoopGroup();
 		this.bootstrap.group(group)
-			.option(ChannelOption.TCP_NODELAY, true)
-			.option(ChannelOption.SO_KEEPALIVE, true)
+			.option(ChannelOption.TCP_NODELAY, Boolean.TRUE)
+			.option(ChannelOption.SO_KEEPALIVE, Boolean.TRUE)
 			.option(ChannelOption.ALLOCATOR, PooledByteBufAllocator.DEFAULT)
 			.channel(NioSocketChannel.class)
 			.handler(new ChannelInitializer<SocketChannel>() {
@@ -57,8 +57,11 @@ public class RpcClient implements AutoCloseable {
 
 	public <T> T getService(String serviceName, Class<T> serviceInterfaceClass) {
 		ClassLoader classLoader = serviceInterfaceClass.getClassLoader();
-		return (T) Proxy.newProxyInstance(classLoader, new Class[]{serviceInterfaceClass},
-			new ServiceInvocationHandler(serviceName, this));
+		return (T) Proxy.newProxyInstance(
+			classLoader,
+			new Class[]{serviceInterfaceClass},
+			new ServiceInvocationHandler(serviceName, this)
+		);
 	}
 
 	public ChannelFuture connect(ServiceInstance serviceInstance) {

@@ -2,6 +2,9 @@ package com.andyadc.tinyrpc.service;
 
 import java.util.Map;
 
+/**
+ * 默认 {@link ServiceInstance} 实现
+ */
 public class DefaultServiceInstance implements ServiceInstance {
 
 	private String id;

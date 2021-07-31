@@ -3,6 +3,8 @@ package com.andyadc.tinyrpc.service.registry;
 import com.andyadc.tinyrpc.serializer.Serializer;
 import com.andyadc.tinyrpc.service.ServiceInstance;
 import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.Collection;
@@ -12,6 +14,8 @@ import java.util.stream.Collectors;
 
 public class FileSystemServiceRegistry implements ServiceRegistry {
 
+	private static final Logger logger = LoggerFactory.getLogger(FileSystemServiceRegistry.class);
+
 	private final Serializer serializer = Serializer.DEFAULT;
 
 	private File rootDirectory;
@@ -19,6 +23,7 @@ public class FileSystemServiceRegistry implements ServiceRegistry {
 	@Override
 	public void initialize(Map<String, Object> config) {
 		rootDirectory = new File(System.getProperty("java.io.tmpdir"));
+		logger.info("rootDirectory: {}", rootDirectory.getAbsolutePath());
 	}
 
 	@Override

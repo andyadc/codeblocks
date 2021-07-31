@@ -5,6 +5,8 @@ import com.andyadc.tinyrpc.loadbalancer.ServiceInstanceSelector;
 import com.andyadc.tinyrpc.service.ServiceInstance;
 import com.andyadc.tinyrpc.service.registry.ServiceRegistry;
 import io.netty.channel.ChannelFuture;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -16,6 +18,8 @@ import java.util.UUID;
  * 服务调用处理
  */
 public class ServiceInvocationHandler implements InvocationHandler {
+
+	private static final Logger logger = LoggerFactory.getLogger(ServiceInvocationHandler.class);
 
 	private final String serviceName;
 
@@ -35,6 +39,7 @@ public class ServiceInvocationHandler implements InvocationHandler {
 	@Override
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 		if (isObjectDeclaredMethod(method)) {
+			logger.info("{} isObjectDeclaredMethod", method);
 			return handleObjectMethod(proxy, method, args);
 		}
 		InvocationRequest request = createRequest(method, args);
@@ -55,8 +60,8 @@ public class ServiceInvocationHandler implements InvocationHandler {
 			return exchangeFuture.get();
 		} catch (Exception e) {
 			ExchangeFuture.removeExchangeFuture(request.getRequestId());
+			logger.error("", e);
 		}
-
 		throw new IllegalStateException("Invocation failed!");
 	}
 

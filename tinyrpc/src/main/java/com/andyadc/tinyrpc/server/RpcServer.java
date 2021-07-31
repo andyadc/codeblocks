@@ -9,16 +9,14 @@ import com.andyadc.tinyrpc.service.registry.ServiceRegistry;
 import com.andyadc.tinyrpc.transport.InvocationRequestHandler;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.PooledByteBufAllocator;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -30,6 +28,8 @@ import java.util.UUID;
  * @since 1.0.0
  */
 public class RpcServer implements AutoCloseable {
+
+	private static final Logger logger = LoggerFactory.getLogger(RpcServer.class);
 
 	private final String applicationName;
 
@@ -99,7 +99,7 @@ public class RpcServer implements AutoCloseable {
 			channel = channelFuture.sync().channel();
 			channel.closeFuture().sync();
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			logger.error("", e);
 		}
 		return this;
 	}
