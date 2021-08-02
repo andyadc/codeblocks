@@ -75,7 +75,8 @@ public abstract class AnnotatedInterceptor<A extends Annotation> implements Inte
 	public final Object execute(InvocationContext context) throws Throwable {
 		A bindingAnnotation = findInterceptorBindingAnnotation(context.getMethod());
 		if (bindingAnnotation == null) { // try to find the Constructor
-			bindingAnnotation = findInterceptorBindingAnnotation(context.getConstructor());
+			// TODO
+//			bindingAnnotation = findInterceptorBindingAnnotation(context.getConstructor());
 		}
 		if (bindingAnnotation == null) { // bindingAnnotation not found
 			return context.proceed();

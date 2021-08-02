@@ -2,7 +2,6 @@ package com.andyadc.codeblocks.framework.interceptor;
 
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
@@ -82,11 +81,6 @@ public class ChainableInvocationContext implements InvocationContext {
 	@Override
 	public Method getMethod() {
 		return delegateContext.getMethod();
-	}
-
-	@Override
-	public Constructor<?> getConstructor() {
-		return delegateContext.getConstructor();
 	}
 
 	@Override
