@@ -29,10 +29,10 @@ public class Test {
         ProducerRecord<String, String> record = new ProducerRecord<>(topic, "This is a message!");
 
         producer.send(record, (metadata, e) ->
-                System.out.println(String.format("topic: %s, partition: %s, offset: %s, ",
-                        metadata.topic(),
-                        metadata.offset(),
-                        metadata.partition()))
+                System.out.printf("topic: %s, partition: %s, offset: %s, %n",
+					metadata.topic(),
+					metadata.offset(),
+					metadata.partition())
         );
 
         producer.close();

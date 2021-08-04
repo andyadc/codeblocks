@@ -1,8 +1,19 @@
 package framework.test.kafka;
 
 import org.apache.kafka.clients.CommonClientConfigs;
-import org.apache.kafka.clients.admin.*;
-import org.apache.kafka.clients.consumer.*;
+import org.apache.kafka.clients.admin.AdminClient;
+import org.apache.kafka.clients.admin.AdminClientConfig;
+import org.apache.kafka.clients.admin.CreateTopicsResult;
+import org.apache.kafka.clients.admin.DeleteTopicsResult;
+import org.apache.kafka.clients.admin.ListConsumerGroupOffsetsResult;
+import org.apache.kafka.clients.admin.ListTopicsOptions;
+import org.apache.kafka.clients.admin.ListTopicsResult;
+import org.apache.kafka.clients.admin.NewTopic;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.clients.consumer.OffsetAndMetadata;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -14,7 +25,13 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.time.Duration;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -28,7 +45,7 @@ import java.util.stream.Collectors;
  */
 public class KafkaTest {
 
-	private static final String BROKER_SERVER = "www.qq-server.com:9092";
+	private static final String BROKER_SERVER = "localhost:9092";
 
 	private static final String[] TEST_TOPICS = {"test"};
 
@@ -107,10 +124,10 @@ public class KafkaTest {
 		ProducerRecord<String, String> record = new ProducerRecord<>(topic, null, message);
 
 		producer.send(record, (metadata, e) ->
-			System.out.println(String.format("topic: %s, partition: %s, offset: %s, ",
+			System.out.printf("topic: %s, partition: %s, offset: %s, %n",
 				metadata.topic(),
 				metadata.partition(),
-				metadata.offset()))
+				metadata.offset())
 		);
 	}
 
@@ -179,12 +196,12 @@ public class KafkaTest {
 	}
 
 	private void print(ConsumerRecord record) {
-		System.out.println(String.format("topic= %s, partition= %d, offset= %d, key= %s, value= %s ",
+		System.out.printf("topic= %s, partition= %d, offset= %d, key= %s, value= %s %n",
 			record.topic(),
 			record.partition(),
 			record.offset(),
 			record.key(),
-			record.value()));
+			record.value());
 	}
 
 	/**
