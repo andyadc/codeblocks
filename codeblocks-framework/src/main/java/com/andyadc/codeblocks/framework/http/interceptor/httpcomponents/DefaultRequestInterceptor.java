@@ -14,8 +14,8 @@ import java.time.Instant;
 public class DefaultRequestInterceptor implements HttpRequestInterceptor {
 
 	@Override
-	public void process(HttpRequest httpRequest, HttpContext httpContext) {
-		httpContext.setAttribute("requestId", UUID.randomUUID());
-		httpContext.setAttribute("startingAt", Instant.now().toEpochMilli());
+	public void process(HttpRequest request, HttpContext context) {
+		context.setAttribute("requestId", UUID.randomUUID());
+		context.setAttribute("startingAt", Instant.now().toEpochMilli());
 	}
 }

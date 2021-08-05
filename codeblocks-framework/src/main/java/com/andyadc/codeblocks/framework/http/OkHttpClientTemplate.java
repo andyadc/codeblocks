@@ -71,12 +71,12 @@ public class OkHttpClientTemplate extends AbstractHttpClientTemplate {
 		Request.Builder builder = new Request.Builder();
 		try {
 			builder.url(url(uri, parameters));
-			builder.header("Content-type", MessageFormat.format(CONTENT_TYPE_JSON_PATTERN, charset));
+			builder.header("Content-Type", MessageFormat.format(CONTENT_TYPE_JSON_PATTERN, charset));
 			headers(builder, headers);
 			Request request = builder.get().build();
 			return process(request);
 		} catch (Exception e) {
-			throw new RuntimeException("OkHttpClient error.", e);
+			throw new RuntimeException("OkHttpClient request error.", e);
 		}
 	}
 

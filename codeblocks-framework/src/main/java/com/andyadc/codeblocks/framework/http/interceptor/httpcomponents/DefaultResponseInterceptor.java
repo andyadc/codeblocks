@@ -17,8 +17,8 @@ public class DefaultResponseInterceptor implements HttpResponseInterceptor {
 	private static final Logger logger = LoggerFactory.getLogger(DefaultResponseInterceptor.class);
 
 	@Override
-	public void process(HttpResponse httpResponse, HttpContext httpContext) {
-		long startingAt = (long) httpContext.getAttribute("startingAt");
+	public void process(HttpResponse response, HttpContext context) {
+		long startingAt = (long) context.getAttribute("startingAt");
 		logger.info("Request elapsed time={}", Instant.now().toEpochMilli() - startingAt);
 	}
 }
