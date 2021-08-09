@@ -22,7 +22,7 @@ public interface ThrowableSupplier<T> {
 		try {
 			result = supplier.get();
 		} catch (Throwable e) {
-			throw ExceptionUtils.warpThrowable(e, errorType);
+			throw ExceptionUtils.wrapThrowable(e, errorType);
 		}
 		return result;
 	}

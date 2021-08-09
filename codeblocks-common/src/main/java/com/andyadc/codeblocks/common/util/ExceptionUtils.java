@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 public interface ExceptionUtils {
 
-	static <T extends Throwable> T warpThrowable(Throwable source, Class<T> exceptionType) {
+	static <T extends Throwable> T wrapThrowable(Throwable source, Class<T> exceptionType) {
 		String message = source.getMessage();
 		Throwable cause = source.getCause();
 
