@@ -3,7 +3,6 @@ package com.andyadc.codeblocks.framework.lock;
 import com.andyadc.codeblocks.common.function.ThrowableAction;
 import com.andyadc.codeblocks.common.function.ThrowableSupplier;
 import org.apache.commons.lang3.StringUtils;
-import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -200,7 +199,7 @@ public class DatabaseDistributedLock implements Lock {
 	}
 
 	@Override
-	public boolean tryLock(long time, @NotNull TimeUnit unit) throws InterruptedException {
+	public boolean tryLock(long time, TimeUnit unit) throws InterruptedException {
 		return false;
 	}
 
