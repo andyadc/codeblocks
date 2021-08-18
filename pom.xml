@@ -35,7 +35,7 @@
     <properties>
 		<spring.version>5.3.9</spring.version>
 		<aspectj.version>1.9.7</aspectj.version>
-		<netty.version>4.1.65.Final</netty.version>
+		<netty.version>4.1.67.Final</netty.version>
 		<httpcomponents.version>4.5.13</httpcomponents.version>
 		<okhttp.version>4.9.1</okhttp.version>
 		<hibernate-validator.version>6.2.0.Final</hibernate-validator.version>
@@ -73,10 +73,10 @@
 		<commons-codec.version>1.15</commons-codec.version>
 		<commons-collections.version>4.4</commons-collections.version>
 		<commons-beanutils.version>1.9.4</commons-beanutils.version>
-		<commons-pool.version>2.11.0</commons-pool.version>
+		<commons-pool.version>2.11.1</commons-pool.version>
 		<commons-io.version>2.11.0</commons-io.version>
 		<commons-dbutils.version>1.7</commons-dbutils.version>
-		<caffeine.version>2.9.1</caffeine.version>
+		<caffeine.version>2.9.2</caffeine.version>
 		<ehcache.version>3.9.5</ehcache.version>
 		<zxing.version>3.4.1</zxing.version>
 		<poi.version>5.0.0</poi.version>
