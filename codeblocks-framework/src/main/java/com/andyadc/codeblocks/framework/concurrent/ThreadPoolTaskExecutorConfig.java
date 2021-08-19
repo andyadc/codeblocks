@@ -1,6 +1,6 @@
 package com.andyadc.codeblocks.framework.concurrent;
 
-import com.andyadc.codeblocks.common.Constants;
+import com.andyadc.codeblocks.common.constants.Constants;
 import org.slf4j.MDC;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.task.TaskDecorator;

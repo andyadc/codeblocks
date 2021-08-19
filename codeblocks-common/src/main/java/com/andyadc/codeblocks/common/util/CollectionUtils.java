@@ -3,6 +3,7 @@ package com.andyadc.codeblocks.common.util;
 import java.util.AbstractSet;
 import java.util.Collection;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -39,30 +40,103 @@ public class CollectionUtils {
 		return !isEmpty(collection);
 	}
 
+
+	public static <T> Set<T> ofSet(Collection<T> values, T... others) {
+		int size = size(values);
+
+		if (size < 1) {
+			return ofSet(others);
+		}
+
+		Set<T> elements = newLinkedHashSet(size + others.length);
+		// add values
+		elements.addAll(values);
+
+		// add others
+		for (T other : others) {
+			elements.add(other);
+		}
+		return unmodifiableSet(elements);
+	}
+
 	/**
 	 * Convert to multiple values to be {@link LinkedHashSet}
 	 *
-	 * @param values one or more values
+	 * @param values values
 	 * @param <T>    the type of <code>values</code>
 	 * @return read-only {@link Set}
 	 */
-	public static <T> Set<T> ofSet(T... values) {
-		int size = values == null ? 0 : values.length;
+	public static <T> Set<T> ofSet(T[] values) {
+		int size = ArrayUtils.length(values);
 		if (size < 1) {
 			return emptySet();
 		}
 
-		float loadFactor = 1f / ((size + 1) * 1.0f);
-
-		if (loadFactor > 0.75f) {
-			loadFactor = 0.75f;
-		}
-
-		Set<T> elements = new LinkedHashSet<>(size, loadFactor);
+		Set<T> elements = newLinkedHashSet(size);
 		for (int i = 0; i < size; i++) {
 			elements.add(values[i]);
 		}
 		return unmodifiableSet(elements);
+	}
+
+	/**
+	 * Convert to multiple values to be {@link LinkedHashSet}
+	 *
+	 * @param one    one value
+	 * @param others others values
+	 * @param <T>    the type of <code>values</code>
+	 * @return read-only {@link Set}
+	 */
+	public static <T> Set<T> ofSet(T one, T... others) {
+		int size = others == null ? 0 : others.length;
+		if (size < 1) {
+			return singleton(one);
+		}
+
+		Set<T> elements = new LinkedHashSet<>(size + 1, Float.MIN_NORMAL);
+		elements.add(one);
+		for (int i = 0; i < size; i++) {
+			elements.add(others[i]);
+		}
+		return unmodifiableSet(elements);
+	}
+
+	public static <T> Set<T> newLinkedHashSet() {
+		return new LinkedHashSet<>();
+	}
+
+	public static <T> Set<T> newLinkedHashSet(int size) {
+		return newLinkedHashSet(size, Float.MIN_NORMAL);
+	}
+
+	public static <T> Set<T> newLinkedHashSet(int size, float loadFactor) {
+		return new LinkedHashSet<>(size, loadFactor);
+	}
+
+	public static <T> Set<T> newLinkedHashSet(Iterable<T> values) {
+		Set<T> set = newLinkedHashSet();
+		values.forEach(set::add);
+		return set;
+	}
+
+	public static <T> List<T> newArrayList(int size) {
+		return new ArrayList<>(size);
+	}
+
+	public static <T> List<T> newArrayList(Iterable<T> values) {
+		List<T> list = new ArrayList<>();
+		values.forEach(list::add);
+		return list;
+	}
+
+	public static <T> List<T> newLinkedList(Iterable<T> values) {
+		List<T> list = newLinkedList();
+		values.forEach(list::add);
+		return list;
+	}
+
+	public static <T> List<T> newLinkedList() {
+		return new LinkedList<>();
 	}
 
 	/**
@@ -116,6 +190,7 @@ public class CollectionUtils {
 	 * @since 1.0.0
 	 */
 	public static <T> int addAll(Collection<T> collection, T... values) {
+
 		int size = values == null ? 0 : values.length;
 
 		if (collection == null || size < 1) {
@@ -151,5 +226,4 @@ public class CollectionUtils {
 			return values.iterator().next();
 		}
 	}
-
 }

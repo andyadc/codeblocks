@@ -1,6 +1,6 @@
 package com.andyadc.codeblocks.framework.http;
 
-import com.andyadc.codeblocks.common.Constants;
+import com.andyadc.codeblocks.common.constants.Constants;
 
 import java.io.Serializable;
 import java.util.Map;
