@@ -2,6 +2,7 @@ package com.andyadc.codeblocks.common.jar;
 
 import com.andyadc.codeblocks.common.lang.StringUtils;
 
+import java.net.URL;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;

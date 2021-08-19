@@ -1,6 +1,7 @@
 package com.andyadc.codeblocks.common.util;
 
 import java.util.AbstractSet;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -160,7 +161,6 @@ public class CollectionUtils {
 	 * @since 1.0.0
 	 */
 	public static boolean equals(Collection<?> one, Collection<?> another) {
-
 		if (one == another) {
 			return true;
 		}
@@ -190,7 +190,6 @@ public class CollectionUtils {
 	 * @since 1.0.0
 	 */
 	public static <T> int addAll(Collection<T> collection, T... values) {
-
 		int size = values == null ? 0 : values.length;
 
 		if (collection == null || size < 1) {
@@ -203,7 +202,6 @@ public class CollectionUtils {
 				effectedCount++;
 			}
 		}
-
 		return effectedCount;
 	}
 
