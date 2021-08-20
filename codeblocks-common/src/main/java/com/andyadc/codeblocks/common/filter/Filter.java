@@ -14,7 +14,6 @@ public interface Filter<T> {
 	 * Does accept filtered object?
 	 *
 	 * @param filteredObject filtered object
-	 * @return
 	 */
 	boolean accept(T filteredObject);
 }
