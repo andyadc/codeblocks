@@ -1,6 +1,7 @@
 package com.andyadc.codeblocks.common.reflect;
 
 import com.andyadc.codeblocks.common.function.Streams;
+import com.andyadc.codeblocks.common.lang.StringUtils;
 
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
@@ -11,6 +12,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.function.Predicate;
+
+import static com.andyadc.codeblocks.common.reflect.ClassUtils.getAllInheritedTypes;
 
 /**
  * The utilities class for Java Refection {@link Method}
@@ -128,7 +131,7 @@ public class MethodUtils {
 	static Method findMethod(Class type, String methodName, Class<?>... parameterTypes) {
 		Method method = null;
 		try {
-			if (type != null && isNotEmpty(methodName)) {
+			if (type != null && StringUtils.isNotEmpty(methodName)) {
 				method = type.getDeclaredMethod(methodName, parameterTypes);
 			}
 		} catch (NoSuchMethodException e) {

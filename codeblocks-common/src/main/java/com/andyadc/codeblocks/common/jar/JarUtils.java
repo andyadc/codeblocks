@@ -1,7 +1,25 @@
 package com.andyadc.codeblocks.common.jar;
 
+import com.andyadc.codeblocks.common.constants.FileSuffixConstants;
+import com.andyadc.codeblocks.common.constants.ProtocolConstants;
+import com.andyadc.codeblocks.common.constants.SeparatorConstants;
+import com.andyadc.codeblocks.common.filter.JarEntryFilter;
+import com.andyadc.codeblocks.common.lang.StringUtils;
+import com.andyadc.codeblocks.common.util.CollectionUtils;
+import com.andyadc.codeblocks.common.util.URLUtils;
+import org.apache.commons.io.IOUtils;
+
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URL;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.List;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 public class JarUtils {
 
@@ -90,12 +108,12 @@ public class JarUtils {
 			return Collections.emptyList();
 		}
 		Enumeration<JarEntry> jarEntries = jarFile.entries();
-		List<JarEntry> jarEntriesList = list(jarEntries);
+		List<JarEntry> jarEntriesList = Collections.list(jarEntries);
 		return doFilter(jarEntriesList, jarEntryFilter);
 	}
 
 	protected static List<JarEntry> doFilter(Iterable<JarEntry> jarEntries, JarEntryFilter jarEntryFilter) {
-		List<JarEntry> jarEntriesList = newLinkedList();
+		List<JarEntry> jarEntriesList = CollectionUtils.newLinkedList();
 		for (JarEntry jarEntry : jarEntries) {
 			if (jarEntryFilter == null || jarEntryFilter.accept(jarEntry)) {
 				jarEntriesList.add(jarEntry);
@@ -117,7 +135,6 @@ public class JarUtils {
 		return jarEntry;
 	}
 
-
 	/**
 	 * Extract the source {@link JarFile} to target directory
 	 *
@@ -138,9 +155,7 @@ public class JarUtils {
 	 * @throws IOException When the source jar file is an invalid {@link JarFile}
 	 */
 	public static void extract(File jarSourceFile, File targetDirectory, JarEntryFilter jarEntryFilter) throws IOException {
-
 		final JarFile jarFile = new JarFile(jarSourceFile);
-
 		extract(jarFile, targetDirectory, jarEntryFilter);
 	}
 
@@ -181,7 +196,6 @@ public class JarUtils {
 		});
 
 		jarEntriesList = doFilter(jarEntriesList, jarEntryFilter);
-
 		doExtract(jarFile, jarEntriesList, targetDirectory);
 	}
 

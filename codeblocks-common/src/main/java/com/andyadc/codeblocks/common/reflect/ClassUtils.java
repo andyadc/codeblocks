@@ -3,14 +3,20 @@ package com.andyadc.codeblocks.common.reflect;
 import com.andyadc.codeblocks.common.constants.Constants;
 import com.andyadc.codeblocks.common.constants.FileSuffixConstants;
 import com.andyadc.codeblocks.common.constants.PathConstants;
+import com.andyadc.codeblocks.common.filter.ClassFileJarEntryFilter;
+import com.andyadc.codeblocks.common.function.ThrowableFunction;
+import com.andyadc.codeblocks.common.io.util.FileUtils;
+import com.andyadc.codeblocks.common.jar.SimpleFileScanner;
 import com.andyadc.codeblocks.common.jar.SimpleJarEntryScanner;
 import com.andyadc.codeblocks.common.lang.StringUtils;
 import com.andyadc.codeblocks.common.util.ArrayUtils;
 import com.andyadc.codeblocks.common.util.ClassPathUtils;
 import com.andyadc.codeblocks.common.util.CollectionUtils;
+import org.apache.commons.io.filefilter.SuffixFileFilter;
 
 import java.io.File;
 import java.lang.reflect.Array;
+import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.net.MalformedURLException;
@@ -29,11 +35,13 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Queue;
 import java.util.Set;
+import java.util.WeakHashMap;
 import java.util.function.Predicate;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 import static com.andyadc.codeblocks.common.function.Streams.filterAll;
+import static com.andyadc.codeblocks.common.reflect.ClassLoaderUtils.getClassLoader;
 import static com.andyadc.codeblocks.common.util.CollectionUtils.ofSet;
 import static java.util.Collections.emptySet;
 import static java.util.Collections.unmodifiableSet;
@@ -103,14 +111,14 @@ public class ClassUtils {
 	 * Map with primitive type name as key and corresponding primitive type as
 	 * value, for example: "int" -> "int.class".
 	 */
-	private static final Map<String, Class<?>> PRIMITIVE_TYPE_NAME_MAP = new HashMap<String, Class<?>>(32);
+	private static final Map<String, Class<?>> PRIMITIVE_TYPE_NAME_MAP = new HashMap<>(32);
 
 	private static final char PACKAGE_SEPARATOR_CHAR = '.';
 	/**
 	 * Map with primitive wrapper type as key and corresponding primitive type
 	 * as value, for example: Integer.class -> int.class.
 	 */
-	private static final Map<Class<?>, Class<?>> PRIMITIVE_WRAPPER_TYPE_MAP = new HashMap<Class<?>, Class<?>>(16);
+	private static final Map<Class<?>, Class<?>> PRIMITIVE_WRAPPER_TYPE_MAP = new HashMap<>(16);
 	private static final Map<String, Set<String>> classPathToClassNamesMap = initClassPathToClassNamesMap();
 
 	private static final Map<String, String> classNameToClassPathsMap = initClassNameToClassPathsMap();
@@ -564,7 +572,7 @@ public class ClassUtils {
 	}
 
 	public static <T> T unwrap(Class<T> type) {
-		return execute(type, Class::newInstance);
+		return ThrowableFunction.execute(type, Class::newInstance);
 	}
 
 	/**
@@ -598,7 +606,6 @@ public class ClassUtils {
 		}
 
 		concreteClassCache.put(type, Boolean.TRUE);
-
 		return true;
 	}
 
@@ -606,7 +613,6 @@ public class ClassUtils {
 		if (type == null) {
 			return false;
 		}
-
 		return !type.isLocalClass() && !type.isMemberClass();
 	}
 
@@ -761,7 +767,6 @@ public class ClassUtils {
 				}
 			}
 		} catch (Exception e) {
-
 		}
 		return classNames;
 	}
@@ -844,7 +849,7 @@ public class ClassUtils {
 	 * @return If can't be resolved, return {@link #EMPTY_CLASS_ARRAY empty class array}
 	 */
 	public static Class[] resolveTypes(Object... values) {
-		if (isEmpty(values)) {
+		if (ArrayUtils.isEmpty(values)) {
 			return EMPTY_CLASS_ARRAY;
 		}
 
@@ -857,5 +862,4 @@ public class ClassUtils {
 		}
 		return types;
 	}
-
 }

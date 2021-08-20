@@ -3,6 +3,7 @@ package com.andyadc.codeblocks.common.util;
 import java.util.AbstractSet;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -91,7 +92,7 @@ public class CollectionUtils {
 	public static <T> Set<T> ofSet(T one, T... others) {
 		int size = others == null ? 0 : others.length;
 		if (size < 1) {
-			return singleton(one);
+			return Collections.singleton(one);
 		}
 
 		Set<T> elements = new LinkedHashSet<>(size + 1, Float.MIN_NORMAL);

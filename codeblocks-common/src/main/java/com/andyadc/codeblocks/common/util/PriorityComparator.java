@@ -4,8 +4,6 @@ import javax.annotation.Priority;
 import java.util.Comparator;
 import java.util.Objects;
 
-import static com.andyadc.codeblocks.common.reflect.ClassUtils.findAnnotation;
-
 /**
  * The {@link Comparator} for the annotation {@link Priority}
  * <p>
@@ -28,8 +26,8 @@ public class PriorityComparator implements Comparator<Object> {
 			return 0;
 		}
 
-		Priority priority1 = findAnnotation(type1, PRIORITY_CLASS);
-		Priority priority2 = findAnnotation(type2, PRIORITY_CLASS);
+		Priority priority1 = AnnotationUtils.findAnnotation(type1, PRIORITY_CLASS);
+		Priority priority2 = AnnotationUtils.findAnnotation(type2, PRIORITY_CLASS);
 
 		if (priority1 != null && priority2 != null) {
 			return Integer.compare(priority1.value(), priority2.value());

@@ -4,6 +4,9 @@ import com.andyadc.codeblocks.common.constants.Constants;
 import com.andyadc.codeblocks.common.constants.FileSuffixConstants;
 import com.andyadc.codeblocks.common.constants.PathConstants;
 import com.andyadc.codeblocks.common.lang.StringUtils;
+import com.andyadc.codeblocks.common.util.CollectionUtils;
+import com.andyadc.codeblocks.common.util.MapUtils;
+import com.andyadc.codeblocks.common.util.URLUtils;
 
 import java.io.IOException;
 import java.lang.management.ClassLoadingMXBean;
@@ -20,6 +23,7 @@ import java.util.jar.JarFile;
 
 import static com.andyadc.codeblocks.common.constants.SystemConstants.JAVA_VENDOR;
 import static com.andyadc.codeblocks.common.constants.SystemConstants.JAVA_VERSION;
+import static com.andyadc.codeblocks.common.util.CollectionUtils.ofSet;
 import static java.util.Collections.emptySet;
 import static java.util.Collections.list;
 
@@ -371,7 +375,7 @@ public abstract class ClassLoaderUtils {
 	 */
 
 	public static Map<ClassLoader, Set<Class<?>>> getAllLoadedClassesMap(ClassLoader classLoader) throws UnsupportedOperationException {
-		Map<ClassLoader, Set<Class<?>>> allLoadedClassesMap = newLinkedHashMap();
+		Map<ClassLoader, Set<Class<?>>> allLoadedClassesMap = MapUtils.newLinkedHashMap();
 		Set<ClassLoader> classLoadersSet = getInheritableClassLoaders(classLoader);
 		for (ClassLoader loader : classLoadersSet) {
 			allLoadedClassesMap.put(loader, getLoadedClasses(loader));
@@ -539,9 +543,5 @@ public abstract class ClassLoaderUtils {
 		 * @return normalized resource name
 		 */
 		abstract String normalize(String name);
-
-
 	}
-
-
 }

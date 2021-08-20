@@ -2,7 +2,9 @@ package com.andyadc.codeblocks.common.util;
 
 import com.andyadc.codeblocks.common.constants.Constants;
 import com.andyadc.codeblocks.common.constants.PathConstants;
+import com.andyadc.codeblocks.common.constants.ProtocolConstants;
 import com.andyadc.codeblocks.common.constants.SeparatorConstants;
+import com.andyadc.codeblocks.common.jar.JarUtils;
 import com.andyadc.codeblocks.common.lang.StringUtils;
 
 import java.io.File;
@@ -14,6 +16,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+
+import static com.andyadc.codeblocks.common.util.ArrayUtils.length;
 
 /**
  * {@link URL} Utility class

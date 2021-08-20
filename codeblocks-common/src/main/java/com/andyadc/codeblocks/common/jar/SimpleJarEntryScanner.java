@@ -1,8 +1,12 @@
 package com.andyadc.codeblocks.common.jar;
 
+import com.andyadc.codeblocks.common.constants.PathConstants;
+import com.andyadc.codeblocks.common.filter.JarEntryFilter;
 import com.andyadc.codeblocks.common.lang.StringUtils;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -28,7 +32,6 @@ public class SimpleJarEntryScanner {
 	 * @throws IOException              <ul> <li>{@link JarUtils#toJarFile(URL)}
 	 * @since 1.0.0
 	 */
-
 	public Set<JarEntry> scan(URL jarURL, final boolean recursive) throws NullPointerException, IllegalArgumentException, IOException {
 		return scan(jarURL, recursive, null);
 	}
@@ -44,7 +47,6 @@ public class SimpleJarEntryScanner {
 	 * @see JarEntryFilter
 	 * @since 1.0.0
 	 */
-
 	public Set<JarEntry> scan(URL jarURL, final boolean recursive, JarEntryFilter jarEntryFilter) throws NullPointerException, IllegalArgumentException, IOException {
 		String relativePath = JarUtils.resolveRelativePath(jarURL);
 		JarFile jarFile = JarUtils.toJarFile(jarURL);
