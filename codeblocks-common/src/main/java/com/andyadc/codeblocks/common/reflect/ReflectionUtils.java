@@ -1,5 +1,8 @@
 package com.andyadc.codeblocks.common.reflect;
 
+import java.beans.BeanInfo;
+import java.beans.Introspector;
+import java.beans.PropertyDescriptor;
 import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -214,9 +217,12 @@ public abstract class ReflectionUtils {
 	 * @version 1.0.0
 	 * @since 1.0.0 2012-2-28 下午07:42:26
 	 */
-
 	public static Class<?> getCallerClass() throws IllegalStateException {
-		return getCallerClass(sunReflectReflectionInvocationFrame);
+		return doGetCallerClass(sunReflectReflectionInvocationFrame);
+	}
+
+	public static Class<?> getCallerClass(int invocationLevel) throws IllegalStateException {
+		return doGetCallerClass(sunReflectReflectionInvocationFrame + invocationLevel);
 	}
 
 	/**
@@ -253,7 +259,7 @@ public abstract class ReflectionUtils {
 	 * @see
 	 * @since 1.0.0
 	 */
-	static Class<?> getCallerClass(int invocationFrame) {
+	static Class<?> doGetCallerClass(int invocationFrame) {
 		if (supportedSunReflectReflection) {
 			Class<?> callerClass = getCallerClassInSunJVM(invocationFrame + 1);
 			if (callerClass != null)
@@ -351,4 +357,24 @@ public abstract class ReflectionUtils {
 		}
 	}
 
+	public static String toString(Object instance) {
+		Class<?> type = instance.getClass();
+		StringBuilder stringBuilder = new StringBuilder(type.getSimpleName());
+		stringBuilder.append("{");
+		try {
+			BeanInfo beanInfo = Introspector.getBeanInfo(type, Object.class);
+			for (PropertyDescriptor propertyDescriptor : beanInfo.getPropertyDescriptors()) {
+				Method readMethod = propertyDescriptor.getReadMethod();
+				Class<?> returnType = readMethod.getReturnType();
+				stringBuilder.append(propertyDescriptor.getName())
+					.append(" = ")
+					.append(ClassUtils.isSimpleType(returnType) ? readMethod.invoke(instance) : returnType.getName())
+					.append(" , ");
+			}
+		} catch (Throwable e) {
+			throw new RuntimeException(e);
+		}
+		stringBuilder.append("}");
+		return stringBuilder.toString();
+	}
 }

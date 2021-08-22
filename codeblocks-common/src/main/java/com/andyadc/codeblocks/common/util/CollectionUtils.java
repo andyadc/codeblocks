@@ -18,7 +18,7 @@ import static java.util.Collections.unmodifiableSet;
  *
  * @since 1.0.0
  */
-public class CollectionUtils {
+public abstract class CollectionUtils extends BaseUtils {
 
 	/**
 	 * Return {@code true} if the supplied Collection is {@code null} or empty.
@@ -41,7 +41,6 @@ public class CollectionUtils {
 	public static boolean isNotEmpty(Collection<?> collection) {
 		return !isEmpty(collection);
 	}
-
 
 	public static <T> Set<T> ofSet(Collection<T> values, T... others) {
 		int size = size(values);
@@ -206,6 +205,17 @@ public class CollectionUtils {
 		return effectedCount;
 	}
 
+	public static <T> boolean addIfAbsent(Collection<T> collection, T valueToAdd) {
+		if (collection == null || valueToAdd == null) {
+			return false;
+		}
+		boolean added = false;
+		if (!collection.contains(valueToAdd)) {
+			added = collection.add(valueToAdd);
+		}
+		return added;
+	}
+
 	/**
 	 * Take the first element from the specified collection
 	 *
@@ -224,5 +234,17 @@ public class CollectionUtils {
 		} else {
 			return values.iterator().next();
 		}
+	}
+
+	public static <T> T findDuplicatedElement(Collection<T> values) {
+		Set<T> elements = new LinkedHashSet<>();
+		T duplicatedElement = null;
+		for (T value : values) {
+			if (!elements.add(value)) {
+				duplicatedElement = value;
+				break;
+			}
+		}
+		return duplicatedElement;
 	}
 }

@@ -46,22 +46,25 @@ import static com.andyadc.codeblocks.common.util.CollectionUtils.ofSet;
 import static java.util.Collections.emptySet;
 import static java.util.Collections.unmodifiableSet;
 
-public class ClassUtils {
+public abstract class ClassUtils {
+
 	/**
 	 * Suffix for array class names: "[]"
 	 */
 	public static final String ARRAY_SUFFIX = "[]";
 
-	public static final Class[] EMPTY_CLASS_ARRAY = new Class[0];
-	static final Map<Class<?>, Boolean> concreteClassCache = new WeakHashMap<>();
 	/**
 	 * @see {@link Class#ANNOTATION}
 	 */
 	private static final int ANNOTATION = 0x00002000;
+
 	/**
 	 * @see {@link Class#ENUM}
 	 */
 	private static final int ENUM = 0x00004000;
+
+	public static final Class[] EMPTY_CLASS_ARRAY = new Class[0];
+	static final Map<Class<?>, Boolean> concreteClassCache = new WeakHashMap<>();
 
 	/**
 	 * Simple Types including:
@@ -104,21 +107,21 @@ public class ClassUtils {
 	 */
 	private static final String INTERNAL_ARRAY_PREFIX = "[L";
 	/**
-	 * @see {@link Class#SYNTHETIC}
-	 */
-	private static final int SYNTHETIC = 0x00001000;
-	/**
 	 * Map with primitive type name as key and corresponding primitive type as
 	 * value, for example: "int" -> "int.class".
 	 */
 	private static final Map<String, Class<?>> PRIMITIVE_TYPE_NAME_MAP = new HashMap<>(32);
-
-	private static final char PACKAGE_SEPARATOR_CHAR = '.';
 	/**
 	 * Map with primitive wrapper type as key and corresponding primitive type
 	 * as value, for example: Integer.class -> int.class.
 	 */
 	private static final Map<Class<?>, Class<?>> PRIMITIVE_WRAPPER_TYPE_MAP = new HashMap<>(16);
+	/**
+	 * @see {@link Class#SYNTHETIC}
+	 */
+	private static final int SYNTHETIC = 0x00001000;
+	private static final char PACKAGE_SEPARATOR_CHAR = '.';
+
 	private static final Map<String, Set<String>> classPathToClassNamesMap = initClassPathToClassNamesMap();
 
 	private static final Map<String, String> classNameToClassPathsMap = initClassNameToClassPathsMap();
@@ -137,9 +140,8 @@ public class ClassUtils {
 
 		Set<Class<?>> primitiveTypeNames = new HashSet<>(32);
 		primitiveTypeNames.addAll(PRIMITIVE_WRAPPER_TYPE_MAP.values());
-		primitiveTypeNames.addAll(Arrays
-			.asList(boolean[].class, byte[].class, char[].class, double[].class,
-				float[].class, int[].class, long[].class, short[].class));
+		primitiveTypeNames.addAll(Arrays.asList(boolean[].class, byte[].class, char[].class, double[].class,
+			float[].class, int[].class, long[].class, short[].class));
 		for (Class<?> primitiveTypeName : primitiveTypeNames) {
 			PRIMITIVE_TYPE_NAME_MAP.put(primitiveTypeName.getName(), primitiveTypeName);
 		}
@@ -162,7 +164,6 @@ public class ClassUtils {
 
 	private static Map<String, String> initClassNameToClassPathsMap() {
 		Map<String, String> classNameToClassPathsMap = new LinkedHashMap<>();
-
 		for (Map.Entry<String, Set<String>> entry : classPathToClassNamesMap.entrySet()) {
 			String classPath = entry.getKey();
 			Set<String> classNames = entry.getValue();
@@ -305,6 +306,7 @@ public class ClassUtils {
 			return "null";
 		}
 		return obj.getClass().getSimpleName() + "@" + System.identityHashCode(obj);
+
 	}
 
 	public static String simpleClassName(Class<?> clazz) {
@@ -318,6 +320,7 @@ public class ClassUtils {
 		}
 		return className;
 	}
+
 
 	/**
 	 * The specified type is primitive type or simple type
@@ -370,12 +373,61 @@ public class ClassUtils {
 		return value;
 	}
 
+
 	/**
 	 * We only check boolean value at this moment.
+	 *
+	 * @param type
+	 * @param value
+	 * @return
 	 */
 	public static boolean isTypeMatch(Class<?> type, String value) {
 		return (type != boolean.class && type != Boolean.class)
 			|| ("true".equals(value) || "false".equals(value));
+	}
+
+	/**
+	 * Get all classes from the specified type with filters
+	 *
+	 * @param type         the specified type
+	 * @param classFilters class filters
+	 * @return non-null read-only {@link Set}
+	 */
+	public static Set<Class<?>> getAllClasses(Class<?> type, Predicate<Class<?>>... classFilters) {
+		return getAllClasses(type, true, classFilters);
+	}
+
+	/**
+	 * Get all classes(may include self type) from the specified type with filters
+	 *
+	 * @param type         the specified type
+	 * @param includedSelf included self type or not
+	 * @param classFilters class filters
+	 * @return non-null read-only {@link Set}
+	 */
+	public static Set<Class<?>> getAllClasses(Class<?> type, boolean includedSelf, Predicate<Class<?>>... classFilters) {
+		if (type == null || type.isPrimitive()) {
+			return emptySet();
+		}
+
+		List<Class<?>> allClasses = new LinkedList<>();
+
+		Class<?> superClass = type.getSuperclass();
+		while (superClass != null) {
+			// add current super class
+			allClasses.add(superClass);
+			superClass = superClass.getSuperclass();
+		}
+
+		// FIFO -> FILO
+		Collections.reverse(allClasses);
+
+		if (includedSelf) {
+			allClasses.add(type);
+		}
+
+		// Keep the same order from List
+		return ofSet(filterAll(allClasses, classFilters));
 	}
 
 	/**
@@ -387,15 +439,7 @@ public class ClassUtils {
 	 * @since 1.0.0
 	 */
 	public static Set<Class<?>> getAllSuperClasses(Class<?> type, Predicate<Class<?>>... classFilters) {
-		Set<Class<?>> allSuperClasses = new LinkedHashSet<>();
-		Class<?> superClass = type.getSuperclass();
-		while (superClass != null) {
-			// add current super class
-			allSuperClasses.add(superClass);
-			superClass = superClass.getSuperclass();
-		}
-
-		return unmodifiableSet(filterAll(allSuperClasses, classFilters));
+		return getAllClasses(type, false, classFilters);
 	}
 
 	/**
@@ -411,13 +455,14 @@ public class ClassUtils {
 			return emptySet();
 		}
 
-		Set<Class<?>> allInterfaces = new LinkedHashSet<>();
+		List<Class<?>> allInterfaces = new LinkedList<>();
 		Set<Class<?>> resolved = new LinkedHashSet<>();
 		Queue<Class<?>> waitResolve = new LinkedList<>();
 
 		resolved.add(type);
 		Class<?> clazz = type;
 		while (clazz != null) {
+
 			Class<?>[] interfaces = clazz.getInterfaces();
 
 			if (ArrayUtils.isNotEmpty(interfaces)) {
@@ -439,7 +484,10 @@ public class ClassUtils {
 			clazz = waitResolve.poll();
 		}
 
-		return filterAll(allInterfaces, interfaceFilters);
+		// FIFO -> FILO
+		Collections.reverse(allInterfaces);
+
+		return ofSet(filterAll(allInterfaces, interfaceFilters));
 	}
 
 	/**
@@ -564,11 +612,11 @@ public class ClassUtils {
 	 * Is generic class or not?
 	 *
 	 * @param type the target type
-	 * @return if the target type is not null or <code>void</code> or Void.class, return <code>true</code>, or false
+	 * @return <code>true</code> if the target type is generic class, <code>false</code> otherwise.
 	 * @since 1.0.0
 	 */
 	public static boolean isGenericClass(Class<?> type) {
-		return type != null && !void.class.equals(type) && !Void.class.equals(type);
+		return type != null && type.getTypeParameters().length > 0;
 	}
 
 	public static <T> T unwrap(Class<T> type) {
@@ -591,21 +639,65 @@ public class ClassUtils {
 			return true;
 		}
 
+		if (isGeneralClass(type, Boolean.FALSE)) {
+			concreteClassCache.put(type, Boolean.TRUE);
+			return true;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Is the specified type a abstract class or not?
+	 * <p>
+	 *
+	 * @param type the type
+	 * @return true if type is a abstract class, false otherwise.
+	 */
+	public static boolean isAbstractClass(Class<?> type) {
+		return isGeneralClass(type, Boolean.TRUE);
+	}
+
+	/**
+	 * Is the specified type a general class or not?
+	 * <p>
+	 *
+	 * @param type the type
+	 * @return true if type is a general class, false otherwise.
+	 */
+	public static boolean isGeneralClass(Class<?> type) {
+		return isGeneralClass(type, null);
+	}
+
+	/**
+	 * Is the specified type a general class or not?
+	 * <p>
+	 * If <code>isAbstract</code> == <code>null</code>,  it will not check <code>type</code> is abstract or not.
+	 *
+	 * @param type       the type
+	 * @param isAbstract optional abstract flag
+	 * @return true if type is a general (abstract) class, false otherwise.
+	 */
+	protected static boolean isGeneralClass(Class<?> type, Boolean isAbstract) {
+		if (type == null) {
+			return false;
+		}
+
 		int mod = type.getModifiers();
+
 		if (Modifier.isInterface(mod)
-			|| Modifier.isAbstract(mod)
 			|| isAnnotation(mod)
 			|| isEnum(mod)
-			|| isSynthetic(mod)) {
+			|| isSynthetic(mod)
+			|| type.isPrimitive()
+			|| type.isArray()) {
 			return false;
 		}
 
-		// native methods
-		if (type.isPrimitive() || type.isArray()) {
-			return false;
+		if (isAbstract != null) {
+			return Modifier.isAbstract(mod) == isAbstract.booleanValue();
 		}
 
-		concreteClassCache.put(type, Boolean.TRUE);
 		return true;
 	}
 
@@ -613,6 +705,7 @@ public class ClassUtils {
 		if (type == null) {
 			return false;
 		}
+
 		return !type.isLocalClass() && !type.isMemberClass();
 	}
 
@@ -707,6 +800,7 @@ public class ClassUtils {
 	 * @param recursive is recursive on sub directories
 	 * @return non-null {@link Set}
 	 */
+
 	public static Set<String> getClassNamesInClassPath(String classPath, boolean recursive) {
 		Set<String> classNames = classPathToClassNamesMap.get(classPath);
 		if (CollectionUtils.isEmpty(classNames)) {
@@ -721,6 +815,7 @@ public class ClassUtils {
 	 * @param onePackage one package
 	 * @return non-null {@link Set}
 	 */
+
 	public static Set<String> getClassNamesInPackage(Package onePackage) {
 		return getClassNamesInPackage(onePackage.getName());
 	}
@@ -731,10 +826,12 @@ public class ClassUtils {
 	 * @param packageName package name
 	 * @return non-null {@link Set}
 	 */
+
 	public static Set<String> getClassNamesInPackage(String packageName) {
 		Set<String> classNames = packageNameToClassNamesMap.get(packageName);
 		return classNames == null ? Collections.emptySet() : classNames;
 	}
+
 
 	protected static Set<String> findClassNamesInDirectory(File classesDirectory, boolean recursive) {
 		Set<String> classNames = new LinkedHashSet<>();
@@ -766,10 +863,14 @@ public class ClassUtils {
 					classNames.add(className);
 				}
 			}
+
 		} catch (Exception e) {
+
 		}
+
 		return classNames;
 	}
+
 
 	protected static String resolveClassName(File classesDirectory, File classFile) {
 		String classFileRelativePath = FileUtils.resolveRelativePath(classesDirectory, classFile);
@@ -806,6 +907,7 @@ public class ClassUtils {
 	 *
 	 * @return Read-only
 	 */
+
 	public static Set<String> getAllClassNamesInClassPaths() {
 		Set<String> allClassNames = new LinkedHashSet<>();
 		for (Set<String> classNames : classPathToClassNamesMap.values()) {
@@ -813,6 +915,7 @@ public class ClassUtils {
 		}
 		return Collections.unmodifiableSet(allClassNames);
 	}
+
 
 	/**
 	 * Get {@link Class}'s code source location URL
@@ -822,6 +925,7 @@ public class ClassUtils {
 	 * @throws NullPointerException If <code>type</code> is <code>null</code> , {@link NullPointerException} will be thrown.
 	 */
 	public static URL getCodeSourceLocation(Class<?> type) throws NullPointerException {
+
 		URL codeSourceLocation = null;
 		ClassLoader classLoader = type.getClassLoader();
 
@@ -852,8 +956,8 @@ public class ClassUtils {
 		if (ArrayUtils.isEmpty(values)) {
 			return EMPTY_CLASS_ARRAY;
 		}
-
 		int size = values.length;
+
 		Class[] types = new Class[size];
 
 		for (int i = 0; i < size; i++) {
