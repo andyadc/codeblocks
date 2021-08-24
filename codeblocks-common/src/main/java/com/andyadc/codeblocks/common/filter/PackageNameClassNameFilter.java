@@ -2,7 +2,9 @@ package com.andyadc.codeblocks.common.filter;
 
 import com.andyadc.codeblocks.common.reflect.ClassUtils;
 
-public class PackageNameClassNameFilter implements Filter<String> {
+import java.util.function.Predicate;
+
+public class PackageNameClassNameFilter implements Predicate<String> {
 
 	private final String packageName;
 	private final boolean includedSubPackages;
@@ -21,7 +23,7 @@ public class PackageNameClassNameFilter implements Filter<String> {
 	}
 
 	@Override
-	public boolean accept(String className) {
+	public boolean test(String className) {
 		String packageName = ClassUtils.resolvePackageName(className);
 		boolean accepted = packageName.equals(this.packageName);
 		if (!accepted && includedSubPackages) {

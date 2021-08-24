@@ -1,16 +1,25 @@
 package com.andyadc.codeblocks.common.reflect;
 
+import com.andyadc.codeblocks.common.function.Streams;
+import com.andyadc.codeblocks.common.util.BaseUtils;
+
 import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static com.andyadc.codeblocks.common.function.Predicates.and;
 import static com.andyadc.codeblocks.common.function.Streams.filterAll;
-import static com.andyadc.codeblocks.common.function.Streams.filterList;
 import static com.andyadc.codeblocks.common.reflect.ClassUtils.getAllSuperClasses;
 import static com.andyadc.codeblocks.common.reflect.ClassUtils.isAssignableFrom;
 import static java.util.Arrays.asList;
@@ -20,14 +29,13 @@ import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 import static java.util.stream.StreamSupport.stream;
 
-public class TypeUtils {
+public class TypeUtils extends BaseUtils {
 
 	public static final Predicate<Class<?>> NON_OBJECT_TYPE_FILTER = t -> !Objects.equals(Object.class, t);
 
 	public static final Predicate<Type> TYPE_VARIABLE_FILTER = type -> type instanceof TypeVariable;
 
 	public static final Predicate<Type> PARAMETERIZED_TYPE_FILTER = TypeUtils::isParameterizedType;
-
 
 	public static boolean isParameterizedType(Type type) {
 		return type instanceof ParameterizedType;
@@ -44,7 +52,7 @@ public class TypeUtils {
 	public static Class<?> getRawClass(Type type) {
 		Type rawType = getRawType(type);
 		if (isClass(rawType)) {
-			return (Class) rawType;
+			return (Class<?>) rawType;
 		}
 		return null;
 	}
@@ -58,7 +66,6 @@ public class TypeUtils {
 	}
 
 	public static List<Class<?>> findActualTypeArguments(Type type, Class<?> interfaceClass) {
-
 		List<Class<?>> actualTypeArguments = new LinkedList<>();
 
 		getAllGenericTypes(type, t -> isAssignableFrom(interfaceClass, getRawClass(t)))
@@ -91,7 +98,6 @@ public class TypeUtils {
 	 * @return non-null read-only {@link List}
 	 */
 	public static List<ParameterizedType> getGenericTypes(Type type, Predicate<ParameterizedType>... typeFilters) {
-
 		Class<?> rawClass = getRawClass(type);
 
 		if (rawClass == null) {
@@ -103,12 +109,11 @@ public class TypeUtils {
 		genericTypes.add(rawClass.getGenericSuperclass());
 		genericTypes.addAll(asList(rawClass.getGenericInterfaces()));
 
-		return unmodifiableList(
-			filterList(genericTypes, TypeUtils::isParameterizedType)
-				.stream()
-				.map(ParameterizedType.class::cast)
-				.filter(and(typeFilters))
-				.collect(toList())
+		return unmodifiableList(Streams.filter(genericTypes, TypeUtils::isParameterizedType)
+			.stream()
+			.map(ParameterizedType.class::cast)
+			.filter(and(typeFilters))
+			.collect(toList())
 		);
 	}
 
@@ -224,7 +229,6 @@ public class TypeUtils {
 			// recursively
 			targetClass = targetClass.getSuperclass();
 		}
-
 		return typeArguments;
 	}
 
@@ -288,7 +292,7 @@ public class TypeUtils {
 		if (genericArrayType != null) {
 			return genericArrayType.getGenericComponentType();
 		} else {
-			Class klass = asClass(type);
+			Class<?> klass = asClass(type);
 			return klass != null ? klass.getComponentType() : null;
 		}
 	}
@@ -302,7 +306,6 @@ public class TypeUtils {
 	 * @since 1.0.0
 	 */
 	public static Set<Type> getAllSuperTypes(Type type, Predicate<Type>... typeFilters) {
-
 		Class<?> rawClass = getRawClass(type);
 
 		if (rawClass == null) {
@@ -336,7 +339,6 @@ public class TypeUtils {
 	 * @since 1.0.0
 	 */
 	public static Set<Type> getAllInterfaces(Type type, Predicate<Type>... typeFilters) {
-
 		Class<?> rawClass = getRawClass(type);
 
 		if (rawClass == null) {
@@ -362,9 +364,7 @@ public class TypeUtils {
 	}
 
 	public static Set<Type> getAllTypes(Type type, Predicate<Type>... typeFilters) {
-
 		Set<Type> allTypes = new LinkedHashSet<>();
-
 		// add the specified type
 		allTypes.add(type);
 		// add all super types
@@ -394,6 +394,5 @@ public class TypeUtils {
 		}
 
 		return Collections.unmodifiableSet(parameterizedTypes);                     // build as a Set
-
 	}
 }

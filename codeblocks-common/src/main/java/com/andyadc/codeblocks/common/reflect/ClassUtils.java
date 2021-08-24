@@ -6,7 +6,7 @@ import com.andyadc.codeblocks.common.constants.PathConstants;
 import com.andyadc.codeblocks.common.filter.ClassFileJarEntryFilter;
 import com.andyadc.codeblocks.common.function.ThrowableFunction;
 import com.andyadc.codeblocks.common.io.util.FileUtils;
-import com.andyadc.codeblocks.common.jar.SimpleFileScanner;
+import com.andyadc.codeblocks.common.io.util.SimpleFileScanner;
 import com.andyadc.codeblocks.common.jar.SimpleJarEntryScanner;
 import com.andyadc.codeblocks.common.lang.StringUtils;
 import com.andyadc.codeblocks.common.util.ArrayUtils;
@@ -31,6 +31,7 @@ import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Queue;
@@ -48,6 +49,7 @@ import static java.util.Collections.unmodifiableSet;
 
 public abstract class ClassUtils {
 
+
 	/**
 	 * Suffix for array class names: "[]"
 	 */
@@ -63,7 +65,7 @@ public abstract class ClassUtils {
 	 */
 	private static final int ENUM = 0x00004000;
 
-	public static final Class[] EMPTY_CLASS_ARRAY = new Class[0];
+	public static final Class<?>[] EMPTY_CLASS_ARRAY = new Class[0];
 	static final Map<Class<?>, Boolean> concreteClassCache = new WeakHashMap<>();
 
 	/**
@@ -107,20 +109,21 @@ public abstract class ClassUtils {
 	 */
 	private static final String INTERNAL_ARRAY_PREFIX = "[L";
 	/**
+	 * @see {@link Class#SYNTHETIC}
+	 */
+	private static final int SYNTHETIC = 0x00001000;
+	/**
 	 * Map with primitive type name as key and corresponding primitive type as
 	 * value, for example: "int" -> "int.class".
 	 */
-	private static final Map<String, Class<?>> PRIMITIVE_TYPE_NAME_MAP = new HashMap<>(32);
+	private static final Map<String, Class<?>> PRIMITIVE_TYPE_NAME_MAP = new HashMap<String, Class<?>>(32);
+
+	private static final char PACKAGE_SEPARATOR_CHAR = '.';
 	/**
 	 * Map with primitive wrapper type as key and corresponding primitive type
 	 * as value, for example: Integer.class -> int.class.
 	 */
-	private static final Map<Class<?>, Class<?>> PRIMITIVE_WRAPPER_TYPE_MAP = new HashMap<>(16);
-	/**
-	 * @see {@link Class#SYNTHETIC}
-	 */
-	private static final int SYNTHETIC = 0x00001000;
-	private static final char PACKAGE_SEPARATOR_CHAR = '.';
+	private static final Map<Class<?>, Class<?>> PRIMITIVE_WRAPPER_TYPE_MAP = new HashMap<Class<?>, Class<?>>(16);
 
 	private static final Map<String, Set<String>> classPathToClassNamesMap = initClassPathToClassNamesMap();
 
@@ -164,6 +167,7 @@ public abstract class ClassUtils {
 
 	private static Map<String, String> initClassNameToClassPathsMap() {
 		Map<String, String> classNameToClassPathsMap = new LinkedHashMap<>();
+
 		for (Map.Entry<String, Set<String>> entry : classPathToClassNamesMap.entrySet()) {
 			String classPath = entry.getKey();
 			Set<String> classNames = entry.getValue();
@@ -306,7 +310,6 @@ public abstract class ClassUtils {
 			return "null";
 		}
 		return obj.getClass().getSimpleName() + "@" + System.identityHashCode(obj);
-
 	}
 
 	public static String simpleClassName(Class<?> clazz) {
@@ -321,12 +324,10 @@ public abstract class ClassUtils {
 		return className;
 	}
 
-
 	/**
 	 * The specified type is primitive type or simple type
 	 *
 	 * @param type the type to test
-	 * @return
 	 * @deprecated as 1.0.0, use {@link Class#isPrimitive()} plus {@link #isSimpleType(Class)} instead
 	 */
 	public static boolean isPrimitive(Class<?> type) {
@@ -373,13 +374,11 @@ public abstract class ClassUtils {
 		return value;
 	}
 
-
 	/**
 	 * We only check boolean value at this moment.
 	 *
 	 * @param type
 	 * @param value
-	 * @return
 	 */
 	public static boolean isTypeMatch(Class<?> type, String value) {
 		return (type != boolean.class && type != Boolean.class)
@@ -462,7 +461,6 @@ public abstract class ClassUtils {
 		resolved.add(type);
 		Class<?> clazz = type;
 		while (clazz != null) {
-
 			Class<?>[] interfaces = clazz.getInterfaces();
 
 			if (ArrayUtils.isNotEmpty(interfaces)) {
@@ -567,7 +565,7 @@ public abstract class ClassUtils {
 
 	public static Class<?>[] getTypes(Object... args) {
 		int size = args == null ? 0 : args.length;
-		Class[] types = new Class[size];
+		Class<?>[] types = new Class[size];
 		for (int i = 0; i < size; i++) {
 			types[i] = args[i].getClass();
 		}
@@ -630,7 +628,6 @@ public abstract class ClassUtils {
 	 * @return <code>true</code> if concrete class, <code>false</code> otherwise.
 	 */
 	public static boolean isConcreteClass(Class<?> type) {
-
 		if (type == null) {
 			return false;
 		}
@@ -697,7 +694,6 @@ public abstract class ClassUtils {
 		if (isAbstract != null) {
 			return Modifier.isAbstract(mod) == isAbstract.booleanValue();
 		}
-
 		return true;
 	}
 
@@ -705,7 +701,6 @@ public abstract class ClassUtils {
 		if (type == null) {
 			return false;
 		}
-
 		return !type.isLocalClass() && !type.isMemberClass();
 	}
 
@@ -762,15 +757,28 @@ public abstract class ClassUtils {
 	 * @param recursive is recursive on sub directories
 	 * @return all class names in class path
 	 */
-
 	public static Set<String> findClassNamesInClassPath(String classPath, boolean recursive) {
-		File classesFileHolder = new File(classPath); // JarFile or Directory
-		if (classesFileHolder.isDirectory()) { //Directory
-			return findClassNamesInDirectory(classesFileHolder, recursive);
-		} else if (classesFileHolder.isFile() && classPath.endsWith(FileSuffixConstants.JAR)) { //JarFile
-			return findClassNamesInJarFile(classesFileHolder, recursive);
+		File archiveFile = new File(classPath); // JarFile or Directory
+		return findClassNamesInClassPath(archiveFile, recursive);
+	}
+
+	/**
+	 * Find all class names in class path
+	 *
+	 * @param archiveFile JarFile or class patch directory
+	 * @param recursive   is recursive on sub directories
+	 * @return all class names in class path
+	 */
+	public static Set<String> findClassNamesInClassPath(File archiveFile, boolean recursive) {
+		if (!archiveFile.exists()) {
+			return emptySet();
 		}
-		return Collections.emptySet();
+		if (archiveFile.isDirectory()) { // Directory
+			return findClassNamesInArchiveDirectory(archiveFile, recursive);
+		} else if (archiveFile.isFile() && archiveFile.getName().endsWith(FileSuffixConstants.JAR)) { //JarFile
+			return findClassNamesInArchiveFile(archiveFile, recursive);
+		}
+		return emptySet();
 	}
 
 	/**
@@ -800,7 +808,6 @@ public abstract class ClassUtils {
 	 * @param recursive is recursive on sub directories
 	 * @return non-null {@link Set}
 	 */
-
 	public static Set<String> getClassNamesInClassPath(String classPath, boolean recursive) {
 		Set<String> classNames = classPathToClassNamesMap.get(classPath);
 		if (CollectionUtils.isEmpty(classNames)) {
@@ -815,7 +822,6 @@ public abstract class ClassUtils {
 	 * @param onePackage one package
 	 * @return non-null {@link Set}
 	 */
-
 	public static Set<String> getClassNamesInPackage(Package onePackage) {
 		return getClassNamesInPackage(onePackage.getName());
 	}
@@ -826,14 +832,12 @@ public abstract class ClassUtils {
 	 * @param packageName package name
 	 * @return non-null {@link Set}
 	 */
-
 	public static Set<String> getClassNamesInPackage(String packageName) {
 		Set<String> classNames = packageNameToClassNamesMap.get(packageName);
 		return classNames == null ? Collections.emptySet() : classNames;
 	}
 
-
-	protected static Set<String> findClassNamesInDirectory(File classesDirectory, boolean recursive) {
+	protected static Set<String> findClassNamesInArchiveDirectory(File classesDirectory, boolean recursive) {
 		Set<String> classNames = new LinkedHashSet<>();
 		SimpleFileScanner simpleFileScanner = SimpleFileScanner.INSTANCE;
 		Set<File> classFiles = simpleFileScanner.scan(classesDirectory, recursive, new SuffixFileFilter(FileSuffixConstants.CLASS));
@@ -844,18 +848,12 @@ public abstract class ClassUtils {
 		return classNames;
 	}
 
-	protected static Set<String> findClassNamesInJarFile(File jarFile, boolean recursive) {
-		if (!jarFile.exists()) {
-			return Collections.emptySet();
-		}
-
+	protected static Set<String> findClassNamesInArchiveFile(File jarFile, boolean recursive) {
 		Set<String> classNames = new LinkedHashSet<>();
-
 		SimpleJarEntryScanner simpleJarEntryScanner = SimpleJarEntryScanner.INSTANCE;
 		try {
 			JarFile jarFile_ = new JarFile(jarFile);
 			Set<JarEntry> jarEntries = simpleJarEntryScanner.scan(jarFile_, recursive, ClassFileJarEntryFilter.INSTANCE);
-
 			for (JarEntry jarEntry : jarEntries) {
 				String jarEntryName = jarEntry.getName();
 				String className = resolveClassName(jarEntryName);
@@ -863,14 +861,10 @@ public abstract class ClassUtils {
 					classNames.add(className);
 				}
 			}
-
-		} catch (Exception e) {
-
+		} catch (Exception ignored) {
 		}
-
 		return classNames;
 	}
-
 
 	protected static String resolveClassName(File classesDirectory, File classFile) {
 		String classFileRelativePath = FileUtils.resolveRelativePath(classesDirectory, classFile);
@@ -907,7 +901,6 @@ public abstract class ClassUtils {
 	 *
 	 * @return Read-only
 	 */
-
 	public static Set<String> getAllClassNamesInClassPaths() {
 		Set<String> allClassNames = new LinkedHashSet<>();
 		for (Set<String> classNames : classPathToClassNamesMap.values()) {
@@ -915,7 +908,6 @@ public abstract class ClassUtils {
 		}
 		return Collections.unmodifiableSet(allClassNames);
 	}
-
 
 	/**
 	 * Get {@link Class}'s code source location URL
@@ -952,18 +944,21 @@ public abstract class ClassUtils {
 	 * @param values the values
 	 * @return If can't be resolved, return {@link #EMPTY_CLASS_ARRAY empty class array}
 	 */
-	public static Class[] resolveTypes(Object... values) {
+	public static Class<?>[] resolveTypes(Object... values) {
 		if (ArrayUtils.isEmpty(values)) {
 			return EMPTY_CLASS_ARRAY;
 		}
+
 		int size = values.length;
 
-		Class[] types = new Class[size];
+		Class<?>[] types = new Class[size];
 
 		for (int i = 0; i < size; i++) {
 			Object value = values[i];
 			types[i] = value == null ? null : value.getClass();
 		}
+
 		return types;
 	}
+
 }

@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.common.jar;
+package com.andyadc.codeblocks.common.io.util;
 
 import org.apache.commons.io.filefilter.IOFileFilter;
 import org.apache.commons.io.filefilter.TrueFileFilter;

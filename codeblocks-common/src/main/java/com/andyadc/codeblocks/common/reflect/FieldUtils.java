@@ -1,9 +1,16 @@
 package com.andyadc.codeblocks.common.reflect;
 
+import com.andyadc.codeblocks.common.function.Predicates;
 import com.andyadc.codeblocks.common.function.ThrowableSupplier;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
+import java.util.function.Predicate;
+
+import static com.andyadc.codeblocks.common.function.Streams.filter;
 
 /**
  * The utilities class for Java Reflection {@link Field}
@@ -11,6 +18,21 @@ import java.util.Objects;
  * @since 1.0.0
  */
 public abstract class FieldUtils {
+	public static Set<Field> getAllFields(Class<?> declaredClass, Predicate<Field>... fieldFilters) {
+		Set<Field> allFields = new LinkedHashSet<>(Arrays.asList(declaredClass.getFields()));
+		for (Class superType : ClassUtils.getAllInheritedTypes(declaredClass)) {
+			allFields.addAll(Arrays.asList(superType.getFields()));
+		}
+		return filter(allFields, Predicates.and(fieldFilters));
+	}
+
+	public static Set<Field> getAllDeclaredFields(Class<?> declaredClass, Predicate<Field>... fieldFilters) {
+		Set<Field> allDeclaredFields = new LinkedHashSet<>(Arrays.asList(declaredClass.getDeclaredFields()));
+		for (Class superType : ClassUtils.getAllInheritedTypes(declaredClass)) {
+			allDeclaredFields.addAll(Arrays.asList(superType.getDeclaredFields()));
+		}
+		return filter(allDeclaredFields, Predicates.and(fieldFilters));
+	}
 
 	/**
 	 * Like the {@link Class#getDeclaredField(String)} method without throwing any {@link Exception}
@@ -53,7 +75,6 @@ public abstract class FieldUtils {
 		if (field == null) {
 			throw new IllegalStateException(String.format("cannot find field %s,field is null", fieldName));
 		}
-
 		return field;
 	}
 

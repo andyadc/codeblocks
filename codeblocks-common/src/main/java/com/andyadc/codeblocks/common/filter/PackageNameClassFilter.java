@@ -1,6 +1,8 @@
 package com.andyadc.codeblocks.common.filter;
 
-public class PackageNameClassFilter implements ClassFilter {
+import java.util.function.Predicate;
+
+public class PackageNameClassFilter implements Predicate<Class<?>> {
 
 	private final String packageName;
 	private final boolean includedSubPackages;
@@ -19,7 +21,7 @@ public class PackageNameClassFilter implements ClassFilter {
 	}
 
 	@Override
-	public boolean accept(Class<?> filteredObject) {
+	public boolean test(Class<?> filteredObject) {
 		Package package_ = filteredObject.getPackage();
 		String packageName = package_.getName();
 		boolean accepted = packageName.equals(this.packageName);

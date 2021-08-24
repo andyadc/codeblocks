@@ -2,7 +2,6 @@ package com.andyadc.codeblocks.common.util;
 
 import com.andyadc.codeblocks.common.constants.Constants;
 import com.andyadc.codeblocks.common.constants.PathConstants;
-import com.andyadc.codeblocks.common.constants.ProtocolConstants;
 import com.andyadc.codeblocks.common.constants.SeparatorConstants;
 import com.andyadc.codeblocks.common.jar.JarUtils;
 import com.andyadc.codeblocks.common.lang.StringUtils;
@@ -14,9 +13,13 @@ import java.net.URLEncoder;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+import static com.andyadc.codeblocks.common.constants.Constants.DOT;
+import static com.andyadc.codeblocks.common.constants.ProtocolConstants.FILE;
+import static com.andyadc.codeblocks.common.constants.ProtocolConstants.JAR;
 import static com.andyadc.codeblocks.common.util.ArrayUtils.length;
 
 /**
@@ -31,6 +34,9 @@ import static com.andyadc.codeblocks.common.util.ArrayUtils.length;
  */
 public abstract class URLUtils {
 
+	/**
+	 *
+	 */
 	private static final String DEFAULT_ENCODING = "UTF-8";
 
 	/**
@@ -55,8 +61,10 @@ public abstract class URLUtils {
 	/**
 	 * Resolve archive file
 	 *
-	 * @param archiveFileURL           archive file  URL
-	 * @param archiveFileExtensionName archive file extension name
+	 * @param archiveFileURL
+	 *         archive file  URL
+	 * @param archiveFileExtensionName
+	 *         archive file extension name
 	 * @return Resolve archive file If exists
 	 * @throws NullPointerException
 	 */
@@ -75,12 +83,36 @@ public abstract class URLUtils {
 		return archiveFile;
 	}
 
+	public static File resolveArchiveFile(URL resourceURL) throws NullPointerException {
+		String protocol = resourceURL.getProtocol();
+		if (FILE.equals(protocol)) {
+			return resolveArchiveDirectory(resourceURL);
+		} else {
+			return resolveArchiveFile(resourceURL, DOT + protocol);
+		}
+	}
+
+	private static File resolveArchiveDirectory(URL resourceURL) {
+		String resourcePath = resourceURL.getPath();
+		Set<String> classPaths = ClassPathUtils.getClassPaths();
+		File archiveDirectory = null;
+		for (String classPath : classPaths) {
+			if (resourcePath.contains(classPath)) {
+				archiveDirectory = new File(classPath);
+				break;
+			}
+		}
+		return archiveDirectory;
+	}
+
+
 	/**
 	 * Resolve parameters {@link Map} from specified URL，The parameter name as key ，parameter value list as key
 	 *
 	 * @param url URL
 	 * @return Non-null and Read-only {@link Map} , the order of parameters is determined by query string
 	 */
+
 	public static Map<String, List<String>> resolveParametersMap(String url) {
 		String queryString = StringUtils.substringAfterLast(url, SeparatorConstants.QUERY_STRING);
 		if (StringUtils.isNotBlank(queryString)) {
@@ -113,13 +145,13 @@ public abstract class URLUtils {
 	 * <code> resolvePath("C:\\Windows\\\\temp") == "C:/Windows/temp"; resolvePath("C:\\\\\Windows\\/temp") ==
 	 * "C:/Windows/temp"; resolvePath("/home/////index.html") == "/home/index.html"; </code>
 	 *
-	 * @param path Path
+	 * @param path
+	 *         Path
 	 * @return a newly resolved path
 	 * @version 1.0.0
 	 * @since 1.0.0
 	 */
 	public static String resolvePath(final String path) {
-
 		if (StringUtils.isBlank(path)) {
 			return path;
 		}
@@ -144,10 +176,13 @@ public abstract class URLUtils {
 	 * Wide Web Consortium Recommendation</a> states that UTF-8 should be used. Not doing so may introduce
 	 * incompatibilites.</em>
 	 *
-	 * @param value    <code>String</code> to be translated.
-	 * @param encoding The name of a supported character encoding</a>.
+	 * @param value
+	 *         <code>String</code> to be translated.
+	 * @param encoding
+	 *         The name of a supported character encoding</a>.
 	 * @return the translated <code>String</code>.
-	 * @throws IllegalArgumentException If the named encoding is not supported
+	 * @throws IllegalArgumentException
+	 *         If the named encoding is not supported
 	 * @see URLDecoder#decode(String, String)
 	 * @since 1.4
 	 */
@@ -164,7 +199,8 @@ public abstract class URLUtils {
 	/**
 	 * {@link #encode(String, String)} with "UTF-8" encoding
 	 *
-	 * @param value the <code>String</code> to decode
+	 * @param value
+	 *         the <code>String</code> to decode
 	 * @return the newly encoded <code>String</code>
 	 */
 	public static String encode(String value) {
@@ -174,7 +210,8 @@ public abstract class URLUtils {
 	/**
 	 * {@link #decode(String, String)} with "UTF-8" encoding
 	 *
-	 * @param value the <code>String</code> to decode
+	 * @param value
+	 *         the <code>String</code> to decode
 	 * @return the newly decoded <code>String</code>
 	 */
 	public static String decode(String value) {
@@ -190,10 +227,13 @@ public abstract class URLUtils {
 	 * Wide Web Consortium Recommendation</a> states that UTF-8 should be used. Not doing so may introduce
 	 * incompatibilites.</em>
 	 *
-	 * @param value    the <code>String</code> to decode
-	 * @param encoding The name of a supported encoding
+	 * @param value
+	 *         the <code>String</code> to decode
+	 * @param encoding
+	 *         The name of a supported encoding
 	 * @return the newly decoded <code>String</code>
-	 * @throws IllegalArgumentException If character encoding needs to be consulted, but named character encoding is not supported
+	 * @throws IllegalArgumentException
+	 *         If character encoding needs to be consulted, but named character encoding is not supported
 	 */
 	public static String decode(String value, String encoding) throws IllegalArgumentException {
 		String decodedValue = null;
@@ -208,7 +248,8 @@ public abstract class URLUtils {
 	/**
 	 * Is directory URL?
 	 *
-	 * @param url URL
+	 * @param url
+	 *         URL
 	 * @return if directory , return <code>true</code>
 	 */
 	public static boolean isDirectoryURL(URL url) {
@@ -216,7 +257,7 @@ public abstract class URLUtils {
 		if (url != null) {
 			String protocol = url.getProtocol();
 			try {
-				if (ProtocolConstants.JAR.equals(protocol)) {
+				if (JAR.equals(protocol)) {
 					JarFile jarFile = JarUtils.toJarFile(url); // Test whether valid jar or not
 					final String relativePath = JarUtils.resolveRelativePath(url);
 					if (StringUtils.EMPTY.equals(relativePath)) { // root directory in jar
@@ -225,7 +266,7 @@ public abstract class URLUtils {
 						JarEntry jarEntry = jarFile.getJarEntry(relativePath);
 						isDirectory = jarEntry != null && jarEntry.isDirectory();
 					}
-				} else if (ProtocolConstants.FILE.equals(protocol)) {
+				} else if (FILE.equals(protocol)) {
 					File classPathFile = new File(url.toURI());
 					isDirectory = classPathFile.isDirectory();
 				}
@@ -239,20 +280,21 @@ public abstract class URLUtils {
 	/**
 	 * Is Jar URL?
 	 *
-	 * @param url URL
+	 * @param url
+	 *         URL
 	 * @return If jar , return <code>true</code>
 	 */
 	public static boolean isJarURL(URL url) {
 		String protocol = url.getProtocol();
 		boolean flag = false;
-		if (ProtocolConstants.FILE.equals(protocol)) {
+		if (FILE.equals(protocol)) {
 			try {
 				File file = new File(url.toURI());
 				JarFile jarFile = new JarFile(file);
 				flag = jarFile != null;
 			} catch (Exception e) {
 			}
-		} else if (ProtocolConstants.JAR.equals(protocol)) {
+		} else if (JAR.equals(protocol)) {
 			flag = true;
 		}
 		return flag;
@@ -261,7 +303,8 @@ public abstract class URLUtils {
 	/**
 	 * Build multiple paths to URI
 	 *
-	 * @param paths multiple paths
+	 * @param paths
+	 *         multiple paths
 	 * @return URI
 	 */
 	public static String buildURI(String... paths) {
@@ -278,8 +321,6 @@ public abstract class URLUtils {
 				uriBuilder.append(PathConstants.SLASH);
 			}
 		}
-
 		return resolvePath(uriBuilder.toString());
 	}
-
 }

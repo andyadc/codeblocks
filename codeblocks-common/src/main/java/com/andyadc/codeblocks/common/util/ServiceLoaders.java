@@ -22,7 +22,11 @@ public abstract class ServiceLoaders {
 	}
 
 	public static <T> T loadSpi(Class<T> serviceClass) {
-		return load(serviceClass, ClassLoaderUtils.getClassLoader(serviceClass)).iterator().next();
+		return loadSpi(serviceClass, ClassLoaderUtils.getClassLoader(serviceClass));
+	}
+
+	public static <T> T loadSpi(Class<T> serviceClass, ClassLoader classLoader) {
+		return load(serviceClass, classLoader).iterator().next();
 	}
 
 	public static <T> T[] loadAsArray(Class<T> serviceClass) {

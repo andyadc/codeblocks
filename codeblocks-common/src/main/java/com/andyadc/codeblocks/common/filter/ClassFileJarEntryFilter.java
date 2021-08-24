@@ -2,9 +2,10 @@ package com.andyadc.codeblocks.common.filter;
 
 import com.andyadc.codeblocks.common.constants.FileSuffixConstants;
 
+import java.util.function.Predicate;
 import java.util.jar.JarEntry;
 
-public class ClassFileJarEntryFilter implements JarEntryFilter {
+public class ClassFileJarEntryFilter implements Predicate<JarEntry> {
 
 	/**
 	 * {@link ClassFileJarEntryFilter} Singleton instance
@@ -15,7 +16,7 @@ public class ClassFileJarEntryFilter implements JarEntryFilter {
 	}
 
 	@Override
-	public boolean accept(JarEntry jarEntry) {
+	public boolean test(JarEntry jarEntry) {
 		return !jarEntry.isDirectory() && jarEntry.getName().endsWith(FileSuffixConstants.CLASS);
 	}
 }
