@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.common.env;
+package com.andyadc.codeblocks.common.constants;
 
 /**
  * andy.an

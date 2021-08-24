@@ -6,12 +6,10 @@ import static java.util.stream.Stream.of;
 
 /**
  * The utilities class for Java {@link Predicate}
- *
- * @since 1.0.0
  */
 public interface Predicates {
 
-	Predicate[] EMPTY_ARRAY = new Predicate[0];
+	Predicate<?>[] EMPTY_ARRAY = new Predicate[0];
 
 	/**
 	 * {@link Predicate} always return <code>true</code>

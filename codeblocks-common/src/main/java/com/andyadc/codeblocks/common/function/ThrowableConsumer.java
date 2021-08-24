@@ -21,7 +21,7 @@ public interface ThrowableConsumer<T> {
 	 * @param consumer {@link ThrowableConsumer}
 	 * @throws RuntimeException wrap {@link Exception} to {@link RuntimeException}
 	 */
-	static <T> void execute(T t, ThrowableConsumer consumer) throws RuntimeException {
+	static <T> void execute(T t, ThrowableConsumer<T> consumer) throws RuntimeException {
 		execute(t, consumer, RuntimeException.class);
 	}
 
@@ -32,7 +32,7 @@ public interface ThrowableConsumer<T> {
 	 * @param consumer {@link ThrowableConsumer}
 	 * @throws T wrap {@link Throwable} to the specified {@link Throwable} type
 	 */
-	static <E, T extends Throwable> void execute(E t, ThrowableConsumer consumer, Class<T> throwableType) throws T {
+	static <E, T extends Throwable> void execute(E t, ThrowableConsumer<E> consumer, Class<T> throwableType) throws T {
 		try {
 			consumer.accept(t);
 		} catch (Throwable e) {
