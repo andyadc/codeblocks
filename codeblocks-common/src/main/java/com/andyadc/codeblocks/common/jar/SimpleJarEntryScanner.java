@@ -33,7 +33,6 @@ public class SimpleJarEntryScanner {
 	 * @throws NullPointerException     If argument <code>null</code>
 	 * @throws IllegalArgumentException <ul> <li>{@link JarUtils#resolveRelativePath(URL)}
 	 * @throws IOException              <ul> <li>{@link JarUtils#toJarFile(URL)}
-	 * @since 1.0.0
 	 */
 	public Set<JarEntry> scan(URL jarURL, final boolean recursive) throws NullPointerException, IllegalArgumentException, IOException {
 		return scan(jarURL, recursive, null);
@@ -48,7 +47,6 @@ public class SimpleJarEntryScanner {
 	 * @throws IllegalArgumentException {@link JarUtils#resolveJarAbsolutePath(URL)}
 	 * @throws IOException              {@link JarUtils#toJarFile(URL)}
 	 * @see JarEntry
-	 * @since 1.0.0
 	 */
 	public Set<JarEntry> scan(URL jarURL, final boolean recursive, Predicate<JarEntry> jarEntryFilter) throws NullPointerException, IllegalArgumentException, IOException {
 		String relativePath = JarUtils.resolveRelativePath(jarURL);
@@ -59,9 +57,6 @@ public class SimpleJarEntryScanner {
 	/**
 	 * @param jarFile
 	 * @param recursive
-	 * @throws NullPointerException
-	 * @throws IllegalArgumentException
-	 * @throws IOException
 	 */
 	public Set<JarEntry> scan(JarFile jarFile, final boolean recursive) throws NullPointerException, IllegalArgumentException, IOException {
 		return scan(jarFile, recursive, null);
@@ -71,9 +66,6 @@ public class SimpleJarEntryScanner {
 	 * @param jarFile
 	 * @param recursive
 	 * @param jarEntryFilter
-	 * @throws NullPointerException
-	 * @throws IllegalArgumentException
-	 * @throws IOException
 	 */
 	public Set<JarEntry> scan(JarFile jarFile, final boolean recursive, Predicate<JarEntry> jarEntryFilter)
 		throws NullPointerException, IllegalArgumentException, IOException {

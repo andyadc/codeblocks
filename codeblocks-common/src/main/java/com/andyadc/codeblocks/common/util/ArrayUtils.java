@@ -4,6 +4,8 @@ import java.lang.reflect.Array;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Objects;
+import java.util.function.Consumer;
 
 /**
  * The utilities class for {@link Array}
@@ -29,5 +31,12 @@ public abstract class ArrayUtils extends BaseUtils {
 	public static <E> E[] asArray(Enumeration<E> enumeration, Class<?> componentType) {
 		List<E> list = Collections.list(enumeration);
 		return list.toArray((E[]) Array.newInstance(componentType, 0));
+	}
+
+	public static <T> void iterate(T[] values, Consumer<T> consumer) {
+		Objects.requireNonNull(values, "The argument must not be null!");
+		for (T value : values) {
+			consumer.accept(value);
+		}
 	}
 }

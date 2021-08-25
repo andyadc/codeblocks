@@ -32,8 +32,6 @@ public class JarUtils {
 	 * @param jarURL {@link URL} of {@link JarFile} or {@link JarEntry}
 	 * @return JarFile
 	 * @throws IOException If {@link JarFile jar file} is invalid, see {@link JarFile#JarFile(String)}
-	 * @version 1.0.0
-	 * @since 1.0.0
 	 */
 	public static JarFile toJarFile(URL jarURL) throws IOException {
 		JarFile jarFile = null;
@@ -68,8 +66,6 @@ public class JarUtils {
 	 * @return Non-null
 	 * @throws NullPointerException     see {@link #assertJarURLProtocol(URL)}
 	 * @throws IllegalArgumentException see {@link #assertJarURLProtocol(URL)}
-	 * @version 1.0.0
-	 * @since 1.0.0 2012-3-20 下午02:37:25
 	 */
 	public static String resolveRelativePath(URL jarURL) throws NullPointerException, IllegalArgumentException {
 		assertJarURLProtocol(jarURL);
@@ -87,8 +83,6 @@ public class JarUtils {
 	 * return <code>null</code>
 	 * @throws NullPointerException     see {@link #assertJarURLProtocol(URL)}
 	 * @throws IllegalArgumentException see {@link #assertJarURLProtocol(URL)}
-	 * @version 1.0.0
-	 * @since 1.0.0
 	 */
 	public static String resolveJarAbsolutePath(URL jarURL) throws NullPointerException, IllegalArgumentException {
 		assertJarURLProtocol(jarURL);

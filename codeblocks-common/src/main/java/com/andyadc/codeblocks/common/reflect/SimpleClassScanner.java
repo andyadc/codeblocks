@@ -123,6 +123,19 @@ public class SimpleClassScanner {
 		return Streams.filterAll(classesSet, classFilters);
 	}
 
+	public Set<Class<?>> scan(ClassLoader classLoader, File archiveFile, boolean requiredLoad,
+							  Predicate<Class<?>>... classFilters) {
+		Set<String> classNames = ClassUtils.findClassNamesInClassPath(archiveFile, true);
+		Set<Class<?>> classesSet = new LinkedHashSet<>();
+		for (String className : classNames) {
+			Class<?> class_ = requiredLoad ? ClassLoaderUtils.loadClass(classLoader, className) : ClassLoaderUtils.findLoadedClass(classLoader, className);
+			if (class_ != null) {
+				classesSet.add(class_);
+			}
+		}
+		return Streams.filterAll(classesSet, classFilters);
+	}
+
 	private Set<String> filterClassNames(Set<String> classNames, String packageName, boolean recursive) {
 		PackageNameClassNameFilter packageNameClassNameFilter = new PackageNameClassNameFilter(packageName, recursive);
 		Set<String> filterClassNames = CollectionUtils.newLinkedHashSet(Streams.filter(classNames, packageNameClassNameFilter));
