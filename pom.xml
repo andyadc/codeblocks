@@ -26,6 +26,7 @@
 		<module>codeblocks-qrcode</module>
 		<module>ssm-demo</module>
 		<module>tinyrpc</module>
+		<module>tiny-interceptor</module>
 	</modules>
 
     <prerequisites>
