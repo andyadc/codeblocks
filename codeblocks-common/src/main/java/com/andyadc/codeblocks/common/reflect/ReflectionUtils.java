@@ -13,7 +13,6 @@ import java.util.List;
 /**
  * Reflection Utility class
  *
- * @version 1.0.0
  * @see Method
  * @see Field
  * @see Constructor

@@ -51,9 +51,7 @@ public class MethodUtils {
 		for (Class<?> classToSearch : declaredClasses) {
 			Method[] methods = publicOnly ? classToSearch.getMethods() : classToSearch.getDeclaredMethods();
 			// Add the declared methods or public methods
-			for (Method method : methods) {
-				allMethods.add(method);
-			}
+			Collections.addAll(allMethods, methods);
 		}
 
 		return Collections.unmodifiableSet(Streams.filterAll(allMethods, methodsToFilter));
@@ -114,7 +112,7 @@ public class MethodUtils {
 	 * @param methodName the specified method name
 	 * @return if not found, return <code>null</code>
 	 */
-	static Method findMethod(Class type, String methodName) {
+	static Method findMethod(Class<?> type, String methodName) {
 		return findMethod(type, methodName, ClassUtils.EMPTY_CLASS_ARRAY);
 	}
 
@@ -126,7 +124,7 @@ public class MethodUtils {
 	 * @param parameterTypes the parameter types
 	 * @return if not found, return <code>null</code>
 	 */
-	static Method findMethod(Class type, String methodName, Class<?>... parameterTypes) {
+	static Method findMethod(Class<?> type, String methodName, Class<?>... parameterTypes) {
 		Method method = null;
 		try {
 			if (type != null && StringUtils.isNotEmpty(methodName)) {
@@ -147,7 +145,7 @@ public class MethodUtils {
 	 * @return the target method's execution result
 	 */
 	public static <T> T invokeMethod(Object object, String methodName, Object... parameterValues) {
-		Class[] parameterTypes = ClassUtils.resolveTypes(parameterValues);
+		Class<?>[] parameterTypes = ClassUtils.resolveTypes(parameterValues);
 		return invokeMethod(object, methodName, parameterTypes, parameterValues);
 	}
 
@@ -162,7 +160,7 @@ public class MethodUtils {
 	 * @return the target method's execution result
 	 */
 	public static <T> T invokeMethod(Object object, String methodName, Class[] parameterTypes, Object[] parameterValues) {
-		Class type = object.getClass();
+		Class<?> type = object.getClass();
 		Method method = findMethod(type, methodName, parameterTypes);
 		if (method == null) {
 			throw new IllegalStateException(String.format("cannot find method %s,class: %s", methodName, type.getName()));

@@ -12,7 +12,7 @@ import java.util.ServiceLoader;
 
 public class Deserializers {
 
-	private final Map<Class<?>, List<Deserializer>> typedDeserializers = new HashMap<>();
+	private final Map<Class<?>, List<Deserializer<?>>> typedDeserializers = new HashMap<>();
 
 	private final ClassLoader classLoader;
 
@@ -25,10 +25,10 @@ public class Deserializers {
 	}
 
 	public void loadSPI() {
-		for (Deserializer deserializer : ServiceLoader.load(Deserializer.class)) {
+		for (Deserializer<?> deserializer : ServiceLoader.load(Deserializer.class)) {
 			List<Class<?>> typeArguments = TypeUtils.resolveTypeArguments(deserializer.getClass());
 			Class<?> targetClass = typeArguments.isEmpty() ? Object.class : typeArguments.get(0);
-			List<Deserializer> deserializers = typedDeserializers.computeIfAbsent(targetClass, k -> new LinkedList());
+			List<Deserializer<?>> deserializers = typedDeserializers.computeIfAbsent(targetClass, k -> new LinkedList<>());
 			deserializers.add(deserializer);
 			deserializers.sort(PriorityComparator.INSTANCE);
 		}

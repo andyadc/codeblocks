@@ -7,6 +7,7 @@ import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
+import java.lang.reflect.WildcardType;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -61,6 +62,18 @@ public class TypeUtils extends BaseUtils {
 		return type instanceof Class;
 	}
 
+	public static boolean isTypeVariable(Type type) {
+		return type instanceof TypeVariable;
+	}
+
+	public static boolean isGenericArrayType(Type type) {
+		return type instanceof GenericArrayType;
+	}
+
+	public static boolean isWildcardType(Type type) {
+		return type instanceof WildcardType;
+	}
+
 	public static <T> Class<T> findActualTypeArgument(Type type, Class<?> interfaceClass, int index) {
 		return (Class<T>) findActualTypeArguments(type, interfaceClass).get(index);
 	}
@@ -78,7 +91,7 @@ public class TypeUtils extends BaseUtils {
 						typeArgument = ((ParameterizedType) typeArgument).getRawType();
 					}
 					if (typeArgument instanceof Class) {
-						actualTypeArguments.add(i, (Class) typeArgument);
+						actualTypeArguments.add(i, (Class<?>) typeArgument);
 					}
 				}
 				Class<?> superClass = rawClass.getSuperclass();
@@ -142,7 +155,6 @@ public class TypeUtils extends BaseUtils {
 	 * @return non-null read-only {@link List}
 	 */
 	public static List<ParameterizedType> getAllGenericSuperClasses(Type type, Predicate<ParameterizedType>... typeFilters) {
-
 		Class<?> rawClass = getRawClass(type);
 
 		if (rawClass == null || rawClass.isInterface()) {
@@ -173,7 +185,6 @@ public class TypeUtils extends BaseUtils {
 	 * @return non-null read-only {@link List}
 	 */
 	public static List<ParameterizedType> getAllGenericInterfaces(Type type, Predicate<ParameterizedType>... typeFilters) {
-
 		Class<?> rawClass = getRawClass(type);
 
 		if (rawClass == null) {
@@ -264,7 +275,7 @@ public class TypeUtils extends BaseUtils {
 		if (type instanceof Class) {
 			return (Class<?>) type;
 		} else if (type instanceof TypeVariable) {
-			TypeVariable typeVariable = (TypeVariable) type;
+			TypeVariable<?> typeVariable = (TypeVariable<?>) type;
 			return asClass(typeVariable.getBounds()[0]);
 		} else if (type instanceof ParameterizedType) {
 			ParameterizedType parameterizedType = (ParameterizedType) type;
@@ -283,6 +294,20 @@ public class TypeUtils extends BaseUtils {
 	public static ParameterizedType asParameterizedType(Type type) {
 		if (isParameterizedType(type)) {
 			return (ParameterizedType) type;
+		}
+		return null;
+	}
+
+	public static TypeVariable<?> asTypeVariable(Type type) {
+		if (isTypeVariable(type)) {
+			return (TypeVariable<?>) type;
+		}
+		return null;
+	}
+
+	public static WildcardType asWildcardType(Type type) {
+		if (isWildcardType(type)) {
+			return (WildcardType) type;
 		}
 		return null;
 	}
@@ -392,7 +417,6 @@ public class TypeUtils extends BaseUtils {
 				.map(Class.class::cast)
 				.forEach(superClass -> parameterizedTypes.addAll(findParameterizedTypes(superClass)));
 		}
-
 		return Collections.unmodifiableSet(parameterizedTypes);                     // build as a Set
 	}
 }

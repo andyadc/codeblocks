@@ -64,15 +64,14 @@ public class SimpleClassScanner {
 	 * @param packageName  the name of package
 	 * @param recursive    included sub-package
 	 * @param requiredLoad try to load those classes or not
-	 * @return
-	 * @throws IllegalArgumentException
-	 * @throws IllegalStateException
 	 */
-	public Set<Class<?>> scan(ClassLoader classLoader, String packageName, final boolean recursive, boolean requiredLoad) throws IllegalArgumentException, IllegalStateException {
+	public Set<Class<?>> scan(ClassLoader classLoader,
+							  String packageName,
+							  final boolean recursive,
+							  boolean requiredLoad) throws IllegalArgumentException, IllegalStateException {
 		Set<Class<?>> classesSet = new LinkedHashSet<>();
 
 		final String packageResourceName = ClassLoaderUtils.ResourceType.PACKAGE.resolve(packageName);
-
 		try {
 			Set<String> classNames = new LinkedHashSet<>();
 			// Find in class loader
@@ -102,14 +101,14 @@ public class SimpleClassScanner {
 					classesSet.add(class_);
 				}
 			}
-
 		} catch (IOException e) {
-
 		}
 		return Collections.unmodifiableSet(classesSet);
 	}
 
-	public Set<Class<?>> scan(ClassLoader classLoader, URL resourceInArchive, boolean requiredLoad,
+	public Set<Class<?>> scan(ClassLoader classLoader,
+							  URL resourceInArchive,
+							  boolean requiredLoad,
 							  Predicate<Class<?>>... classFilters) {
 		File archiveFile = URLUtils.resolveArchiveFile(resourceInArchive);
 		Set<String> classNames = ClassUtils.findClassNamesInClassPath(archiveFile, true);
@@ -123,7 +122,9 @@ public class SimpleClassScanner {
 		return Streams.filterAll(classesSet, classFilters);
 	}
 
-	public Set<Class<?>> scan(ClassLoader classLoader, File archiveFile, boolean requiredLoad,
+	public Set<Class<?>> scan(ClassLoader classLoader,
+							  File archiveFile,
+							  boolean requiredLoad,
 							  Predicate<Class<?>>... classFilters) {
 		Set<String> classNames = ClassUtils.findClassNamesInClassPath(archiveFile, true);
 		Set<Class<?>> classesSet = new LinkedHashSet<>();
@@ -138,8 +139,7 @@ public class SimpleClassScanner {
 
 	private Set<String> filterClassNames(Set<String> classNames, String packageName, boolean recursive) {
 		PackageNameClassNameFilter packageNameClassNameFilter = new PackageNameClassNameFilter(packageName, recursive);
-		Set<String> filterClassNames = CollectionUtils.newLinkedHashSet(Streams.filter(classNames, packageNameClassNameFilter));
-		return filterClassNames;
+		return CollectionUtils.newLinkedHashSet(Streams.filter(classNames, packageNameClassNameFilter));
 	}
 
 	private URL resolveClassPathURL(URL resourceURL, String packageResourceName) {

@@ -34,9 +34,9 @@ public abstract class ClassLoaderUtils {
 	private static final Method findLoadedClassMethod = initFindLoadedClassMethod();
 
 	/**
-	 * Initializes {@link Method} for {@link ClassLoader#findLoadedClass(String)}
+	 * Initializes {@link Method} for {@link ClassLoader##findLoadedClass(String)}
 	 *
-	 * @return {@link Method} for {@link ClassLoader#findLoadedClass(String)}
+	 * @return {@link Method} for {@link ClassLoader##findLoadedClass(String)}
 	 */
 	private static Method initFindLoadedClassMethod() {
 		final Method findLoadedClassMethod;
@@ -75,9 +75,6 @@ public abstract class ClassLoaderUtils {
 
 	/**
 	 * get class loader
-	 *
-	 * @param clazz
-	 * @return class loader
 	 */
 	public static ClassLoader getClassLoader(Class<?> clazz) {
 		ClassLoader cl = null;
@@ -238,10 +235,6 @@ public abstract class ClassLoaderUtils {
 	 * @param resourceName resource name ，e.g : <br /> <ul> <li>Resource Name :<code>"/com/abc/def.log"</code></li> <li>Class Name :
 	 *                     <code>"java.lang.String"</code></li> </ul>
 	 * @return the resource URL under specified resource name and type
-	 * @throws NullPointerException If any argument is <code>null</code>
-	 * @throws IOException
-	 * @version 1.0.0
-	 * @since 1.0.0
 	 */
 	public static Set<URL> getResources(ClassLoader classLoader, ResourceType resourceType, String resourceName) throws NullPointerException, IOException {
 		String normalizedResourceName = resourceType.resolve(resourceName);
@@ -259,10 +252,6 @@ public abstract class ClassLoaderUtils {
 	 * @param resourceName resource name ，e.g : <br /> <ul> <li>Resource Name :<code>"/com/abc/def.log"</code></li> <li>Class Name :
 	 *                     <code>"java.lang.String"</code></li> </ul>
 	 * @return the resource URL under specified resource name and type
-	 * @throws NullPointerException If any argument is <code>null</code>
-	 * @throws IOException
-	 * @version 1.0.0
-	 * @since 1.0.0
 	 */
 	public static Set<URL> getResources(ClassLoader classLoader, String resourceName) throws NullPointerException, IOException {
 		Set<URL> resourceURLs = emptySet();
@@ -283,8 +272,6 @@ public abstract class ClassLoaderUtils {
 	 *                     <code>"java.lang.String"</code></li> </ul>
 	 * @return the resource URL under specified resource name and type
 	 * @throws NullPointerException If any argument is <code>null</code>
-	 * @version 1.0.0
-	 * @since 1.0.0
 	 */
 	public static URL getResource(ClassLoader classLoader, String resourceName) throws NullPointerException {
 		URL resourceURL = null;
@@ -306,14 +293,11 @@ public abstract class ClassLoaderUtils {
 	 *                     <code>"java.lang.String"</code></li> </ul>
 	 * @return the resource URL under specified resource name and type
 	 * @throws NullPointerException If any argument is <code>null</code>
-	 * @version 1.0.0
-	 * @since 1.0.0
 	 */
 	public static URL getResource(ClassLoader classLoader, ResourceType resourceType, String resourceName) throws NullPointerException {
 		String normalizedResourceName = resourceType.resolve(resourceName);
 		return classLoader.getResource(normalizedResourceName);
 	}
-
 
 	/**
 	 * Get the {@link Class} resource URL under specified {@link Class#getName() Class name}
@@ -322,8 +306,6 @@ public abstract class ClassLoaderUtils {
 	 * @param className   class name
 	 * @return the resource URL under specified resource name and type
 	 * @throws NullPointerException If any argument is <code>null</code>
-	 * @version 1.0.0
-	 * @since 1.0.0
 	 */
 	public static URL getClassResource(ClassLoader classLoader, String className) {
 		final String resourceName = className + FileSuffixConstants.CLASS;
@@ -337,8 +319,6 @@ public abstract class ClassLoaderUtils {
 	 * @param type        {@link Class type}
 	 * @return the resource URL under specified resource name and type
 	 * @throws NullPointerException If any argument is <code>null</code>
-	 * @version 1.0.0
-	 * @since 1.0.0
 	 */
 	public static URL getClassResource(ClassLoader classLoader, Class<?> type) {
 		String resourceName = type.getName();
@@ -352,7 +332,6 @@ public abstract class ClassLoaderUtils {
 	 * @return Read-only {@link Set}
 	 * @throws NullPointerException If <code>classLoader</code> argument is <code>null</code>
 	 */
-
 	public static Set<ClassLoader> getInheritableClassLoaders(ClassLoader classLoader) throws NullPointerException {
 		Set<ClassLoader> classLoadersSet = new LinkedHashSet<>();
 		classLoadersSet.add(classLoader);
@@ -370,10 +349,7 @@ public abstract class ClassLoaderUtils {
 	 *
 	 * @param classLoader {@link ClassLoader}
 	 * @return Read-only Map
-	 * @throws UnsupportedOperationException
-	 * @throws NullPointerException          If <code>classLoader</code> argument is <code>null</code>
 	 */
-
 	public static Map<ClassLoader, Set<Class<?>>> getAllLoadedClassesMap(ClassLoader classLoader) throws UnsupportedOperationException {
 		Map<ClassLoader, Set<Class<?>>> allLoadedClassesMap = MapUtils.newLinkedHashMap();
 		Set<ClassLoader> classLoadersSet = getInheritableClassLoaders(classLoader);
@@ -388,10 +364,7 @@ public abstract class ClassLoaderUtils {
 	 *
 	 * @param classLoader {@link ClassLoader}
 	 * @return Read-only {@link Set}
-	 * @throws UnsupportedOperationException If JVM does not support
-	 * @throws NullPointerException          If <code>classLoader</code> argument is <code>null</code>
 	 */
-
 	public static Set<Class<?>> getAllLoadedClasses(ClassLoader classLoader) throws UnsupportedOperationException {
 		Set<Class<?>> allLoadedClassesSet = new LinkedHashSet<>();
 		Map<ClassLoader, Set<Class<?>>> allLoadedClassesMap = getAllLoadedClassesMap(classLoader);
@@ -407,16 +380,12 @@ public abstract class ClassLoaderUtils {
 	 *
 	 * @param classLoader {@link ClassLoader}
 	 * @return Read-only {@link Set}
-	 * @throws UnsupportedOperationException If JVM does not support
-	 * @throws NullPointerException          If <code>classLoader</code> argument is <code>null</code>
-	 * @see #getAllLoadedClasses(ClassLoader)
 	 */
-
 	public static Set<Class<?>> getLoadedClasses(ClassLoader classLoader) throws UnsupportedOperationException {
 		final Set<Class<?>> classesSet;
 		try {
 			List<Class<?>> classes = FieldUtils.getFieldValue(classLoader, "classes");
-			classesSet = new LinkedHashSet(classes);
+			classesSet = new LinkedHashSet<>(classes);
 		} catch (Exception e) {
 			throw jvmUnsupportedOperationException(e);
 		}
@@ -428,7 +397,6 @@ public abstract class ClassLoaderUtils {
 	 *
 	 * @param classLoader {@link ClassLoader}
 	 * @return Read-only {@link Set}
-	 * @throws UnsupportedOperationException If JVM does not support
 	 */
 	public static Set<Class<?>> findLoadedClassesInClassPath(ClassLoader classLoader) throws UnsupportedOperationException {
 		Set<String> classNames = ClassUtils.getAllClassNamesInClassPaths();
@@ -492,7 +460,8 @@ public abstract class ClassLoaderUtils {
 				String className = StringUtils.replace(name, FileSuffixConstants.CLASS, StringUtils.EMPTY);
 				return StringUtils.replace(className, Constants.DOT, PathConstants.SLASH) + FileSuffixConstants.CLASS;
 			}
-		}, PACKAGE {
+		},
+		PACKAGE {
 			@Override
 			boolean supported(String name) {
 				//TODO: use regexp to match more precise
@@ -515,16 +484,15 @@ public abstract class ClassLoaderUtils {
 		 */
 		public String resolve(String name) {
 			String normalizedName = supported(name) ? normalize(name) : null;
-			if (normalizedName == null)
-				return normalizedName;
+			if (normalizedName == null) {
+				return null;
+			}
 
 			normalizedName = URLUtils.resolvePath(normalizedName);
-
-			// 除去开头的"/"
+			// 除去开头的 "/"
 			while (normalizedName.startsWith("/")) {
 				normalizedName = normalizedName.substring(1);
 			}
-
 			return normalizedName;
 		}
 

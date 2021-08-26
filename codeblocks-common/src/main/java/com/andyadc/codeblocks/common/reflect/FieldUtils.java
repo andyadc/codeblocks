@@ -18,9 +18,10 @@ import static com.andyadc.codeblocks.common.function.Streams.filter;
  * @since 1.0.0
  */
 public abstract class FieldUtils {
+
 	public static Set<Field> getAllFields(Class<?> declaredClass, Predicate<Field>... fieldFilters) {
 		Set<Field> allFields = new LinkedHashSet<>(Arrays.asList(declaredClass.getFields()));
-		for (Class superType : ClassUtils.getAllInheritedTypes(declaredClass)) {
+		for (Class<?> superType : ClassUtils.getAllInheritedTypes(declaredClass)) {
 			allFields.addAll(Arrays.asList(superType.getFields()));
 		}
 		return filter(allFields, Predicates.and(fieldFilters));
@@ -28,7 +29,7 @@ public abstract class FieldUtils {
 
 	public static Set<Field> getAllDeclaredFields(Class<?> declaredClass, Predicate<Field>... fieldFilters) {
 		Set<Field> allDeclaredFields = new LinkedHashSet<>(Arrays.asList(declaredClass.getDeclaredFields()));
-		for (Class superType : ClassUtils.getAllInheritedTypes(declaredClass)) {
+		for (Class<?> superType : ClassUtils.getAllInheritedTypes(declaredClass)) {
 			allDeclaredFields.addAll(Arrays.asList(superType.getDeclaredFields()));
 		}
 		return filter(allDeclaredFields, Predicates.and(fieldFilters));
@@ -44,8 +45,7 @@ public abstract class FieldUtils {
 	public static Field getDeclaredField(Class<?> declaredClass, String fieldName) {
 		Field targetField = null;
 		Field[] fields = declaredClass.getDeclaredFields();
-		for (int i = 0; i < fields.length; i++) {
-			Field field = fields[i];
+		for (Field field : fields) {
 			if (Objects.equals(fieldName, field.getName())) {
 				targetField = field;
 			}
@@ -65,7 +65,7 @@ public abstract class FieldUtils {
 		if (field != null) {
 			return field;
 		}
-		for (Class superType : ClassUtils.getAllInheritedTypes(declaredClass)) {
+		for (Class<?> superType : ClassUtils.getAllInheritedTypes(declaredClass)) {
 			field = getDeclaredField(superType, fieldName);
 			if (field != null) {
 				break;

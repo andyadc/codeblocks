@@ -12,7 +12,7 @@ import java.util.ServiceLoader;
 
 public class Serializers {
 
-	private final Map<Class<?>, List<Serializer>> typedSerializers = new HashMap<>();
+	private final Map<Class<?>, List<Serializer<?>>> typedSerializers = new HashMap<>();
 
 	private final ClassLoader classLoader;
 
@@ -29,7 +29,7 @@ public class Serializers {
 		for (Serializer<?> serializer : serializers) {
 			List<Class<?>> typeArguments = TypeUtils.resolveTypeArguments(serializer.getClass());
 			Class<?> targetClass = typeArguments.isEmpty() ? Object.class : typeArguments.get(0);
-			List<Serializer> serializerList = typedSerializers.computeIfAbsent(targetClass, k -> new LinkedList<>());
+			List<Serializer<?>> serializerList = typedSerializers.computeIfAbsent(targetClass, k -> new LinkedList<>());
 			serializerList.add(serializer);
 			serializerList.sort(PriorityComparator.INSTANCE);
 		}

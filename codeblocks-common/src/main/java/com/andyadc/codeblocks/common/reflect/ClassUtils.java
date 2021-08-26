@@ -340,7 +340,6 @@ public abstract class ClassUtils {
 	 * @param type the type to test
 	 * @return if <code>type</code> is one element of {@link #SIMPLE_TYPES}, return <code>true</code>, or <code>false</code>
 	 * @see #SIMPLE_TYPES
-	 * @since 1.0.0
 	 */
 	public static boolean isSimpleType(Class<?> type) {
 		return SIMPLE_TYPES.contains(type);
@@ -354,6 +353,7 @@ public abstract class ClassUtils {
 		} else if (type == boolean.class || type == Boolean.class) {
 			return Boolean.valueOf(value);
 		}
+
 		try {
 			if (type == byte.class || type == Byte.class) {
 				return Byte.valueOf(value);
@@ -525,7 +525,6 @@ public abstract class ClassUtils {
 	 * @param superType  the super type
 	 * @param targetType the target type
 	 * @return see {@link Class#isAssignableFrom(Class)}
-	 * @since 1.0.0
 	 */
 	public static boolean isAssignableFrom(Class<?> superType, Class<?> targetType) {
 		// any argument is null
@@ -546,7 +545,6 @@ public abstract class ClassUtils {
 	 * @param targetType the target type
 	 * @param superTypes the super types
 	 * @return see {@link Class#isAssignableFrom(Class)}
-	 * @since 1.0.0
 	 */
 	public static boolean isDerived(Class<?> targetType, Class<?>... superTypes) {
 		// any argument is null
@@ -578,7 +576,6 @@ public abstract class ClassUtils {
 	 * @param className   the name of {@link Class}
 	 * @param classLoader {@link ClassLoader}
 	 * @return If found, return <code>true</code>
-	 * @since 1.0.0
 	 */
 	public static boolean isPresent(String className, ClassLoader classLoader) {
 		try {
@@ -595,7 +592,6 @@ public abstract class ClassUtils {
 	 * @param className   the name of {@link Class}
 	 * @param classLoader {@link ClassLoader}
 	 * @return If can't be resolved , return <code>null</code>
-	 * @since 1.0.0
 	 */
 	public static Class<?> resolveClass(String className, ClassLoader classLoader) {
 		Class<?> targetClass = null;
@@ -611,7 +607,6 @@ public abstract class ClassUtils {
 	 *
 	 * @param type the target type
 	 * @return <code>true</code> if the target type is generic class, <code>false</code> otherwise.
-	 * @since 1.0.0
 	 */
 	public static boolean isGenericClass(Class<?> type) {
 		return type != null && type.getTypeParameters().length > 0;
@@ -692,7 +687,7 @@ public abstract class ClassUtils {
 		}
 
 		if (isAbstract != null) {
-			return Modifier.isAbstract(mod) == isAbstract.booleanValue();
+			return Modifier.isAbstract(mod) == isAbstract;
 		}
 		return true;
 	}
