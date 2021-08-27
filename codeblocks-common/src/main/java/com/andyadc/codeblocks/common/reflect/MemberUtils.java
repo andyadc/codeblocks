@@ -8,9 +8,6 @@ import java.lang.reflect.Modifier;
 
 /**
  * The utilities class for Java Reflection {@link Member}
- *
- * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
- * @since 1.0.0
  */
 public abstract class MemberUtils {
 

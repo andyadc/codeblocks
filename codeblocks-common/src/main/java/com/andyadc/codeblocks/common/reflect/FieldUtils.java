@@ -14,8 +14,6 @@ import static com.andyadc.codeblocks.common.function.Streams.filter;
 
 /**
  * The utilities class for Java Reflection {@link Field}
- *
- * @since 1.0.0
  */
 public abstract class FieldUtils {
 

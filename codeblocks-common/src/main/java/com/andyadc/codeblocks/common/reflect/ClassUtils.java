@@ -54,20 +54,7 @@ public abstract class ClassUtils {
 	 * Suffix for array class names: "[]"
 	 */
 	public static final String ARRAY_SUFFIX = "[]";
-
-	/**
-	 * @see {@link Class#ANNOTATION}
-	 */
-	private static final int ANNOTATION = 0x00002000;
-
-	/**
-	 * @see {@link Class#ENUM}
-	 */
-	private static final int ENUM = 0x00004000;
-
 	public static final Class<?>[] EMPTY_CLASS_ARRAY = new Class[0];
-	static final Map<Class<?>, Boolean> concreteClassCache = new WeakHashMap<>();
-
 	/**
 	 * Simple Types including:
 	 * <ul>
@@ -104,6 +91,15 @@ public abstract class ClassUtils {
 		Date.class,
 		Object.class
 	);
+	static final Map<Class<?>, Boolean> concreteClassCache = new WeakHashMap<>();
+	/**
+	 * @see {@link Class#ANNOTATION}
+	 */
+	private static final int ANNOTATION = 0x00002000;
+	/**
+	 * @see {@link Class#ENUM}
+	 */
+	private static final int ENUM = 0x00004000;
 	/**
 	 * Prefix for internal array class names: "[L"
 	 */
@@ -765,7 +761,7 @@ public abstract class ClassUtils {
 	 * @return all class names in class path
 	 */
 	public static Set<String> findClassNamesInClassPath(File archiveFile, boolean recursive) {
-		if (!archiveFile.exists()) {
+		if (archiveFile == null || !archiveFile.exists()) {
 			return emptySet();
 		}
 		if (archiveFile.isDirectory()) { // Directory

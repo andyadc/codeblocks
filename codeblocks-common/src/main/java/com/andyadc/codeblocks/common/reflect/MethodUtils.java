@@ -29,9 +29,10 @@ public class MethodUtils {
 	 * @param methodsToFilter       (optional) the methods to be filtered
 	 * @return non-null read-only {@link Set}
 	 */
-	public static Set<Method> getMethods(Class<?> declaringClass, boolean includeInheritedTypes, boolean publicOnly,
+	public static Set<Method> getMethods(Class<?> declaringClass,
+										 boolean includeInheritedTypes,
+										 boolean publicOnly,
 										 Predicate<Method>... methodsToFilter) {
-
 		if (declaringClass == null || declaringClass.isPrimitive()) {
 			return Collections.emptySet();
 		}
@@ -47,7 +48,6 @@ public class MethodUtils {
 
 		// All methods
 		Set<Method> allMethods = new LinkedHashSet<>();
-
 		for (Class<?> classToSearch : declaredClasses) {
 			Method[] methods = publicOnly ? classToSearch.getMethods() : classToSearch.getDeclaredMethods();
 			// Add the declared methods or public methods
@@ -65,7 +65,8 @@ public class MethodUtils {
 	 * @return non-null read-only {@link Set}
 	 * @see #getMethods(Class, boolean, boolean, Predicate[])
 	 */
-	static Set<Method> getDeclaredMethods(Class<?> declaringClass, Predicate<Method>... methodsToFilter) {
+	static Set<Method> getDeclaredMethods(Class<?> declaringClass,
+										  Predicate<Method>... methodsToFilter) {
 		return getMethods(declaringClass, false, false, methodsToFilter);
 	}
 
@@ -77,7 +78,8 @@ public class MethodUtils {
 	 * @return non-null read-only {@link Set}
 	 * @see #getMethods(Class, boolean, boolean, Predicate[])
 	 */
-	static Set<Method> getMethods(Class<?> declaringClass, Predicate<Method>... methodsToFilter) {
+	static Set<Method> getMethods(Class<?> declaringClass,
+								  Predicate<Method>... methodsToFilter) {
 		return getMethods(declaringClass, false, true, methodsToFilter);
 	}
 
@@ -89,7 +91,8 @@ public class MethodUtils {
 	 * @return non-null read-only {@link Set}
 	 * @see #getMethods(Class, boolean, boolean, Predicate[])
 	 */
-	public static Set<Method> getAllDeclaredMethods(Class<?> declaringClass, Predicate<Method>... methodsToFilter) {
+	public static Set<Method> getAllDeclaredMethods(Class<?> declaringClass,
+													Predicate<Method>... methodsToFilter) {
 		return getMethods(declaringClass, true, false, methodsToFilter);
 	}
 
@@ -101,7 +104,8 @@ public class MethodUtils {
 	 * @return non-null read-only {@link Set}
 	 * @see #getMethods(Class, boolean, boolean, Predicate[])
 	 */
-	static Set<Method> getAllMethods(Class<?> declaringClass, Predicate<Method>... methodsToFilter) {
+	static Set<Method> getAllMethods(Class<?> declaringClass,
+									 Predicate<Method>... methodsToFilter) {
 		return getMethods(declaringClass, true, true, methodsToFilter);
 	}
 
@@ -159,7 +163,9 @@ public class MethodUtils {
 	 * @param <T>             the return type
 	 * @return the target method's execution result
 	 */
-	public static <T> T invokeMethod(Object object, String methodName, Class[] parameterTypes, Object[] parameterValues) {
+	public static <T> T invokeMethod(Object object, String methodName,
+									 Class<?>[] parameterTypes,
+									 Object[] parameterValues) {
 		Class<?> type = object.getClass();
 		Method method = findMethod(type, methodName, parameterTypes);
 		if (method == null) {
@@ -168,7 +174,9 @@ public class MethodUtils {
 		return invokeMethod(object, method, parameterValues);
 	}
 
-	public static <T> T invokeMethod(Object object, Method method, Object... parameterValues) {
+	public static <T> T invokeMethod(Object object,
+									 Method method,
+									 Object... parameterValues) {
 		T value = null;
 		try {
 			enableAccessible(method);
@@ -176,7 +184,6 @@ public class MethodUtils {
 		} catch (Exception e) {
 			throw new IllegalArgumentException(e);
 		}
-
 		return value;
 	}
 
@@ -188,8 +195,6 @@ public class MethodUtils {
 	 * @param overridden the second method, possibly being overridden
 	 * @return {@code true} if and only if the first method overrides
 	 * the second
-	 * @jls 8.4.8 Inheritance, Overriding, and Hiding
-	 * @jls 9.4.1 Inheritance and Overriding
 	 * @see Elements#overrides(ExecutableElement, ExecutableElement, TypeElement)
 	 */
 	public static boolean overrides(Method overrider, Method overridden) {

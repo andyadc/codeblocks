@@ -328,7 +328,6 @@ public class TypeUtils extends BaseUtils {
 	 * @param type        the specified type
 	 * @param typeFilters the filters for type
 	 * @return non-null read-only {@link Set}
-	 * @since 1.0.0
 	 */
 	public static Set<Type> getAllSuperTypes(Type type, Predicate<Type>... typeFilters) {
 		Class<?> rawClass = getRawClass(type);
@@ -342,8 +341,6 @@ public class TypeUtils extends BaseUtils {
 		}
 
 		Set<Type> allSuperTypes = new LinkedHashSet<>();
-
-
 		Type superType = rawClass.getGenericSuperclass();
 		while (superType != null) {
 			// add current super class
@@ -361,7 +358,6 @@ public class TypeUtils extends BaseUtils {
 	 * @param type        the specified type
 	 * @param typeFilters the filters for type
 	 * @return non-null read-only {@link Set}
-	 * @since 1.0.0
 	 */
 	public static Set<Type> getAllInterfaces(Type type, Predicate<Type>... typeFilters) {
 		Class<?> rawClass = getRawClass(type);

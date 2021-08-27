@@ -24,7 +24,6 @@ public class SimpleClassScanner {
 	public final static SimpleClassScanner INSTANCE = new SimpleClassScanner();
 
 	protected SimpleClassScanner() {
-
 	}
 
 	/**

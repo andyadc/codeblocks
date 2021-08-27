@@ -142,7 +142,6 @@ public abstract class AnnotationUtils extends BaseUtils {
 		}
 
 		List<Annotation> allAnnotations = new LinkedList<>();
-
 		// All types
 		Set<Class<?>> allTypes = new LinkedHashSet<>();
 		// Add current type
@@ -290,5 +289,4 @@ public abstract class AnnotationUtils extends BaseUtils {
 		return Stream.of(annotationType.getMethods())
 			.filter(Predicates.and(attributesToFilter));
 	}
-
 }

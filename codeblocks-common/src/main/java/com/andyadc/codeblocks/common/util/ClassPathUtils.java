@@ -15,6 +15,7 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 
 public class ClassPathUtils {
+
 	protected static final RuntimeMXBean runtimeMXBean = ManagementFactory.getRuntimeMXBean();
 
 	private static final Set<String> bootstrapClassPaths = initBootstrapClassPaths();
@@ -34,21 +35,16 @@ public class ClassPathUtils {
 	}
 
 	private static Set<String> resolveClassPaths(String classPath) {
-		Set<String> classPaths = new LinkedHashSet<>();
 		String[] classPathsArray = StringUtils.split(classPath, SystemConstants.PATH_SEPARATOR);
-		classPaths.addAll(Arrays.asList(classPathsArray));
+		Set<String> classPaths = new LinkedHashSet<>(Arrays.asList(classPathsArray));
 		return Collections.unmodifiableSet(classPaths);
 	}
-
 
 	/**
 	 * Get Bootstrap Class Paths {@link Set}
 	 *
 	 * @return If {@link RuntimeMXBean#isBootClassPathSupported()} == <code>false</code>, will return empty set.
-	 * @version 1.0.0
-	 * @since 1.0.0
 	 **/
-
 	public static Set<String> getBootstrapClassPaths() {
 		return bootstrapClassPaths;
 	}
@@ -57,10 +53,7 @@ public class ClassPathUtils {
 	 * Get {@link #classPaths}
 	 *
 	 * @return Class Paths {@link Set}
-	 * @version 1.0.0
-	 * @since 1.0.0
 	 **/
-
 	public static Set<String> getClassPaths() {
 		return classPaths;
 	}
@@ -105,7 +98,6 @@ public class ClassPathUtils {
 				CodeSource codeSource = protectionDomain.getCodeSource();
 				location = codeSource == null ? null : codeSource.getLocation();
 			} catch (SecurityException exception) {
-
 			}
 		} else if (!type.isPrimitive() && !type.isArray() && !type.isSynthetic()) { // Bootstrap ClassLoader
 			// Class was loaded by Bootstrap ClassLoader

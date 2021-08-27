@@ -23,8 +23,6 @@ import static java.util.Collections.unmodifiableSet;
 /**
  * Miscellaneous collection utility methods.
  * Mainly for internal use within the framework.
- *
- * @since 1.0.0
  */
 public abstract class CollectionUtils extends BaseUtils {
 
@@ -52,7 +50,6 @@ public abstract class CollectionUtils extends BaseUtils {
 
 	public static <T> Set<T> ofSet(Collection<T> values, T... others) {
 		int size = size(values);
-
 		if (size < 1) {
 			return ofSet(others);
 		}
@@ -165,7 +162,6 @@ public abstract class CollectionUtils extends BaseUtils {
 	 *
 	 * @param collection the specified {@link Collection}
 	 * @return must be positive number
-	 * @since 1.0.0
 	 */
 	public static int size(Collection<?> collection) {
 		return collection == null ? 0 : collection.size();
@@ -178,7 +174,6 @@ public abstract class CollectionUtils extends BaseUtils {
 	 * @param one     {@link Collection}
 	 * @param another {@link Collection}
 	 * @return if equals, return <code>true</code>, or <code>false</code>
-	 * @since 1.0.0
 	 */
 	public static boolean equals(Collection<?> one, Collection<?> another) {
 		if (one == another) {
@@ -207,7 +202,6 @@ public abstract class CollectionUtils extends BaseUtils {
 	 * @param values     the multiple values
 	 * @param <T>        the type of values
 	 * @return the effected count after added
-	 * @since 1.0.0
 	 */
 	public static <T> int addAll(Collection<T> collection, T... values) {
 		int size = values == null ? 0 : values.length;
@@ -243,7 +237,6 @@ public abstract class CollectionUtils extends BaseUtils {
 	 * @param values the collection object
 	 * @param <T>    the type of element of collection
 	 * @return if found, return the first one, or <code>null</code>
-	 * @since 1.0.0
 	 */
 	public static <T> T first(Collection<T> values) {
 		if (isEmpty(values)) {

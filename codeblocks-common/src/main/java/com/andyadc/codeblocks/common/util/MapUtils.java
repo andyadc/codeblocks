@@ -4,15 +4,11 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
- * @since
- */
 public abstract class MapUtils extends BaseUtils {
 
-	public static Map of(Object... values) {
+	public static Map<Object, Object> of(Object... values) {
 		int length = values.length;
-		Map map = new LinkedHashMap(length / 2);
+		Map<Object, Object> map = new LinkedHashMap<>(length / 2);
 		for (int i = 0; i < length; ) {
 			map.put(values[i++], values[i++]);
 		}

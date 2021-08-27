@@ -24,19 +24,12 @@ import static com.andyadc.codeblocks.common.util.ArrayUtils.length;
 
 /**
  * {@link URL} Utility class
- *
- * @author <a href="mailto:mercyblitz@gmail.com">Mercy<a/>
- * @version 1.0.0
  * @see URL
  * @see URLEncoder
  * @see URLDecoder
- * @since 1.0.0
  */
 public abstract class URLUtils {
 
-	/**
-	 *
-	 */
 	private static final String DEFAULT_ENCODING = "UTF-8";
 
 	/**
@@ -44,9 +37,6 @@ public abstract class URLUtils {
 	 *
 	 * @param archiveFileURL Archive File URL
 	 * @return Relative path in archive
-	 * @throws NullPointerException <code>archiveFileURL</code> is <code>null</code>
-	 * @version 1.0.0
-	 * @since 1.0.0
 	 */
 	public static String resolveRelativePath(URL archiveFileURL) throws NullPointerException {
 		// NPE check
@@ -66,7 +56,6 @@ public abstract class URLUtils {
 	 * @param archiveFileExtensionName
 	 *         archive file extension name
 	 * @return Resolve archive file If exists
-	 * @throws NullPointerException
 	 */
 	public static File resolveArchiveFile(URL archiveFileURL, String archiveFileExtensionName) throws NullPointerException {
 		String archiveFilePath = archiveFileURL.getPath();
@@ -93,7 +82,7 @@ public abstract class URLUtils {
 	}
 
 	private static File resolveArchiveDirectory(URL resourceURL) {
-		String resourcePath = resourceURL.getPath();
+		String resourcePath = new File(resourceURL.getFile()).toString();
 		Set<String> classPaths = ClassPathUtils.getClassPaths();
 		File archiveDirectory = null;
 		for (String classPath : classPaths) {
@@ -105,14 +94,12 @@ public abstract class URLUtils {
 		return archiveDirectory;
 	}
 
-
 	/**
 	 * Resolve parameters {@link Map} from specified URL，The parameter name as key ，parameter value list as key
 	 *
 	 * @param url URL
 	 * @return Non-null and Read-only {@link Map} , the order of parameters is determined by query string
 	 */
-
 	public static Map<String, List<String>> resolveParametersMap(String url) {
 		String queryString = StringUtils.substringAfterLast(url, SeparatorConstants.QUERY_STRING);
 		if (StringUtils.isNotBlank(queryString)) {
@@ -148,8 +135,6 @@ public abstract class URLUtils {
 	 * @param path
 	 *         Path
 	 * @return a newly resolved path
-	 * @version 1.0.0
-	 * @since 1.0.0
 	 */
 	public static String resolvePath(final String path) {
 		if (StringUtils.isBlank(path)) {
@@ -157,7 +142,6 @@ public abstract class URLUtils {
 		}
 
 		String resolvedPath = path.trim();
-
 		while (resolvedPath.contains(PathConstants.BACK_SLASH)) {
 			resolvedPath = StringUtils.replace(resolvedPath, PathConstants.BACK_SLASH, PathConstants.SLASH);
 		}
@@ -184,7 +168,6 @@ public abstract class URLUtils {
 	 * @throws IllegalArgumentException
 	 *         If the named encoding is not supported
 	 * @see URLDecoder#decode(String, String)
-	 * @since 1.4
 	 */
 	public static String encode(String value, String encoding) throws IllegalArgumentException {
 		String encodedValue = null;
