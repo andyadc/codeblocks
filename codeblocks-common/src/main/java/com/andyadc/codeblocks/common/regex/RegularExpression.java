@@ -6,10 +6,10 @@ public enum RegularExpression {
 
 	PHONE() {
 		@Override
-		boolean validate(String text) {
+		public boolean validate(String text) {
 			return Pattern.matches(CustomPattern.PHONE_PATTERN.pattern(), text);
 		}
 	};
 
-	abstract boolean validate(String text);
+	public abstract boolean validate(String text);
 }

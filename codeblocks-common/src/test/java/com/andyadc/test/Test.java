@@ -1,4 +1,6 @@
-package com.andyadc.codeblocks.common.regex;
+package com.andyadc.test;
+
+import com.andyadc.codeblocks.common.regex.RegularExpression;
 
 public class Test {
 
