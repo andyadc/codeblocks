@@ -27,6 +27,7 @@
 		<module>ssm-demo</module>
 		<module>tinyrpc</module>
 		<module>tiny-interceptor</module>
+		<module>tiny-cdi</module>
 	</modules>
 
     <prerequisites>
