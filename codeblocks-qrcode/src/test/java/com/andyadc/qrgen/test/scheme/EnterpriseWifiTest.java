@@ -3,8 +3,7 @@ package com.andyadc.qrgen.test.scheme;
 import com.andyadc.codeblocks.qrgen.core.scheme.EnterpriseWifi;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class EnterpriseWifiTest {
 
@@ -38,14 +37,19 @@ public class EnterpriseWifiTest {
 		assertEquals(false, wifi.isHidden());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void parseNull() {
 		EnterpriseWifi.parse(null);
+		assertThrows(IllegalArgumentException.class, () -> {
+			EnterpriseWifi.parse(null);
+		});
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void parseEmptyString() {
-		EnterpriseWifi.parse("");
+		assertThrows(IllegalArgumentException.class, () -> {
+			EnterpriseWifi.parse(null);
+		});
 	}
 
 	@Test
@@ -86,5 +90,4 @@ public class EnterpriseWifiTest {
 		assertEquals("WIFI:S:s\\;o\\,\\\"me \\'wei\\\\rd\\. SSID\\;;U:Sp\\;ock;P:\\;a\\,\\\"intNo\\,Sec\\\\ret;E:PEAP;PH:MS-CHAPv2;H:false;",
 			wifi.toString());
 	}
-
 }

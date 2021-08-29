@@ -4,6 +4,7 @@ import com.andyadc.codeblocks.qrgen.core.scheme.VCard;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class VCardTest {
 
@@ -30,14 +31,18 @@ public class VCardTest {
 		assertEquals("more cookies, please", vcard.getNote());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void parseNull() {
-		VCard.parse(null);
+		assertThrows(IllegalArgumentException.class, () -> {
+			VCard.parse(null);
+		});
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void parseEmptyString() {
-		VCard.parse("");
+		assertThrows(IllegalArgumentException.class, () -> {
+			VCard.parse("");
+		});
 	}
 
 	@Test

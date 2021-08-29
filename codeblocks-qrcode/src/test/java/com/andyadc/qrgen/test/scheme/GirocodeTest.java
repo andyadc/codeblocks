@@ -4,6 +4,7 @@ import com.andyadc.codeblocks.qrgen.core.scheme.Girocode;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class GirocodeTest {
 
@@ -43,14 +44,18 @@ public class GirocodeTest {
 		assertEquals("Watch this Girocode :-)", girocode.getHint());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void parseNull() {
-		Girocode.parse(null);
+		assertThrows(IllegalArgumentException.class, () -> {
+			Girocode.parse(null);
+		});
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void parseEmptyString() {
-		Girocode.parse("");
+		assertThrows(IllegalArgumentException.class, () -> {
+			Girocode.parse("");
+		});
 	}
 
 	@Test
