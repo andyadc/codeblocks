@@ -14,9 +14,9 @@ import com.alibaba.fastjson.serializer.SimpleDateFormatSerializer;
 public final class JsonUtil {
 
     private static final SerializeConfig SERIALIZE_CONFIG;
-    private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-    private static final ObjectSerializer SIMPLE_DATE_FORMAT_SERIALIZER =
-            new SimpleDateFormatSerializer(DATE_FORMAT);
+	private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
+	private static final ObjectSerializer SIMPLE_DATE_FORMAT_SERIALIZER =
+		new SimpleDateFormatSerializer(DATE_FORMAT);
 
     private static final SerializerFeature[] SERIALIZER_FEATURE = {
             SerializerFeature.DisableCircularReferenceDetect,//关闭循环引用检查
