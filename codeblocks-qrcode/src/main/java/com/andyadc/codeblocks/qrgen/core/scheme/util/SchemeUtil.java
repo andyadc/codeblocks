@@ -46,7 +46,8 @@ public class SchemeUtil {
 	 * @return the parsed key/value map
 	 */
 	public static Map<String, String> getParameters(final String qrCode,
-													final String paramSeparator, final String keyValueSeparator) {
+													final String paramSeparator,
+													final String keyValueSeparator) {
 		Map<String, String> result = new LinkedHashMap<String, String>();
 		String[] parts = qrCode.split(paramSeparator);
 		for (int i = 0; i < parts.length; i++) {
@@ -57,5 +58,4 @@ public class SchemeUtil {
 		}
 		return result;
 	}
-
 }

@@ -141,7 +141,6 @@ public class QRCode extends AbstractQRCode {
 		} catch (Exception e) {
 			throw new QRGenerationException("Failed to create QR image from text due to underlying exception", e);
 		}
-
 		return file;
 	}
 
