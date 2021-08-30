@@ -55,5 +55,4 @@ public class Url extends Schema {
 	public String toString() {
 		return generateString();
 	}
-
 }

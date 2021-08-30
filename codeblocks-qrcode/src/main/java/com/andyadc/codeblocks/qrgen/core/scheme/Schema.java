@@ -1,4 +1,3 @@
-
 package com.andyadc.codeblocks.qrgen.core.scheme;
 
 /**
@@ -9,7 +8,7 @@ public abstract class Schema {
 	/**
 	 * Parse qr code schema for given code string.
 	 *
-	 * @param code
+	 * @param code code
 	 * @return schema
 	 */
 	public abstract Schema parseSchema(String code);

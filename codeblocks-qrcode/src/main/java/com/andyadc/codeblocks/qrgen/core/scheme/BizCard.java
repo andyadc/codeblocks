@@ -1,6 +1,5 @@
 package com.andyadc.codeblocks.qrgen.core.scheme;
 
-
 public class BizCard extends Schema {
 
 	public BizCard() {

@@ -1,2 +1,2 @@
-net.glxn.qrgen.core.scheme.QRCodeSchemeParser=\
-net.glxn.qrgen.core.scheme.FooSchemeParser
+com.andyadc.codeblocks.qrgen.core.scheme.parser.QRCodeSchemeParser=\
+com.andyadc.qrgen.test.scheme.FooSchemeParser

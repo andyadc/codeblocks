@@ -82,5 +82,4 @@ public class Bookmark extends Schema {
 	public String toString() {
 		return generateString();
 	}
-
 }
