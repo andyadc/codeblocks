@@ -1,9 +1,9 @@
 package com.andyadc.codeblocks.interceptor;
 
 import com.andyadc.codeblocks.common.function.Streams;
+import com.andyadc.codeblocks.common.lang.AnnotationUtils;
 import com.andyadc.codeblocks.common.lang.Prioritized;
 import com.andyadc.codeblocks.common.reflect.TypeUtils;
-import com.andyadc.codeblocks.common.util.AnnotationUtils;
 
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.InterceptorBinding;
