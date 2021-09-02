@@ -28,6 +28,7 @@
 		<module>tinyrpc</module>
 		<module>tiny-interceptor</module>
 		<module>tiny-cdi</module>
+		<module>tuple</module>
 	</modules>
 
     <prerequisites>
