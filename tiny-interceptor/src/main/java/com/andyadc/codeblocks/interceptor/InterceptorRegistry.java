@@ -2,7 +2,7 @@ package com.andyadc.codeblocks.interceptor;
 
 import com.andyadc.codeblocks.common.reflect.ClassLoaderUtils;
 import com.andyadc.codeblocks.common.util.ServiceLoaders;
-import com.andyadc.codeblocks.interceptor.util.Interceptors;
+import com.andyadc.codeblocks.interceptor.util.InterceptorUtils;
 
 import javax.interceptor.InterceptorBinding;
 import java.lang.annotation.Annotation;
@@ -62,7 +62,7 @@ public interface InterceptorRegistry {
 	 * Gets the {@linkplain InterceptorBinding interceptor bindings} of the interceptor.
 	 *
 	 * @return the set of {@linkplain InterceptorBinding interceptor bindings}
-	 * @throws IllegalStateException See exception details on {@link Interceptors#isInterceptorClass(Class)}
+	 * @throws IllegalStateException See exception details on {@link InterceptorUtils#isInterceptorClass(Class)}
 	 */
 	default Set<Annotation> getInterceptorBindings(Class<?> interceptorClass) throws IllegalStateException {
 		return getInterceptorInfo(interceptorClass).getInterceptorBindings();
@@ -73,7 +73,7 @@ public interface InterceptorRegistry {
 	 *
 	 * @param interceptorClass the given interceptor class
 	 * @return non-null if <code>interceptorClass</code> is a valid interceptor class
-	 * @throws IllegalStateException See exception details on {@link Interceptors#isInterceptorClass(Class)}
+	 * @throws IllegalStateException See exception details on {@link InterceptorUtils#isInterceptorClass(Class)}
 	 */
 	InterceptorInfo getInterceptorInfo(Class<?> interceptorClass) throws IllegalStateException;
 
@@ -85,7 +85,19 @@ public interface InterceptorRegistry {
 	 */
 	List<Object> getInterceptors(Class<? extends Annotation> interceptorBindingType);
 
+	/**
+	 * <p>
+	 * Declares an annotation type as an {@linkplain javax.interceptor.Interceptor @Interceptor} binding type if you
+	 * wish to make an annotation an interceptor binding type without adding {@link InterceptorBinding} to it.
+	 * </p>
+	 *
+	 * @param interceptorBindingType interceptorBindingType
+	 */
 	void registerInterceptorBindingType(Class<? extends Annotation> interceptorBindingType);
 
-	boolean isInterceptorBinding(Annotation annotation);
+	default boolean isInterceptorBinding(Annotation annotation) {
+		return isInterceptorBindingType(annotation.annotationType());
+	}
+
+	boolean isInterceptorBindingType(Class<? extends Annotation> annotationType);
 }

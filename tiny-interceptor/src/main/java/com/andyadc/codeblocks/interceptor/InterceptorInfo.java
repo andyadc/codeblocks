@@ -3,10 +3,11 @@ package com.andyadc.codeblocks.interceptor;
 import com.andyadc.codeblocks.common.lang.AnnotationUtils;
 import com.andyadc.codeblocks.common.reflect.MethodUtils;
 import com.andyadc.codeblocks.common.util.CollectionUtils;
-import com.andyadc.codeblocks.interceptor.util.Interceptors;
+import com.andyadc.codeblocks.interceptor.util.InterceptorUtils;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.interceptor.AroundConstruct;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.AroundTimeout;
 import java.lang.annotation.Annotation;
@@ -27,8 +28,7 @@ public class InterceptorInfo {
 
 	private final Method aroundTimeoutMethod;
 
-	// TODO
-//	private final Method aroundConstructMethod;
+	private final Method aroundConstructMethod;
 
 	private final Method postConstructMethod;
 
@@ -43,7 +43,7 @@ public class InterceptorInfo {
 		Map<Class<? extends Annotation>, Method> interceptionMethods = resolveInterceptionMethods();
 		this.aroundInvokeMethod = interceptionMethods.remove(AroundInvoke.class);
 		this.aroundTimeoutMethod = interceptionMethods.remove(AroundTimeout.class);
-//		this.aroundConstructMethod = interceptionMethods.remove(AroundConstruct.class);
+		this.aroundConstructMethod = interceptionMethods.remove(AroundConstruct.class);
 		this.postConstructMethod = interceptionMethods.remove(PostConstruct.class);
 		this.preDestroyMethod = interceptionMethods.remove(PreDestroy.class);
 		this.interceptorBindings = resolveInterceptorBindings();
@@ -55,11 +55,11 @@ public class InterceptorInfo {
 		Map<Class<? extends Annotation>, Method> interceptionMethods = new HashMap<>();
 
 		for (Method method : methods) {
-			resolveInterceptionMethod(method, AroundInvoke.class, Interceptors::isAroundInvokeMethod, interceptionMethods);
-			resolveInterceptionMethod(method, AroundTimeout.class, Interceptors::isAroundTimeoutMethod, interceptionMethods);
-//			resolveInterceptionMethod(method, AroundConstruct.class, Interceptors::isAroundConstructMethod, interceptionMethods);
-			resolveInterceptionMethod(method, PostConstruct.class, Interceptors::isPostConstructMethod, interceptionMethods);
-			resolveInterceptionMethod(method, PreDestroy.class, Interceptors::isPreDestroyMethod, interceptionMethods);
+			resolveInterceptionMethod(method, AroundInvoke.class, InterceptorUtils::isAroundInvokeMethod, interceptionMethods);
+			resolveInterceptionMethod(method, AroundTimeout.class, InterceptorUtils::isAroundTimeoutMethod, interceptionMethods);
+			resolveInterceptionMethod(method, AroundConstruct.class, InterceptorUtils::isAroundConstructMethod, interceptionMethods);
+			resolveInterceptionMethod(method, PostConstruct.class, InterceptorUtils::isPostConstructMethod, interceptionMethods);
+			resolveInterceptionMethod(method, PreDestroy.class, InterceptorUtils::isPreDestroyMethod, interceptionMethods);
 		}
 
 		return interceptionMethods;
@@ -96,9 +96,9 @@ public class InterceptorInfo {
 		return aroundTimeoutMethod;
 	}
 
-//	public Method getAroundConstructMethod() {
-//		return aroundConstructMethod;
-//	}
+	public Method getAroundConstructMethod() {
+		return aroundConstructMethod;
+	}
 
 	public Method getPostConstructMethod() {
 		return postConstructMethod;

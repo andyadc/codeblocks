@@ -16,6 +16,7 @@ public class DefaultInterceptorEnhancerTest {
 	public void testInterface() {
 		EchoService echoService = new EchoService();
 		echoService = interceptorEnhancer.enhance(echoService, AnnotatedInterceptor.loadInterceptors());
+		echoService.init();
 		echoService.echo("Hello,World");
 	}
 }

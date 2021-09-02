@@ -5,34 +5,28 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
-
-import static java.util.Objects.requireNonNull;
+import java.util.Objects;
 
 /**
- * {@link Method} {@link InvocationContext}
+ * {@link Constructor} {@link InvocationContext}
  */
-public class ReflectiveMethodInvocationContext implements InvocationContext {
+public class ReflectiveConstructorInvocationContext implements InvocationContext {
 
-	private final Object target;
-
-	private final Method method;
-
+	private final Constructor<?> constructor;
+	private final Map<String, Object> contextData;
 	private Object[] parameters;
 
-	private final Map<String, Object> contextData;
-
-	public ReflectiveMethodInvocationContext(Object target, Method method, Object... parameters) {
-		requireNonNull(target, "The target instance must not be null");
-		requireNonNull(method, "The method must not be null");
-		this.target = target;
-		this.method = method;
+	public ReflectiveConstructorInvocationContext(Constructor<?> constructor, Object... parameters) {
+		Objects.requireNonNull(constructor, "The argument 'constructor' must not be null");
+		Objects.requireNonNull(parameters, "The arguments 'parameters' must not be null");
+		this.constructor = constructor;
 		this.setParameters(parameters);
 		this.contextData = new HashMap<>();
 	}
 
 	@Override
 	public final Object getTarget() {
-		return target;
+		return null;
 	}
 
 	@Override
@@ -42,12 +36,12 @@ public class ReflectiveMethodInvocationContext implements InvocationContext {
 
 	@Override
 	public final Method getMethod() {
-		return method;
+		return null;
 	}
 
 	@Override
 	public final Constructor<?> getConstructor() {
-		return null;
+		return constructor;
 	}
 
 	@Override
@@ -67,6 +61,6 @@ public class ReflectiveMethodInvocationContext implements InvocationContext {
 
 	@Override
 	public Object proceed() throws Exception {
-		return method.invoke(getTarget(), getParameters());
+		return constructor.newInstance(parameters);
 	}
 }

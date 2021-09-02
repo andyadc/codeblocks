@@ -2,6 +2,7 @@ package com.andyadc.codeblocks.interceptor.util;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import javax.interceptor.AroundConstruct;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.AroundTimeout;
 import javax.interceptor.Interceptor;
@@ -18,10 +19,12 @@ import static java.lang.reflect.Modifier.*;
 /**
  * The utilities class for {@link Interceptor}
  */
-public abstract class Interceptors {
+public abstract class InterceptorUtils {
+
+	public static final Class<? extends Annotation> INTERCEPTOR_ANNOTATION_TYPE = javax.interceptor.Interceptor.class;
 
 	public static boolean isInterceptorClass(Class<?> interceptorClass) {
-		if (isAnnotationPresent(interceptorClass, Interceptor.class)) {
+		if (isAnnotationPresent(interceptorClass, INTERCEPTOR_ANNOTATION_TYPE)) {
 			validatorInterceptorClass(interceptorClass);
 		}
 		return false;
@@ -66,9 +69,7 @@ public abstract class Interceptors {
 	 *                               or if the return type of method is not <code>void</code>
 	 */
 	public static boolean isAroundConstructMethod(Method method) {
-		// TODO javax.interceptor-api@3.1
-//		return isInterceptionMethod(method, AroundConstruct.class, void.class);
-		return false;
+		return isInterceptionMethod(method, AroundConstruct.class, void.class);
 	}
 
 	/**
@@ -99,8 +100,7 @@ public abstract class Interceptors {
 		return isInterceptionMethod(method, PreDestroy.class, void.class);
 	}
 
-	static boolean isInterceptionMethod(Method method,
-										Class<? extends Annotation> annotationType,
+	static boolean isInterceptionMethod(Method method, Class<? extends Annotation> annotationType,
 										Class<?> validReturnType) {
 		if (isAnnotationPresent(method, annotationType)) {
 			validateMethodModifiers(method, annotationType);
@@ -120,7 +120,7 @@ public abstract class Interceptors {
 		throws IllegalStateException {
 		int modifiers = method.getModifiers();
 		if (isAbstract(modifiers) || isFinal(modifiers) || isStatic(modifiers)) {
-			throw new IllegalStateException(String.format("%s Method[%s] must not be abstract or final or static!",
+			throw new IllegalStateException(String.format("@%s Method[%s] must not be abstract or final or static!",
 				annotationType.getName(), method.toString()));
 		}
 	}
@@ -128,7 +128,7 @@ public abstract class Interceptors {
 	private static void validateMethodReturnType(Method method, Class<? extends Annotation> annotationType, Class<?> validReturnType) {
 		if (!validReturnType.isAssignableFrom(method.getReturnType())) {
 			throw new IllegalStateException(
-				String.format("The return type of %s Method[%s] must be %s or its derived type , actual type %s!",
+				String.format("The return type of @%s Method[%s] must be %s or its derived type , actual type %s!",
 					annotationType.getName(), method.toString(), validReturnType.getName(),
 					method.getReturnType().getName()));
 		}
@@ -136,14 +136,14 @@ public abstract class Interceptors {
 
 	/**
 	 * @param method         the given {@link Method method}
-	 * @param annotationType
+	 * @param annotationType annotationType
 	 * @throws IllegalStateException If the count of method arguments is not only one or
 	 *                               the argument type is not {@link InvocationContext}
 	 */
 	static void validateMethodArguments(Method method, Class<? extends Annotation> annotationType) throws IllegalStateException {
 		Class<?>[] parameterTypes = method.getParameterTypes();
 		if (parameterTypes.length != 1) {
-			throw new IllegalStateException(String.format("%s Method[%s] must have only one argument!",
+			throw new IllegalStateException(String.format("@%s Method[%s] must have only one argument!",
 				annotationType.getName(), method.toString()));
 		}
 
@@ -158,10 +158,15 @@ public abstract class Interceptors {
 	 *
 	 * @param interceptorClass the class of interceptor
 	 * @throws NullPointerException  If <code>interceptorClass</code> is <code>null</code>
-	 * @throws IllegalStateException If an interceptor class is abstract or have not a public no-arg constructor
+	 * @throws IllegalStateException If an interceptor class does not annotate @Interceptor or
+	 *                               is abstract or have not a public no-arg constructor
 	 */
 	public static void validatorInterceptorClass(Class<?> interceptorClass) throws NullPointerException, IllegalStateException {
 		Objects.requireNonNull(interceptorClass, "The argument 'interceptorClass' must not be null!");
+		if (!interceptorClass.isAnnotationPresent(INTERCEPTOR_ANNOTATION_TYPE)) {
+			throw new IllegalArgumentException(String.format("The Interceptor class[%s] must annotate %s",
+				interceptorClass, INTERCEPTOR_ANNOTATION_TYPE));
+		}
 		int modifies = interceptorClass.getModifiers();
 		if (isAbstract(modifies)) {
 			throw new IllegalStateException(String.format("The Interceptor class[%s] must not be abstract!",

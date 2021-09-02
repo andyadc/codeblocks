@@ -3,6 +3,8 @@ package com.andyadc.codeblocks.interceptor;
 import com.andyadc.codeblocks.common.lang.AnnotationUtils;
 import com.andyadc.codeblocks.common.util.PriorityComparator;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.interceptor.InterceptorBinding;
 import java.lang.annotation.Annotation;
 import java.util.Collections;
@@ -78,11 +80,14 @@ public class DefaultInterceptorRegistry implements InterceptorRegistry {
 	}
 
 	private void registerDefaultInterceptorBindingType() {
-		registerInterceptorBindingType(InterceptorBinding.class);
+		registerInterceptorBindingType(PostConstruct.class);
+		registerInterceptorBindingType(PreDestroy.class);
 	}
 
-	public boolean isInterceptorBinding(Annotation annotation) {
-		return AnnotationUtils.isMetaAnnotation(annotation, interceptorBindingTypes);
+	@Override
+	public boolean isInterceptorBindingType(Class<? extends Annotation> annotationType) {
+		return AnnotationUtils.isMetaAnnotation(annotationType, InterceptorBinding.class) ||
+			interceptorBindingTypes.contains(annotationType);
 	}
 
 	public Set<Class<? extends Annotation>> getInterceptorBindingTypes() {
