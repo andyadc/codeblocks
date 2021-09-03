@@ -55,8 +55,10 @@ public class DefaultInterceptorRegistry implements InterceptorRegistry {
 		interceptorBindings.stream()
 			.map(Annotation::annotationType)
 			.forEach(interceptorBindingType -> {
-				List<Object> interceptors = bindingInterceptors.computeIfAbsent(interceptorBindingType,
-					t -> new LinkedList<>());
+				List<Object> interceptors = bindingInterceptors.computeIfAbsent(
+					interceptorBindingType,
+					t -> new LinkedList<>()
+				);
 				if (!interceptors.contains(interceptor)) {
 					interceptors.add(interceptor);
 					interceptors.sort(PriorityComparator.INSTANCE);
@@ -86,8 +88,8 @@ public class DefaultInterceptorRegistry implements InterceptorRegistry {
 
 	@Override
 	public boolean isInterceptorBindingType(Class<? extends Annotation> annotationType) {
-		return AnnotationUtils.isMetaAnnotation(annotationType, InterceptorBinding.class) ||
-			interceptorBindingTypes.contains(annotationType);
+		return AnnotationUtils.isMetaAnnotation(annotationType, InterceptorBinding.class)
+			|| interceptorBindingTypes.contains(annotationType);
 	}
 
 	public Set<Class<? extends Annotation>> getInterceptorBindingTypes() {
