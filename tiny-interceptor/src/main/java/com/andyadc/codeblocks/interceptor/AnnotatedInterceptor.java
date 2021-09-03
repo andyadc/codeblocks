@@ -1,7 +1,6 @@
 package com.andyadc.codeblocks.interceptor;
 
 import com.andyadc.codeblocks.common.function.Streams;
-import com.andyadc.codeblocks.common.lang.AnnotationUtils;
 import com.andyadc.codeblocks.common.lang.Prioritized;
 import com.andyadc.codeblocks.common.reflect.TypeUtils;
 import com.andyadc.codeblocks.interceptor.util.InterceptorUtils;
@@ -53,15 +52,6 @@ public abstract class AnnotatedInterceptor<A extends Annotation> implements Inte
 		this.interceptorRegistry.registerInterceptor(this);
 	}
 
-	@Override
-	public final int getPriority() {
-		return priority;
-	}
-
-	public void setPriority(int priority) {
-		this.priority = priority;
-	}
-
 	/**
 	 * Load the sorted instances of {@link AnnotatedInterceptor} via Java Standard SPI.
 	 *
@@ -73,12 +63,26 @@ public abstract class AnnotatedInterceptor<A extends Annotation> implements Inte
 			.toArray(AnnotatedInterceptor[]::new);
 	}
 
+	@Override
+	public final int getPriority() {
+		return priority;
+	}
+
+	public void setPriority(int priority) {
+		this.priority = priority;
+	}
+
 	@AroundInvoke
 	public Object intercept(InvocationContext context) throws Throwable {
 		A interceptorBinding = findInterceptorBinding(context.getMethod());
 		return interceptorBinding == null ? context.proceed() : intercept(context, interceptorBinding);
 	}
 
+	/**
+	 * Timeout methods are currently specific to Enterprise JavaBeans, although Timer Service functionality
+	 * may be extended to other specifications in the future, and extension specifications may define events
+	 * that may be interposed on by around-timeout methods.
+	 */
 	@AroundTimeout
 	public Object interceptTimeout(InvocationContext context) throws Throwable {
 		A interceptorBinding = findInterceptorBinding(context.getMethod());
@@ -128,7 +132,7 @@ public abstract class AnnotatedInterceptor<A extends Annotation> implements Inte
 	 * @throws Throwable any exception if occurs
 	 */
 	protected Object interceptTimeout(InvocationContext context, A interceptorBinding) throws Throwable {
-		return null;
+		return context.proceed();
 	}
 
 	/**
@@ -139,6 +143,7 @@ public abstract class AnnotatedInterceptor<A extends Annotation> implements Inte
 	 * @throws Throwable any exception if occurs
 	 */
 	protected void interceptConstruct(InvocationContext context, A interceptorBinding) throws Throwable {
+		context.proceed();
 	}
 
 	/**
@@ -189,7 +194,6 @@ public abstract class AnnotatedInterceptor<A extends Annotation> implements Inte
 	 */
 	protected Class<A> resolveInterceptorBindingType(Class<?> interceptorClass) {
 		Class<A> interceptorBindingType = null;
-
 		for (Class<?> typeArgument : TypeUtils.resolveTypeArguments(interceptorClass)) {
 			if (typeArgument.isAnnotation()) {
 				Class<A> annotationType = (Class<A>) typeArgument;
@@ -247,11 +251,11 @@ public abstract class AnnotatedInterceptor<A extends Annotation> implements Inte
 	}
 
 	protected A findInterceptorBinding(Method method) {
-		A annotation = AnnotationUtils.findAnnotation(method, interceptorBindingType);
-		if (annotation == null && method != null) {
-			annotation = method.getDeclaringClass().getAnnotation(interceptorBindingType);
-		}
-		return annotation;
+		return InterceptorUtils.resolveInterceptorBinding(method, interceptorBindingType);
+	}
+
+	protected A findInterceptorBinding(Constructor<?> constructor) {
+		return InterceptorUtils.resolveInterceptorBinding(constructor, interceptorBindingType);
 	}
 
 	protected Throwable getFailure(Throwable e) {
@@ -260,14 +264,6 @@ public abstract class AnnotatedInterceptor<A extends Annotation> implements Inte
 			failure = getFailure(failure);
 		}
 		return failure;
-	}
-
-	protected A findInterceptorBinding(Constructor<?> constructor) {
-		A annotation = AnnotationUtils.findAnnotation(constructor, interceptorBindingType);
-		if (annotation == null && constructor != null) {
-			annotation = constructor.getDeclaringClass().getAnnotation(interceptorBindingType);
-		}
-		return annotation;
 	}
 
 	public InterceptorRegistry getInterceptorRegistry() {
