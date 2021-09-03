@@ -21,6 +21,7 @@ import java.util.Objects;
  */
 @FunctionalInterface
 public interface EventListener<E extends Event> extends java.util.EventListener, Prioritized {
+
 	/**
 	 * Find the {@link Class type} {@link Event event} from the specified {@link EventListener event listener}
 	 *
@@ -48,7 +49,6 @@ public interface EventListener<E extends Event> extends java.util.EventListener,
 				.findAny()
 				.orElse(findEventType(listenerClass.getSuperclass()));
 		}
-
 		return eventType;
 	}
 
@@ -63,11 +63,11 @@ public interface EventListener<E extends Event> extends java.util.EventListener,
 		Class<? extends Event> eventType = null;
 
 		Type rawType = parameterizedType.getRawType();
-		if ((rawType instanceof Class) && EventListener.class.isAssignableFrom((Class) rawType)) {
+		if ((rawType instanceof Class) && EventListener.class.isAssignableFrom((Class<?>) rawType)) {
 			Type[] typeArguments = parameterizedType.getActualTypeArguments();
 			for (Type typeArgument : typeArguments) {
 				if (typeArgument instanceof Class) {
-					Class argumentClass = (Class) typeArgument;
+					Class<? extends Event> argumentClass = (Class) typeArgument;
 					if (Event.class.isAssignableFrom(argumentClass)) {
 						eventType = argumentClass;
 						break;

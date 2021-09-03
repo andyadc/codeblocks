@@ -1,6 +1,11 @@
 package com.andyadc.codeblocks.common.event;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.ServiceLoader;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.Executor;
@@ -16,9 +21,9 @@ import java.util.stream.Stream;
  * @see ServiceLoader
  * @see EventListener
  * @see Event
- * @since 1.0.0
  */
 public abstract class AbstractEventDispatcher implements EventDispatcher {
+
 	private final Object mutex = new Object();
 
 	private final ConcurrentMap<Class<? extends Event>, List<EventListener>> listenersCache = new ConcurrentHashMap<>();
@@ -86,7 +91,6 @@ public abstract class AbstractEventDispatcher implements EventDispatcher {
 
 	@Override
 	public void dispatch(Event event) {
-
 		Executor executor = getExecutor();
 
 		// execute in sequential or parallel execution model

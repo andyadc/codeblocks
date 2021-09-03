@@ -1,5 +1,10 @@
 package com.andyadc.codeblocks.common.event;
 
+/**
+ * Generic {@link Event event}
+ *
+ * @param <S> the type of event source
+ */
 public class GenericEvent<S> extends Event {
 
 	/**

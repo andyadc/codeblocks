@@ -10,7 +10,6 @@ import java.util.stream.StreamSupport;
  * event Listenable
  *
  * @see EventDispatcher
- * @since 1.0.0
  */
 public interface Listenable<E extends EventListener<?>> {
 
@@ -18,7 +17,6 @@ public interface Listenable<E extends EventListener<?>> {
 	 * Assets the listener is valid or not
 	 *
 	 * @param listener the instance of {@link EventListener}
-	 * @throws NullPointerException
 	 */
 	static void assertListener(EventListener<?> listener) throws NullPointerException {
 		if (listener == null) {
@@ -26,7 +24,6 @@ public interface Listenable<E extends EventListener<?>> {
 		}
 
 		Class<?> listenerClass = listener.getClass();
-
 		int modifiers = listenerClass.getModifiers();
 
 		if (Modifier.isAbstract(modifiers) || Modifier.isInterface(modifiers)) {

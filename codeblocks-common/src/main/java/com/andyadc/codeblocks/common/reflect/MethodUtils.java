@@ -65,8 +65,8 @@ public class MethodUtils {
 	 * @return non-null read-only {@link Set}
 	 * @see #getMethods(Class, boolean, boolean, Predicate[])
 	 */
-	static Set<Method> getDeclaredMethods(Class<?> declaringClass,
-										  Predicate<Method>... methodsToFilter) {
+	public static Set<Method> getDeclaredMethods(Class<?> declaringClass,
+												 Predicate<Method>... methodsToFilter) {
 		return getMethods(declaringClass, false, false, methodsToFilter);
 	}
 
@@ -78,8 +78,8 @@ public class MethodUtils {
 	 * @return non-null read-only {@link Set}
 	 * @see #getMethods(Class, boolean, boolean, Predicate[])
 	 */
-	static Set<Method> getMethods(Class<?> declaringClass,
-								  Predicate<Method>... methodsToFilter) {
+	public static Set<Method> getMethods(Class<?> declaringClass,
+										 Predicate<Method>... methodsToFilter) {
 		return getMethods(declaringClass, false, true, methodsToFilter);
 	}
 
@@ -104,8 +104,8 @@ public class MethodUtils {
 	 * @return non-null read-only {@link Set}
 	 * @see #getMethods(Class, boolean, boolean, Predicate[])
 	 */
-	static Set<Method> getAllMethods(Class<?> declaringClass,
-									 Predicate<Method>... methodsToFilter) {
+	public static Set<Method> getAllMethods(Class<?> declaringClass,
+											Predicate<Method>... methodsToFilter) {
 		return getMethods(declaringClass, true, true, methodsToFilter);
 	}
 
@@ -116,7 +116,7 @@ public class MethodUtils {
 	 * @param methodName the specified method name
 	 * @return if not found, return <code>null</code>
 	 */
-	static Method findMethod(Class<?> type, String methodName) {
+	public static Method findMethod(Class<?> type, String methodName) {
 		return findMethod(type, methodName, ClassUtils.EMPTY_CLASS_ARRAY);
 	}
 
@@ -128,7 +128,7 @@ public class MethodUtils {
 	 * @param parameterTypes the parameter types
 	 * @return if not found, return <code>null</code>
 	 */
-	static Method findMethod(Class<?> type, String methodName, Class<?>... parameterTypes) {
+	public static Method findMethod(Class<?> type, String methodName, Class<?>... parameterTypes) {
 		Method method = null;
 		try {
 			if (type != null && StringUtils.isNotEmpty(methodName)) {
@@ -177,7 +177,7 @@ public class MethodUtils {
 	public static <T> T invokeMethod(Object object,
 									 Method method,
 									 Object... parameterValues) {
-		T value = null;
+		T value;
 		try {
 			enableAccessible(method);
 			value = (T) method.invoke(object, parameterValues);

@@ -2,6 +2,7 @@ package com.andyadc.codeblocks.common.event;
 
 import com.andyadc.codeblocks.common.util.ServiceLoaders;
 
+import java.util.ServiceLoader;
 import java.util.concurrent.Executor;
 
 /**
@@ -10,9 +11,9 @@ import java.util.concurrent.Executor;
  * @see Event
  * @see EventListener
  * @see DirectEventDispatcher
- * @since 1.0.0
  */
 public interface EventDispatcher extends Listenable<EventListener<?>> {
+
 	/**
 	 * Direct {@link Executor} uses sequential execution model
 	 */
@@ -28,7 +29,7 @@ public interface EventDispatcher extends Listenable<EventListener<?>> {
 	}
 
 	/**
-	 * Dispatch a event to the registered {@link EventListener event listeners}
+	 * Dispatch an event to the registered {@link EventListener event listeners}
 	 *
 	 * @param event a {@link Event event}
 	 */

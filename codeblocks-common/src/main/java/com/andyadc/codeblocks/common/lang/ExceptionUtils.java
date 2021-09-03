@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.common.util;
+package com.andyadc.codeblocks.common.lang;
 
 import com.andyadc.codeblocks.common.function.ThrowableSupplier;
 

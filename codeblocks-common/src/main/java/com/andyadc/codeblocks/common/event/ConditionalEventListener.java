@@ -5,9 +5,9 @@ package com.andyadc.codeblocks.common.event;
  * {@link Event event} is handled or not by current listener.
  *
  * @see EventListener
- * @since 1.0.0
  */
 public interface ConditionalEventListener<E extends Event> extends EventListener<E> {
+
 	/**
 	 * Accept the event is handled or not by current listener
 	 *

@@ -1,6 +1,6 @@
 package com.andyadc.codeblocks.common.function;
 
-import com.andyadc.codeblocks.common.util.ExceptionUtils;
+import com.andyadc.codeblocks.common.lang.ExceptionUtils;
 
 /**
  * A function interface for action with {@link Throwable}

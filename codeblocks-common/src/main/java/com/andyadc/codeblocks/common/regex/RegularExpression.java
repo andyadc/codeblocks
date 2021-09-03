@@ -7,9 +7,13 @@ public enum RegularExpression {
 	PHONE() {
 		@Override
 		public boolean validate(String text) {
-			return Pattern.matches(CustomPattern.PHONE_PATTERN.pattern(), text);
+			return isMatch(CustomPattern.PHONE_PATTERN, text);
 		}
 	};
+
+	private static boolean isMatch(Pattern pattern, String input) {
+		return (input != null) && pattern.matcher(input).matches();
+	}
 
 	public abstract boolean validate(String text);
 }

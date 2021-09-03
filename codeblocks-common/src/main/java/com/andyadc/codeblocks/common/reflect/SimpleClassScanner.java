@@ -69,7 +69,6 @@ public class SimpleClassScanner {
 							  final boolean recursive,
 							  boolean requiredLoad) throws IllegalArgumentException, IllegalStateException {
 		Set<Class<?>> classesSet = new LinkedHashSet<>();
-
 		final String packageResourceName = ClassLoaderUtils.ResourceType.PACKAGE.resolve(packageName);
 		try {
 			Set<String> classNames = new LinkedHashSet<>();

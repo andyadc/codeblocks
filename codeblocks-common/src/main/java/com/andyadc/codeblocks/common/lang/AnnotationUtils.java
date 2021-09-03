@@ -1,8 +1,10 @@
-package com.andyadc.codeblocks.common.util;
+package com.andyadc.codeblocks.common.lang;
 
 import com.andyadc.codeblocks.common.function.Predicates;
 import com.andyadc.codeblocks.common.function.ThrowableSupplier;
 import com.andyadc.codeblocks.common.reflect.ClassUtils;
+import com.andyadc.codeblocks.common.util.ArrayUtils;
+import com.andyadc.codeblocks.common.util.BaseUtils;
 
 import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
@@ -84,11 +86,21 @@ public abstract class AnnotationUtils extends BaseUtils {
 
 	public static boolean isMetaAnnotation(Annotation annotation,
 										   Class<? extends Annotation>... metaAnnotationTypes) {
+		return isMetaAnnotation(annotation, asList(metaAnnotationTypes));
+	}
+
+	public static boolean isMetaAnnotation(Annotation annotation,
+										   Iterable<Class<? extends Annotation>> metaAnnotationTypes) {
 		return isMetaAnnotation(annotation.annotationType(), metaAnnotationTypes);
 	}
 
 	public static boolean isMetaAnnotation(Class<? extends Annotation> annotationType,
 										   Class<? extends Annotation>... metaAnnotationTypes) {
+		return isMetaAnnotation(annotationType, asList(metaAnnotationTypes));
+	}
+
+	public static boolean isMetaAnnotation(Class<? extends Annotation> annotationType,
+										   Iterable<Class<? extends Annotation>> metaAnnotationTypes) {
 		boolean annotated = true;
 		for (Class<? extends Annotation> metaAnnotationType : metaAnnotationTypes) {
 			annotated &= isAnnotationPresent(annotationType, metaAnnotationType);
@@ -136,7 +148,8 @@ public abstract class AnnotationUtils extends BaseUtils {
 	 * @param annotationsToFilter the annotations to filter
 	 * @return non-null read-only {@link List}
 	 */
-	public static List<Annotation> getAllDeclaredAnnotations(Class<?> type, Predicate<Annotation>... annotationsToFilter) {
+	public static List<Annotation> getAllDeclaredAnnotations(Class<?> type,
+															 Predicate<Annotation>... annotationsToFilter) {
 		if (type == null) {
 			return emptyList();
 		}
@@ -152,7 +165,6 @@ public abstract class AnnotationUtils extends BaseUtils {
 		for (Class<?> t : allTypes) {
 			allAnnotations.addAll(getDeclaredAnnotations(t, annotationsToFilter));
 		}
-
 		return unmodifiableList(allAnnotations);
 	}
 
@@ -169,7 +181,6 @@ public abstract class AnnotationUtils extends BaseUtils {
 		if (annotatedElement == null) {
 			return emptyList();
 		}
-
 		return unmodifiableList(filterAll(asList(annotatedElement.getDeclaredAnnotations()), annotationsToFilter));
 	}
 
@@ -241,11 +252,11 @@ public abstract class AnnotationUtils extends BaseUtils {
 				break;
 			}
 		}
-
 		return found;
 	}
 
-	public static boolean existsAnnotated(AnnotatedElement[] annotatedElements, Class<? extends Annotation> annotationType) {
+	public static boolean existsAnnotated(AnnotatedElement[] annotatedElements,
+										  Class<? extends Annotation> annotationType) {
 		int length = ArrayUtils.length(annotatedElements);
 		if (length < 1 || annotationType == null) {
 			return false;
@@ -258,23 +269,25 @@ public abstract class AnnotationUtils extends BaseUtils {
 				break;
 			}
 		}
-
 		return annotated;
 	}
 
-	public static boolean isAnnotationPresent(AnnotatedElement annotatedElement, Class<? extends Annotation> annotationType) {
+	public static boolean isAnnotationPresent(AnnotatedElement annotatedElement,
+											  Class<? extends Annotation> annotationType) {
 		return annotatedElement != null &&
 			annotationType != null &&
 			annotatedElement.isAnnotationPresent(annotationType);
 	}
 
-	public static Object[] getAttributeValues(Annotation annotation, Predicate<Method>... attributesToFilter) {
+	public static Object[] getAttributeValues(Annotation annotation,
+											  Predicate<Method>... attributesToFilter) {
 		return getAttributeMethods(annotation, attributesToFilter)
 			.map(method -> ThrowableSupplier.execute(() -> method.invoke(annotation)))
 			.toArray(Object[]::new);
 	}
 
-	public static Map<String, Object> getAttributesMap(Annotation annotation, Predicate<Method>... attributesToFilter) {
+	public static Map<String, Object> getAttributesMap(Annotation annotation,
+													   Predicate<Method>... attributesToFilter) {
 		Map<String, Object> attributesMap = new LinkedHashMap<>();
 		getAttributeMethods(annotation, attributesToFilter)
 			.forEach(method -> {
@@ -284,7 +297,8 @@ public abstract class AnnotationUtils extends BaseUtils {
 		return Collections.unmodifiableMap(attributesMap);
 	}
 
-	private static Stream<Method> getAttributeMethods(Annotation annotation, Predicate<Method>... attributesToFilter) {
+	private static Stream<Method> getAttributeMethods(Annotation annotation,
+													  Predicate<Method>... attributesToFilter) {
 		Class<? extends Annotation> annotationType = annotation.annotationType();
 		return Stream.of(annotationType.getMethods())
 			.filter(Predicates.and(attributesToFilter));

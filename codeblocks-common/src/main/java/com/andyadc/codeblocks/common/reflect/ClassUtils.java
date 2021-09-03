@@ -47,14 +47,17 @@ import static com.andyadc.codeblocks.common.util.CollectionUtils.ofSet;
 import static java.util.Collections.emptySet;
 import static java.util.Collections.unmodifiableSet;
 
+/**
+ * {@link Class} Utilities class
+ */
 public abstract class ClassUtils {
-
 
 	/**
 	 * Suffix for array class names: "[]"
 	 */
 	public static final String ARRAY_SUFFIX = "[]";
 	public static final Class<?>[] EMPTY_CLASS_ARRAY = new Class[0];
+
 	/**
 	 * Simple Types including:
 	 * <ul>
@@ -73,7 +76,6 @@ public abstract class ClassUtils {
 	 * </ul>
 	 *
 	 * @see javax.management.openmbean.SimpleType
-	 * @since 1.0.0
 	 */
 	public static final Set<Class<?>> SIMPLE_TYPES = ofSet(
 		Void.class,
@@ -91,7 +93,9 @@ public abstract class ClassUtils {
 		Date.class,
 		Object.class
 	);
+
 	static final Map<Class<?>, Boolean> concreteClassCache = new WeakHashMap<>();
+
 	/**
 	 * @see {@link Class#ANNOTATION}
 	 */

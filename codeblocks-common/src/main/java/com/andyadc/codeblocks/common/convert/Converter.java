@@ -16,7 +16,6 @@ public interface Converter<S, T> extends Function<S, T>, Prioritized {
 	 *
 	 * @param sourceType the source type
 	 * @param targetType the target type
-	 * @return
 	 * @see ServiceLoader#load(Class)
 	 */
 	static Converter<?, ?> getConverter(Class<?> sourceType, Class<?> targetType) {
@@ -35,6 +34,9 @@ public interface Converter<S, T> extends Function<S, T>, Prioritized {
 	 * @return <code>null</code> if can't be converted
 	 */
 	static <T> T convertIfPossible(Object source, Class<T> targetType) {
+		if (source == null) {
+			return null;
+		}
 		Converter converter = getConverter(source.getClass(), targetType);
 		if (converter != null) {
 			return (T) converter.convert(source);
@@ -50,8 +52,8 @@ public interface Converter<S, T> extends Function<S, T>, Prioritized {
 	 * @return if accepted, return <code>true</code>, or <code>false</code>
 	 */
 	default boolean accept(Class<?> sourceType, Class<?> targetType) {
-		return ClassUtils.isAssignableFrom(sourceType, getSourceType()) &&
-			ClassUtils.isAssignableFrom(targetType, getTargetType());
+		return ClassUtils.isAssignableFrom(sourceType, getSourceType())
+			&& ClassUtils.isAssignableFrom(targetType, getTargetType());
 	}
 
 	/**

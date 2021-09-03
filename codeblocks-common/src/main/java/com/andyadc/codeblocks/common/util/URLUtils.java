@@ -132,8 +132,7 @@ public abstract class URLUtils {
 	 * <code> resolvePath("C:\\Windows\\\\temp") == "C:/Windows/temp"; resolvePath("C:\\\\\Windows\\/temp") ==
 	 * "C:/Windows/temp"; resolvePath("/home/////index.html") == "/home/index.html"; </code>
 	 *
-	 * @param path
-	 *         Path
+	 * @param path Path
 	 * @return a newly resolved path
 	 */
 	public static String resolvePath(final String path) {
@@ -160,13 +159,10 @@ public abstract class URLUtils {
 	 * Wide Web Consortium Recommendation</a> states that UTF-8 should be used. Not doing so may introduce
 	 * incompatibilites.</em>
 	 *
-	 * @param value
-	 *         <code>String</code> to be translated.
-	 * @param encoding
-	 *         The name of a supported character encoding</a>.
+	 * @param value <code>String</code> to be translated.
+	 * @param encoding The name of a supported character encoding</a>.
 	 * @return the translated <code>String</code>.
-	 * @throws IllegalArgumentException
-	 *         If the named encoding is not supported
+	 * @throws IllegalArgumentException If the named encoding is not supported
 	 * @see URLDecoder#decode(String, String)
 	 */
 	public static String encode(String value, String encoding) throws IllegalArgumentException {
@@ -182,8 +178,7 @@ public abstract class URLUtils {
 	/**
 	 * {@link #encode(String, String)} with "UTF-8" encoding
 	 *
-	 * @param value
-	 *         the <code>String</code> to decode
+	 * @param value the <code>String</code> to decode
 	 * @return the newly encoded <code>String</code>
 	 */
 	public static String encode(String value) {

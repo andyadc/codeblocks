@@ -30,6 +30,9 @@ import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 import static java.util.stream.StreamSupport.stream;
 
+/**
+ * Type utilities class
+ */
 public class TypeUtils extends BaseUtils {
 
 	public static final Predicate<Class<?>> NON_OBJECT_TYPE_FILTER = t -> !Objects.equals(Object.class, t);

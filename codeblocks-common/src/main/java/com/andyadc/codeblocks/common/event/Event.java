@@ -4,8 +4,6 @@ import java.util.EventObject;
 
 /**
  * An event object is based on the Java standard {@link EventObject event}
- *
- * @since 1.0.0
  */
 public abstract class Event extends EventObject {
 

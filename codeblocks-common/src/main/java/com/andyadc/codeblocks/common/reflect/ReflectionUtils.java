@@ -52,8 +52,8 @@ public abstract class ReflectionUtils {
 
 	// Initialize sun.reflect.Reflection
 	static {
-		Method method = null;
-		boolean supported = false;
+		Method method;
+		boolean supported;
 		int invocationFrame = 0;
 		try {
 			// Use sun.reflect.Reflection to calculate frame
@@ -103,7 +103,7 @@ public abstract class ReflectionUtils {
 	/**
 	 * Get Caller class
 	 *
-	 * @return 获取调用该方法的Class name
+	 * @return 获取调用该方法的 Class name
 	 */
 	public static String getCallerClassName() {
 		return getCallerClassName(sunReflectReflectionInvocationFrame);
@@ -143,13 +143,13 @@ public abstract class ReflectionUtils {
 	 * @return specified invocation frame 类
 	 * @throws IndexOutOfBoundsException 当<code>invocationFrame</code>数值为负数或者超出实际的层次
 	 */
-	static String getCallerClassNameInGeneralJVM(int invocationFrame) throws IndexOutOfBoundsException {
+	public static String getCallerClassNameInGeneralJVM(int invocationFrame) throws IndexOutOfBoundsException {
 		StackTraceElement[] elements = Thread.currentThread().getStackTrace();
 		StackTraceElement targetStackTraceElement = elements[invocationFrame];
 		return targetStackTraceElement.getClassName();
 	}
 
-	static Class<?> getCallerClassInSunJVM(int realFramesToSkip) throws UnsupportedOperationException {
+	public static Class<?> getCallerClassInSunJVM(int realFramesToSkip) throws UnsupportedOperationException {
 		if (!supportedSunReflectReflection) {
 			throw new UnsupportedOperationException("需要SUN的JVM！");
 		}
@@ -172,7 +172,7 @@ public abstract class ReflectionUtils {
 	 * @return caller class
 	 * @see #getCallerClassNameInGeneralJVM(int)
 	 */
-	static Class<?> getCallerClassInGeneralJVM(int invocationFrame) {
+	public static Class<?> getCallerClassInGeneralJVM(int invocationFrame) {
 		String className = getCallerClassNameInGeneralJVM(invocationFrame + 1);
 		Class<?> targetClass = null;
 		try {
@@ -215,7 +215,7 @@ public abstract class ReflectionUtils {
 	 * @throws UnsupportedOperationException If JRE is not a SUN HotSpot JVM
 	 * @see #getCallerClassInSunJVM(int)
 	 */
-	static Class<?> getCallerClassInSunJVM() throws UnsupportedOperationException {
+	public static Class<?> getCallerClassInSunJVM() throws UnsupportedOperationException {
 		return getCallerClassInSunJVM(sunReflectReflectionInvocationFrame);
 	}
 
@@ -226,7 +226,7 @@ public abstract class ReflectionUtils {
 	 * @throws UnsupportedOperationException If JRE is not a SUN HotSpot JVM
 	 * @see #getCallerClassInSunJVM(int)
 	 */
-	static String getCallerClassNameInSunJVM() throws UnsupportedOperationException {
+	public static String getCallerClassNameInSunJVM() throws UnsupportedOperationException {
 		Class<?> callerClass = getCallerClassInSunJVM(sunReflectReflectionInvocationFrame);
 		return callerClass.getName();
 	}
@@ -234,7 +234,7 @@ public abstract class ReflectionUtils {
 	/**
 	 * @param invocationFrame invocation frame
 	 */
-	static Class<?> doGetCallerClass(int invocationFrame) {
+	public static Class<?> doGetCallerClass(int invocationFrame) {
 		if (supportedSunReflectReflection) {
 			Class<?> callerClass = getCallerClassInSunJVM(invocationFrame + 1);
 			if (callerClass != null) {
@@ -250,7 +250,7 @@ public abstract class ReflectionUtils {
 	 * @return Caller Class
 	 * @see #getCallerClassInGeneralJVM(int)
 	 */
-	static Class<?> getCallerClassInGeneralJVM() {
+	public static Class<?> getCallerClassInGeneralJVM() {
 		return getCallerClassInGeneralJVM(stackTraceElementInvocationFrame);
 	}
 
