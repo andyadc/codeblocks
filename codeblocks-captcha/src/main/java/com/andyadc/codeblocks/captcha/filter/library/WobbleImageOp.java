@@ -2,22 +2,22 @@ package com.andyadc.codeblocks.captcha.filter.library;
 
 public class WobbleImageOp extends AbstractTransformImageOp {
 
-    private double xWavelength;
-    private double yWavelength;
-    private double xAmplitude;
-    private double yAmplitude;
-    private double xRandom;
-    private double yRandom;
-    private double xScale;
-    private double yScale;
+	private double xWavelength;
+	private double yWavelength;
+	private double xAmplitude;
+	private double yAmplitude;
+	private final double xRandom;
+	private final double yRandom;
+	private double xScale;
+	private double yScale;
 
-    public WobbleImageOp() {
-        xWavelength = 15;
-        yWavelength = 15;
-        xAmplitude = 4.0;
-        yAmplitude = 3.0;
-        xScale = 1.0;
-        yScale = 1.0;
+	public WobbleImageOp() {
+		xWavelength = 15;
+		yWavelength = 15;
+		xAmplitude = 4.0;
+		yAmplitude = 3.0;
+		xScale = 1.0;
+		yScale = 1.0;
         xRandom = 3 * Math.random();
         yRandom = 10 * Math.random();
     }
@@ -77,5 +77,4 @@ public class WobbleImageOp extends AbstractTransformImageOp {
         t[0] = x + xAmplitude * tx;
         t[1] = y + yAmplitude * ty;
     }
-
 }

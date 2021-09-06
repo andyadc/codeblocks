@@ -16,6 +16,5 @@ public class MarbleRippleFilterFactory extends RippleFilterFactory {
         list.add(marble);
         return list;
     }
-
 }
 

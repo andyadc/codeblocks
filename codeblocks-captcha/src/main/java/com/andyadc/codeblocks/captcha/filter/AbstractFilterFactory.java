@@ -19,5 +19,4 @@ public abstract class AbstractFilterFactory implements FilterFactory {
         source.getGraphics().drawImage(dest, x, y, null);
         return source;
     }
-
 }

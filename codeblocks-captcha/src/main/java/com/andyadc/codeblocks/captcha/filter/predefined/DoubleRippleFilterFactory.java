@@ -19,10 +19,9 @@ public class DoubleRippleFilterFactory extends AbstractFilterFactory {
     @Override
     public List<BufferedImageOp> getFilters() {
         if (filters == null) {
-            filters = new ArrayList<BufferedImageOp>();
-            filters.add(ripple);
+            filters = new ArrayList<>();
+			filters.add(ripple);
         }
         return filters;
     }
-
 }

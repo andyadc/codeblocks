@@ -37,5 +37,4 @@ public class SimpleCaptchaService extends AbstractCaptchaService {
     public Captcha getCaptcha() {
         return null;
     }
-
 }

@@ -28,5 +28,4 @@ public class SingleColorBackgroundFactory implements BackgroundFactory {
         g.setColor(colorFactory.getColor(0));
         g.fillRect(0, 0, dest.getWidth(), dest.getHeight());
     }
-
 }

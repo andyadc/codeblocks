@@ -68,5 +68,4 @@ public class RandomFontFactory implements FontFactory {
         }
         return new Font(family, bold ? Font.BOLD : Font.PLAIN, size);
     }
-
 }

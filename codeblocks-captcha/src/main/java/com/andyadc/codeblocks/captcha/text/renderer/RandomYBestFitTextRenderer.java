@@ -19,5 +19,4 @@ public class RandomYBestFitTextRenderer extends AbstractTextRenderer {
             x += tc.getWidth() + widthRemaining;
         }
     }
-
 }

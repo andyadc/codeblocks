@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class TextString {
 
-    private ArrayList<TextCharacter> characters = new ArrayList<>();
+    private final ArrayList<TextCharacter> characters = new ArrayList<>();
 
     public void clear() {
         characters.clear();
@@ -61,5 +61,4 @@ public class TextString {
         }
         return maxy - miny;
     }
-
 }

@@ -95,5 +95,4 @@ public class TextCharacter {
         aString.addAttribute(TextAttribute.FONT, font, 0, 1);
         return aString.getIterator();
     }
-
 }

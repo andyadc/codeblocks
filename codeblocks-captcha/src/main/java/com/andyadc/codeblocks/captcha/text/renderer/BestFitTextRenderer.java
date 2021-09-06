@@ -14,5 +14,4 @@ public class BestFitTextRenderer extends AbstractTextRenderer {
             x += tc.getWidth() + widthRemaining;
         }
     }
-
 }

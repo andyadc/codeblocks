@@ -21,5 +21,4 @@ public class ConfigurableCaptchaService extends AbstractCaptchaService {
         width = 160;
         height = 70;
     }
-
 }

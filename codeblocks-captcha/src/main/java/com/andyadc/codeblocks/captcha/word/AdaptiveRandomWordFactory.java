@@ -36,5 +36,4 @@ public class AdaptiveRandomWordFactory extends RandomWordFactory {
         }
         return sb.toString();
     }
-
 }

@@ -20,5 +20,4 @@ public class WobbleRippleFilterFactory extends RippleFilterFactory {
         list.add(wobble);
         return list;
     }
-
 }

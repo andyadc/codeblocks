@@ -34,5 +34,4 @@ public class RippleFilterFactory extends AbstractFilterFactory {
         }
         return filters;
     }
-
 }

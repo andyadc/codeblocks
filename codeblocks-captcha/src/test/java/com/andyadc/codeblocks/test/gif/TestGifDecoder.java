@@ -20,6 +20,5 @@ public class TestGifDecoder {
         byte[] actualBytes = outputStream.toByteArray();
         byte[] expectedBytes = IOUtils.readFully(getClass().getResourceAsStream("/brucelee-frame.gif"), -1, true);
         (actualBytes).equals(expectedBytes);
-
     }
 }

@@ -38,5 +38,4 @@ public class DiffuseImageOp extends AbstractTransformImageOp {
         t[0] = x + tx[angle];
         t[1] = y + ty[angle];
     }
-
 }

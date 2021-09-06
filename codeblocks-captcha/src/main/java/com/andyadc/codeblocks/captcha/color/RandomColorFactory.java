@@ -32,5 +32,4 @@ public class RandomColorFactory implements ColorFactory {
         }
         return color;
     }
-
 }

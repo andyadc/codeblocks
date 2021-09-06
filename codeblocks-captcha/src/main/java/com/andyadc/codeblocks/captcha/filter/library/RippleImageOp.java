@@ -57,5 +57,4 @@ public class RippleImageOp extends AbstractTransformImageOp {
         t[0] = x + xAmplitude * tx;
         t[1] = y + yAmplitude * ty;
     }
-
 }

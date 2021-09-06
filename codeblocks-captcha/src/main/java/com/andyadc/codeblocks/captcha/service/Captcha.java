@@ -27,5 +27,4 @@ public class Captcha {
     public void setImage(BufferedImage image) {
         this.image = image;
     }
-
 }

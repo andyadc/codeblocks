@@ -15,5 +15,4 @@ public class ConfigurableFilterFactory extends AbstractFilterFactory {
     public void setFilters(List<BufferedImageOp> filters) {
         this.filters = filters;
     }
-
 }

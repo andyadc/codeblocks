@@ -2,23 +2,23 @@ package com.andyadc.codeblocks.captcha.filter.library;
 
 public class MarbleImageOp extends AbstractTransformImageOp {
 
-    private double scale;
-    private double amount;
-    private double turbulence;
-    private double[] tx;
-    private double[] ty;
-    private double randomX;
-    private double randomY;
+	private double scale;
+	private double amount;
+	private double turbulence;
+	private double[] tx;
+	private double[] ty;
+	private final double randomX;
+	private final double randomY;
 
-    public MarbleImageOp() {
-        scale = 15;
-        amount = 1.1;
-        turbulence = 6.2;
-        randomX = 256 * Math.random();
-        randomY = 256 * Math.random();
-    }
+	public MarbleImageOp() {
+		scale = 15;
+		amount = 1.1;
+		turbulence = 6.2;
+		randomX = 256 * Math.random();
+		randomY = 256 * Math.random();
+	}
 
-    public double getScale() {
+	public double getScale() {
         return scale;
     }
 
@@ -68,5 +68,4 @@ public class MarbleImageOp extends AbstractTransformImageOp {
             }
         }
     }
-
 }

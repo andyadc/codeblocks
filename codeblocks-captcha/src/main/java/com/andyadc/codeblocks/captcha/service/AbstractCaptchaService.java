@@ -93,5 +93,4 @@ public abstract class AbstractCaptchaService implements CaptchaService {
         bufImage = filterFactory.applyFilters(bufImage);
         return new Captcha(word, bufImage);
     }
-
 }

@@ -81,5 +81,4 @@ public abstract class AbstractTextRenderer implements TextRenderer {
         }
         return characters;
     }
-
 }

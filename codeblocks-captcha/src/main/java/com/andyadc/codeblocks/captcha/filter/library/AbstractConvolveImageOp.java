@@ -2,7 +2,7 @@ package com.andyadc.codeblocks.captcha.filter.library;
 
 public abstract class AbstractConvolveImageOp extends AbstractImageOp {
 
-    private float[][] matrix;
+    private final float[][] matrix;
 
     protected AbstractConvolveImageOp(float[][] matrix) {
         this.matrix = matrix;
@@ -37,5 +37,4 @@ public abstract class AbstractConvolveImageOp extends AbstractImageOp {
             }
         }
     }
-
 }

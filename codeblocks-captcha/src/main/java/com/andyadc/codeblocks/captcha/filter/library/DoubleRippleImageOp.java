@@ -9,5 +9,4 @@ public class DoubleRippleImageOp extends RippleImageOp {
         t[0] = x + xAmplitude * tx;
         t[1] = y + yAmplitude * ty;
     }
-
 }

@@ -26,5 +26,4 @@ public class GradientColorFactory implements ColorFactory {
     public void setStep(Color step) {
         this.step = step;
     }
-
 }

@@ -25,17 +25,17 @@ public abstract class AbstractImageOp implements BufferedImageOp {
         this.edgeMode = edgeMode;
     }
 
-    protected int getPixel(int pixels[], int x, int y, int width, int height, int edgeMode) {
-        if (x >= 0 && x < width && y >= 0 && y < height) {
-            return pixels[x + y * width];
-        } else if (edgeMode == EDGE_ZERO) {
-            return 0;
-        } else if (edgeMode == EDGE_CLAMP) {
-            if (x < 0) {
-                x = 0;
-            } else if (x >= width) {
-                x = width - 1;
-            }
+    protected int getPixel(int[] pixels, int x, int y, int width, int height, int edgeMode) {
+		if (x >= 0 && x < width && y >= 0 && y < height) {
+			return pixels[x + y * width];
+		} else if (edgeMode == EDGE_ZERO) {
+			return 0;
+		} else if (edgeMode == EDGE_CLAMP) {
+			if (x < 0) {
+				x = 0;
+			} else if (x >= width) {
+				x = width - 1;
+			}
             if (y < 0) {
                 y = 0;
             } else if (y >= height) {
@@ -77,17 +77,17 @@ public abstract class AbstractImageOp implements BufferedImageOp {
         return linear(linear(nw, ne, xd), linear(sw, se, xd), yd);
     }
 
-    protected int getPixelBilinear(int pixels[], double x, double y, int width, int height, int edgeMode) {
-        int xi = (int) Math.floor(x);
-        int yi = (int) Math.floor(y);
-        double xd = x - xi;
-        double yd = y - yi;
-        int nw = getPixel(pixels, xi, yi, width, height, edgeMode);
-        int ne = getPixel(pixels, xi + 1, yi, width, height, edgeMode);
-        int sw = getPixel(pixels, xi, yi + 1, width, height, edgeMode);
-        int se = getPixel(pixels, xi + 1, yi + 1, width, height, edgeMode);
-        return bilinear(nw, ne, sw, se, xd, yd);
-    }
+	protected int getPixelBilinear(int[] pixels, double x, double y, int width, int height, int edgeMode) {
+		int xi = (int) Math.floor(x);
+		int yi = (int) Math.floor(y);
+		double xd = x - xi;
+		double yd = y - yi;
+		int nw = getPixel(pixels, xi, yi, width, height, edgeMode);
+		int ne = getPixel(pixels, xi + 1, yi, width, height, edgeMode);
+		int sw = getPixel(pixels, xi, yi + 1, width, height, edgeMode);
+		int se = getPixel(pixels, xi + 1, yi + 1, width, height, edgeMode);
+		return bilinear(nw, ne, sw, se, xd, yd);
+	}
 
     protected int limit(int v, int min, int max) {
         if (v < min) {
@@ -149,5 +149,4 @@ public abstract class AbstractImageOp implements BufferedImageOp {
     public RenderingHints getRenderingHints() {
         return hints;
     }
-
 }

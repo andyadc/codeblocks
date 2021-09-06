@@ -14,6 +14,5 @@ public class EncoderHelper {
         ImageIO.write(captcha.getImage(), format, os);
         return captcha.getChallenge();
     }
-
 }
 

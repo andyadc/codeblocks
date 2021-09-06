@@ -12,5 +12,4 @@ public class SimpleTextRenderer extends AbstractTextRenderer {
             x += tc.getWidth();
         }
     }
-
 }

@@ -36,5 +36,4 @@ public class CurvesRippleFilterFactory extends RippleFilterFactory {
     public void setColorFactory(ColorFactory colorFactory) {
         curves.setColorFactory(colorFactory);
     }
-
 }

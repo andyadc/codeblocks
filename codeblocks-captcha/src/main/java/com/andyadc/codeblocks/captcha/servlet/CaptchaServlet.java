@@ -127,7 +127,6 @@ public final class CaptchaServlet extends HttpServlet {
 
         // 颜色创建工厂
         configurableCaptchaService.setColorFactory((int x) -> {
-
             ThreadLocalRandom random = ThreadLocalRandom.current();
             int[] c = new int[3];
             int i = random.nextInt(c.length);
@@ -139,7 +138,6 @@ public final class CaptchaServlet extends HttpServlet {
                 }
             }
             return new Color(c[0], c[1], c[2]);
-
         });
 
         // 自定义验证码图片背景
@@ -164,19 +162,19 @@ public final class CaptchaServlet extends HttpServlet {
     }
 
     /**
-     * 自定义验证码图片背景,主要画一些噪点和干扰线
-     */
-    private class MyCustomeBackgroundFactory implements BackgroundFactory {
+	 * 自定义验证码图片背景,主要画一些噪点和干扰线
+	 */
+	private static class MyCustomeBackgroundFactory implements BackgroundFactory {
 
-        @Override
-        public void fillBackground(BufferedImage bufferedImage) {
-            Graphics graphics = bufferedImage.getGraphics();
+		@Override
+		public void fillBackground(BufferedImage bufferedImage) {
+			Graphics graphics = bufferedImage.getGraphics();
 
-            // 验证码图片的宽高
-            int imgWidth = bufferedImage.getWidth();
-            int imgHeight = bufferedImage.getHeight();
+			// 验证码图片的宽高
+			int imgWidth = bufferedImage.getWidth();
+			int imgHeight = bufferedImage.getHeight();
 
-            // 填充为白色背景
+			// 填充为白色背景
             graphics.setColor(Color.white);
             graphics.fillRect(0, 0, imgWidth, imgHeight);
 

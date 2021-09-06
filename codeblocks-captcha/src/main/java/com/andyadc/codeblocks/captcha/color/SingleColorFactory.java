@@ -22,5 +22,4 @@ public class SingleColorFactory implements ColorFactory {
     public void setColor(Color color) {
         this.color = color;
     }
-
 }

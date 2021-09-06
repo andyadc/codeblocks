@@ -37,5 +37,4 @@ public class RandomWordFactory implements WordFactory {
         }
         return sb.toString();
     }
-
 }

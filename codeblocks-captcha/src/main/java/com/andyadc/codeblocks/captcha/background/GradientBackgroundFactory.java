@@ -5,22 +5,21 @@ import java.awt.image.BufferedImage;
 
 public class GradientBackgroundFactory implements BackgroundFactory {
 
-    private Color startColor;
-    private Color endColor;
-    private Direction direction;
+	private final Color startColor;
+	private final Color endColor;
+	private final Direction direction;
 
-    public GradientBackgroundFactory() {
-        this(new Color(192, 192, 0), new Color(192, 128, 128), Direction.Horizontal);
-    }
+	public GradientBackgroundFactory() {
+		this(new Color(192, 192, 0), new Color(192, 128, 128), Direction.Horizontal);
+	}
 
-    public GradientBackgroundFactory(Color startColor, Color endColor, Direction direction) {
-        this.startColor = startColor;
-        this.endColor = endColor;
-        this.direction = direction;
-    }
+	public GradientBackgroundFactory(Color startColor, Color endColor, Direction direction) {
+		this.startColor = startColor;
+		this.endColor = endColor;
+		this.direction = direction;
+	}
 
     public void fillBackground(BufferedImage dest) {
-
         float x1, y1, x2, y2;
 
         switch (direction) {
@@ -64,5 +63,4 @@ public class GradientBackgroundFactory implements BackgroundFactory {
         TopLeftBottomRight,
         BottomLeftTopRight
     }
-
 }
