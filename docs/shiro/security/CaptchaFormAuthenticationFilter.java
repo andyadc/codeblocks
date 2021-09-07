@@ -1,6 +1,6 @@
 package com.andyadc.codeblocks.showcase.auth.security;
 
-import com.andyadc.codeblocks.captcha.servlet.CaptchaServlet;
+import com.andyadc.codeblocks.patchca.servlet.CaptchaServlet;
 import com.andyadc.codeblocks.kit.servlet.ServletUtil;
 import com.andyadc.codeblocks.kit.text.StringUtil;
 import com.andyadc.codeblocks.showcase.auth.entity.AuthUser;

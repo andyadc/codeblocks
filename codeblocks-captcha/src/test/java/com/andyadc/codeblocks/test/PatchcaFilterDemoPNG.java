@@ -1,13 +1,13 @@
 package com.andyadc.codeblocks.test;
 
-import com.andyadc.codeblocks.captcha.color.SingleColorFactory;
-import com.andyadc.codeblocks.captcha.filter.predefined.CurvesRippleFilterFactory;
-import com.andyadc.codeblocks.captcha.filter.predefined.DiffuseRippleFilterFactory;
-import com.andyadc.codeblocks.captcha.filter.predefined.DoubleRippleFilterFactory;
-import com.andyadc.codeblocks.captcha.filter.predefined.MarbleRippleFilterFactory;
-import com.andyadc.codeblocks.captcha.filter.predefined.WobbleRippleFilterFactory;
-import com.andyadc.codeblocks.captcha.service.ConfigurableCaptchaService;
-import com.andyadc.codeblocks.captcha.utils.encoder.EncoderHelper;
+import com.andyadc.codeblocks.patchca.color.SingleColorFactory;
+import com.andyadc.codeblocks.patchca.filter.predefined.CurvesRippleFilterFactory;
+import com.andyadc.codeblocks.patchca.filter.predefined.DiffuseRippleFilterFactory;
+import com.andyadc.codeblocks.patchca.filter.predefined.DoubleRippleFilterFactory;
+import com.andyadc.codeblocks.patchca.filter.predefined.MarbleRippleFilterFactory;
+import com.andyadc.codeblocks.patchca.filter.predefined.WobbleRippleFilterFactory;
+import com.andyadc.codeblocks.patchca.service.ConfigurableCaptchaService;
+import com.andyadc.codeblocks.patchca.utils.encoder.EncoderHelper;
 
 import java.awt.*;
 import java.io.FileOutputStream;

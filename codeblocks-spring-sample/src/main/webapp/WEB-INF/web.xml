@@ -74,7 +74,7 @@
 
     <servlet>
         <servlet-name>captchaServlet</servlet-name>
-        <servlet-class>com.andyadc.codeblocks.captcha.servlet.CaptchaServlet</servlet-class>
+        <servlet-class>com.andyadc.codeblocks.patchca.servlet.CaptchaServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>captchaServlet</servlet-name>

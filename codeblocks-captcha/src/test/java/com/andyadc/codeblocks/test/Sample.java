@@ -1,9 +1,9 @@
 package com.andyadc.codeblocks.test;
 
-import com.andyadc.codeblocks.captcha.color.SingleColorFactory;
-import com.andyadc.codeblocks.captcha.filter.predefined.CurvesRippleFilterFactory;
-import com.andyadc.codeblocks.captcha.service.ConfigurableCaptchaService;
-import com.andyadc.codeblocks.captcha.utils.encoder.EncoderHelper;
+import com.andyadc.codeblocks.patchca.color.SingleColorFactory;
+import com.andyadc.codeblocks.patchca.filter.predefined.CurvesRippleFilterFactory;
+import com.andyadc.codeblocks.patchca.service.ConfigurableCaptchaService;
+import com.andyadc.codeblocks.patchca.utils.encoder.EncoderHelper;
 
 import java.awt.*;
 import java.io.FileOutputStream;
