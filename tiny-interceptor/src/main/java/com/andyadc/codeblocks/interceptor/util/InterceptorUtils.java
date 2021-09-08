@@ -1,5 +1,7 @@
 package com.andyadc.codeblocks.interceptor.util;
 
+import com.andyadc.codeblocks.common.lang.AnnotationUtils;
+
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.interceptor.AroundConstruct;
@@ -34,6 +36,17 @@ public abstract class InterceptorUtils {
 	}
 
 	/**
+	 * Around-invoke methods may be declared in interceptor classes, in the superclasses of interceptor
+	 * classes, in the target class, and/or in superclasses of the target class. However, only one around-invoke
+	 * method may be declared in a given class.
+	 * <p>
+	 * Around-invoke methods can have public, private, protected, or package level access. An
+	 * around-invoke method must not be declared as abstract, final or static.
+	 * <p>
+	 * Around-invoke methods have the following signature:
+	 * <p>
+	 * Object <METHOD>(InvocationContext)
+	 *
 	 * @param method the target {@link Method method}
 	 * @return <code>true</code> if the given method that annotated {@link AroundInvoke} is any non-final,
 	 * non-static method with a single parameter of type {@link InvocationContext} and return type {@link Object},
@@ -48,6 +61,13 @@ public abstract class InterceptorUtils {
 	}
 
 	/**
+	 * Around-timeout methods can have public, private, protected, or package level access. An
+	 * around-timeout method must not be declared as abstract, final or static.
+	 * <p>
+	 * Around-timeout methods have the following signature:
+	 * <p>
+	 * Object <METHOD>(InvocationContext)
+	 *
 	 * @param method the target {@link Method method}
 	 * @return <code>true</code> if the given method that annotated {@link AroundTimeout} is any non-final,
 	 * non-static method with a single parameter of type {@link InvocationContext} and return type {@link Object},
@@ -114,7 +134,7 @@ public abstract class InterceptorUtils {
 		return annotation;
 	}
 
-	public static <A extends Annotation> A resolveInterceptorBinding(Constructor<?> constructor, Class<A> interceptorBindingType) {
+	public static <A extends Annotation> A resolveInterceptorBinding(Constructor constructor, Class<A> interceptorBindingType) {
 		if (constructor == null) {
 			return null;
 		}
@@ -124,7 +144,6 @@ public abstract class InterceptorUtils {
 		}
 		return annotation;
 	}
-
 
 	static boolean isInterceptionMethod(Method method, Class<? extends Annotation> annotationType,
 										Class<?> validReturnType) {
@@ -146,7 +165,7 @@ public abstract class InterceptorUtils {
 		throws IllegalStateException {
 		int modifiers = method.getModifiers();
 		if (isAbstract(modifiers) || isFinal(modifiers) || isStatic(modifiers)) {
-			throw new IllegalStateException(format("@%s Method[%s] must not be abstract or final or static!",
+			throw new IllegalStateException(format("@s Method[%s] must not be abstract or final or static!",
 				annotationType.getName(), method.toString()));
 		}
 	}
@@ -154,7 +173,7 @@ public abstract class InterceptorUtils {
 	private static void validateMethodReturnType(Method method, Class<? extends Annotation> annotationType, Class<?> validReturnType) {
 		if (!validReturnType.isAssignableFrom(method.getReturnType())) {
 			throw new IllegalStateException(
-				format("The return type of @%s Method[%s] must be %s or its derived type , actual type %s!",
+				format("The return type of @s Method[%s] must be %s or its derived type , actual type %s!",
 					annotationType.getName(), method.toString(), validReturnType.getName(),
 					method.getReturnType().getName()));
 		}
@@ -162,14 +181,14 @@ public abstract class InterceptorUtils {
 
 	/**
 	 * @param method         the given {@link Method method}
-	 * @param annotationType annotationType
+	 * @param annotationType
 	 * @throws IllegalStateException If the count of method arguments is not only one or
 	 *                               the argument type is not {@link InvocationContext}
 	 */
 	static void validateMethodArguments(Method method, Class<? extends Annotation> annotationType) throws IllegalStateException {
-		Class<?>[] parameterTypes = method.getParameterTypes();
+		Class[] parameterTypes = method.getParameterTypes();
 		if (parameterTypes.length != 1) {
-			throw new IllegalStateException(format("@%s Method[%s] must have only one argument!",
+			throw new IllegalStateException(format("@s Method[%s] must have only one argument!",
 				annotationType.getName(), method.toString()));
 		}
 
@@ -222,10 +241,11 @@ public abstract class InterceptorUtils {
 	}
 
 	public static boolean isInterceptorBinding(Class<? extends Annotation> annotationType) {
-		return isAnnotationPresent(annotationType, InterceptorBinding.class);
+		return AnnotationUtils.isMetaAnnotation(annotationType, InterceptorBinding.class);
 	}
 
 	private static IllegalStateException newIllegalStateException(String messagePattern, Object... args) {
 		return new IllegalStateException(format(messagePattern, args));
 	}
+
 }

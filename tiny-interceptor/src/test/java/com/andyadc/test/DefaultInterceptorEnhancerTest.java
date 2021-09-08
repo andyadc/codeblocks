@@ -1,6 +1,5 @@
 package com.andyadc.test;
 
-import com.andyadc.codeblocks.interceptor.AnnotatedInterceptor;
 import com.andyadc.codeblocks.interceptor.DefaultInterceptorEnhancer;
 import com.andyadc.codeblocks.interceptor.InterceptorEnhancer;
 import org.junit.jupiter.api.Test;
@@ -15,7 +14,7 @@ public class DefaultInterceptorEnhancerTest {
 	@Test
 	public void testInterface() {
 		EchoService echoService = new EchoService();
-		echoService = interceptorEnhancer.enhance(echoService, AnnotatedInterceptor.loadInterceptors());
+		echoService = interceptorEnhancer.enhance(echoService);
 		echoService.init();
 		echoService.echo("Hello,World");
 	}

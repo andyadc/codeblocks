@@ -1,6 +1,6 @@
 package com.andyadc.test.cglib;
 
-import com.andyadc.codeblocks.interceptor.AnnotatedInterceptor;
+import com.andyadc.codeblocks.interceptor.Interceptor;
 import com.andyadc.codeblocks.interceptor.cglib.CglibInterceptorEnhancer;
 import com.andyadc.test.EchoService;
 import org.junit.jupiter.api.Test;
@@ -14,7 +14,7 @@ public class CglibInterceptorEnhancerTest {
 	public void test() {
 		CglibInterceptorEnhancer enhancer = new CglibInterceptorEnhancer();
 		EchoService echoService = new EchoService();
-		Object proxy = enhancer.enhance(echoService, AnnotatedInterceptor.loadInterceptors());
+		Object proxy = enhancer.enhance(echoService, Interceptor.loadInterceptors());
 		EchoService echoServiceProxy = (EchoService) proxy;
 		echoServiceProxy.echo("Hello,World");
 	}

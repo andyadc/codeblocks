@@ -1,5 +1,6 @@
 package com.andyadc.test;
 
+import javax.enterprise.util.Nonbinding;
 import javax.interceptor.InterceptorBinding;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -17,5 +18,7 @@ import java.lang.annotation.Target;
 @InterceptorBinding
 @Inherited
 public @interface Logging {
+
+	@Nonbinding
 	String name() default "ROOT";
 }

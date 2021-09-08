@@ -1,7 +1,7 @@
 package com.andyadc.test;
 
-import com.andyadc.codeblocks.interceptor.AnnotatedInterceptor;
 import com.andyadc.codeblocks.interceptor.ChainableInvocationContext;
+import com.andyadc.codeblocks.interceptor.Interceptor;
 import com.andyadc.codeblocks.interceptor.ReflectiveMethodInvocationContext;
 import org.junit.jupiter.api.Test;
 
@@ -20,7 +20,7 @@ public class ChainableInvocationContextTest {
 			(echoService, method, "Hello,World");
 
 		ChainableInvocationContext context =
-			new ChainableInvocationContext(delegateContext, AnnotatedInterceptor.loadInterceptors());
+			new ChainableInvocationContext(delegateContext, Interceptor.loadInterceptors());
 
 		context.proceed();
 	}

@@ -1,13 +1,12 @@
 package com.andyadc.codeblocks.interceptor;
 
-import com.andyadc.codeblocks.common.util.PriorityComparator;
-
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.interceptor.InvocationContext;
+import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
-import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,9 +16,9 @@ public class ChainableInvocationContext implements InvocationContext {
 
 	private final InvocationContext delegateContext;
 
-	private final int length;
+	private final List<Object> interceptors; // @Interceptor class instances
 
-	private final Object[] interceptors; // @Interceptor class instances
+	private final int size;
 
 	private final InterceptorRegistry interceptorRegistry;
 
@@ -27,18 +26,13 @@ public class ChainableInvocationContext implements InvocationContext {
 
 	public ChainableInvocationContext(InvocationContext delegateContext, Object... interceptors) {
 		this.delegateContext = delegateContext;
-		this.length = interceptors.length;
-		this.interceptors = Arrays.copyOf(interceptors, length);
 		// sort
-		Arrays.sort(this.interceptors, PriorityComparator.INSTANCE);
 		this.interceptorRegistry = InterceptorRegistry.getInstance(resolveClassLoader(interceptors));
-		this.interceptorRegistry.registerInterceptors(this.interceptors);
+		this.interceptorRegistry.registerInterceptors(interceptors);
+		this.interceptorRegistry.registerDiscoveredInterceptors();
+		this.interceptors = resolveInterceptors();
+		this.size = this.interceptors.size();
 		this.pos = 0;
-	}
-
-	private ClassLoader resolveClassLoader(Object[] interceptors) {
-		Object target = interceptors.length > 0 ? interceptors[0] : this;
-		return target.getClass().getClassLoader();
 	}
 
 	@Override
@@ -78,14 +72,27 @@ public class ChainableInvocationContext implements InvocationContext {
 
 	@Override
 	public Object proceed() throws Exception {
-		if (pos < length) {
+		if (pos < size) {
 			int currentPos = pos++;
-			Object interceptor = interceptors[currentPos];
+			Object interceptor = interceptors.get(currentPos);
 			Method interceptionMethod = resolveInterceptionMethod(interceptor);
 			return interceptionMethod.invoke(interceptor, this);
 		} else {
 			return delegateContext.proceed();
 		}
+	}
+
+	private ClassLoader resolveClassLoader(Object[] interceptors) {
+		Object target = interceptors.length > 0 ? interceptors[0] : this;
+		return target.getClass().getClassLoader();
+	}
+
+	private List<Object> resolveInterceptors() {
+		AnnotatedElement annotatedElement = getMethod();
+		if (annotatedElement == null) {
+			annotatedElement = getConstructor();
+		}
+		return interceptorRegistry.getInterceptors(annotatedElement);
 	}
 
 	private Method resolveInterceptionMethod(Object interceptor) {

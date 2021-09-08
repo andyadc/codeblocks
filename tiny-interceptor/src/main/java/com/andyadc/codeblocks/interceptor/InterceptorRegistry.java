@@ -6,23 +6,14 @@ import com.andyadc.codeblocks.interceptor.util.InterceptorUtils;
 
 import javax.interceptor.InterceptorBinding;
 import java.lang.annotation.Annotation;
+import java.lang.reflect.AnnotatedElement;
 import java.util.Arrays;
 import java.util.List;
-import java.util.ServiceLoader;
-import java.util.Set;
 
 /**
  * The registry of {@link Interceptor}
  */
 public interface InterceptorRegistry {
-
-	static InterceptorRegistry getInstance(ClassLoader classLoader) {
-		return ServiceLoaders.loadSpi(InterceptorRegistry.class, classLoader);
-	}
-
-	static InterceptorRegistry getInstance() {
-		return getInstance(ClassLoaderUtils.getClassLoader(InterceptorRegistry.class));
-	}
 
 	void registerInterceptorClass(Class<?> interceptorClass);
 
@@ -54,18 +45,12 @@ public interface InterceptorRegistry {
 		interceptors.forEach(this::registerInterceptor);
 	}
 
-	default void registerDiscoveredInterceptors() {
-		registerInterceptors(ServiceLoader.load(Interceptor.class));
+	static InterceptorRegistry getInstance(ClassLoader classLoader) {
+		return ServiceLoaders.loadSpi(InterceptorRegistry.class, classLoader);
 	}
 
-	/**
-	 * Gets the {@linkplain InterceptorBinding interceptor bindings} of the interceptor.
-	 *
-	 * @return the set of {@linkplain InterceptorBinding interceptor bindings}
-	 * @throws IllegalStateException See exception details on {@link InterceptorUtils#isInterceptorClass(Class)}
-	 */
-	default Set<Annotation> getInterceptorBindings(Class<?> interceptorClass) throws IllegalStateException {
-		return getInterceptorInfo(interceptorClass).getInterceptorBindings();
+	static InterceptorRegistry getInstance() {
+		return getInstance(ClassLoaderUtils.getClassLoader(InterceptorRegistry.class));
 	}
 
 	/**
@@ -77,13 +62,33 @@ public interface InterceptorRegistry {
 	 */
 	InterceptorInfo getInterceptorInfo(Class<?> interceptorClass) throws IllegalStateException;
 
+	default void registerDiscoveredInterceptors() {
+		registerInterceptors(ServiceLoaders.load(Interceptor.class));
+	}
+
+	/**
+	 * Gets the {@linkplain InterceptorBinding interceptor bindings} of the interceptor.
+	 *
+	 * @return the instance of {@linkplain InterceptorBindings interceptor bindings}
+	 * @throws IllegalStateException See exception details on {@link InterceptorUtils#isInterceptorClass(Class)}
+	 */
+	default InterceptorBindings getInterceptorBindings(Class<?> interceptorClass) throws IllegalStateException {
+		return getInterceptorInfo(interceptorClass).getInterceptorBindings();
+	}
+
+	default boolean isInterceptorBinding(Annotation annotation) {
+		return isInterceptorBindingType(annotation.annotationType());
+	}
+
+	boolean isInterceptorBindingType(Class<? extends Annotation> annotationType);
+
 	/**
 	 * Gets the sorted {@link List list} of {@link javax.interceptor.Interceptor @Interceptor} instances
 	 *
-	 * @param interceptorBindingType the annotation type of {@linkplain InterceptorBinding interceptor binding}
+	 * @param interceptedElement the intercepted of {@linkplain AnnotatedElement annotated element}
 	 * @return a non-null read-only sorted {@link List list}
 	 */
-	List<Object> getInterceptors(Class<? extends Annotation> interceptorBindingType);
+	List<Object> getInterceptors(AnnotatedElement interceptedElement);
 
 	/**
 	 * <p>
@@ -91,13 +96,7 @@ public interface InterceptorRegistry {
 	 * wish to make an annotation an interceptor binding type without adding {@link InterceptorBinding} to it.
 	 * </p>
 	 *
-	 * @param interceptorBindingType interceptorBindingType
+	 * @param interceptorBindingType
 	 */
 	void registerInterceptorBindingType(Class<? extends Annotation> interceptorBindingType);
-
-	default boolean isInterceptorBinding(Annotation annotation) {
-		return isInterceptorBindingType(annotation.annotationType());
-	}
-
-	boolean isInterceptorBindingType(Class<? extends Annotation> annotationType);
 }
