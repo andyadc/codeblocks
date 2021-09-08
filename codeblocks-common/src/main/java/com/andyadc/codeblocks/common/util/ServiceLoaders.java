@@ -8,8 +8,6 @@ import java.util.ServiceLoader;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Stream;
 
-import static java.util.ServiceLoader.load;
-
 /**
  * {@link ServiceLoader} Utilities Class
  */
@@ -22,7 +20,7 @@ public abstract class ServiceLoaders {
 	}
 
 	public static <T> Stream<T> loadAsStream(Class<T> serviceClass, ClassLoader classLoader) {
-		return Streams.stream(doLoad(serviceClass, classLoader));
+		return Streams.stream(load(serviceClass, classLoader));
 	}
 
 	public static <T> T loadSpi(Class<T> serviceClass) {
@@ -30,7 +28,7 @@ public abstract class ServiceLoaders {
 	}
 
 	public static <T> T loadSpi(Class<T> serviceClass, ClassLoader classLoader) {
-		return doLoad(serviceClass, classLoader).iterator().next();
+		return load(serviceClass, classLoader).iterator().next();
 	}
 
 	public static <T> T[] loadAsArray(Class<T> serviceClass) {
@@ -38,14 +36,17 @@ public abstract class ServiceLoaders {
 	}
 
 	public static <T> T[] loadAsArray(Class<T> serviceClass, ClassLoader classLoader) {
-		return (T[]) loadAsStream(serviceClass, classLoader).toArray();
+		return ArrayUtils.asArray(load(serviceClass, classLoader), serviceClass);
 	}
 
-	static <T> ServiceLoader<T> doLoad(Class<T> serviceClass, ClassLoader classLoader) {
+	public static <T> ServiceLoader<T> load(Class<T> serviceClass) {
+		return load(serviceClass, ClassLoaderUtils.getClassLoader(serviceClass));
+	}
+
+	public static <T> ServiceLoader<T> load(Class<T> serviceClass, ClassLoader classLoader) {
 		Map<Class<?>, ServiceLoader<?>> serviceLoadersMap = serviceLoadersCache.computeIfAbsent(classLoader, cl -> new ConcurrentHashMap<>());
-		return (ServiceLoader<T>) serviceLoadersMap.computeIfAbsent(
-			serviceClass,
-			service -> load(service, classLoader)
-		);
+		ServiceLoader<T> serviceLoader = (ServiceLoader<T>) serviceLoadersMap.computeIfAbsent(serviceClass,
+			service -> ServiceLoader.load(service, classLoader));
+		return serviceLoader;
 	}
 }

@@ -3,11 +3,18 @@ package com.andyadc.codeblocks.common.lang;
 import com.andyadc.codeblocks.common.function.Predicates;
 import com.andyadc.codeblocks.common.function.ThrowableSupplier;
 import com.andyadc.codeblocks.common.reflect.ClassUtils;
+import com.andyadc.codeblocks.common.reflect.MethodUtils;
 import com.andyadc.codeblocks.common.util.ArrayUtils;
 import com.andyadc.codeblocks.common.util.BaseUtils;
 
 import java.lang.annotation.Annotation;
+import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
+import java.lang.annotation.Inherited;
+import java.lang.annotation.Native;
+import java.lang.annotation.Repeatable;
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
 import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Method;
 import java.util.Collection;
@@ -33,6 +40,17 @@ import static java.util.Collections.unmodifiableList;
  * {@link Annotation} Utilities class
  */
 public abstract class AnnotationUtils extends BaseUtils {
+
+	public final static List<Class<? extends Annotation>> NATIVE_ANNOTATION_TYPES = unmodifiableList(asList
+		(Target.class, Retention.class, Documented.class, Inherited.class, Native.class, Repeatable.class));
+
+	private static final Predicate<Method> INHERITED_OBJECT_METHOD_PREDICATE = AnnotationUtils::isInheritedObjectMethod;
+
+	private static final Predicate<Method> NON_INHERITED_OBJECT_METHOD_PREDICATE = INHERITED_OBJECT_METHOD_PREDICATE.negate();
+
+	private static final Predicate<Method> ANNOTATION_METHOD_PREDICATE = AnnotationUtils::isAnnotationMethod;
+
+	private static final Predicate<Method> NON_ANNOTATION_METHOD_PREDICATE = ANNOTATION_METHOD_PREDICATE.negate();
 
 	/**
 	 * Is the specified type a generic {@link Class type}
@@ -86,11 +104,17 @@ public abstract class AnnotationUtils extends BaseUtils {
 
 	public static boolean isMetaAnnotation(Annotation annotation,
 										   Class<? extends Annotation>... metaAnnotationTypes) {
+		if (metaAnnotationTypes == null) {
+			return false;
+		}
 		return isMetaAnnotation(annotation, asList(metaAnnotationTypes));
 	}
 
 	public static boolean isMetaAnnotation(Annotation annotation,
 										   Iterable<Class<? extends Annotation>> metaAnnotationTypes) {
+		if (annotation == null) {
+			return false;
+		}
 		return isMetaAnnotation(annotation.annotationType(), metaAnnotationTypes);
 	}
 
@@ -101,10 +125,23 @@ public abstract class AnnotationUtils extends BaseUtils {
 
 	public static boolean isMetaAnnotation(Class<? extends Annotation> annotationType,
 										   Iterable<Class<? extends Annotation>> metaAnnotationTypes) {
-		boolean annotated = true;
-		for (Class<? extends Annotation> metaAnnotationType : metaAnnotationTypes) {
-			annotated &= isAnnotationPresent(annotationType, metaAnnotationType);
+
+		if (NATIVE_ANNOTATION_TYPES.contains(annotationType)) {
+			return false;
 		}
+
+		if (isAnnotationPresent(annotationType, metaAnnotationTypes)) {
+			return true;
+		}
+
+		boolean annotated = false;
+		for (Annotation annotation : annotationType.getDeclaredAnnotations()) {
+			if (isMetaAnnotation(annotation, metaAnnotationTypes)) {
+				annotated = true;
+				break;
+			}
+		}
+
 		return annotated;
 	}
 
@@ -119,7 +156,7 @@ public abstract class AnnotationUtils extends BaseUtils {
 	public static List<Annotation> getAllDeclaredAnnotations(AnnotatedElement annotatedElement,
 															 Predicate<Annotation>... annotationsToFilter) {
 		if (isType(annotatedElement)) {
-			return getAllDeclaredAnnotations((Class<?>) annotatedElement, annotationsToFilter);
+			return getAllDeclaredAnnotations((Class) annotatedElement, annotationsToFilter);
 		} else {
 			return getDeclaredAnnotations(annotatedElement, annotationsToFilter);
 		}
@@ -148,13 +185,14 @@ public abstract class AnnotationUtils extends BaseUtils {
 	 * @param annotationsToFilter the annotations to filter
 	 * @return non-null read-only {@link List}
 	 */
-	public static List<Annotation> getAllDeclaredAnnotations(Class<?> type,
-															 Predicate<Annotation>... annotationsToFilter) {
+	public static List<Annotation> getAllDeclaredAnnotations(Class<?> type, Predicate<Annotation>... annotationsToFilter) {
+
 		if (type == null) {
 			return emptyList();
 		}
 
 		List<Annotation> allAnnotations = new LinkedList<>();
+
 		// All types
 		Set<Class<?>> allTypes = new LinkedHashSet<>();
 		// Add current type
@@ -163,9 +201,10 @@ public abstract class AnnotationUtils extends BaseUtils {
 		allTypes.addAll(ClassUtils.getAllInheritedTypes(type, t -> !Object.class.equals(t)));
 
 		for (Class<?> t : allTypes) {
-			allAnnotations.addAll(getDeclaredAnnotations(t, annotationsToFilter));
+			allAnnotations.addAll(getDeclaredAnnotations(t));
 		}
-		return unmodifiableList(allAnnotations);
+
+		return filterAll(allAnnotations, annotationsToFilter);
 	}
 
 	/**
@@ -181,7 +220,8 @@ public abstract class AnnotationUtils extends BaseUtils {
 		if (annotatedElement == null) {
 			return emptyList();
 		}
-		return unmodifiableList(filterAll(asList(annotatedElement.getDeclaredAnnotations()), annotationsToFilter));
+
+		return filterAll(asList(annotatedElement.getAnnotations()), annotationsToFilter);
 	}
 
 	public static <T> T getAttributeValue(Annotation[] annotations, String attributeName, Class<T> returnType) {
@@ -199,7 +239,7 @@ public abstract class AnnotationUtils extends BaseUtils {
 
 	public static <T> T getAttributeValue(Annotation annotation, String attributeName, Class<T> returnType) {
 		Class<?> annotationType = annotation.annotationType();
-		T attributeValue;
+		T attributeValue = null;
 		try {
 			Method method = annotationType.getMethod(attributeName);
 			Object value = method.invoke(annotation);
@@ -236,6 +276,7 @@ public abstract class AnnotationUtils extends BaseUtils {
 				break;
 			}
 		}
+
 		return found;
 	}
 
@@ -255,8 +296,7 @@ public abstract class AnnotationUtils extends BaseUtils {
 		return found;
 	}
 
-	public static boolean existsAnnotated(AnnotatedElement[] annotatedElements,
-										  Class<? extends Annotation> annotationType) {
+	public static boolean existsAnnotated(AnnotatedElement[] annotatedElements, Class<? extends Annotation> annotationType) {
 		int length = ArrayUtils.length(annotatedElements);
 		if (length < 1 || annotationType == null) {
 			return false;
@@ -272,35 +312,82 @@ public abstract class AnnotationUtils extends BaseUtils {
 		return annotated;
 	}
 
-	public static boolean isAnnotationPresent(AnnotatedElement annotatedElement,
-											  Class<? extends Annotation> annotationType) {
-		return annotatedElement != null &&
-			annotationType != null &&
-			annotatedElement.isAnnotationPresent(annotationType);
+	public static boolean isAnnotationPresent(AnnotatedElement annotatedElement, Class<? extends Annotation> annotationType) {
+		if (annotatedElement == null || annotationType == null) {
+			return false;
+		}
+		// annotated directly
+		return annotatedElement.isAnnotationPresent(annotationType);
 	}
 
-	public static Object[] getAttributeValues(Annotation annotation,
-											  Predicate<Method>... attributesToFilter) {
+	public static boolean isAnnotationPresent(Annotation annotation, Class<? extends Annotation> annotationType) {
+		if (annotation == null) {
+			return false;
+		}
+		return isAnnotationPresent(annotation.annotationType(), annotationType);
+	}
+
+	public static boolean isAnnotationPresent(AnnotatedElement annotatedElement, Iterable<Class<? extends Annotation>> annotationTypes) {
+		if (annotatedElement == null || annotationTypes == null) {
+			return false;
+		}
+
+		boolean annotated = true;
+		for (Class<? extends Annotation> annotationType : annotationTypes) {
+			if (!isAnnotationPresent(annotatedElement, annotationType)) {
+				annotated = false;
+				break;
+			}
+		}
+		return annotated;
+	}
+
+	public static boolean isAnnotationPresent(Annotation annotation, Iterable<Class<? extends Annotation>> annotationTypes) {
+		if (annotation == null) {
+			return false;
+		}
+		return isAnnotationPresent(annotation.annotationType(), annotationTypes);
+	}
+
+	public static Object[] getAttributeValues(Annotation annotation, Predicate<Method>... attributesToFilter) {
 		return getAttributeMethods(annotation, attributesToFilter)
 			.map(method -> ThrowableSupplier.execute(() -> method.invoke(annotation)))
 			.toArray(Object[]::new);
 	}
 
-	public static Map<String, Object> getAttributesMap(Annotation annotation,
-													   Predicate<Method>... attributesToFilter) {
+	public static Map<String, Object> getAttributesMap(Annotation annotation, Predicate<Method>... attributesToFilter) {
 		Map<String, Object> attributesMap = new LinkedHashMap<>();
 		getAttributeMethods(annotation, attributesToFilter)
 			.forEach(method -> {
 				Object value = ThrowableSupplier.execute(() -> method.invoke(annotation));
 				attributesMap.put(method.getName(), value);
 			});
-		return Collections.unmodifiableMap(attributesMap);
+		return attributesMap.isEmpty() ? Collections.emptyMap() : Collections.unmodifiableMap(attributesMap);
 	}
 
-	private static Stream<Method> getAttributeMethods(Annotation annotation,
-													  Predicate<Method>... attributesToFilter) {
+	public static boolean isAnnotationMethod(Method attributeMethod) {
+		return attributeMethod != null && Objects.equals(Annotation.class, attributeMethod.getDeclaringClass());
+	}
+
+	private static boolean isInheritedObjectMethod(Method attributeMethod) {
+		boolean inherited = false;
+
+		for (Method method : MethodUtils.OBJECT_METHODS) {
+			if (MethodUtils.overrides(attributeMethod, method)) {
+				inherited = true;
+				break;
+			}
+		}
+
+		return inherited;
+	}
+
+	private static Stream<Method> getAttributeMethods(Annotation annotation, Predicate<Method>... attributesToFilter) {
 		Class<? extends Annotation> annotationType = annotation.annotationType();
 		return Stream.of(annotationType.getMethods())
-			.filter(Predicates.and(attributesToFilter));
+			.filter(NON_INHERITED_OBJECT_METHOD_PREDICATE
+				.and(NON_ANNOTATION_METHOD_PREDICATE)
+				.and(Predicates.and(attributesToFilter)));
 	}
+
 }

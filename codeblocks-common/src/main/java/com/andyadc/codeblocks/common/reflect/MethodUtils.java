@@ -2,6 +2,7 @@ package com.andyadc.codeblocks.common.reflect;
 
 import com.andyadc.codeblocks.common.function.Streams;
 import com.andyadc.codeblocks.common.lang.StringUtils;
+import com.andyadc.codeblocks.common.util.CollectionUtils;
 
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
@@ -19,6 +20,13 @@ import static com.andyadc.codeblocks.common.reflect.ClassUtils.getAllInheritedTy
  * The utilities class for Java Refection {@link Method}
  */
 public class MethodUtils {
+
+	/**
+	 * The {@link Predicate} reference to {@link MethodUtils#isObjectMethod(Method)}
+	 */
+	public final static Predicate<Method> OBJECT_METHOD_PREDICATE = MethodUtils::isObjectMethod;
+
+	public final static Set<Method> OBJECT_METHODS = CollectionUtils.asSet(Object.class.getMethods());
 
 	/**
 	 * Get all {@link Method methods} of the declared class

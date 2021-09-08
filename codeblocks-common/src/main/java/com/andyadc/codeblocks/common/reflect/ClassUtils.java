@@ -43,7 +43,7 @@ import java.util.jar.JarFile;
 
 import static com.andyadc.codeblocks.common.function.Streams.filterAll;
 import static com.andyadc.codeblocks.common.reflect.ClassLoaderUtils.getClassLoader;
-import static com.andyadc.codeblocks.common.util.CollectionUtils.ofSet;
+import static com.andyadc.codeblocks.common.util.CollectionUtils.asSet;
 import static java.util.Collections.emptySet;
 import static java.util.Collections.unmodifiableSet;
 
@@ -77,7 +77,7 @@ public abstract class ClassUtils {
 	 *
 	 * @see javax.management.openmbean.SimpleType
 	 */
-	public static final Set<Class<?>> SIMPLE_TYPES = ofSet(
+	public static final Set<Class<?>> SIMPLE_TYPES = asSet(
 		Void.class,
 		Boolean.class,
 		Character.class,
@@ -426,7 +426,7 @@ public abstract class ClassUtils {
 		}
 
 		// Keep the same order from List
-		return ofSet(filterAll(allClasses, classFilters));
+		return asSet(filterAll(allClasses, classFilters));
 	}
 
 	/**
@@ -485,7 +485,7 @@ public abstract class ClassUtils {
 		// FIFO -> FILO
 		Collections.reverse(allInterfaces);
 
-		return ofSet(filterAll(allInterfaces, interfaceFilters));
+		return asSet(filterAll(allInterfaces, interfaceFilters));
 	}
 
 	/**

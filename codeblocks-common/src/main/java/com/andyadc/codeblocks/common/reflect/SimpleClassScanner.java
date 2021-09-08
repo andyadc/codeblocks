@@ -82,7 +82,7 @@ public class SimpleClassScanner {
 				if (!classNamesInPackage.isEmpty()) {
 					String classPath = ClassUtils.findClassPath(classNamesInPackage.get(0));
 					URL resourceURL = new File(classPath).toURI().toURL();
-					resourceURLs = CollectionUtils.ofSet(resourceURL);
+					resourceURLs = CollectionUtils.asSet(resourceURL);
 				}
 			}
 

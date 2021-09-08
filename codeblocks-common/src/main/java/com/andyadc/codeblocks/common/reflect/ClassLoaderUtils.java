@@ -23,7 +23,7 @@ import java.util.jar.JarFile;
 
 import static com.andyadc.codeblocks.common.constants.SystemConstants.JAVA_VENDOR;
 import static com.andyadc.codeblocks.common.constants.SystemConstants.JAVA_VERSION;
-import static com.andyadc.codeblocks.common.util.CollectionUtils.ofSet;
+import static com.andyadc.codeblocks.common.util.CollectionUtils.asSet;
 import static java.util.Collections.emptySet;
 import static java.util.Collections.list;
 
@@ -242,7 +242,7 @@ public abstract class ClassLoaderUtils {
 			return emptySet();
 		}
 		Enumeration<URL> resources = classLoader.getResources(normalizedResourceName);
-		return resources != null && resources.hasMoreElements() ? ofSet(list(resources)) : emptySet();
+		return resources != null && resources.hasMoreElements() ? asSet(list(resources)) : emptySet();
 	}
 
 	/**

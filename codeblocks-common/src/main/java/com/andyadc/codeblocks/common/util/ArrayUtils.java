@@ -1,9 +1,9 @@
 package com.andyadc.codeblocks.common.util;
 
 import java.lang.reflect.Array;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
-import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
@@ -29,8 +29,15 @@ public abstract class ArrayUtils extends BaseUtils {
 	}
 
 	public static <E> E[] asArray(Enumeration<E> enumeration, Class<?> componentType) {
-		List<E> list = Collections.list(enumeration);
-		return list.toArray((E[]) Array.newInstance(componentType, 0));
+		return asArray(Collections.list(enumeration), componentType);
+	}
+
+	public static <E> E[] asArray(Iterable<E> elements, Class<?> componentType) {
+		return asArray(CollectionUtils.newArrayList(elements), componentType);
+	}
+
+	public static <E> E[] asArray(Collection<E> collection, Class<?> componentType) {
+		return collection.toArray((E[]) Array.newInstance(componentType, 0));
 	}
 
 	public static <T> void iterate(T[] values, Consumer<T> consumer) {
