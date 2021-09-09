@@ -21,6 +21,7 @@ import java.util.stream.Stream;
 /**
  * Default {@link InterceptorRegistry}
  */
+@Deprecated
 public class DefaultInterceptorRegistry implements InterceptorRegistry {
 
 	/**

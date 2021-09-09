@@ -1,8 +1,13 @@
 package com.andyadc.codeblocks.interceptor;
 
+import javax.interceptor.InterceptorBinding;
 import java.lang.annotation.Annotation;
 import java.util.Comparator;
 
+/**
+ * The {@link Comparator} of {@link InterceptorBinding Inteceptor Binding} annotation using the
+ * {@link String} representing of {@link Annotation#toString() annotation}
+ */
 public class InterceptorBindingComparator implements Comparator<Annotation> {
 
 	final static Comparator<Annotation> INSTANCE = new InterceptorBindingComparator();

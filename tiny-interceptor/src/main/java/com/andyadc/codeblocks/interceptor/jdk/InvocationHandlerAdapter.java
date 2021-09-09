@@ -17,9 +17,9 @@ public class InvocationHandlerAdapter implements InvocationHandler {
 
 	private final Object[] interceptors;
 
-	public InvocationHandlerAdapter(Object source, Object... interceptors) {
+	public InvocationHandlerAdapter(Object source, Object... additionalInterceptors) {
 		this.source = source;
-		this.interceptors = interceptors;
+		this.interceptors = additionalInterceptors;
 	}
 
 	@Override

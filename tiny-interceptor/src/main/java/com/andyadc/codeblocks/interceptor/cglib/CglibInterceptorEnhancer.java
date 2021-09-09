@@ -8,6 +8,7 @@ import javax.interceptor.Interceptor;
 /**
  * {@link Interceptor @Interceptor} enhancer by CGLIB
  */
+@Deprecated
 public class CglibInterceptorEnhancer implements InterceptorEnhancer {
 
 	@Override

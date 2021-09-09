@@ -12,6 +12,15 @@ import java.util.stream.Stream;
 
 /**
  * The composite {@link InterceptorBindingInfo} instance
+ * <p>
+ * An interceptor class may declare multiple interceptor bindings.
+ * <p>
+ * Multiple interceptors may declare the same interceptor bindings.
+ * <p>
+ * The method or constructor has all the interceptor bindings of the interceptor.
+ * A method or constructor has an interceptor binding of an interceptor
+ * if it has an interceptor binding with (a) the same type and (b) the same
+ * annotation member value for each member.
  */
 public class InterceptorBindings implements Iterable<InterceptorBindingInfo> {
 

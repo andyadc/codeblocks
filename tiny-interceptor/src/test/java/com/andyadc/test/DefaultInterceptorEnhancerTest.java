@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 /**
  * {@link DefaultInterceptorEnhancer} Test
  */
+@Deprecated
 public class DefaultInterceptorEnhancerTest {
 
 	private final InterceptorEnhancer interceptorEnhancer = new DefaultInterceptorEnhancer();

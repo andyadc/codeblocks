@@ -125,7 +125,6 @@ public abstract class AnnotationUtils extends BaseUtils {
 
 	public static boolean isMetaAnnotation(Class<? extends Annotation> annotationType,
 										   Iterable<Class<? extends Annotation>> metaAnnotationTypes) {
-
 		if (NATIVE_ANNOTATION_TYPES.contains(annotationType)) {
 			return false;
 		}
@@ -156,7 +155,7 @@ public abstract class AnnotationUtils extends BaseUtils {
 	public static List<Annotation> getAllDeclaredAnnotations(AnnotatedElement annotatedElement,
 															 Predicate<Annotation>... annotationsToFilter) {
 		if (isType(annotatedElement)) {
-			return getAllDeclaredAnnotations((Class) annotatedElement, annotationsToFilter);
+			return getAllDeclaredAnnotations((Class<?>) annotatedElement, annotationsToFilter);
 		} else {
 			return getDeclaredAnnotations(annotatedElement, annotationsToFilter);
 		}
@@ -186,7 +185,6 @@ public abstract class AnnotationUtils extends BaseUtils {
 	 * @return non-null read-only {@link List}
 	 */
 	public static List<Annotation> getAllDeclaredAnnotations(Class<?> type, Predicate<Annotation>... annotationsToFilter) {
-
 		if (type == null) {
 			return emptyList();
 		}
@@ -293,6 +291,7 @@ public abstract class AnnotationUtils extends BaseUtils {
 				break;
 			}
 		}
+
 		return found;
 	}
 
@@ -309,6 +308,7 @@ public abstract class AnnotationUtils extends BaseUtils {
 				break;
 			}
 		}
+
 		return annotated;
 	}
 
@@ -351,7 +351,9 @@ public abstract class AnnotationUtils extends BaseUtils {
 
 	public static Object[] getAttributeValues(Annotation annotation, Predicate<Method>... attributesToFilter) {
 		return getAttributeMethods(annotation, attributesToFilter)
-			.map(method -> ThrowableSupplier.execute(() -> method.invoke(annotation)))
+			.map(method -> ThrowableSupplier.execute(() ->
+				method.invoke(annotation))
+			)
 			.toArray(Object[]::new);
 	}
 
@@ -378,7 +380,6 @@ public abstract class AnnotationUtils extends BaseUtils {
 				break;
 			}
 		}
-
 		return inherited;
 	}
 

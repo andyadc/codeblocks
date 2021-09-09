@@ -8,6 +8,7 @@ import java.lang.reflect.Proxy;
 /**
  * {@link InterceptorEnhancer} based on JDK Dynamic Proxy
  */
+@Deprecated
 public class DynamicProxyInterceptorEnhancer implements InterceptorEnhancer {
 
 	@Override
