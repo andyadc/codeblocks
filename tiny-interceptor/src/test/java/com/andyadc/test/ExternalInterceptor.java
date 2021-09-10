@@ -10,9 +10,6 @@ import java.util.logging.Logger;
 
 /**
  * External {@link Interceptor @Interceptor}
- *
- * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
- * @since 1.0.0
  */
 @Interceptor
 public class ExternalInterceptor {

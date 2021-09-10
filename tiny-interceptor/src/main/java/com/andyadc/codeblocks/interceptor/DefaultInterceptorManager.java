@@ -138,7 +138,6 @@ public class DefaultInterceptorManager implements InterceptorManager {
 		});
 	}
 
-
 	@Override
 	public void registerInterceptorBindingType(Class<? extends Annotation> interceptorBindingType) {
 		this.interceptorBindingTypes.add(interceptorBindingType);

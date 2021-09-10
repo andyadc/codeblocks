@@ -1,6 +1,5 @@
 package com.andyadc.codeblocks.interceptor;
 
-import com.andyadc.codeblocks.common.function.Streams;
 import com.andyadc.codeblocks.common.lang.Prioritized;
 import com.andyadc.codeblocks.common.reflect.TypeUtils;
 import com.andyadc.codeblocks.interceptor.util.InterceptorUtils;
@@ -10,7 +9,6 @@ import javax.annotation.PreDestroy;
 import javax.interceptor.AroundConstruct;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.AroundTimeout;
-import javax.interceptor.InterceptorBinding;
 import javax.interceptor.InvocationContext;
 import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
@@ -23,7 +21,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static java.lang.String.format;
-import static java.util.ServiceLoader.load;
 
 /**
  * The abstract annotated {@link javax.interceptor.Interceptor @Interceptor} class
@@ -34,7 +31,7 @@ public abstract class AnnotatedInterceptor<A extends Annotation> implements Inte
 
 	private final Logger logger = Logger.getLogger(getClass().getName());
 
-	private final InterceptorRegistry interceptorRegistry;
+	private final InterceptorManager interceptorManager;
 
 	private final Class<A> interceptorBindingType;
 
@@ -46,21 +43,10 @@ public abstract class AnnotatedInterceptor<A extends Annotation> implements Inte
 	 */
 	public AnnotatedInterceptor() throws IllegalArgumentException {
 		Class<?> interceptorClass = getClass();
-		this.interceptorRegistry = InterceptorRegistry.getInstance(interceptorClass.getClassLoader());
-		this.interceptorRegistry.registerInterceptorClass(interceptorClass);
+		this.interceptorManager = InterceptorManager.getInstance(interceptorClass.getClassLoader());
+		this.interceptorManager.registerInterceptorClass(interceptorClass);
 		this.interceptorBindingType = resolveInterceptorBindingType(interceptorClass);
-		this.interceptorRegistry.registerInterceptor(this);
-	}
-
-	/**
-	 * Load the sorted instances of {@link AnnotatedInterceptor} via Java Standard SPI.
-	 *
-	 * @return non-null
-	 */
-	public static AnnotatedInterceptor<?>[] loadInterceptors() {
-		return Streams.stream(load(AnnotatedInterceptor.class))
-			.sorted()
-			.toArray(AnnotatedInterceptor[]::new);
+		this.interceptorManager.registerInterceptor(this);
 	}
 
 	@Override
@@ -82,6 +68,10 @@ public abstract class AnnotatedInterceptor<A extends Annotation> implements Inte
 	 * Timeout methods are currently specific to Enterprise JavaBeans, although Timer Service functionality
 	 * may be extended to other specifications in the future, and extension specifications may define events
 	 * that may be interposed on by around-timeout methods.
+	 *
+	 * @param context
+	 * @return
+	 * @throws Throwable
 	 */
 	@AroundTimeout
 	public Object interceptTimeout(InvocationContext context) throws Throwable {
@@ -194,6 +184,7 @@ public abstract class AnnotatedInterceptor<A extends Annotation> implements Inte
 	 */
 	protected Class<A> resolveInterceptorBindingType(Class<?> interceptorClass) {
 		Class<A> interceptorBindingType = null;
+
 		for (Class<?> typeArgument : TypeUtils.resolveTypeArguments(interceptorClass)) {
 			if (typeArgument.isAnnotation()) {
 				Class<A> annotationType = (Class<A>) typeArgument;
@@ -208,7 +199,7 @@ public abstract class AnnotatedInterceptor<A extends Annotation> implements Inte
 					if (logger.isLoggable(Level.SEVERE)) {
 						logger.severe(format("The annotationType[%s] should annotate %s",
 							typeArgument.getName(),
-							InterceptorBinding.class.getName()));
+							InterceptorBindings.class.getName()));
 					}
 				}
 			}
@@ -220,11 +211,11 @@ public abstract class AnnotatedInterceptor<A extends Annotation> implements Inte
 	}
 
 	private boolean isInterceptorBindingType(Class<? extends Annotation> annotationType) {
-		return interceptorRegistry.isInterceptorBindingType(annotationType);
+		return interceptorManager.isInterceptorBindingType(annotationType);
 	}
 
 	private void registerSyntheticInterceptorBindingType(Class<A> annotationType) {
-		interceptorRegistry.registerInterceptorBindingType(annotationType);
+		interceptorManager.registerInterceptorBindingType(annotationType);
 	}
 
 	protected boolean shouldRegisterSyntheticInterceptorBindingType() {
@@ -266,8 +257,8 @@ public abstract class AnnotatedInterceptor<A extends Annotation> implements Inte
 		return failure;
 	}
 
-	public InterceptorRegistry getInterceptorRegistry() {
-		return interceptorRegistry;
+	public InterceptorManager getInterceptorRegistry() {
+		return interceptorManager;
 	}
 
 	private boolean excludeInterceptorAnnotation(Annotation annotation) {

@@ -96,7 +96,6 @@ public class ChainableInvocationContext implements InvocationContext {
 		return interceptorManager.resolveInterceptors(getConstructor(), defaultInterceptors);
 	}
 
-
 	private Collection<Method> resolveInterceptionMethods(Object interceptor) {
 		InterceptorInfo interceptorInfo = interceptorManager.getInterceptorInfo(interceptor.getClass());
 
