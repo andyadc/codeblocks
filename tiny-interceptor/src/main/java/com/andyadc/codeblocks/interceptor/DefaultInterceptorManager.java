@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
+import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
@@ -54,7 +55,7 @@ public class DefaultInterceptorManager implements InterceptorManager {
 
 	public DefaultInterceptorManager() {
 		this.interceptorBindingTypes = new LinkedHashSet<>();
-		this.interceptorInfoRepository = new LinkedHashMap<>();
+		this.interceptorInfoRepository = new TreeMap<>(PriorityComparator.INSTANCE);
 		this.bindingInterceptors = new LinkedHashMap<>();
 		this.interceptorsCache = new LinkedHashMap<>();
 		registerDefaultInterceptorBindingType();
@@ -149,6 +150,12 @@ public class DefaultInterceptorManager implements InterceptorManager {
 			interceptorBindingTypes.contains(annotationType);
 	}
 
+	@Override
+	public Set<Class<?>> getInterceptorClasses() {
+		return interceptorInfoRepository.keySet();
+	}
+
+	@Override
 	public Set<Class<? extends Annotation>> getInterceptorBindingTypes() {
 		return Collections.unmodifiableSet(interceptorBindingTypes);
 	}

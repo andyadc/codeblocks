@@ -112,27 +112,27 @@ public class InterceptorInfo {
 		return interceptorClass;
 	}
 
-	Collection<Method> getAroundInvokeMethods() {
+	public Collection<Method> getAroundInvokeMethods() {
 		return aroundInvokeMethods;
 	}
 
-	Collection<Method> getAroundTimeoutMethods() {
+	public Collection<Method> getAroundTimeoutMethods() {
 		return aroundTimeoutMethods;
 	}
 
-	Collection<Method> getAroundConstructMethods() {
+	public Collection<Method> getAroundConstructMethods() {
 		return aroundConstructMethods;
 	}
 
-	Collection<Method> getPostConstructMethods() {
+	public Collection<Method> getPostConstructMethods() {
 		return postConstructMethods;
 	}
 
-	Collection<Method> getPreDestroyMethods() {
+	public Collection<Method> getPreDestroyMethods() {
 		return preDestroyMethods;
 	}
 
-	InterceptorBindings getInterceptorBindings() {
+	public InterceptorBindings getInterceptorBindings() {
 		return interceptorBindings;
 	}
 

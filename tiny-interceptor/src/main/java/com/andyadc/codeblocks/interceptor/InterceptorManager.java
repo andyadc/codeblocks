@@ -12,6 +12,7 @@ import java.lang.reflect.Executable;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 /**
  * The Mananger of {@link Interceptor}
@@ -26,9 +27,23 @@ public interface InterceptorManager {
 		return getInstance(ClassLoaderUtils.getClassLoader(InterceptorManager.class));
 	}
 
-	void registerInterceptorClass(Class<?> interceptorClass);
+	/**
+	 * @param interceptorClass The class of {@link javax.interceptor.Interceptor @Interceptor}
+	 * @throws NullPointerException  If <code>interceptorClass</code> is <code>null</code>
+	 * @throws IllegalStateException If an interceptor class does not annotate @Interceptor or
+	 *                               is abstract or have not a public no-arg constructor
+	 */
+	void registerInterceptorClass(Class<?> interceptorClass) throws NullPointerException, IllegalStateException;
 
-	default void registerInterceptorClasses(Class<?> interceptorClass, Class<?>... otherInterceptorClasses) {
+	/**
+	 * @param interceptorClass        The class of {@link javax.interceptor.Interceptor @Interceptor}
+	 * @param otherInterceptorClasses the other classes of {@link javax.interceptor.Interceptor @Interceptor}
+	 * @throws NullPointerException  If <code>interceptorClass</code> is <code>null</code>
+	 * @throws IllegalStateException If an interceptor class does not annotate @Interceptor or
+	 *                               is abstract or have not a public no-arg constructor
+	 */
+	default void registerInterceptorClasses(Class<?> interceptorClass, Class<?>... otherInterceptorClasses)
+		throws NullPointerException, IllegalStateException {
 		registerInterceptorClass(interceptorClass);
 		registerInterceptorClasses(otherInterceptorClasses);
 	}
@@ -128,9 +143,47 @@ public interface InterceptorManager {
 	 * wish to make an annotation an interceptor binding type without adding {@link InterceptorBinding} to it.
 	 * </p>
 	 *
-	 * @param interceptorBindingType interceptorBindingType
+	 * @param interceptorBindingType
 	 */
 	void registerInterceptorBindingType(Class<? extends Annotation> interceptorBindingType);
+
+	/**
+	 * Get all registered {@link Class classes} of {@link javax.interceptor.Interceptor @Interceptor}
+	 *
+	 * @return non-null read-only {@link Set} of {@link Class classes}
+	 */
+	Set<Class<?>> getInterceptorClasses();
+
+	/**
+	 * Get all {@link Class classes} of {@link InterceptorBinding Interceptor bindings}
+	 *
+	 * @return non-null read-only {@link Set} of {@link Class classes}
+	 */
+	Set<Class<? extends Annotation>> getInterceptorBindingTypes();
+
+	/**
+	 * The given interceptor class is {@link javax.interceptor.Interceptor @Interceptor} or not.
+	 *
+	 * @param interceptorClass the class of interceptor
+	 * @throws NullPointerException  If <code>interceptorClass</code> is <code>null</code>
+	 * @throws IllegalStateException If an interceptor class does not annotate @Interceptor or
+	 *                               is abstract or have not a public no-arg constructor
+	 */
+	default boolean isInterceptorClass(Class<?> interceptorClass) throws NullPointerException, IllegalStateException {
+		return InterceptorUtils.isInterceptorClass(interceptorClass);
+	}
+
+	/**
+	 * An interceptor class must not be abstract and must have a public no-arg constructor.
+	 *
+	 * @param interceptorClass the class of interceptor
+	 * @throws NullPointerException  If <code>interceptorClass</code> is <code>null</code>
+	 * @throws IllegalStateException If an interceptor class does not annotate @Interceptor or
+	 *                               is abstract or have not a public no-arg constructor
+	 */
+	default void validatorInterceptorClass(Class<?> interceptorClass) throws NullPointerException, IllegalStateException {
+		InterceptorUtils.validatorInterceptorClass(interceptorClass);
+	}
 
 	default boolean isInterceptorBinding(Annotation annotation) {
 		return isInterceptorBindingType(annotation.annotationType());
