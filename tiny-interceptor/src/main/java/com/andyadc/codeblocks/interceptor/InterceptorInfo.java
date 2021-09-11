@@ -47,7 +47,6 @@ public class InterceptorInfo {
 	private final InterceptorBindings interceptorBindings;
 
 	public InterceptorInfo(Class<?> interceptorClass) {
-		InterceptorUtils.validatorInterceptorClass(interceptorClass);
 		this.interceptorManager = InterceptorManager.getInstance(interceptorClass.getClassLoader());
 		this.interceptorClass = interceptorClass;
 		this.aroundInvokeMethods = new LinkedList<>();
@@ -108,10 +107,6 @@ public class InterceptorInfo {
 		return new InterceptorBindings(AnnotationUtils.getAllDeclaredAnnotations(interceptorClass, interceptorManager::isInterceptorBinding));
 	}
 
-	public Class<?> getInterceptorClass() {
-		return interceptorClass;
-	}
-
 	public Collection<Method> getAroundInvokeMethods() {
 		return aroundInvokeMethods;
 	}
@@ -130,6 +125,30 @@ public class InterceptorInfo {
 
 	public Collection<Method> getPreDestroyMethods() {
 		return preDestroyMethods;
+	}
+
+	public Class<?> getInterceptorClass() {
+		return interceptorClass;
+	}
+
+	public boolean hasAroundInvokeMethod() {
+		return !getAroundInvokeMethods().isEmpty();
+	}
+
+	public boolean hasAroundTimeoutMethod() {
+		return !getAroundTimeoutMethods().isEmpty();
+	}
+
+	public boolean hasAroundConstructMethod() {
+		return !getAroundConstructMethods().isEmpty();
+	}
+
+	public boolean hasPostConstructMethod() {
+		return !getPostConstructMethods().isEmpty();
+	}
+
+	public boolean hasPreDestroyMethod() {
+		return !getPreDestroyMethods().isEmpty();
 	}
 
 	public InterceptorBindings getInterceptorBindings() {

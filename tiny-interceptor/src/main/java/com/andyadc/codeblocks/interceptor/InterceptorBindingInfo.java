@@ -13,6 +13,8 @@ import java.util.Objects;
  */
 public class InterceptorBindingInfo {
 
+	private final Annotation declaredAnnotation;
+
 	private final Class<? extends Annotation> declaredAnnotationType;
 
 	/**
@@ -23,6 +25,7 @@ public class InterceptorBindingInfo {
 	private final Map<String, Object> attributes;
 
 	public InterceptorBindingInfo(Annotation declaredAnnotation) {
+		this.declaredAnnotation = declaredAnnotation;
 		this.declaredAnnotationType = declaredAnnotation.annotationType();
 		this.synthetic = !InterceptorUtils.isInterceptorBinding(declaredAnnotationType);
 		this.attributes = AnnotationUtils.getAttributesMap(declaredAnnotation, InterceptorBindingAttributeFilter.FILTERS);
@@ -36,6 +39,10 @@ public class InterceptorBindingInfo {
 	 */
 	public static InterceptorBindingInfo newInstance(Annotation interceptorBinding) {
 		return new InterceptorBindingInfo(interceptorBinding);
+	}
+
+	public Annotation getDeclaredAnnotation() {
+		return declaredAnnotation;
 	}
 
 	public Class<? extends Annotation> getDeclaredAnnotationType() {
