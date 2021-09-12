@@ -11,9 +11,7 @@ import java.util.Objects;
  * <p>
  * The less value of {@link Priority}, the more priority
  *
- * @author <a href="mailto:mercyblitz@gmail.com">Mercy</a>
  * @see Priority
- * @since 1.0.0
  */
 public class PriorityComparator implements Comparator<Object> {
 
@@ -22,6 +20,7 @@ public class PriorityComparator implements Comparator<Object> {
 	 */
 	public static final PriorityComparator INSTANCE = new PriorityComparator();
 	private static final Class<Priority> PRIORITY_CLASS = Priority.class;
+	private static final int UNDEFINED_VALUE = -1;
 
 	public static int compare(Class<?> type1, Class<?> type2) {
 		if (Objects.equals(type1, type2)) {
@@ -31,20 +30,23 @@ public class PriorityComparator implements Comparator<Object> {
 		Priority priority1 = AnnotationUtils.findAnnotation(type1, PRIORITY_CLASS);
 		Priority priority2 = AnnotationUtils.findAnnotation(type2, PRIORITY_CLASS);
 
-		if (priority1 != null && priority2 != null) {
-			return Integer.compare(priority1.value(), priority2.value());
-		} else if (priority1 != null && priority2 == null) {
-			return -1;
-		} else if (priority1 == null && priority2 != null) {
-			return 1;
-		}
-		// else
-		return 0;
+		int priorityValue1 = getValue(priority1);
+		int priorityValue2 = getValue(priority2);
+
+		return Integer.compare(priorityValue1, priorityValue2);
+	}
+
+	private static Class<?> resolveClass(Object object) {
+		return object instanceof Class ? (Class) object : object.getClass();
+	}
+
+	private static int getValue(Priority priority) {
+		int value = priority == null ? UNDEFINED_VALUE : priority.value();
+		return value < 0 ? UNDEFINED_VALUE : value;
 	}
 
 	@Override
 	public int compare(Object o1, Object o2) {
-		return compare(o1.getClass(), o2.getClass());
+		return compare(resolveClass(o1), resolveClass(o2));
 	}
-
 }
