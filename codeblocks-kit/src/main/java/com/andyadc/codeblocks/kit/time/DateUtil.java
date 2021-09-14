@@ -12,7 +12,6 @@ import java.util.TimeZone;
  * <code>org.apache.commons.lang3.time.DateUtils</code>
  *
  * @author andaicheng
- * @version 2016/12/4
  */
 public final class DateUtil {
 
@@ -37,6 +36,13 @@ public final class DateUtil {
 	 */
 	public static String date2String(Date date) {
 		return PATTERN_YYYY_MM_DD_HH_MM_SS_SSS.get().format(date);
+	}
+
+	/**
+	 * @param pattern dd/MM/yyyy HH:mm:ss Z;
+	 */
+	public static String date2String(Date date, String pattern) {
+		return new SimpleDateFormat(pattern).format(date);
 	}
 
 	//-----------------------------------------------------------------------

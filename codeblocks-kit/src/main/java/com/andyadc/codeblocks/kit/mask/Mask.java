@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 /**
  * @author andaicheng
- * @since 2017/12/9
  */
 public final class Mask {
 

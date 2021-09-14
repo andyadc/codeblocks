@@ -10,14 +10,12 @@ import java.util.Locale;
 /**
  * link https://github.com/netwinder-dev/ASCIIConversion/blob/master/src/ASCIIConvert/ASCIIConversions.java
  *
- * @author andy.an
- * @since 2018/6/20
  */
 public class ASCIIConversions {
 
     private int[] statsArray = new int[12];
-    private char[] convRefArray = {' ', '~', '-', ':', '+', '%', '=', 'W', '@', '$', '#', '▒'};
-    private char[] imgArray;
+	private final char[] convRefArray = {' ', '~', '-', ':', '+', '%', '=', 'W', '@', '$', '#', '▒'};
+	private char[] imgArray;
     private long dStart;
     private long dEnd;
 

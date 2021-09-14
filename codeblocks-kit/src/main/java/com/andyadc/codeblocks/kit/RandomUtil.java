@@ -4,7 +4,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author andy.an
- * @since 2019/3/18
  */
 public final class RandomUtil {
 

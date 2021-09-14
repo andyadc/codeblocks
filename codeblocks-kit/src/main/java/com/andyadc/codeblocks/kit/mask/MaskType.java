@@ -4,7 +4,6 @@ import java.util.regex.Pattern;
 
 /**
  * @author andaicheng
- * @since 2017/12/9
  */
 public enum MaskType {
 
@@ -186,19 +185,19 @@ public enum MaskType {
     };
 
     /**
-     * 掩码时开始需要保留的字符数量
-     */
-    private int before;
+	 * 掩码时开始需要保留的字符数量
+	 */
+	private final int before;
 
-    /**
-     * 掩码时结尾需要保留的字符数量
-     */
-    private int after;
+	/**
+	 * 掩码时结尾需要保留的字符数量
+	 */
+	private final int after;
 
-    /**
-     * 掩码字符的数量，若小于等于 0，则掩码字符的数量与原文数量一致
-     */
-    private int mask;
+	/**
+	 * 掩码字符的数量，若小于等于 0，则掩码字符的数量与原文数量一致
+	 */
+	private final int mask;
 
     MaskType(int before, int after, int mask) {
         this.before = before;
