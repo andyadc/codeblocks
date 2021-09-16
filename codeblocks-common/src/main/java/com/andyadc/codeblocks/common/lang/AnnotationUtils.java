@@ -30,7 +30,7 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-import static com.andyadc.codeblocks.common.function.Streams.filterAll;
+import static com.andyadc.codeblocks.common.function.Streams.filter;
 import static com.andyadc.codeblocks.common.function.Streams.filterFirst;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
@@ -173,7 +173,7 @@ public abstract class AnnotationUtils extends BaseUtils {
 
 	public static <S extends Iterable<Annotation>> S filterAnnotations(S annotations,
 																	   Predicate<Annotation>... annotationsToFilter) {
-		return filterAll(annotations, annotationsToFilter);
+		return filter(annotations, annotationsToFilter);
 	}
 
 	/**
@@ -202,7 +202,7 @@ public abstract class AnnotationUtils extends BaseUtils {
 			allAnnotations.addAll(getDeclaredAnnotations(t));
 		}
 
-		return filterAll(allAnnotations, annotationsToFilter);
+		return filter(allAnnotations, annotationsToFilter);
 	}
 
 	/**
@@ -219,7 +219,7 @@ public abstract class AnnotationUtils extends BaseUtils {
 			return emptyList();
 		}
 
-		return filterAll(asList(annotatedElement.getAnnotations()), annotationsToFilter);
+		return filter(asList(annotatedElement.getAnnotations()), annotationsToFilter);
 	}
 
 	public static <T> T getAttributeValue(Annotation[] annotations, String attributeName, Class<T> returnType) {

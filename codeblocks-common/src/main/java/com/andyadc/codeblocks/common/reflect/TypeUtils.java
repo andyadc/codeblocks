@@ -20,7 +20,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static com.andyadc.codeblocks.common.function.Predicates.and;
-import static com.andyadc.codeblocks.common.function.Streams.filterAll;
+import static com.andyadc.codeblocks.common.function.Streams.filter;
 import static com.andyadc.codeblocks.common.reflect.ClassUtils.getAllSuperClasses;
 import static com.andyadc.codeblocks.common.reflect.ClassUtils.isAssignableFrom;
 import static java.util.Arrays.asList;
@@ -177,7 +177,7 @@ public class TypeUtils extends BaseUtils {
 			.map(ParameterizedType.class::cast)
 			.collect(Collectors.toList());
 
-		return unmodifiableList(filterAll(allGenericSuperClasses, typeFilters));
+		return unmodifiableList(filter(allGenericSuperClasses, typeFilters));
 	}
 
 	/**
@@ -211,7 +211,7 @@ public class TypeUtils extends BaseUtils {
 			.map(ParameterizedType.class::cast)
 			.collect(toList());
 
-		return unmodifiableList(filterAll(allGenericInterfaces, typeFilters));
+		return unmodifiableList(filter(allGenericInterfaces, typeFilters));
 	}
 
 	public static String getClassName(Type type) {
@@ -340,7 +340,7 @@ public class TypeUtils extends BaseUtils {
 		}
 
 		if (rawClass.isInterface()) {
-			return Collections.unmodifiableSet(filterAll(Collections.singleton(Object.class), typeFilters));
+			return Collections.unmodifiableSet(filter(Collections.singleton(Object.class), typeFilters));
 		}
 
 		Set<Type> allSuperTypes = new LinkedHashSet<>();
@@ -352,7 +352,7 @@ public class TypeUtils extends BaseUtils {
 			superType = superClass.getGenericSuperclass();
 		}
 
-		return Collections.unmodifiableSet(filterAll(allSuperTypes, typeFilters));
+		return Collections.unmodifiableSet(filter(allSuperTypes, typeFilters));
 	}
 
 	/**
@@ -384,7 +384,7 @@ public class TypeUtils extends BaseUtils {
 			allSuperInterfaces.addAll(getAllInterfaces(superType));
 		}
 
-		return Collections.unmodifiableSet(filterAll(allSuperInterfaces, typeFilters));
+		return Collections.unmodifiableSet(filter(allSuperInterfaces, typeFilters));
 	}
 
 	public static Set<Type> getAllTypes(Type type, Predicate<Type>... typeFilters) {
@@ -396,7 +396,7 @@ public class TypeUtils extends BaseUtils {
 		// add all super interfaces
 		allTypes.addAll(getAllInterfaces(type));
 
-		return Collections.unmodifiableSet(filterAll(allTypes, typeFilters));
+		return Collections.unmodifiableSet(filter(allTypes, typeFilters));
 	}
 
 	public static Set<ParameterizedType> findParameterizedTypes(Class<?> sourceClass) {

@@ -15,6 +15,7 @@ import java.util.Set;
 import java.util.function.Predicate;
 
 import static com.andyadc.codeblocks.common.reflect.ClassUtils.getAllInheritedTypes;
+import static com.andyadc.codeblocks.common.reflect.MemberUtils.*;
 
 /**
  * The utilities class for Java Refection {@link Method}
@@ -24,7 +25,7 @@ public class MethodUtils {
 	/**
 	 * The {@link Predicate} reference to {@link MethodUtils#isObjectMethod(Method)}
 	 */
-	public final static Predicate<Method> OBJECT_METHOD_PREDICATE = MethodUtils::isObjectMethod;
+	public final static Predicate<? super Method> OBJECT_METHOD_PREDICATE = MethodUtils::isObjectMethod;
 
 	public final static Set<Method> OBJECT_METHODS = CollectionUtils.asSet(Object.class.getMethods());
 
@@ -40,7 +41,8 @@ public class MethodUtils {
 	public static Set<Method> getMethods(Class<?> declaringClass,
 										 boolean includeInheritedTypes,
 										 boolean publicOnly,
-										 Predicate<Method>... methodsToFilter) {
+										 Predicate<? super Method>... methodsToFilter) {
+
 		if (declaringClass == null || declaringClass.isPrimitive()) {
 			return Collections.emptySet();
 		}
@@ -56,13 +58,16 @@ public class MethodUtils {
 
 		// All methods
 		Set<Method> allMethods = new LinkedHashSet<>();
+
 		for (Class<?> classToSearch : declaredClasses) {
 			Method[] methods = publicOnly ? classToSearch.getMethods() : classToSearch.getDeclaredMethods();
 			// Add the declared methods or public methods
-			Collections.addAll(allMethods, methods);
+			for (Method method : methods) {
+				allMethods.add(method);
+			}
 		}
 
-		return Collections.unmodifiableSet(Streams.filterAll(allMethods, methodsToFilter));
+		return Collections.unmodifiableSet(Streams.filter(allMethods, methodsToFilter));
 	}
 
 	/**
@@ -73,8 +78,8 @@ public class MethodUtils {
 	 * @return non-null read-only {@link Set}
 	 * @see #getMethods(Class, boolean, boolean, Predicate[])
 	 */
-	public static Set<Method> getDeclaredMethods(Class<?> declaringClass,
-												 Predicate<Method>... methodsToFilter) {
+	static Set<Method> getDeclaredMethods(Class<?> declaringClass,
+										  Predicate<? super Method>... methodsToFilter) {
 		return getMethods(declaringClass, false, false, methodsToFilter);
 	}
 
@@ -86,8 +91,8 @@ public class MethodUtils {
 	 * @return non-null read-only {@link Set}
 	 * @see #getMethods(Class, boolean, boolean, Predicate[])
 	 */
-	public static Set<Method> getMethods(Class<?> declaringClass,
-										 Predicate<Method>... methodsToFilter) {
+	static Set<Method> getMethods(Class<?> declaringClass,
+								  Predicate<? super Method>... methodsToFilter) {
 		return getMethods(declaringClass, false, true, methodsToFilter);
 	}
 
@@ -100,7 +105,7 @@ public class MethodUtils {
 	 * @see #getMethods(Class, boolean, boolean, Predicate[])
 	 */
 	public static Set<Method> getAllDeclaredMethods(Class<?> declaringClass,
-													Predicate<Method>... methodsToFilter) {
+													Predicate<? super Method>... methodsToFilter) {
 		return getMethods(declaringClass, true, false, methodsToFilter);
 	}
 
@@ -112,8 +117,7 @@ public class MethodUtils {
 	 * @return non-null read-only {@link Set}
 	 * @see #getMethods(Class, boolean, boolean, Predicate[])
 	 */
-	public static Set<Method> getAllMethods(Class<?> declaringClass,
-											Predicate<Method>... methodsToFilter) {
+	public static Set<Method> getAllMethods(Class<?> declaringClass, Predicate<? super Method>... methodsToFilter) {
 		return getMethods(declaringClass, true, true, methodsToFilter);
 	}
 
@@ -124,7 +128,7 @@ public class MethodUtils {
 	 * @param methodName the specified method name
 	 * @return if not found, return <code>null</code>
 	 */
-	public static Method findMethod(Class<?> type, String methodName) {
+	static Method findMethod(Class<?> type, String methodName) {
 		return findMethod(type, methodName, ClassUtils.EMPTY_CLASS_ARRAY);
 	}
 
@@ -136,7 +140,7 @@ public class MethodUtils {
 	 * @param parameterTypes the parameter types
 	 * @return if not found, return <code>null</code>
 	 */
-	public static Method findMethod(Class<?> type, String methodName, Class<?>... parameterTypes) {
+	static Method findMethod(Class<?> type, String methodName, Class<?>... parameterTypes) {
 		Method method = null;
 		try {
 			if (type != null && StringUtils.isNotEmpty(methodName)) {
@@ -171,10 +175,8 @@ public class MethodUtils {
 	 * @param <T>             the return type
 	 * @return the target method's execution result
 	 */
-	public static <T> T invokeMethod(Object object, String methodName,
-									 Class<?>[] parameterTypes,
-									 Object[] parameterValues) {
-		Class<?> type = object.getClass();
+	public static <T> T invokeMethod(Object object, String methodName, Class[] parameterTypes, Object[] parameterValues) {
+		Class type = object.getClass();
 		Method method = findMethod(type, methodName, parameterTypes);
 		if (method == null) {
 			throw new IllegalStateException(String.format("cannot find method %s,class: %s", methodName, type.getName()));
@@ -182,16 +184,15 @@ public class MethodUtils {
 		return invokeMethod(object, method, parameterValues);
 	}
 
-	public static <T> T invokeMethod(Object object,
-									 Method method,
-									 Object... parameterValues) {
-		T value;
+	public static <T> T invokeMethod(Object object, Method method, Object... parameterValues) {
+		T value = null;
 		try {
 			enableAccessible(method);
 			value = (T) method.invoke(object, parameterValues);
 		} catch (Exception e) {
 			throw new IllegalArgumentException(e);
 		}
+
 		return value;
 	}
 
@@ -203,9 +204,12 @@ public class MethodUtils {
 	 * @param overridden the second method, possibly being overridden
 	 * @return {@code true} if and only if the first method overrides
 	 * the second
+	 * @jls 8.4.8 Inheritance, Overriding, and Hiding
+	 * @jls 9.4.1 Inheritance and Overriding
 	 * @see Elements#overrides(ExecutableElement, ExecutableElement, TypeElement)
 	 */
 	public static boolean overrides(Method overrider, Method overridden) {
+
 		if (overrider == null || overridden == null) {
 			return false;
 		}
@@ -216,12 +220,12 @@ public class MethodUtils {
 		}
 
 		// Modifiers comparison: Any method must be non-static method
-		if (MemberUtils.isStatic(overrider) || MemberUtils.isStatic(overridden)) { //
+		if (isStatic(overrider) || isStatic(overridden)) { //
 			return false;
 		}
 
 		// Modifiers comparison: the accessibility of any method must not be private
-		if (MemberUtils.isPrivate(overrider) || MemberUtils.isPrivate(overridden)) {
+		if (isPrivate(overrider) || isPrivate(overridden)) {
 			return false;
 		}
 
@@ -289,7 +293,7 @@ public class MethodUtils {
 	}
 
 	public static void enableAccessible(Method method) {
-		if (!MemberUtils.isPublic(method) || !method.isAccessible()) {
+		if (!isPublic(method) || !method.isAccessible()) {
 			method.setAccessible(true);
 		}
 	}

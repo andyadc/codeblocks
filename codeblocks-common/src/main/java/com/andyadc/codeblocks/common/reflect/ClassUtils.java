@@ -4,6 +4,7 @@ import com.andyadc.codeblocks.common.constants.Constants;
 import com.andyadc.codeblocks.common.constants.FileSuffixConstants;
 import com.andyadc.codeblocks.common.constants.PathConstants;
 import com.andyadc.codeblocks.common.filter.ClassFileJarEntryFilter;
+import com.andyadc.codeblocks.common.function.Streams;
 import com.andyadc.codeblocks.common.function.ThrowableFunction;
 import com.andyadc.codeblocks.common.io.util.FileUtils;
 import com.andyadc.codeblocks.common.io.util.SimpleFileScanner;
@@ -41,7 +42,6 @@ import java.util.function.Predicate;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-import static com.andyadc.codeblocks.common.function.Streams.filterAll;
 import static com.andyadc.codeblocks.common.reflect.ClassLoaderUtils.getClassLoader;
 import static com.andyadc.codeblocks.common.util.CollectionUtils.asSet;
 import static java.util.Collections.emptySet;
@@ -56,8 +56,8 @@ public abstract class ClassUtils {
 	 * Suffix for array class names: "[]"
 	 */
 	public static final String ARRAY_SUFFIX = "[]";
-	public static final Class<?>[] EMPTY_CLASS_ARRAY = new Class[0];
 
+	public static final Class[] EMPTY_CLASS_ARRAY = new Class[0];
 	/**
 	 * Simple Types including:
 	 * <ul>
@@ -76,6 +76,7 @@ public abstract class ClassUtils {
 	 * </ul>
 	 *
 	 * @see javax.management.openmbean.SimpleType
+	 * @since 1.0.0
 	 */
 	public static final Set<Class<?>> SIMPLE_TYPES = asSet(
 		Void.class,
@@ -93,9 +94,18 @@ public abstract class ClassUtils {
 		Date.class,
 		Object.class
 	);
-
-	static final Map<Class<?>, Boolean> concreteClassCache = new WeakHashMap<>();
-
+	public static final Set<Class<?>> PRIMITIVE_TYPES = asSet(
+		Void.TYPE,
+		Boolean.TYPE,
+		Character.TYPE,
+		Byte.TYPE,
+		Short.TYPE,
+		Integer.TYPE,
+		Long.TYPE,
+		Float.TYPE,
+		Double.TYPE
+	);
+	public static final Map<Class<?>, Boolean> concreteClassCache = new WeakHashMap<>();
 	/**
 	 * @see {@link Class#ANNOTATION}
 	 */
@@ -104,26 +114,26 @@ public abstract class ClassUtils {
 	 * @see {@link Class#ENUM}
 	 */
 	private static final int ENUM = 0x00004000;
+
 	/**
 	 * Prefix for internal array class names: "[L"
 	 */
 	private static final String INTERNAL_ARRAY_PREFIX = "[L";
 	/**
-	 * @see {@link Class#SYNTHETIC}
-	 */
-	private static final int SYNTHETIC = 0x00001000;
-	/**
 	 * Map with primitive type name as key and corresponding primitive type as
 	 * value, for example: "int" -> "int.class".
 	 */
 	private static final Map<String, Class<?>> PRIMITIVE_TYPE_NAME_MAP = new HashMap<String, Class<?>>(32);
-
-	private static final char PACKAGE_SEPARATOR_CHAR = '.';
 	/**
 	 * Map with primitive wrapper type as key and corresponding primitive type
 	 * as value, for example: Integer.class -> int.class.
 	 */
 	private static final Map<Class<?>, Class<?>> PRIMITIVE_WRAPPER_TYPE_MAP = new HashMap<Class<?>, Class<?>>(16);
+	/**
+	 * @see {@link Class#SYNTHETIC}
+	 */
+	private static final int SYNTHETIC = 0x00001000;
+	private static final char PACKAGE_SEPARATOR_CHAR = '.';
 
 	private static final Map<String, Set<String>> classPathToClassNamesMap = initClassPathToClassNamesMap();
 
@@ -310,6 +320,7 @@ public abstract class ClassUtils {
 			return "null";
 		}
 		return obj.getClass().getSimpleName() + "@" + System.identityHashCode(obj);
+
 	}
 
 	public static String simpleClassName(Class<?> clazz) {
@@ -326,12 +337,14 @@ public abstract class ClassUtils {
 
 	/**
 	 * The specified type is primitive type or simple type
+	 * <p>
+	 * It's an optimized implementation for {@link Class#isPrimitive()}.
 	 *
 	 * @param type the type to test
-	 * @deprecated as 1.0.0, use {@link Class#isPrimitive()} plus {@link #isSimpleType(Class)} instead
+	 * @see Class#isPrimitive()
 	 */
 	public static boolean isPrimitive(Class<?> type) {
-		return type != null && (type.isPrimitive() || isSimpleType(type));
+		return PRIMITIVE_TYPES.contains(type);
 	}
 
 	/**
@@ -353,7 +366,6 @@ public abstract class ClassUtils {
 		} else if (type == boolean.class || type == Boolean.class) {
 			return Boolean.valueOf(value);
 		}
-
 		try {
 			if (type == byte.class || type == Byte.class) {
 				return Byte.valueOf(value);
@@ -375,10 +387,32 @@ public abstract class ClassUtils {
 	}
 
 	/**
-	 * We only check boolean value at this moment.
+	 * The specified type is final or not
 	 *
-	 * @param type
-	 * @param value
+	 * @param type the type to test
+	 * @return <code>true</code> if the specified type is a final class,
+	 * <code>false</code> otherwise
+	 */
+	public static boolean isFinal(Class<?> type) {
+		return type != null && Modifier.isFinal(type.getModifiers());
+	}
+
+	/**
+	 * The specified type is array or not?
+	 * <p>
+	 * It's an optimized implementation for {@link Class#isArray()}).
+	 *
+	 * @param type the type to test
+	 * @return <code>true</code> if the specified type is an array class,
+	 * <code>false</code> otherwise
+	 * @see Class#isArray()
+	 */
+	public static boolean isArray(Class<?> type) {
+		return type != null && type.getName().startsWith("[");
+	}
+
+	/**
+	 * We only check boolean value at this moment.
 	 */
 	public static boolean isTypeMatch(Class<?> type, String value) {
 		return (type != boolean.class && type != Boolean.class)
@@ -426,7 +460,7 @@ public abstract class ClassUtils {
 		}
 
 		// Keep the same order from List
-		return asSet(filterAll(allClasses, classFilters));
+		return CollectionUtils.asSet(Streams.filter(allClasses, classFilters));
 	}
 
 	/**
@@ -461,6 +495,7 @@ public abstract class ClassUtils {
 		resolved.add(type);
 		Class<?> clazz = type;
 		while (clazz != null) {
+
 			Class<?>[] interfaces = clazz.getInterfaces();
 
 			if (ArrayUtils.isNotEmpty(interfaces)) {
@@ -485,7 +520,7 @@ public abstract class ClassUtils {
 		// FIFO -> FILO
 		Collections.reverse(allInterfaces);
 
-		return asSet(filterAll(allInterfaces, interfaceFilters));
+		return CollectionUtils.asSet(Streams.filter(allInterfaces, interfaceFilters));
 	}
 
 	/**
@@ -510,7 +545,6 @@ public abstract class ClassUtils {
 	 * @param superType the super type
 	 * @param target    the target object
 	 * @return see {@link Class#isAssignableFrom(Class)}
-	 * @since 1.0.0
 	 */
 	public static boolean isAssignableFrom(Class<?> superType, Object target) {
 		if (target == null) {
@@ -689,6 +723,7 @@ public abstract class ClassUtils {
 		if (isAbstract != null) {
 			return Modifier.isAbstract(mod) == isAbstract;
 		}
+
 		return true;
 	}
 
@@ -696,6 +731,7 @@ public abstract class ClassUtils {
 		if (type == null) {
 			return false;
 		}
+
 		return !type.isLocalClass() && !type.isMemberClass();
 	}
 
@@ -912,7 +948,6 @@ public abstract class ClassUtils {
 	 * @throws NullPointerException If <code>type</code> is <code>null</code> , {@link NullPointerException} will be thrown.
 	 */
 	public static URL getCodeSourceLocation(Class<?> type) throws NullPointerException {
-
 		URL codeSourceLocation = null;
 		ClassLoader classLoader = type.getClassLoader();
 
@@ -945,7 +980,6 @@ public abstract class ClassUtils {
 		}
 
 		int size = values.length;
-
 		Class<?>[] types = new Class[size];
 
 		for (int i = 0; i < size; i++) {
@@ -955,5 +989,4 @@ public abstract class ClassUtils {
 
 		return types;
 	}
-
 }

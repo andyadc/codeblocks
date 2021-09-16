@@ -1,6 +1,11 @@
 package com.andyadc.codeblocks.common.reflect;
 
+import com.andyadc.codeblocks.common.function.Streams;
+
 import java.lang.reflect.Constructor;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * The utilities class of {@link Constructor}
@@ -28,5 +33,11 @@ public abstract class ConstructorUtils {
 			}
 		}
 		return has;
+	}
+
+	public static List<Constructor<?>> getConstructors(Class<?> type,
+													   Predicate<? super Constructor<?>>... constructorFilters) {
+		List<Constructor<?>> constructors = Arrays.asList(type.getConstructors());
+		return Streams.filter(constructors, constructorFilters);
 	}
 }

@@ -117,7 +117,7 @@ public class SimpleClassScanner {
 				classesSet.add(class_);
 			}
 		}
-		return Streams.filterAll(classesSet, classFilters);
+		return Streams.filter(classesSet, classFilters);
 	}
 
 	public Set<Class<?>> scan(ClassLoader classLoader,
@@ -132,7 +132,7 @@ public class SimpleClassScanner {
 				classesSet.add(class_);
 			}
 		}
-		return Streams.filterAll(classesSet, classFilters);
+		return Streams.filter(classesSet, classFilters);
 	}
 
 	private Set<String> filterClassNames(Set<String> classNames, String packageName, boolean recursive) {

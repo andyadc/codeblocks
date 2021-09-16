@@ -2,7 +2,7 @@ package com.andyadc.test;
 
 import com.andyadc.codeblocks.common.regex.RegularExpression;
 
-public class Test {
+public class Tests {
 
 	public static void main(String[] args) {
 		System.out.println(RegularExpression.PHONE.validate("13701937827"));
