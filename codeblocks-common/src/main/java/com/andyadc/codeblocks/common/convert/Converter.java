@@ -8,6 +8,13 @@ import com.andyadc.codeblocks.common.reflect.TypeUtils;
 import java.util.ServiceLoader;
 import java.util.function.Function;
 
+
+/**
+ * A class to convert the source-typed value to the target-typed value
+ *
+ * @param <S> The source type
+ * @param <T> The target type
+ */
 @FunctionalInterface
 public interface Converter<S, T> extends Function<S, T>, Prioritized {
 
@@ -16,6 +23,7 @@ public interface Converter<S, T> extends Function<S, T>, Prioritized {
 	 *
 	 * @param sourceType the source type
 	 * @param targetType the target type
+	 * @return
 	 * @see ServiceLoader#load(Class)
 	 */
 	static Converter<?, ?> getConverter(Class<?> sourceType, Class<?> targetType) {
@@ -23,25 +31,6 @@ public interface Converter<S, T> extends Function<S, T>, Prioritized {
 			.filter(converter -> converter.accept(sourceType, targetType))
 			.findFirst()
 			.orElse(null);
-	}
-
-	/**
-	 * Convert the value of source to target-type value if possible
-	 *
-	 * @param source     the value of source
-	 * @param targetType the target type
-	 * @param <T>        the target type
-	 * @return <code>null</code> if can't be converted
-	 */
-	static <T> T convertIfPossible(Object source, Class<T> targetType) {
-		if (source == null) {
-			return null;
-		}
-		Converter converter = getConverter(source.getClass(), targetType);
-		if (converter != null) {
-			return (T) converter.convert(source);
-		}
-		return null;
 	}
 
 	/**
@@ -75,7 +64,7 @@ public interface Converter<S, T> extends Function<S, T>, Prioritized {
 	 * @return non-null
 	 */
 	default Class<S> getSourceType() {
-		return TypeUtils.findActualTypeArgument(getClass(), Converter.class, 0);
+		return TypeUtils.findActualTypeArgumentClass(getClass(), Converter.class, 0);
 	}
 
 	/**
@@ -84,6 +73,25 @@ public interface Converter<S, T> extends Function<S, T>, Prioritized {
 	 * @return non-null
 	 */
 	default Class<T> getTargetType() {
-		return TypeUtils.findActualTypeArgument(getClass(), Converter.class, 1);
+		return TypeUtils.findActualTypeArgumentClass(getClass(), Converter.class, 1);
+	}
+
+	/**
+	 * Convert the value of source to target-type value if possible
+	 *
+	 * @param source     the value of source
+	 * @param targetType the target type
+	 * @param <T>        the target type
+	 * @return <code>null</code> if can't be converted
+	 */
+	static <T> T convertIfPossible(Object source, Class<T> targetType) {
+		if (source == null) {
+			return null;
+		}
+		Converter converter = getConverter(source.getClass(), targetType);
+		if (converter != null) {
+			return (T) converter.convert(source);
+		}
+		return null;
 	}
 }
