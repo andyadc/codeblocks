@@ -2,6 +2,9 @@ package com.andyadc.codeblocks.common.convert;
 
 import com.andyadc.codeblocks.common.lang.StringUtils;
 
+/**
+ * The class to convert {@link String} to {@link Boolean}
+ */
 public class StringToBooleanConverter implements StringConverter<Boolean> {
 
 	@Override
