@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<head>
+	<xmlTag tagName="Version" defaultValue="1.0.0"/>
+	<xmlTag tagName="Appid"/>
+	<xmlTag tagName="Function"/>
+	<xmlTag tagName="ReqTime"/>
+	<xmlTag tagName="ReqTimeZone" defaultValue="UTC+8"/>
+	<xmlTag tagName="ReqMsgId"/>
+	<xmlTag tagName="Reserve"/>
+	<xmlTag tagName="InputCharset" defaultValue="UTF-8"/>
+</head>

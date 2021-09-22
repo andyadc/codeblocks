@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<body>
+	<xmlTag tagName="IsvOrgId" defaultValue="202210000000000001508"/>
+	<xmlTag tagName="PrincId"/>
+	<xmlTag tagName="PrincType" defaultValue="MERCHANT"/>
+	<xmlTag tagName="OutPayOrderNo"/>
+	<xmlTag tagName="Amount"/>
+	<xmlTag tagName="Status"/>
+	<xmlTag tagName="FailReason"/>
+	<xmlTag tagName="StmtOrderNo"/>
+	<xmlTag tagName="PayFinishTime"/>
+	<xmlTag tagName="Ccy" defaultValue="156"/>
+	<xmlTag tagName="StmtAcctType" defaultValue="OTHER_BK_BALANCE"/>
+	<xmlTag tagName="PayerInfo"/>
+	<xmlTag tagName="PayeeInfo"/>
+	<xmlTag tagName="ExtendInfo"/>
+</body>
