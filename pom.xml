@@ -54,7 +54,7 @@
 		<rabbitmq-clients.version>5.13.1</rabbitmq-clients.version>
 		<jackson.version>2.12.5</jackson.version>
 		<fastjson.version>1.2.78</fastjson.version>
-		<joda-time.version>2.10.10</joda-time.version>
+		<joda-time.version>2.10.11</joda-time.version>
 		<guava.version>30.1.1-jre</guava.version>
 		<orika.version>1.5.4</orika.version>
 		<tomcat-jdbc.version>9.0.53</tomcat-jdbc.version>
@@ -87,7 +87,7 @@
 		<logback.version>1.2.5</logback.version>
 		<mockito.version>3.12.3</mockito.version>
 		<junit.version>4.13.2</junit.version>
-		<junit-jupiter.version>5.8.0</junit-jupiter.version>
+		<junit-jupiter.version>5.8.1</junit-jupiter.version>
 		<jmh.version>1.33</jmh.version>
 
 		<!-- maven plugins -->
