@@ -1,9 +1,5 @@
 package com.andyadc.codeblocks.test.enumtest;
 
-/**
- * andy.an
- * 2020/3/24
- */
 public enum RoleEnum implements RoleOperation {
 
 	ROLE_ROOT_ADMIN {
@@ -26,6 +22,5 @@ public enum RoleEnum implements RoleOperation {
 			return "ROLE_ORDER_ADMIN:" + " has BBB permission";
 		}
 	},
-
 	;
 }

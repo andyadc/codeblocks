@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.test;
+package com.andyadc.codeblocks.test.lambda;
 
 /**
  * andy.an

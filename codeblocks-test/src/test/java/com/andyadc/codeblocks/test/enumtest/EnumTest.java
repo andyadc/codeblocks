@@ -3,10 +3,6 @@ package com.andyadc.codeblocks.test.enumtest;
 import java.util.EnumMap;
 import java.util.EnumSet;
 
-/**
- * andy.an
- * 2020/3/24
- */
 public class EnumTest {
 
 	public static void main(String[] args) {

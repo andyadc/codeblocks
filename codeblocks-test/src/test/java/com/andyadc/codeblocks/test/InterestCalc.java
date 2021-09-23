@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.test.calc;
+package com.andyadc.codeblocks.test;
 
 /**
  * 复利率(compound rate)

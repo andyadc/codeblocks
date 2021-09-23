@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.test;
+package com.andyadc.codeblocks.test.crypto;
 
 import com.andyadc.codeblocks.kit.ByteUtil;
 import org.jasypt.digest.PooledStringDigester;

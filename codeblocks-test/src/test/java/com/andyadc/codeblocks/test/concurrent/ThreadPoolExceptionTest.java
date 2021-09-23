@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.test;
+package com.andyadc.codeblocks.test.concurrent;
 
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;

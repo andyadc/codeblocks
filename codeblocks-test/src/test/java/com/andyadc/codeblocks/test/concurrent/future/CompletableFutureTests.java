@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.test.thread.future;
+package com.andyadc.codeblocks.test.concurrent.future;
 
 import java.util.concurrent.CompletableFuture;
 

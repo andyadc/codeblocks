@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.test;
+package com.andyadc.codeblocks.test.crypto;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;

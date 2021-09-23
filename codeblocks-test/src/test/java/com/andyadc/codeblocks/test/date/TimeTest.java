@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.test;
+package com.andyadc.codeblocks.test.date;
 
 import org.joda.time.DateTime;
 import org.openjdk.jmh.annotations.Benchmark;

@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.test;
+package com.andyadc.codeblocks.test.file;
 
 import com.andyadc.codeblocks.kit.StopWatch;
 
