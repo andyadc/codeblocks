@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.test.thread;
+package com.andyadc.codeblocks.test.concurrent;
 
 /**
  * @author andy.an

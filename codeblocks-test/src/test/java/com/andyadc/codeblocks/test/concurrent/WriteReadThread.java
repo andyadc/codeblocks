@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.test.thread;
+package com.andyadc.codeblocks.test.concurrent;
 
 import java.util.ArrayList;
 import java.util.List;
