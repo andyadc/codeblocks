@@ -67,7 +67,7 @@ public class MethodUtils {
 			}
 		}
 
-		return Collections.unmodifiableSet(Streams.filter(allMethods, methodsToFilter));
+		return Streams.filter(allMethods, methodsToFilter);
 	}
 
 	/**

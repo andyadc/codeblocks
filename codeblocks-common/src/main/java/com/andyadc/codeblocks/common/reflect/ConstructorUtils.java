@@ -13,21 +13,21 @@ import java.util.function.Predicate;
 public abstract class ConstructorUtils {
 
 	/**
-	 * Is a public no-arg constructor or not ?
+	 * Is a non-private constructor without parameters
 	 *
 	 * @param constructor {@link Constructor}
 	 * @return <code>true</code> if the given {@link Constructor} is a public no-arg one,
 	 * otherwise <code>false</code>
 	 */
-	public static boolean isPublicNoArgConstructor(Constructor<?> constructor) {
-		return MemberUtils.isPublic(constructor)
-			&& constructor.getParameterCount() == 0;
+	public static boolean isNonPrivateConstructorWithoutParameters(Constructor<?> constructor) {
+		return !MemberUtils.isPrivate(constructor) && constructor.getParameterCount() < 1;
 	}
 
-	public static boolean hasPublicNoArgConstructor(Class<?> type) {
+	public static boolean hasNonPrivateConstructorWithoutParameters(Class<?> type) {
+		Constructor<?>[] constructors = type.getDeclaredConstructors();
 		boolean has = false;
-		for (Constructor<?> constructor : type.getConstructors()) {
-			if (isPublicNoArgConstructor(constructor)) {
+		for (Constructor<?> constructor : constructors) {
+			if (isNonPrivateConstructorWithoutParameters(constructor)) {
 				has = true;
 				break;
 			}
