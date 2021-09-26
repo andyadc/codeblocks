@@ -2,6 +2,7 @@ package com.andyadc.codeblocks.interceptor.util;
 
 import com.andyadc.codeblocks.common.function.ThrowableSupplier;
 import com.andyadc.codeblocks.common.lang.AnnotationUtils;
+import com.andyadc.codeblocks.common.reflect.ConstructorUtils;
 import com.andyadc.codeblocks.common.util.PriorityComparator;
 
 import javax.annotation.PostConstruct;
@@ -21,7 +22,6 @@ import java.util.List;
 import java.util.Objects;
 
 import static com.andyadc.codeblocks.common.lang.AnnotationUtils.isAnnotationPresent;
-import static com.andyadc.codeblocks.common.reflect.ConstructorUtils.hasPublicNoArgConstructor;
 import static java.lang.String.format;
 import static java.lang.reflect.Modifier.*;
 
@@ -257,7 +257,7 @@ public abstract class InterceptorUtils {
 	}
 
 	private static void validateInterceptorClassConstructors(Class<?> interceptorClass) {
-		if (!hasPublicNoArgConstructor(interceptorClass)) {
+		if (!ConstructorUtils.hasNonPrivateConstructorWithoutParameters(interceptorClass)) {
 			throw newIllegalStateException("The Interceptor class[%s] must have a public no-arg constructor!",
 				interceptorClass.getName());
 		}

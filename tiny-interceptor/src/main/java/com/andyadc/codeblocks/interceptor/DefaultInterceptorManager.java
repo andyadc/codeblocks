@@ -147,8 +147,14 @@ public class DefaultInterceptorManager implements InterceptorManager {
 
 	@Override
 	public boolean isInterceptorBindingType(Class<? extends Annotation> annotationType) {
-		return AnnotationUtils.isMetaAnnotation(annotationType, InterceptorBinding.class) ||
-			interceptorBindingTypes.contains(annotationType);
+		if (interceptorBindingTypes.contains(annotationType)) {
+			return true;
+		}
+		if (AnnotationUtils.isMetaAnnotation(annotationType, InterceptorBinding.class)) {
+			registerInterceptorBindingType(annotationType);
+			return true;
+		}
+		return false;
 	}
 
 	@Override
