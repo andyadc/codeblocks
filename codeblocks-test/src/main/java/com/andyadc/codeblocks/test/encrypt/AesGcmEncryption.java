@@ -36,7 +36,7 @@ public final class AesGcmEncryption implements AuthenticatedEncryption {
 
 	private final SecureRandom secureRandom;
 	private final Provider provider;
-	private ThreadLocal<Cipher> cipherWrapper = new ThreadLocal<>();
+	private final ThreadLocal<Cipher> cipherWrapper = new ThreadLocal<>();
 
 	public AesGcmEncryption() {
 		this(new SecureRandom(), null);
@@ -87,7 +87,6 @@ public final class AesGcmEncryption implements AuthenticatedEncryption {
 
 	@Override
 	public byte[] decrypt(byte[] rawEncryptionKey, byte[] encryptedData, byte[] associatedData) throws AuthenticatedEncryptionException {
-
 		int initialOffset = 1;
 		int ivLength = encryptedData[0];
 

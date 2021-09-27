@@ -6,8 +6,8 @@ import java.lang.reflect.Proxy;
 
 public class RpcClientProxy implements InvocationHandler {
 
-	private String host;
-	private Integer port;
+	private final String host;
+	private final Integer port;
 
 	public RpcClientProxy(String host, Integer port) {
 		this.host = host;

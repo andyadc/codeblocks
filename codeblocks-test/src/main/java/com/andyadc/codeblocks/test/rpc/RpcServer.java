@@ -21,7 +21,7 @@ public class RpcServer {
 		60, TimeUnit.SECONDS,
 		new ArrayBlockingQueue<>(100));
 
-	private List<String> classNames = new ArrayList<>();
+	private final List<String> classNames = new ArrayList<>();
 	private volatile Boolean flag = true;
 
 	private void scanPackage(String packageName) {

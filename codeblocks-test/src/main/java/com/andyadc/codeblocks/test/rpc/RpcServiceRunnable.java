@@ -6,14 +6,15 @@ import com.caucho.hessian.io.HessianOutput;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.Socket;
 import java.util.Map;
 
 public class RpcServiceRunnable implements Runnable {
 
-	private Socket client;
-	private Map<String, Object> service;
+	private final Socket client;
+	private final Map<String, Object> service;
 
 	public RpcServiceRunnable(Socket client, Map<String, Object> service) {
 		this.client = client;
@@ -22,28 +23,24 @@ public class RpcServiceRunnable implements Runnable {
 
 	@Override
 	public void run() {
-		InputStream inputStream = null;
-		OutputStream outputStream = null;
-		HessianInput hessianInput = null;
-		HessianOutput hessianOutput = null;
-
 		RpcResponse response = new RpcResponse();
 
-		try {
-			// 获取请求的流信息
-			inputStream = client.getInputStream();
+		HessianInput hessianInput = null;
+		HessianOutput hessianOutput = null;
+		try (
+			InputStream inputStream = client.getInputStream();
+			OutputStream outputStream = client.getOutputStream()
+		) {
 			hessianInput = new HessianInput(inputStream);
-
-			// 准备响应相关的流和序列化技术
-			outputStream = client.getOutputStream();
 			hessianOutput = new HessianOutput(outputStream);
 
-			// 获取请求的具体信息，转换成RPCRequest对象
+			// 获取请求的具体信息，转换成 RPCRequest 对象
 			Object object = hessianInput.readObject();
 			if (!(object instanceof RpcRequest)) {
 				setError(response, hessianOutput, "非法参数");
 				return;
 			}
+
 			// 请求信息对象
 			RpcRequest request = (RpcRequest) object;
 			// 找到接口的实现类
@@ -52,36 +49,36 @@ public class RpcServiceRunnable implements Runnable {
 				setError(response, hessianOutput, "没有对应的实现类");
 				return;
 			}
+
 			Method method = impl.getClass().getMethod(request.getMethodName(), request.getParamsType());
-			if (method == null) {
-				setError(response, hessianOutput, "没有找到对应的方法");
-				return;
-			}
 
 			Object result = method.invoke(impl, request.getParams());
 			response.setResult(result);
 			hessianOutput.writeObject(response);
-
-		} catch (Exception e) {
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+			setError(response, hessianOutput, "没有找到对应的方法");
+		} catch (IllegalAccessException | InvocationTargetException | IOException e) {
 			e.printStackTrace();
 		} finally {
 			try {
-				inputStream.close();
-				outputStream.close();
-				hessianInput.close();
-				hessianOutput.close();
+				if (hessianInput != null) {
+					hessianInput.close();
+				}
+				if (hessianOutput != null) {
+					hessianOutput.close();
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-
 	}
 
 	private void setError(RpcResponse response, HessianOutput out, String error) {
 		response.setError(new Exception(error));
 		try {
 			out.writeObject(response);
-		} catch (Exception e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}

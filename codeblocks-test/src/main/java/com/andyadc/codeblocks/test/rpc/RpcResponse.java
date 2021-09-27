@@ -3,6 +3,7 @@ package com.andyadc.codeblocks.test.rpc;
 import java.io.Serializable;
 
 public class RpcResponse implements Serializable {
+
 	// 错误信息
 	private Throwable error;
 	//  结果集
