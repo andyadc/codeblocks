@@ -100,7 +100,6 @@ public abstract class TypeUtils extends BaseUtils {
 				Class<?> rawClass = getRawClass(parameterizedType);
 				Type[] typeArguments = parameterizedType.getActualTypeArguments();
 				actualTypeArguments.addAll(asList(typeArguments));
-				assert rawClass != null;
 				Class<?> superClass = rawClass.getSuperclass();
 				if (superClass != null) {
 					actualTypeArguments.addAll(findActualTypeArguments(superClass, interfaceClass));
@@ -355,7 +354,6 @@ public abstract class TypeUtils extends BaseUtils {
 			// add current super class
 			allSuperTypes.add(superType);
 			Class<?> superClass = getRawClass(superType);
-			assert superClass != null;
 			superType = superClass.getGenericSuperclass();
 		}
 
