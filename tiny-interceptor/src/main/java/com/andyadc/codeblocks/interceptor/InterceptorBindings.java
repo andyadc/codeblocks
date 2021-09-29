@@ -55,8 +55,12 @@ public class InterceptorBindings implements Iterable<InterceptorBindingInfo> {
 
 	@Override
 	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+		if (this == o) {
+			return true;
+		}
+		if (o == null || getClass() != o.getClass()) {
+			return false;
+		}
 		InterceptorBindings that = (InterceptorBindings) o;
 		return Objects.equals(bindingInfoSet, that.bindingInfoSet);
 	}
@@ -67,15 +71,15 @@ public class InterceptorBindings implements Iterable<InterceptorBindingInfo> {
 	}
 
 	private Set<InterceptorBindingInfo> asInterceptorBindings(Collection<Annotation> interceptorBindings) {
-		return CollectionUtils.asSet(sortedStream(interceptorBindings)
-			.map(InterceptorBindingInfo::new)
-			.collect(Collectors.toList()));
+		return CollectionUtils.asSet(
+			sortedStream(interceptorBindings).map(InterceptorBindingInfo::new).collect(Collectors.toList())
+		);
 	}
 
 	private Set<Class<? extends Annotation>> asInterceptorBindingTypes(Collection<Annotation> interceptorBindings) {
-		return CollectionUtils.asSet(sortedStream(interceptorBindings)
-			.map(Annotation::annotationType)
-			.collect(Collectors.toList()));
+		return CollectionUtils.asSet(
+			sortedStream(interceptorBindings).map(Annotation::annotationType).collect(Collectors.toList())
+		);
 	}
 
 	private Stream<Annotation> sortedStream(Collection<Annotation> interceptorBindings) {
