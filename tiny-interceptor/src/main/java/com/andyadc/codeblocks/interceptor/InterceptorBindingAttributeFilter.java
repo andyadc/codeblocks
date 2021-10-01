@@ -1,6 +1,5 @@
 package com.andyadc.codeblocks.interceptor;
 
-import com.andyadc.codeblocks.common.function.Predicates;
 import com.andyadc.codeblocks.common.util.ServiceLoaders;
 
 import javax.interceptor.InterceptorBinding;
@@ -12,12 +11,6 @@ import java.util.function.Predicate;
  */
 public interface InterceptorBindingAttributeFilter extends Predicate<Method> {
 
-	Predicate<Method> FILTERS = filters();
-
-	static Predicate<Method> filters() {
-		return Predicates.or(ServiceLoaders.loadAsArray(InterceptorBindingAttributeFilter.class));
-	}
-
 	default boolean test(Method attributeMethod) {
 		return accept(attributeMethod);
 	}
@@ -28,4 +21,8 @@ public interface InterceptorBindingAttributeFilter extends Predicate<Method> {
 	 * @return <code>true</code> if attribute method is accepted, <code>false</code> otherwise
 	 */
 	boolean accept(Method attributeMethod);
+
+	static Predicate<Method>[] filters() {
+		return ServiceLoaders.loadAsArray(InterceptorBindingAttributeFilter.class);
+	}
 }

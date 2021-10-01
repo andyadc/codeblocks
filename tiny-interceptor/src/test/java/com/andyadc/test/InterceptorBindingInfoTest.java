@@ -15,7 +15,7 @@ public class InterceptorBindingInfoTest {
 	@Logging(name = "test")
 	public void test() throws Throwable {
 		Logging logging = this.getClass().getAnnotation(Logging.class);
-		InterceptorBindingInfo info = new InterceptorBindingInfo(logging);
+		InterceptorBindingInfo info = InterceptorBindingInfo.valueOf(logging);
 		assertEquals(Logging.class, info.getDeclaredAnnotationType());
 		assertFalse(info.isSynthetic());
 		assertTrue(info.getAttributes().isEmpty());

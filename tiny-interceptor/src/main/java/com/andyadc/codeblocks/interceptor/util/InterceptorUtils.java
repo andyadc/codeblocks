@@ -270,6 +270,11 @@ public abstract class InterceptorUtils {
 		return AnnotationUtils.isMetaAnnotation(annotationType, InterceptorBinding.class);
 	}
 
+	public static boolean isAnnotatedInterceptorBinding(Executable executable,
+														Class<? extends Annotation> interceptorBindingType) {
+		return searchAnnotation(executable, interceptorBindingType) != null;
+	}
+
 	private static IllegalStateException newIllegalStateException(String messagePattern, Object... args) {
 		return new IllegalStateException(format(messagePattern, args));
 	}

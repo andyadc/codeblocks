@@ -28,7 +28,17 @@ public class InterceptorBindingInfo {
 		this.declaredAnnotation = declaredAnnotation;
 		this.declaredAnnotationType = declaredAnnotation.annotationType();
 		this.synthetic = !InterceptorUtils.isAnnotatedInterceptorBinding(declaredAnnotationType);
-		this.attributes = AnnotationUtils.getAttributesMap(declaredAnnotation, InterceptorBindingAttributeFilter.FILTERS);
+		this.attributes = AnnotationUtils.getAttributesMap(declaredAnnotation, InterceptorBindingAttributeFilter.filters());
+	}
+
+	/**
+	 * New instance of {@link InterceptorBindingInfo}
+	 *
+	 * @param interceptorBinding the instance of {@linkplain InterceptorBinding interceptor binding}
+	 * @return non-null
+	 */
+	public static InterceptorBindingInfo valueOf(Annotation interceptorBinding) {
+		return new InterceptorBindingInfo(interceptorBinding);
 	}
 
 	public Class<? extends Annotation> getDeclaredAnnotationType() {
@@ -58,14 +68,11 @@ public class InterceptorBindingInfo {
 		return Objects.hash(declaredAnnotationType, synthetic, attributes);
 	}
 
-	/**
-	 * New instance of {@link InterceptorBindingInfo}
-	 *
-	 * @param interceptorBinding the instance of {@linkplain InterceptorBinding interceptor binding}
-	 * @return non-null
-	 */
-	public static InterceptorBindingInfo newInstance(Annotation interceptorBinding) {
-		return new InterceptorBindingInfo(interceptorBinding);
+	public boolean equals(Annotation declaredAnnotation) {
+		if (declaredAnnotation == null) {
+			return false;
+		}
+		return this.equals(valueOf(declaredAnnotation));
 	}
 
 	public Annotation getDeclaredAnnotation() {

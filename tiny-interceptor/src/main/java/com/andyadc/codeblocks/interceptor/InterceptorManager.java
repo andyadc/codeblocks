@@ -203,6 +203,10 @@ public interface InterceptorManager {
 	 */
 	void validateInterceptorClass(Class<?> interceptorClass) throws NullPointerException, IllegalStateException;
 
+	default <T> T unwrap(Class<T> type) {
+		return InterceptorUtils.unwrap(type);
+	}
+
 	default boolean isInterceptorBinding(Annotation annotation) {
 		return isInterceptorBindingType(annotation.annotationType());
 	}
