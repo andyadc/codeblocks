@@ -54,12 +54,12 @@
 		<rabbitmq-clients.version>5.13.1</rabbitmq-clients.version>
 		<jackson.version>2.12.5</jackson.version>
 		<fastjson.version>1.2.78</fastjson.version>
-		<joda-time.version>2.10.11</joda-time.version>
+		<joda-time.version>2.10.12</joda-time.version>
 		<guava.version>31.0.1-jre</guava.version>
 		<orika.version>1.5.4</orika.version>
 		<tomcat-jdbc.version>9.0.53</tomcat-jdbc.version>
 		<hikaricp.version>4.0.3</hikaricp.version>
-		<druid.version>1.2.7</druid.version>
+		<druid.version>1.2.8</druid.version>
 		<mysql-driver.version>8.0.26</mysql-driver.version>
 		<h2.version>1.4.200</h2.version>
 		<jsqlparser.version>4.2</jsqlparser.version>
