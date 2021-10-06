@@ -32,6 +32,18 @@ public abstract class InterceptorUtils {
 
 	public static final Class<? extends Annotation> INTERCEPTOR_ANNOTATION_TYPE = javax.interceptor.Interceptor.class;
 
+	public static final Class<? extends Annotation> INTERCEPTOR_BINDING_ANNOTATION_TYPE = InterceptorBinding.class;
+
+	public static final Class<? extends Annotation> AROUND_INVOKE_ANNOTATION_TYPE = AroundInvoke.class;
+
+	public static final Class<? extends Annotation> AROUND_TIMEOUT_ANNOTATION_TYPE = AroundTimeout.class;
+
+	public static final Class<? extends Annotation> AROUND_CONSTRUCT_ANNOTATION_TYPE = AroundConstruct.class;
+
+	public static final Class<? extends Annotation> POST_CONSTRUCT_ANNOTATION_TYPE = PostConstruct.class;
+
+	public static final Class<? extends Annotation> PRE_DESTROY_ANNOTATION_TYPE = PreDestroy.class;
+
 	public static boolean isInterceptorClass(Class<?> interceptorClass) {
 		if (isAnnotationPresent(interceptorClass, INTERCEPTOR_ANNOTATION_TYPE)) {
 			validateInterceptorClass(interceptorClass);
@@ -39,8 +51,8 @@ public abstract class InterceptorUtils {
 		return false;
 	}
 
-	public static List<Object> sortInterceptors(List<?> interceptors) {
-		List<Object> sortedInterceptors = new LinkedList<>(interceptors);
+	public static <T> List<T> sortInterceptors(List<T> interceptors) {
+		List<T> sortedInterceptors = new LinkedList<>(interceptors);
 		sortedInterceptors.sort(PriorityComparator.INSTANCE);
 		return sortedInterceptors;
 	}
@@ -90,7 +102,7 @@ public abstract class InterceptorUtils {
 	 *                               or if the return type of method is not <code>Object</code> or its derived type.
 	 */
 	public static boolean isAroundInvokeMethod(Method method) {
-		return isInterceptionMethod(method, AroundInvoke.class, Object.class);
+		return isInterceptionMethod(method, AROUND_INVOKE_ANNOTATION_TYPE, Object.class);
 	}
 
 	/**
@@ -111,7 +123,7 @@ public abstract class InterceptorUtils {
 	 *                               or if the return type of method is not <code>Object</code> or its derived type.
 	 */
 	public static boolean isAroundTimeoutMethod(Method method) {
-		return isInterceptionMethod(method, AroundTimeout.class, Object.class);
+		return isInterceptionMethod(method, AROUND_TIMEOUT_ANNOTATION_TYPE, Object.class);
 	}
 
 	/**
@@ -125,7 +137,7 @@ public abstract class InterceptorUtils {
 	 *                               or if the return type of method is not <code>void</code>
 	 */
 	public static boolean isAroundConstructMethod(Method method) {
-		return isInterceptionMethod(method, AroundConstruct.class, void.class);
+		return isInterceptionMethod(method, AROUND_CONSTRUCT_ANNOTATION_TYPE, void.class);
 	}
 
 	/**
@@ -139,7 +151,7 @@ public abstract class InterceptorUtils {
 	 *                               or if the return type of method is not <code>void</code>
 	 */
 	public static boolean isPostConstructMethod(Method method) {
-		return isInterceptionMethod(method, PostConstruct.class, void.class);
+		return isInterceptionMethod(method, POST_CONSTRUCT_ANNOTATION_TYPE, void.class);
 	}
 
 	/**
@@ -153,22 +165,7 @@ public abstract class InterceptorUtils {
 	 *                               or if the return type of method is not <code>void</code>
 	 */
 	public static boolean isPreDestroyMethod(Method method) {
-		return isInterceptionMethod(method, PreDestroy.class, void.class);
-	}
-
-
-	public static <A extends Annotation> A resolveInterceptorBinding(Method method, Class<A> interceptorBindingType) {
-		if (method == null) {
-			return null;
-		}
-		return searchAnnotation(method, interceptorBindingType);
-	}
-
-	public static <A extends Annotation> A resolveInterceptorBinding(Constructor constructor, Class<A> interceptorBindingType) {
-		if (constructor == null) {
-			return null;
-		}
-		return searchAnnotation(constructor, interceptorBindingType);
+		return isInterceptionMethod(method, PRE_DESTROY_ANNOTATION_TYPE, void.class);
 	}
 
 	static boolean isInterceptionMethod(Method method, Class<? extends Annotation> annotationType,
@@ -199,7 +196,7 @@ public abstract class InterceptorUtils {
 	private static void validateMethodReturnType(Method method, Class<? extends Annotation> annotationType, Class<?> validReturnType) {
 		if (!validReturnType.isAssignableFrom(method.getReturnType())) {
 			throw new IllegalStateException(
-				format("The return type of @s Method[%s] must be %s or its derived type , actual type %s!",
+				format("The return type of @%s Method[%s] must be %s or its derived type , actual type %s!",
 					annotationType.getName(), method.toString(), validReturnType.getName(),
 					method.getReturnType().getName()));
 		}
@@ -212,9 +209,9 @@ public abstract class InterceptorUtils {
 	 *                               the argument type is not {@link InvocationContext}
 	 */
 	static void validateMethodArguments(Method method, Class<? extends Annotation> annotationType) throws IllegalStateException {
-		Class[] parameterTypes = method.getParameterTypes();
+		Class<?>[] parameterTypes = method.getParameterTypes();
 		if (parameterTypes.length != 1) {
-			throw new IllegalStateException(format("@s Method[%s] must have only one argument!",
+			throw new IllegalStateException(format("@%s Method[%s] must have only one argument!",
 				annotationType.getName(), method.toString()));
 		}
 
@@ -267,7 +264,21 @@ public abstract class InterceptorUtils {
 	}
 
 	public static boolean isAnnotatedInterceptorBinding(Class<? extends Annotation> annotationType) {
-		return AnnotationUtils.isMetaAnnotation(annotationType, InterceptorBinding.class);
+		return AnnotationUtils.isMetaAnnotation(annotationType, INTERCEPTOR_BINDING_ANNOTATION_TYPE);
+	}
+
+	public static <A extends Annotation> A resolveInterceptorBinding(Method method, Class<A> interceptorBindingType) {
+		if (method == null) {
+			return null;
+		}
+		return searchAnnotation(method, interceptorBindingType);
+	}
+
+	public static <A extends Annotation> A resolveInterceptorBinding(Constructor constructor, Class<A> interceptorBindingType) {
+		if (constructor == null) {
+			return null;
+		}
+		return searchAnnotation(constructor, interceptorBindingType);
 	}
 
 	public static boolean isAnnotatedInterceptorBinding(Executable executable,
