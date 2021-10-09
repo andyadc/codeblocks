@@ -85,7 +85,7 @@
 		<poi.version>5.0.0</poi.version>
 		<slf4j.version>1.7.32</slf4j.version>
 		<logback.version>1.2.6</logback.version>
-		<mockito.version>3.12.3</mockito.version>
+		<mockito.version>4.0.0</mockito.version>
 		<junit.version>4.13.2</junit.version>
 		<junit-jupiter.version>5.8.1</junit-jupiter.version>
 		<jmh.version>1.33</jmh.version>
