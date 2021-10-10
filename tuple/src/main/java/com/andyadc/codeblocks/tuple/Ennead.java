@@ -14,9 +14,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * <p>
  * A tuple of nine elements.
- * </p>
  */
 public final class Ennead<A, B, C, D, E, F, G, H, I>
 	extends Tuple

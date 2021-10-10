@@ -9,9 +9,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * <p>
  * A tuple of four elements.
- * </p>
  */
 public final class Quartet<A, B, C, D>
 	extends Tuple

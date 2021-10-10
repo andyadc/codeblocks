@@ -7,10 +7,8 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * <p>
  * A tuple of two elements, with positions 0 and 1 renamed as "label" and
  * "value", respectively.
- * </p>
  */
 public final class LabelValue<A, B>
 	extends Tuple

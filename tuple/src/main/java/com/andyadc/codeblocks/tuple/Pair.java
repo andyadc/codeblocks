@@ -7,9 +7,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * <p>
  * A tuple of two elements.
- * </p>
  */
 public final class Pair<A, B>
 	extends Tuple

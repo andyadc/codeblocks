@@ -11,9 +11,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * <p>
  * A tuple of six elements.
- * </p>
  */
 public final class Sextet<A, B, C, D, E, F>
 	extends Tuple
@@ -51,9 +49,7 @@ public final class Sextet<A, B, C, D, E, F>
 	}
 
 	/**
-	 * <p>
 	 * Create tuple from array. Array has to have exactly six elements.
-	 * </p>
 	 *
 	 * @param <X>   the array component type
 	 * @param array the array to be converted to a tuple
@@ -72,9 +68,7 @@ public final class Sextet<A, B, C, D, E, F>
 	}
 
 	/**
-	 * <p>
 	 * Create tuple from collection. Collection has to have exactly six elements.
-	 * </p>
 	 *
 	 * @param <X>        the collection component type
 	 * @param collection the collection to be converted to a tuple
@@ -85,9 +79,7 @@ public final class Sextet<A, B, C, D, E, F>
 	}
 
 	/**
-	 * <p>
 	 * Create tuple from iterable. Iterable has to have exactly six elements.
-	 * </p>
 	 *
 	 * @param <X>      the iterable component type
 	 * @param iterable the iterable to be converted to a tuple
@@ -98,10 +90,8 @@ public final class Sextet<A, B, C, D, E, F>
 	}
 
 	/**
-	 * <p>
 	 * Create tuple from iterable, starting from the specified index. Iterable
 	 * can have more (or less) elements than the tuple to be created.
-	 * </p>
 	 *
 	 * @param <X>      the iterable component type
 	 * @param iterable the iterable to be converted to a tuple

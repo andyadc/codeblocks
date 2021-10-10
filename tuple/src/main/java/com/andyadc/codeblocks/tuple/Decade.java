@@ -15,12 +15,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * <p>
  * A tuple of ten elements.
- * </p>
- *
- * @author Daniel Fern&aacute;ndez
- * @since 1.0
  */
 public final class Decade<A, B, C, D, E, F, G, H, I, J>
 	extends Tuple

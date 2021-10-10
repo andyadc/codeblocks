@@ -10,9 +10,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * <p>
  * A tuple of five elements.
- * </p>
  */
 public final class Quintet<A, B, C, D, E>
 	extends Tuple

@@ -7,10 +7,8 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * <p>
  * A tuple of two elements, with positions 0 and 1 renamed as "key" and
  * "value", respectively.
- * </p>
  */
 public final class KeyValue<A, B>
 	extends Tuple
@@ -109,7 +107,6 @@ public final class KeyValue<A, B>
 		}
 
 		return new KeyValue<X, X>(element0, element1);
-
 	}
 
 	public A getKey() {

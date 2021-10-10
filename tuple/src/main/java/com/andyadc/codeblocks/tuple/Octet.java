@@ -13,9 +13,7 @@ import java.util.Collection;
 import java.util.Iterator;
 
 /**
- * <p>
  * A tuple of eight elements.
- * </p>
  */
 public final class Octet<A, B, C, D, E, F, G, H>
 	extends Tuple
