@@ -56,7 +56,6 @@
 		<fastjson.version>1.2.78</fastjson.version>
 		<joda-time.version>2.10.12</joda-time.version>
 		<guava.version>31.0.1-jre</guava.version>
-		<orika.version>1.5.4</orika.version>
 		<tomcat-jdbc.version>9.0.53</tomcat-jdbc.version>
 		<hikaricp.version>4.0.3</hikaricp.version>
 		<druid.version>1.2.8</druid.version>
@@ -287,11 +286,6 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>ma.glasnost.orika</groupId>
-                <artifactId>orika-core</artifactId>
-                <version>${orika.version}</version>
             </dependency>
             <dependency>
                 <groupId>joda-time</groupId>
