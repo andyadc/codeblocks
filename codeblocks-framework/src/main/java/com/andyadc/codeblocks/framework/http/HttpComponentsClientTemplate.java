@@ -23,8 +23,6 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.text.MessageFormat;
-import java.time.Duration;
-import java.time.Instant;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,14 +59,17 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 
 	@Override
 	public synchronized void init() {
+		long t1 = System.nanoTime();
 		if (init) {
 			return;
 		}
-		Instant begin = Instant.now();
 		super.init();
+
 		httpClient = HttpComponentsClientBuilder.build(configuration, requestInterceptors, responseInterceptors);
 		init = true;
-		logger.info("HttpComponentsClient init elapsed time: {}", Duration.between(begin, Instant.now()).toMillis());
+		long t2 = System.nanoTime();
+
+		logger.info(String.format("HttpComponentsClient init elapsed time %.1fms", (t2 - t1) / 1e6d));
 	}
 
 	@Override

@@ -34,7 +34,7 @@ public class HttpClientTemplateTest {
 
 	private static final Logger logger = LoggerFactory.getLogger(HttpClientTemplateTest.class);
 
-	HttpClientTemplate template = null;
+	static HttpClientTemplate template = null;
 
 	private static final List<HttpRequestInterceptor> requestInterceptorList;
 	private static final List<HttpResponseInterceptor> responseInterceptorList;
@@ -58,19 +58,19 @@ public class HttpClientTemplateTest {
 	}
 
 	@BeforeAll
-	public void init() {
+	public static void init() {
 		initOkHttpClient();
 //		initHttpComponentsClient();
 	}
 
-	private void initHttpComponentsClient() {
+	private static void initHttpComponentsClient() {
 		template = new HttpComponentsClientTemplate();
 		((HttpComponentsClientTemplate) template).setRequestInterceptors(requestInterceptorList);
 		((HttpComponentsClientTemplate) template).setResponseInterceptors(responseInterceptorList);
 		template.init();
 	}
 
-	private void initOkHttpClient() {
+	private static void initOkHttpClient() {
 		template = new OkHttpClientTemplate();
 		((OkHttpClientTemplate) template).setInterceptors(interceptorList);
 		template.init();
@@ -118,8 +118,7 @@ public class HttpClientTemplateTest {
 	}
 
 	@AfterAll
-	public void close() throws Exception {
+	public static void close() throws Exception {
 		template.close();
 	}
-
 }
