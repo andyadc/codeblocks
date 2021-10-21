@@ -40,7 +40,7 @@
 		<aspectj.version>1.9.7</aspectj.version>
 		<netty.version>4.1.69.Final</netty.version>
 		<httpcomponents.version>4.5.13</httpcomponents.version>
-		<okhttp.version>4.9.1</okhttp.version>
+		<okhttp.version>4.9.2</okhttp.version>
 		<hibernate-validator.version>6.2.0.Final</hibernate-validator.version>
 		<mybatis.version>3.5.7</mybatis.version>
 		<mybatis-spring.version>2.0.6</mybatis-spring.version>
