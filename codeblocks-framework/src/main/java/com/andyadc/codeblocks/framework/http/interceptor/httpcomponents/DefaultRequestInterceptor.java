@@ -4,8 +4,8 @@ import com.andyadc.codeblocks.kit.idgen.UUID;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpRequestInterceptor;
 import org.apache.http.protocol.HttpContext;
-
-import java.time.Instant;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * andy.an
@@ -13,9 +13,12 @@ import java.time.Instant;
  */
 public class DefaultRequestInterceptor implements HttpRequestInterceptor {
 
+	private static final Logger logger = LoggerFactory.getLogger(DefaultRequestInterceptor.class);
+
 	@Override
 	public void process(HttpRequest request, HttpContext context) {
 		context.setAttribute("requestId", UUID.randomUUID());
-		context.setAttribute("startingAt", Instant.now().toEpochMilli());
+		context.setAttribute("startingAt", System.nanoTime());
+		logger.debug("RequestLine {}", request.getRequestLine());
 	}
 }

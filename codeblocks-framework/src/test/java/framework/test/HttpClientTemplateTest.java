@@ -59,8 +59,8 @@ public class HttpClientTemplateTest {
 
 	@BeforeAll
 	public static void init() {
-		initOkHttpClient();
-//		initHttpComponentsClient();
+//		initOkHttpClient();
+		initHttpComponentsClient();
 	}
 
 	private static void initHttpComponentsClient() {
@@ -81,7 +81,7 @@ public class HttpClientTemplateTest {
 		String json = "{\"name\": \"adc\"}";
 		Map<String, String> params = new HashMap<>();
 		params.put("name", "aaaa");
-		String result = template.post("http://localhost:9999/echo", json, params);
+		String result = template.post("http://localhost:9999/hello/", json, params);
 
 		System.out.println(result);
 	}

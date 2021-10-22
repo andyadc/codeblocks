@@ -6,8 +6,6 @@ import org.apache.http.protocol.HttpContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.time.Instant;
-
 /**
  * andy.an
  * 2019/12/9
@@ -19,6 +17,10 @@ public class DefaultResponseInterceptor implements HttpResponseInterceptor {
 	@Override
 	public void process(HttpResponse response, HttpContext context) {
 		long startingAt = (long) context.getAttribute("startingAt");
-		logger.info("Request elapsed time={}", Instant.now().toEpochMilli() - startingAt);
+		logger.info(String.format("Received response  in %.1fms status %s",
+			(System.nanoTime() - startingAt) / 1e6d,
+			response.getStatusLine()
+			)
+		);
 	}
 }
