@@ -11,29 +11,30 @@ import java.util.TimeZone;
 
 public abstract class JsonLayoutBase<E> extends LayoutBase<E> {
 
-    public final static String CONTENT_TYPE = "application/json";
+	public final static String CONTENT_TYPE = "application/json";
 
-    protected boolean includeTimestamp;
-    protected String timestampFormat;
-    protected String timestampFormatTimezoneId;
-    protected boolean appendLineSeparator;
+	protected boolean includeTimestamp;
+	protected String timestampFormat;
+	protected String timestampFormatTimezoneId;
+	protected boolean appendLineSeparator;
 
-    protected JsonFormatter jsonFormatter;
+	protected JsonFormatter jsonFormatter;
 
-    public JsonLayoutBase() {
-        this.includeTimestamp = true;
-        this.appendLineSeparator = false;
-    }
+	public JsonLayoutBase() {
+		this.includeTimestamp = true;
+		this.appendLineSeparator = false;
+	}
 
-    @Override
-    public String doLayout(E event) {
-        Map<String, Object> map = toJsonMap(event);
-        if (map == null || map.isEmpty()) {
-            return null;
-        }
-        String result = getStringFromFormatter(map);
-        return isAppendLineSeparator() ? result + CoreConstants.LINE_SEPARATOR : result;
-    }
+	@Override
+	public String doLayout(E event) {
+		Map<String, Object> map = toJsonMap(event);
+		if (map == null || map.isEmpty()) {
+			return null;
+		}
+
+		String result = getStringFromFormatter(map);
+		return isAppendLineSeparator() ? result + CoreConstants.LINE_SEPARATOR : result;
+	}
 
 	private String getStringFromFormatter(Map<String, Object> map) {
 		JsonFormatter formatter = getJsonFormatter();
@@ -46,98 +47,98 @@ public abstract class JsonLayoutBase<E> extends LayoutBase<E> {
 			return formatter.toJsonString(map);
 		} catch (Exception e) {
 			addError("JsonFormatter failed.  Defaulting to map.toString().  Message: " + e.getMessage(), e);
-            return map.toString();
-        }
-    }
+			return map.toString();
+		}
+	}
 
-    protected String formatTimestamp(long timestamp) {
-        if (this.timestampFormat == null || timestamp < 0) {
-            return String.valueOf(timestamp);
-        }
-        Date date = new Date(timestamp);
-        DateFormat format = createDateFormat(this.timestampFormat);
+	protected String formatTimestamp(long timestamp) {
+		if (this.timestampFormat == null || timestamp < 0) {
+			return String.valueOf(timestamp);
+		}
+		Date date = new Date(timestamp);
+		DateFormat format = createDateFormat(this.timestampFormat);
 
-        if (this.timestampFormatTimezoneId != null) {
-            TimeZone tz = TimeZone.getTimeZone(this.timestampFormatTimezoneId);
-            format.setTimeZone(tz);
-        }
+		if (this.timestampFormatTimezoneId != null) {
+			TimeZone tz = TimeZone.getTimeZone(this.timestampFormatTimezoneId);
+			format.setTimeZone(tz);
+		}
 
-        return format(date, format);
-    }
+		return format(date, format);
+	}
 
-    public void addMap(String key, boolean field, Map<String, ?> mapValue, Map<String, Object> map) {
-        if (field && mapValue != null && !mapValue.isEmpty()) {
-            map.put(key, mapValue);
-        }
-    }
+	public void addMap(String key, boolean field, Map<String, ?> mapValue, Map<String, Object> map) {
+		if (field && mapValue != null && !mapValue.isEmpty()) {
+			map.put(key, mapValue);
+		}
+	}
 
-    public void addTimestamp(String key, boolean field, long timeStamp, Map<String, Object> map) {
-        if (field) {
-            String formatted = formatTimestamp(timeStamp);
-            if (formatted != null) {
-                map.put(key, formatted);
-            }
-        }
-    }
+	public void addTimestamp(String key, boolean field, long timeStamp, Map<String, Object> map) {
+		if (field) {
+			String formatted = formatTimestamp(timeStamp);
+			if (formatted != null) {
+				map.put(key, formatted);
+			}
+		}
+	}
 
-    public void add(String fieldName, boolean field, String value, Map<String, Object> map) {
-        if (field && value != null) {
-            map.put(fieldName, value);
-        }
-    }
+	public void add(String fieldName, boolean field, String value, Map<String, Object> map) {
+		if (field && value != null) {
+			map.put(fieldName, value);
+		}
+	}
 
-    protected DateFormat createDateFormat(String timestampFormat) {
-        return new SimpleDateFormat(timestampFormat);
-    }
+	protected DateFormat createDateFormat(String timestampFormat) {
+		return new SimpleDateFormat(timestampFormat);
+	}
 
-    protected String format(Date date, DateFormat format) {
-        return format.format(date);
-    }
+	protected String format(Date date, DateFormat format) {
+		return format.format(date);
+	}
 
 	protected abstract Map<String, Object> toJsonMap(E e);
 
-    @Override
-    public String getContentType() {
-        return CONTENT_TYPE;
-    }
+	@Override
+	public String getContentType() {
+		return CONTENT_TYPE;
+	}
 
-    public boolean isIncludeTimestamp() {
-        return includeTimestamp;
-    }
+	public boolean isIncludeTimestamp() {
+		return includeTimestamp;
+	}
 
-    public void setIncludeTimestamp(boolean includeTimestamp) {
-        this.includeTimestamp = includeTimestamp;
-    }
+	public void setIncludeTimestamp(boolean includeTimestamp) {
+		this.includeTimestamp = includeTimestamp;
+	}
 
-    public JsonFormatter getJsonFormatter() {
-        return jsonFormatter;
-    }
+	public JsonFormatter getJsonFormatter() {
+		return jsonFormatter;
+	}
 
-    public void setJsonFormatter(JsonFormatter jsonFormatter) {
-        this.jsonFormatter = jsonFormatter;
-    }
+	public void setJsonFormatter(JsonFormatter jsonFormatter) {
+		this.jsonFormatter = jsonFormatter;
+	}
 
-    public String getTimestampFormat() {
-        return timestampFormat;
-    }
+	public String getTimestampFormat() {
+		return timestampFormat;
+	}
 
-    public void setTimestampFormat(String timestampFormat) {
-        this.timestampFormat = timestampFormat;
-    }
+	public void setTimestampFormat(String timestampFormat) {
+		this.timestampFormat = timestampFormat;
+	}
 
-    public String getTimestampFormatTimezoneId() {
-        return timestampFormatTimezoneId;
-    }
+	public String getTimestampFormatTimezoneId() {
+		return timestampFormatTimezoneId;
+	}
 
-    public void setTimestampFormatTimezoneId(String timestampFormatTimezoneId) {
-        this.timestampFormatTimezoneId = timestampFormatTimezoneId;
-    }
+	public void setTimestampFormatTimezoneId(String timestampFormatTimezoneId) {
+		this.timestampFormatTimezoneId = timestampFormatTimezoneId;
+	}
 
-    public boolean isAppendLineSeparator() {
-        return appendLineSeparator;
-    }
+	public boolean isAppendLineSeparator() {
+		return appendLineSeparator;
+	}
 
-    public void setAppendLineSeparator(boolean appendLineSeparator) {
-        this.appendLineSeparator = appendLineSeparator;
-    }
+	public void setAppendLineSeparator(boolean appendLineSeparator) {
+		this.appendLineSeparator = appendLineSeparator;
+	}
 }

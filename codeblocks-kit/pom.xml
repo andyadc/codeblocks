@@ -73,7 +73,7 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- uuid -->
+		<!-- https://github.com/stephenc/eaio-uuid -->
 		<dependency>
 			<groupId>com.github.stephenc.eaio-uuid</groupId>
 			<artifactId>uuid</artifactId>

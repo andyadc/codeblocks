@@ -1,11 +1,8 @@
 package com.andyadc.codeblocks.framework.http;
 
+import java.nio.charset.Charset;
 import java.util.Map;
 
-/**
- * andy.an
- * 2019/12/6
- */
 public abstract class AbstractHttpClientTemplate implements HttpClientTemplate {
 
 	protected static final String CONTENT_TYPE_JSON = "application/json"; // default
@@ -14,7 +11,7 @@ public abstract class AbstractHttpClientTemplate implements HttpClientTemplate {
 	protected Map<String, String> globalHeaders;
 	protected HttpClientConfiguration configuration = HttpClientConfiguration.common();
 
-	protected String charset = configuration.getCharset();
+	protected Charset charset = configuration.getCharset();
 
 	private volatile boolean init = false;
 

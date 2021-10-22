@@ -3,12 +3,9 @@ package com.andyadc.codeblocks.framework.http;
 import com.andyadc.codeblocks.common.constants.Constants;
 
 import java.io.Serializable;
+import java.nio.charset.Charset;
 import java.util.Map;
 
-/**
- * andy.an
- * 2019/12/6
- */
 public class HttpClientConfiguration implements Serializable {
 
 	//连接创建
@@ -38,7 +35,8 @@ public class HttpClientConfiguration implements Serializable {
 	//是否重试
 	private boolean retryOnFailure = DEFAULT_HTTP_RETRY_ON_FAILURE;
 
-	private String charset = Constants.DEFAULT_CHARSET;
+	//	private String charset = Constants.DEFAULT_CHARSET_FORMAT;
+	private Charset charset = Constants.DEFAULT_CHARSET;
 
 	//全局headers，即所有请求都会添加
 	private Map<String, String> globalHeaders;
@@ -107,11 +105,11 @@ public class HttpClientConfiguration implements Serializable {
 		this.retryOnFailure = retryOnFailure;
 	}
 
-	public String getCharset() {
+	public Charset getCharset() {
 		return charset;
 	}
 
-	public void setCharset(String charset) {
+	public void setCharset(Charset charset) {
 		this.charset = charset;
 	}
 

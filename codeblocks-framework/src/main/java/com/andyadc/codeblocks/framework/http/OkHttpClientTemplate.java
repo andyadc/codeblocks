@@ -2,6 +2,7 @@ package com.andyadc.codeblocks.framework.http;
 
 import com.andyadc.codeblocks.kit.collection.MapUtil;
 import com.andyadc.codeblocks.kit.text.StringUtil;
+import okhttp3.FormBody;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -12,16 +13,13 @@ import okhttp3.ResponseBody;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.net.URLEncoder;
 import java.text.MessageFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * andaicheng
- * 2019-12-07
- */
 public class OkHttpClientTemplate extends AbstractHttpClientTemplate {
 
 	private static final Logger logger = LoggerFactory.getLogger(OkHttpClientTemplate.class);
@@ -48,8 +46,8 @@ public class OkHttpClientTemplate extends AbstractHttpClientTemplate {
 
 		httpClient = OkHttpClientBuilder.build(configuration(), interceptors);
 		init = true;
-		long t2 = System.nanoTime();
 
+		long t2 = System.nanoTime();
 		logger.info(String.format("OkHttpClient init elapsed time %.1fms", (t2 - t1) / 1e6d));
 	}
 
@@ -72,7 +70,7 @@ public class OkHttpClientTemplate extends AbstractHttpClientTemplate {
 		Request.Builder builder = new Request.Builder();
 		try {
 			builder.url(url(uri, parameters));
-			builder.header("Content-Type", MessageFormat.format(CONTENT_TYPE_JSON_PATTERN, charset));
+			builder.header("Content-Type", MessageFormat.format(CONTENT_TYPE_JSON_PATTERN, charset.name()));
 			headers(builder, headers);
 			Request request = builder.get().build();
 			return process(request);
@@ -118,6 +116,34 @@ public class OkHttpClientTemplate extends AbstractHttpClientTemplate {
 	}
 
 	@Override
+	public String form(String uri, Map<String, String> parameters) {
+		return this.form(uri, parameters, null);
+	}
+
+	@Override
+	public String form(String uri, Map<String, String> parameters, Map<String, String> headers) {
+		if (parameters == null || parameters.size() < 1) {
+			return null;
+		}
+		FormBody.Builder formBuilder = new FormBody.Builder();
+		parameters.forEach(formBuilder::add);
+		RequestBody formBody = formBuilder.build();
+
+		Request.Builder builder = new Request.Builder();
+		builder.url(uri);
+		builder.post(formBody);
+
+		headers(builder, headers);
+
+		Request request = builder.build();
+		try {
+			return process(request);
+		} catch (Exception e) {
+			throw new RuntimeException("OkHttpClient error", e);
+		}
+	}
+
+	@Override
 	public OkHttpClient getClient() {
 		return httpClient;
 	}
@@ -134,7 +160,7 @@ public class OkHttpClientTemplate extends AbstractHttpClientTemplate {
 		}
 	}
 
-	private String process(Request request) throws Exception {
+	private String process(Request request) throws IOException {
 		try (Response response = httpClient.newCall(request).execute()) {
 			if (!response.isSuccessful()) {
 				throw new RuntimeException("OkHttpClient unexpected code " + response);
@@ -161,7 +187,7 @@ public class OkHttpClientTemplate extends AbstractHttpClientTemplate {
 			String value = entry.getValue();
 			String encodedValue = "";
 			if (value != null) {
-				encodedValue = URLEncoder.encode(entry.getValue(), charset);
+				encodedValue = URLEncoder.encode(entry.getValue(), charset.name());
 			}
 			builder.append("&").append(entry.getKey())
 				.append("=")

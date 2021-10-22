@@ -1,5 +1,8 @@
 package com.andyadc.codeblocks.test;
 
+import com.andyadc.codeblocks.kit.concurrent.ThreadUtil;
+import org.junit.jupiter.api.Test;
+
 /**
  * assert关键字用法简单，但是使用assert往往会让你陷入越来越深的陷阱中。应避免使用。笔者经过研究，总结了以下原因：
  * <p>
@@ -11,11 +14,19 @@ package com.andyadc.codeblocks.test;
  */
 public class Tests {
 
-	public static void main(String[] args) {
+	@Test
+	public void test001() {
+		long t1 = System.nanoTime();
+		ThreadUtil.sleep(100L);
+		long t2 = System.nanoTime();
+		System.out.printf("Received response for %s in %.1fms %n%s%n",
+			"123", (t2 - t1) / 1e6d, "333");
+	}
+
+	@Test
+	public void testAssert() {
 		String url = null;
-
 		assert url != null : "url is null";
-
 		System.out.println(url);
 	}
 }

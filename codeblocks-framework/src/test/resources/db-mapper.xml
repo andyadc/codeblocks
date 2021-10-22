@@ -3,17 +3,17 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="framework.test.mybatis.BankMapper">
+<mapper namespace="com.andyadc.test.mybatis.BankMapper">
 
-    <resultMap id="BaseResultMap" type="BankMapping">
-        <id column="id" jdbcType="BIGINT" property="id"/>
-        <result column="bank_code" jdbcType="VARCHAR" property="bankCode"/>
-        <result column="bank_name" jdbcType="VARCHAR" property="bankName"/>
-        <result column="card_type" jdbcType="INTEGER" property="cardType"/>
-    </resultMap>
+	<resultMap id="BaseResultMap" type="BankMapping">
+		<id column="id" jdbcType="BIGINT" property="id"/>
+		<result column="bank_code" jdbcType="VARCHAR" property="bankCode"/>
+		<result column="bank_name" jdbcType="VARCHAR" property="bankName"/>
+		<result column="card_type" jdbcType="INTEGER" property="cardType"/>
+	</resultMap>
 
-    <sql id="Base_Column_List">
-        id, bank_code, bank_name, card_type
+	<sql id="Base_Column_List">
+		id, bank_code, bank_name, card_type
     </sql>
 
     <select id="selectBankMapping" resultMap="BaseResultMap">
@@ -87,5 +87,4 @@
             </if>
         </where>
     </select>
-
 </mapper>

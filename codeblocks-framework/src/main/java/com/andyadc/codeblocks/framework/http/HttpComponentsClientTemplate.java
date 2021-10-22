@@ -7,8 +7,10 @@ import org.apache.http.HttpHeaders;
 import org.apache.http.HttpRequestInterceptor;
 import org.apache.http.HttpResponseInterceptor;
 import org.apache.http.HttpStatus;
+import org.apache.http.NameValuePair;
 import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
@@ -21,8 +23,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.text.MessageFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,8 +36,6 @@ import java.util.Map;
  * 2.仅实现同步调用
  * 3.通用客户端，仅支持Rest调用，即请求和响应均为文本类型
  * <p>
- * andy.an
- * 2019/12/6
  */
 public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 
@@ -67,8 +67,8 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 
 		httpClient = HttpComponentsClientBuilder.build(configuration, requestInterceptors, responseInterceptors);
 		init = true;
-		long t2 = System.nanoTime();
 
+		long t2 = System.nanoTime();
 		logger.info(String.format("HttpComponentsClient init elapsed time %.1fms", (t2 - t1) / 1e6d));
 	}
 
@@ -96,7 +96,7 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 		//用户自定义header（可以覆盖增补的header）
 		headers(requestBuilder, headers);
 
-		requestBuilder.setCharset(Charset.forName(charset));
+		requestBuilder.setCharset(charset);
 		HttpUriRequest request = requestBuilder.build();
 		try {
 			return process(request);
@@ -128,14 +128,39 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 
 		RequestBuilder requestBuilder = RequestBuilder.post(uri);
 		parameters(requestBuilder, parameters);
-		requestBuilder.setCharset(Charset.forName(charset));
+		requestBuilder.setCharset(charset);
 		if (content != null) {
 			StringEntity stringEntity = new StringEntity(content, ContentType.create(CONTENT_TYPE_JSON, charset));
 			requestBuilder.setEntity(stringEntity);
 		} else {
-			String contentType = MessageFormat.format(CONTENT_TYPE_JSON_PATTERN, charset);
+			String contentType = MessageFormat.format(CONTENT_TYPE_JSON_PATTERN, charset.name());
 			requestBuilder.addHeader(HttpHeaders.CONTENT_TYPE, contentType);
 		}
+
+		headers(requestBuilder, headers);
+
+		HttpUriRequest request = requestBuilder.build();
+		try {
+			return process(request);
+		} catch (Exception e) {
+			throw new RuntimeException("HttpComponentsClient error", e);
+		}
+	}
+
+	@Override
+	public String form(String uri, Map<String, String> parameters) {
+		return this.form(uri, parameters, null);
+	}
+
+	@Override
+	public String form(String uri, Map<String, String> parameters, Map<String, String> headers) {
+		if (StringUtil.isBlank(uri)) {
+			return null;
+		}
+
+		RequestBuilder requestBuilder = RequestBuilder.post(uri);
+		form(requestBuilder, parameters);
+		requestBuilder.setCharset(charset);
 
 		headers(requestBuilder, headers);
 
@@ -163,6 +188,16 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 			EntityUtils.consume(entity);
 			return result;
 		}
+	}
+
+	private void form(RequestBuilder requestBuilder, Map<String, String> parameters) {
+		if (parameters == null || parameters.isEmpty()) {
+			return;
+		}
+		List<NameValuePair> pairList = new ArrayList<>(parameters.size());
+		parameters.forEach((k, v) -> pairList.add(new BasicNameValuePair(k, v)));
+		UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(pairList, charset);
+		requestBuilder.setEntity(formEntity);
 	}
 
 	private void parameters(RequestBuilder requestBuilder, Map<String, String> parameters) {

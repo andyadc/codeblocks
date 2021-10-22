@@ -7,10 +7,6 @@ import org.apache.http.protocol.HttpContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * andy.an
- * 2019/12/9
- */
 public class DefaultRequestInterceptor implements HttpRequestInterceptor {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultRequestInterceptor.class);
@@ -19,6 +15,6 @@ public class DefaultRequestInterceptor implements HttpRequestInterceptor {
 	public void process(HttpRequest request, HttpContext context) {
 		context.setAttribute("requestId", UUID.randomUUID());
 		context.setAttribute("startingAt", System.nanoTime());
-		logger.debug("RequestLine {}", request.getRequestLine());
+		logger.info("RequestLine {}", request.getRequestLine());
 	}
 }

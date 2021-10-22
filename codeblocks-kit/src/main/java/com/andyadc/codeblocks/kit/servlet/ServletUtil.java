@@ -24,10 +24,10 @@ public final class ServletUtil {
         if (request == null) {
             return params;
         }
-        Enumeration<?> paramNames = request.getParameterNames();
+        Enumeration<String> paramNames = request.getParameterNames();
         while (paramNames.hasMoreElements()) {
-            String paramName = (String) paramNames.nextElement();
-            String[] values = request.getParameterValues(paramName);
+			String paramName = paramNames.nextElement();
+			String[] values = request.getParameterValues(paramName);
             if (values != null && values.length > 0) {
                 params.put(paramName, values[0]);
             }

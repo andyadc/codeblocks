@@ -2,7 +2,6 @@
 <!DOCTYPE configuration
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
-
 <configuration>
 
     <properties resource="db.properties"/>
@@ -12,8 +11,8 @@
     </settings>
 
     <typeAliases>
-		<typeAlias alias="BankMapping" type="framework.test.mybatis.BankMapping"/>
-    </typeAliases>
+		<typeAlias alias="BankMapping" type="com.andyadc.test.mybatis.BankMapping"/>
+	</typeAliases>
 
     <plugins>
         <plugin interceptor="com.andyadc.codeblocks.framework.mybatis.pagination.PaginationInterceptor">
@@ -37,5 +36,4 @@
     <mappers>
         <mapper resource="db-mapper.xml"/>
     </mappers>
-
 </configuration>

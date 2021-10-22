@@ -9,10 +9,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
-/**
- * andy.an
- * 2019/12/9
- */
 public class DefaultOkHttpInterceptor implements Interceptor {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultOkHttpInterceptor.class);
@@ -29,7 +25,12 @@ public class DefaultOkHttpInterceptor implements Interceptor {
 		Response response = chain.proceed(request);
 		long t2 = System.nanoTime();
 
-		logger.info(String.format("Received response for %s in %.1fms", response.request().url(), (t2 - t1) / 1e6d));
+		logger.info(String.format("Received response for %s in %.1fms %d",
+			response.request().url(),
+			(t2 - t1) / 1e6d,
+			response.code()
+			)
+		);
 		return response;
 	}
 }

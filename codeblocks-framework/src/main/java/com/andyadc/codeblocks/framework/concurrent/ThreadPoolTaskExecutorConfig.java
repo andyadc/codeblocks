@@ -12,10 +12,6 @@ import java.util.Map;
 import java.util.concurrent.RejectedExecutionHandler;
 import java.util.concurrent.ThreadPoolExecutor;
 
-/**
- * andy.an
- * 2019/12/2
- */
 @Component
 public class ThreadPoolTaskExecutorConfig {
 
@@ -37,7 +33,6 @@ public class ThreadPoolTaskExecutorConfig {
 	}
 
 	static class MDCTaskDecorator implements TaskDecorator {
-
 		@NonNull
 		@Override
 		public Runnable decorate(@NonNull Runnable runnable) {

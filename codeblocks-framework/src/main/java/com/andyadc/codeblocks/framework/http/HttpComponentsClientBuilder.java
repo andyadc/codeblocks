@@ -26,10 +26,6 @@ import org.apache.http.impl.io.DefaultHttpResponseParserFactory;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-/**
- * andy.an
- * 2019/12/6
- */
 public final class HttpComponentsClientBuilder {
 
 	public static CloseableHttpClient build(HttpClientConfiguration configuration) {

@@ -6,10 +6,6 @@ import org.apache.http.protocol.HttpContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * andy.an
- * 2019/12/9
- */
 public class DefaultResponseInterceptor implements HttpResponseInterceptor {
 
 	private static final Logger logger = LoggerFactory.getLogger(DefaultResponseInterceptor.class);
@@ -17,7 +13,7 @@ public class DefaultResponseInterceptor implements HttpResponseInterceptor {
 	@Override
 	public void process(HttpResponse response, HttpContext context) {
 		long startingAt = (long) context.getAttribute("startingAt");
-		logger.info(String.format("Received response  in %.1fms status %s",
+		logger.info(String.format("Received response in %.1fms %s",
 			(System.nanoTime() - startingAt) / 1e6d,
 			response.getStatusLine()
 			)

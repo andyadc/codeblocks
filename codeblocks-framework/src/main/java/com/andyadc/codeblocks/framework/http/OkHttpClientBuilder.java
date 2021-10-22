@@ -7,10 +7,6 @@ import okhttp3.OkHttpClient;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-/**
- * andaicheng
- * 2019-12-07
- */
 public class OkHttpClientBuilder {
 
 	public static OkHttpClient build(HttpClientConfiguration configuration) {

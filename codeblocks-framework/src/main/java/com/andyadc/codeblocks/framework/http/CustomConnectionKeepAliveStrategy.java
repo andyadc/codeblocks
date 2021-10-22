@@ -11,8 +11,6 @@ import java.util.Arrays;
 
 /**
  * 自定义 KeepAlive 策略
- * andy.an
- * 2020/3/18
  */
 public class CustomConnectionKeepAliveStrategy implements ConnectionKeepAliveStrategy {
 

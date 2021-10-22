@@ -8,7 +8,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import java.util.Map;
 
 /**
- * andy.an
  *
  * <url>https://stackoverflow.com/questions/23732089/how-to-enable-request-scope-in-async-task-executor</url>
  *

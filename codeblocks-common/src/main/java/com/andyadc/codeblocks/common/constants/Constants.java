@@ -1,5 +1,7 @@
 package com.andyadc.codeblocks.common.constants;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.time.ZoneId;
 
 /**
@@ -9,7 +11,8 @@ import java.time.ZoneId;
 public interface Constants {
 
 	int PROCESSOR_NUM = Runtime.getRuntime().availableProcessors();
-	String DEFAULT_CHARSET = "UTF-8";
+	Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
+	String DEFAULT_CHARSET_FORMAT = DEFAULT_CHARSET.name();
 	ZoneId DEFAULT_ZONE_ID = ZoneId.of("Asia/Shanghai");
 
 	/**

@@ -17,9 +17,6 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-/**
- * andy.an
- */
 public final class ThreadPoolCreator {
 
 	private static final Logger logger = LoggerFactory.getLogger(ThreadPoolCreator.class);
