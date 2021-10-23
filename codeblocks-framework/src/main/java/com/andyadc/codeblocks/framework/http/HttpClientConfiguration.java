@@ -8,28 +8,27 @@ import java.util.Map;
 
 public class HttpClientConfiguration implements Serializable {
 
+	public static final String HTTP_CLIENT_TYPE_OK_HTTP = "OkHttp";
+	public static final String HTTP_CLIENT_TYPE_HTTP_COMPONENTS = "HttpComponents";
+
 	//连接创建
-	public static final long DEFAULT_CONNECTION_TIMEOUT = 500;
+	public static final long DEFAULT_CONNECTION_TIMEOUT = 500L;
 	//SO_TIMEOUT
-	public static final long DEFAULT_SOCKET_TIMEOUT = 500;
+	public static final long DEFAULT_SOCKET_TIMEOUT = 500L;
 	//连接池中的连接被保活的时长
-	public static final long DEFAULT_KEEP_ALIVE_TIME = 6000;
+	public static final long DEFAULT_KEEP_ALIVE_TIME = 6000L;
 	//请求异常（exception），重试的次数，默认为0，不重试
 	public static final int DEFAULT_HTTP_RETRY_TIMES = 0;
 	//是否重试
 	public static final boolean DEFAULT_HTTP_RETRY_ON_FAILURE = false;
 	public static final int DEFAULT_CONNECTION_REQUEST_TIMEOUT = 1500;
-	public static final String HTTP_CLIENT_TYPE_OK_HTTP = "OkHttp";
-	public static final String HTTP_CLIENT_TYPE_HTTP_COMPONENTS = "HttpComponents";
 	private static final int DEFAULT_MAX_CONNECTIONS = 1024;
 	//连接创建
 	private long connectionTimeout = DEFAULT_CONNECTION_TIMEOUT;
 	//SO_TIMEOUT
 	private long socketTimeout = DEFAULT_SOCKET_TIMEOUT;
-
 	//连接池中的连接被保活的时长
 	private long keepAliveTime = DEFAULT_KEEP_ALIVE_TIME;
-
 	//请求异常（exception），重试的次数，默认为0，不重试
 	private int retryTimes = DEFAULT_HTTP_RETRY_TIMES;
 	//是否重试
@@ -48,12 +47,12 @@ public class HttpClientConfiguration implements Serializable {
 
 	public static HttpClientConfiguration common(Map<String, String> globalHeaders) {
 		HttpClientConfiguration configuration = new HttpClientConfiguration();
-		configuration.setCharset(Constants.DEFAULT_CHARSET);//UTF-8
-		configuration.setConnectionTimeout(DEFAULT_CONNECTION_TIMEOUT);//500
-		configuration.setSocketTimeout(DEFAULT_SOCKET_TIMEOUT);//500
-		configuration.setKeepAliveTime(DEFAULT_KEEP_ALIVE_TIME);//6000
-		configuration.setRetryOnFailure(DEFAULT_HTTP_RETRY_ON_FAILURE);//FALSE
-		configuration.setRetryTimes(DEFAULT_HTTP_RETRY_TIMES);//0
+		configuration.setCharset(Constants.DEFAULT_CHARSET);// UTF-8
+		configuration.setConnectionTimeout(DEFAULT_CONNECTION_TIMEOUT);// 500
+		configuration.setSocketTimeout(DEFAULT_SOCKET_TIMEOUT);// 500
+		configuration.setKeepAliveTime(DEFAULT_KEEP_ALIVE_TIME);// 6000
+		configuration.setRetryOnFailure(DEFAULT_HTTP_RETRY_ON_FAILURE);// FALSE
+		configuration.setRetryTimes(DEFAULT_HTTP_RETRY_TIMES);// 0
 		configuration.setConnectionRequestTimeout(DEFAULT_CONNECTION_REQUEST_TIMEOUT);
 		if (globalHeaders != null && !globalHeaders.isEmpty()) {
 			configuration.setGlobalHeaders(globalHeaders);

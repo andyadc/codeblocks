@@ -101,7 +101,7 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 		try {
 			return process(request);
 		} catch (Exception e) {
-			throw new RuntimeException("HttpComponentsClient error", e);
+			throw new HttpRequestException("HttpComponentsClient error", e);
 		}
 	}
 
@@ -143,7 +143,7 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 		try {
 			return process(request);
 		} catch (Exception e) {
-			throw new RuntimeException("HttpComponentsClient error", e);
+			throw new HttpRequestException("HttpComponentsClient error", e);
 		}
 	}
 
@@ -168,7 +168,7 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 		try {
 			return process(request);
 		} catch (Exception e) {
-			throw new RuntimeException("HttpComponentsClient error", e);
+			throw new HttpRequestException("HttpComponentsClient error", e);
 		}
 	}
 
@@ -178,7 +178,7 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 			int statusCode = statusLine.getStatusCode();
 			if (statusCode != HttpStatus.SC_OK) { // 200
 				request.abort();
-				throw new RuntimeException("HttpClient error, code: " + statusCode + ", message: " + statusLine.getReasonPhrase());
+				throw new HttpRequestException("HttpClient error, code: " + statusCode + ", message: " + statusLine.getReasonPhrase());
 			}
 			HttpEntity entity = response.getEntity();
 			String result = null;

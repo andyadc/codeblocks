@@ -75,7 +75,7 @@ public class OkHttpClientTemplate extends AbstractHttpClientTemplate {
 			Request request = builder.get().build();
 			return process(request);
 		} catch (Exception e) {
-			throw new RuntimeException("OkHttpClient request error.", e);
+			throw new HttpRequestException("OkHttpClient request error.", e);
 		}
 	}
 
@@ -111,7 +111,7 @@ public class OkHttpClientTemplate extends AbstractHttpClientTemplate {
 			Request request = builder.build();
 			return process(request);
 		} catch (Exception e) {
-			throw new RuntimeException("OkHttpClient error", e);
+			throw new HttpRequestException("OkHttpClient error", e);
 		}
 	}
 
@@ -139,7 +139,7 @@ public class OkHttpClientTemplate extends AbstractHttpClientTemplate {
 		try {
 			return process(request);
 		} catch (Exception e) {
-			throw new RuntimeException("OkHttpClient error", e);
+			throw new HttpRequestException("OkHttpClient error", e);
 		}
 	}
 
