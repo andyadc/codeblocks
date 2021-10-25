@@ -6,8 +6,8 @@ import java.util.Map;
 public abstract class AbstractHttpClientTemplate implements HttpClientTemplate {
 
 	protected static final String CONTENT_TYPE_JSON = "application/json"; // default
-	// json
 	protected static final String CONTENT_TYPE_JSON_PATTERN = CONTENT_TYPE_JSON + "; charset={0}";// default
+
 	protected Map<String, String> globalHeaders;
 	protected HttpClientConfiguration configuration = HttpClientConfiguration.common();
 

@@ -1,7 +1,10 @@
 package com.andyadc.codeblocks.framework.http;
 
+import com.andyadc.codeblocks.common.annotation.NotNull;
 import com.andyadc.codeblocks.kit.collection.MapUtil;
 import com.andyadc.codeblocks.kit.text.StringUtil;
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.FormBody;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
@@ -52,24 +55,24 @@ public class OkHttpClientTemplate extends AbstractHttpClientTemplate {
 	}
 
 	@Override
-	public String get(String uri) {
-		return get(uri, null);
+	public String get(String url) {
+		return get(url, null);
 	}
 
 	@Override
-	public String get(String uri, Map<String, String> parameters) {
-		return get(uri, parameters, null);
+	public String get(String url, Map<String, String> parameters) {
+		return get(url, parameters, null);
 	}
 
 	@Override
-	public String get(String uri, Map<String, String> parameters, Map<String, String> headers) {
-		if (StringUtil.isBlank(uri)) {
+	public String get(String url, Map<String, String> parameters, Map<String, String> headers) {
+		if (StringUtil.isBlank(url)) {
 			return null;
 		}
 
 		Request.Builder builder = new Request.Builder();
 		try {
-			builder.url(url(uri, parameters));
+			builder.url(url(url, parameters));
 			builder.header("Content-Type", MessageFormat.format(CONTENT_TYPE_JSON_PATTERN, charset.name()));
 			headers(builder, headers);
 			Request request = builder.get().build();
@@ -80,29 +83,29 @@ public class OkHttpClientTemplate extends AbstractHttpClientTemplate {
 	}
 
 	@Override
-	public String post(String uri) {
-		return post(uri, null);
+	public String post(String url) {
+		return post(url, null);
 	}
 
 	@Override
-	public String post(String uri, String content) {
-		return post(uri, content, null);
+	public String post(String url, String content) {
+		return post(url, content, null);
 	}
 
 	@Override
-	public String post(String uri, String content, Map<String, String> parameters) {
-		return post(uri, content, parameters, null);
+	public String post(String url, String content, Map<String, String> parameters) {
+		return post(url, content, parameters, null);
 	}
 
 	@Override
-	public String post(String uri, String content, Map<String, String> parameters, Map<String, String> headers) {
-		if (StringUtil.isBlank(uri)) {
+	public String post(String url, String content, Map<String, String> parameters, Map<String, String> headers) {
+		if (StringUtil.isBlank(url)) {
 			return null;
 		}
 
 		Request.Builder builder = new Request.Builder();
 		try {
-			builder.url(url(uri, parameters));
+			builder.url(url(url, parameters));
 			headers(builder, headers);
 			String contentType = MessageFormat.format(CONTENT_TYPE_JSON_PATTERN, charset);
 			RequestBody body = RequestBody.create(content, MediaType.parse(contentType));
@@ -116,12 +119,12 @@ public class OkHttpClientTemplate extends AbstractHttpClientTemplate {
 	}
 
 	@Override
-	public String form(String uri, Map<String, String> parameters) {
-		return this.form(uri, parameters, null);
+	public String form(String url, Map<String, String> parameters) {
+		return this.form(url, parameters, null);
 	}
 
 	@Override
-	public String form(String uri, Map<String, String> parameters, Map<String, String> headers) {
+	public String form(String url, Map<String, String> parameters, Map<String, String> headers) {
 		if (parameters == null || parameters.size() < 1) {
 			return null;
 		}
@@ -130,7 +133,7 @@ public class OkHttpClientTemplate extends AbstractHttpClientTemplate {
 		RequestBody formBody = formBuilder.build();
 
 		Request.Builder builder = new Request.Builder();
-		builder.url(uri);
+		builder.url(url);
 		builder.post(formBody);
 
 		headers(builder, headers);
@@ -174,13 +177,38 @@ public class OkHttpClientTemplate extends AbstractHttpClientTemplate {
 		}
 	}
 
-	private String url(String uri, Map<String, String> parameters) throws Exception {
+	/**
+	 * Asynchronous request
+	 */
+	private void asyncProcess(Request request) {
+		httpClient.newCall(request).enqueue(new Callback() {
+
+			@Override
+			public void onFailure(@NotNull Call call, @NotNull IOException e) {
+				logger.error("asyncProcess error", e);
+			}
+
+			@Override
+			public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+				try (ResponseBody responseBody = response.body()) {
+					if (!response.isSuccessful()) {
+						throw new IOException("Unexpected code " + response);
+					}
+					ResponseBody body = response.body();
+					String result = body.string();
+
+				}
+			}
+		});
+	}
+
+	private String url(String url, Map<String, String> parameters) throws Exception {
 		if (parameters == null || parameters.isEmpty()) {
-			return uri;
+			return url;
 		}
 
-		StringBuilder builder = new StringBuilder(uri);
-		if (!uri.contains("?")) {
+		StringBuilder builder = new StringBuilder(url);
+		if (!url.contains("?")) {
 			builder.append("?1=1");
 		}
 		for (Map.Entry<String, String> entry : parameters.entrySet()) {

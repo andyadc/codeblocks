@@ -73,22 +73,22 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 	}
 
 	@Override
-	public String get(String uri) {
-		return get(uri, null);
+	public String get(String url) {
+		return get(url, null);
 	}
 
 	@Override
-	public String get(String uri, Map<String, String> parameters) {
-		return get(uri, parameters, null);
+	public String get(String url, Map<String, String> parameters) {
+		return get(url, parameters, null);
 	}
 
 	@Override
-	public String get(String uri, Map<String, String> parameters, Map<String, String> headers) {
-		if (StringUtil.isBlank(uri)) {
+	public String get(String url, Map<String, String> parameters, Map<String, String> headers) {
+		if (StringUtil.isBlank(url)) {
 			return null;
 		}
 
-		RequestBuilder requestBuilder = RequestBuilder.get(uri);
+		RequestBuilder requestBuilder = RequestBuilder.get(url);
 		parameters(requestBuilder, parameters);
 		//对于get请求，增补一个常规header
 		String contentType = MessageFormat.format(CONTENT_TYPE_JSON_PATTERN, charset);
@@ -106,27 +106,27 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 	}
 
 	@Override
-	public String post(String uri) {
-		return post(uri, null);
+	public String post(String url) {
+		return post(url, null);
 	}
 
 	@Override
-	public String post(String uri, String content) {
-		return post(uri, content, null);
+	public String post(String url, String content) {
+		return post(url, content, null);
 	}
 
 	@Override
-	public String post(String uri, String content, Map<String, String> parameters) {
-		return post(uri, content, parameters, null);
+	public String post(String url, String content, Map<String, String> parameters) {
+		return post(url, content, parameters, null);
 	}
 
 	@Override
-	public String post(String uri, String content, Map<String, String> parameters, Map<String, String> headers) {
-		if (StringUtil.isBlank(uri)) {
+	public String post(String url, String content, Map<String, String> parameters, Map<String, String> headers) {
+		if (StringUtil.isBlank(url)) {
 			return null;
 		}
 
-		RequestBuilder requestBuilder = RequestBuilder.post(uri);
+		RequestBuilder requestBuilder = RequestBuilder.post(url);
 		parameters(requestBuilder, parameters);
 		requestBuilder.setCharset(charset);
 		if (content != null) {
@@ -148,17 +148,17 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 	}
 
 	@Override
-	public String form(String uri, Map<String, String> parameters) {
-		return this.form(uri, parameters, null);
+	public String form(String url, Map<String, String> parameters) {
+		return this.form(url, parameters, null);
 	}
 
 	@Override
-	public String form(String uri, Map<String, String> parameters, Map<String, String> headers) {
-		if (StringUtil.isBlank(uri)) {
+	public String form(String url, Map<String, String> parameters, Map<String, String> headers) {
+		if (StringUtil.isBlank(url)) {
 			return null;
 		}
 
-		RequestBuilder requestBuilder = RequestBuilder.post(uri);
+		RequestBuilder requestBuilder = RequestBuilder.post(url);
 		form(requestBuilder, parameters);
 		requestBuilder.setCharset(charset);
 
