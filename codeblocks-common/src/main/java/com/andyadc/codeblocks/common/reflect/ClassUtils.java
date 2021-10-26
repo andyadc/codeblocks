@@ -13,6 +13,7 @@ import com.andyadc.codeblocks.common.lang.StringUtils;
 import com.andyadc.codeblocks.common.util.ArrayUtils;
 import com.andyadc.codeblocks.common.util.ClassPathUtils;
 import com.andyadc.codeblocks.common.util.CollectionUtils;
+import com.andyadc.codeblocks.common.util.MapUtils;
 import org.apache.commons.io.filefilter.SuffixFileFilter;
 
 import java.io.File;
@@ -24,11 +25,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.CodeSource;
 import java.security.ProtectionDomain;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
@@ -57,7 +58,17 @@ public abstract class ClassUtils {
 	 */
 	public static final String ARRAY_SUFFIX = "[]";
 
-	public static final Class[] EMPTY_CLASS_ARRAY = new Class[0];
+	public static final Class<?>[] EMPTY_CLASS_ARRAY = new Class[0];
+	static final Map<Class<?>, Boolean> concreteClassCache = new WeakHashMap<>();
+	/**
+	 * @see {@link Class#ANNOTATION}
+	 */
+	private static final int ANNOTATION = 0x00002000;
+	/**
+	 * @see {@link Class#ENUM}
+	 */
+	private static final int ENUM = 0x00004000;
+
 	/**
 	 * Simple Types including:
 	 * <ul>
@@ -94,6 +105,7 @@ public abstract class ClassUtils {
 		Date.class,
 		Object.class
 	);
+
 	public static final Set<Class<?>> PRIMITIVE_TYPES = asSet(
 		Void.TYPE,
 		Boolean.TYPE,
@@ -105,35 +117,32 @@ public abstract class ClassUtils {
 		Float.TYPE,
 		Double.TYPE
 	);
-	public static final Map<Class<?>, Boolean> concreteClassCache = new WeakHashMap<>();
-	/**
-	 * @see {@link Class#ANNOTATION}
-	 */
-	private static final int ANNOTATION = 0x00002000;
-	/**
-	 * @see {@link Class#ENUM}
-	 */
-	private static final int ENUM = 0x00004000;
 
 	/**
 	 * Prefix for internal array class names: "[L"
 	 */
 	private static final String INTERNAL_ARRAY_PREFIX = "[L";
 	/**
-	 * Map with primitive type name as key and corresponding primitive type as
-	 * value, for example: "int" -> "int.class".
-	 */
-	private static final Map<String, Class<?>> PRIMITIVE_TYPE_NAME_MAP = new HashMap<String, Class<?>>(32);
-	/**
-	 * Map with primitive wrapper type as key and corresponding primitive type
-	 * as value, for example: Integer.class -> int.class.
-	 */
-	private static final Map<Class<?>, Class<?>> PRIMITIVE_WRAPPER_TYPE_MAP = new HashMap<Class<?>, Class<?>>(16);
-	/**
 	 * @see {@link Class#SYNTHETIC}
 	 */
 	private static final int SYNTHETIC = 0x00001000;
+	/**
+	 * A map with primitive type name as key and corresponding primitive type as
+	 * value, for example: "int" -> "int.class".
+	 */
+	private static final Map<String, Class<?>> PRIMITIVE_TYPE_NAME_MAP;
+	/**
+	 * A map with primitive wrapper type as key and corresponding primitive type
+	 * as value, for example: Integer.class -> int.class.
+	 */
+	private static final Map<Class<?>, Class<?>> PRIMITIVE_WRAPPER_TYPE_MAP;
+
 	private static final char PACKAGE_SEPARATOR_CHAR = '.';
+	/**
+	 * A map with primitive type as key and its wrapper type
+	 * as value, for example: int.class -> Integer.class.
+	 */
+	private static final Map<Class<?>, Class<?>> WRAPPER_PRIMITIVE_TYPE_MAP;
 
 	private static final Map<String, Set<String>> classPathToClassNamesMap = initClassPathToClassNamesMap();
 
@@ -142,22 +151,45 @@ public abstract class ClassUtils {
 	private static final Map<String, Set<String>> packageNameToClassNamesMap = initPackageNameToClassNamesMap();
 
 	static {
-		PRIMITIVE_WRAPPER_TYPE_MAP.put(Boolean.class, boolean.class);
-		PRIMITIVE_WRAPPER_TYPE_MAP.put(Byte.class, byte.class);
-		PRIMITIVE_WRAPPER_TYPE_MAP.put(Character.class, char.class);
-		PRIMITIVE_WRAPPER_TYPE_MAP.put(Double.class, double.class);
-		PRIMITIVE_WRAPPER_TYPE_MAP.put(Float.class, float.class);
-		PRIMITIVE_WRAPPER_TYPE_MAP.put(Integer.class, int.class);
-		PRIMITIVE_WRAPPER_TYPE_MAP.put(Long.class, long.class);
-		PRIMITIVE_WRAPPER_TYPE_MAP.put(Short.class, short.class);
+		PRIMITIVE_WRAPPER_TYPE_MAP = MapUtils.of(
+			Void.class, Void.TYPE,
+			Boolean.class, Boolean.TYPE,
+			Byte.class, Byte.TYPE,
+			Character.class, Character.TYPE,
+			Short.class, Short.TYPE,
+			Integer.class, Integer.TYPE,
+			Long.class, Long.TYPE,
+			Float.class, Float.TYPE,
+			Double.class, Double.TYPE
+		);
+	}
 
-		Set<Class<?>> primitiveTypeNames = new HashSet<>(32);
-		primitiveTypeNames.addAll(PRIMITIVE_WRAPPER_TYPE_MAP.values());
+	static {
+		WRAPPER_PRIMITIVE_TYPE_MAP = MapUtils.of(
+			Void.TYPE, Void.class,
+			Boolean.TYPE, Boolean.class,
+			Byte.TYPE, Byte.class,
+			Character.TYPE, Character.class,
+			Short.TYPE, Short.class,
+			Boolean.TYPE, Boolean.class,
+			Integer.TYPE, Integer.class,
+			Long.TYPE, Long.class,
+			Float.TYPE, Float.class,
+			Double.TYPE, Double.class
+		);
+	}
+
+	static {
+		Map<String, Class<?>> typeNamesMap = new HashMap<>(16);
+		List<Class<?>> primitiveTypeNames = new ArrayList<>(16);
+		primitiveTypeNames.addAll(Arrays.asList(boolean.class, byte.class, char.class, double.class,
+			float.class, int.class, long.class, short.class));
 		primitiveTypeNames.addAll(Arrays.asList(boolean[].class, byte[].class, char[].class, double[].class,
 			float[].class, int[].class, long[].class, short[].class));
 		for (Class<?> primitiveTypeName : primitiveTypeNames) {
-			PRIMITIVE_TYPE_NAME_MAP.put(primitiveTypeName.getName(), primitiveTypeName);
+			typeNamesMap.put(primitiveTypeName.getName(), primitiveTypeName);
 		}
+		PRIMITIVE_TYPE_NAME_MAP = Collections.unmodifiableMap(typeNamesMap);
 	}
 
 	private ClassUtils() {
@@ -283,13 +315,23 @@ public abstract class ClassUtils {
 	 * @return <code>null</code> if not found
 	 */
 	public static Class<?> resolvePrimitiveType(Class<?> type) {
-		if (type == null) {
-			return null;
-		}
-		if (type.isPrimitive()) {
+		if (isPrimitive(type)) {
 			return type;
 		}
 		return PRIMITIVE_WRAPPER_TYPE_MAP.get(type);
+	}
+
+	/**
+	 * Resolve the wrapper class from the primitive type
+	 *
+	 * @param primitiveType the primitive type
+	 * @return <code>null</code> if not found
+	 */
+	public static Class<?> resolveWrapperType(Class<?> primitiveType) {
+		if (PRIMITIVE_WRAPPER_TYPE_MAP.containsKey(primitiveType)) {
+			return primitiveType;
+		}
+		return WRAPPER_PRIMITIVE_TYPE_MAP.get(primitiveType);
 	}
 
 	/**
@@ -353,6 +395,7 @@ public abstract class ClassUtils {
 	 * @param type the type to test
 	 * @return if <code>type</code> is one element of {@link #SIMPLE_TYPES}, return <code>true</code>, or <code>false</code>
 	 * @see #SIMPLE_TYPES
+	 * @since 1.0.0
 	 */
 	public static boolean isSimpleType(Class<?> type) {
 		return SIMPLE_TYPES.contains(type);
@@ -413,6 +456,10 @@ public abstract class ClassUtils {
 
 	/**
 	 * We only check boolean value at this moment.
+	 *
+	 * @param type
+	 * @param value
+	 * @return
 	 */
 	public static boolean isTypeMatch(Class<?> type, String value) {
 		return (type != boolean.class && type != Boolean.class)
@@ -545,6 +592,7 @@ public abstract class ClassUtils {
 	 * @param superType the super type
 	 * @param target    the target object
 	 * @return see {@link Class#isAssignableFrom(Class)}
+	 * @since 1.0.0
 	 */
 	public static boolean isAssignableFrom(Class<?> superType, Object target) {
 		if (target == null) {
@@ -559,6 +607,7 @@ public abstract class ClassUtils {
 	 * @param superType  the super type
 	 * @param targetType the target type
 	 * @return see {@link Class#isAssignableFrom(Class)}
+	 * @since 1.0.0
 	 */
 	public static boolean isAssignableFrom(Class<?> superType, Class<?> targetType) {
 		// any argument is null
@@ -579,6 +628,7 @@ public abstract class ClassUtils {
 	 * @param targetType the target type
 	 * @param superTypes the super types
 	 * @return see {@link Class#isAssignableFrom(Class)}
+	 * @since 1.0.0
 	 */
 	public static boolean isDerived(Class<?> targetType, Class<?>... superTypes) {
 		// any argument is null
@@ -641,6 +691,7 @@ public abstract class ClassUtils {
 	 *
 	 * @param type the target type
 	 * @return <code>true</code> if the target type is generic class, <code>false</code> otherwise.
+	 * @since 1.0.0
 	 */
 	public static boolean isGenericClass(Class<?> type) {
 		return type != null && type.getTypeParameters().length > 0;
@@ -839,6 +890,7 @@ public abstract class ClassUtils {
 	 * @param recursive is recursive on sub directories
 	 * @return non-null {@link Set}
 	 */
+
 	public static Set<String> getClassNamesInClassPath(String classPath, boolean recursive) {
 		Set<String> classNames = classPathToClassNamesMap.get(classPath);
 		if (CollectionUtils.isEmpty(classNames)) {
@@ -986,7 +1038,19 @@ public abstract class ClassUtils {
 			Object value = values[i];
 			types[i] = value == null ? null : value.getClass();
 		}
-
 		return types;
+	}
+
+	public static boolean arrayTypeEquals(Class<?> oneArrayType, Class<?> anotherArrayType) {
+		if (!isArray(oneArrayType) || !isArray(anotherArrayType)) {
+			return false;
+		}
+		Class<?> oneComponentType = oneArrayType.getComponentType();
+		Class<?> anotherComponentType = anotherArrayType.getComponentType();
+		if (isArray(oneComponentType) && isArray(anotherComponentType)) {
+			return arrayTypeEquals(oneComponentType, anotherComponentType);
+		} else {
+			return Objects.equals(oneComponentType, anotherComponentType);
+		}
 	}
 }

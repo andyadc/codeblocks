@@ -1,18 +1,20 @@
 package com.andyadc.codeblocks.common.util;
 
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class MapUtils extends BaseUtils {
 
-	public static Map<Object, Object> of(Object... values) {
+	public static Map of(Object... values) {
 		int length = values.length;
-		Map<Object, Object> map = new LinkedHashMap<>(length / 2);
+		Map map = new HashMap<>(length / 2);
 		for (int i = 0; i < length; ) {
 			map.put(values[i++], values[i++]);
 		}
-		return map;
+		return Collections.unmodifiableMap(map);
 	}
 
 	public static <K, V> Map<K, V> newLinkedHashMap() {
