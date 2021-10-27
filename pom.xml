@@ -54,7 +54,7 @@
 		<rabbitmq-clients.version>5.13.1</rabbitmq-clients.version>
 		<jackson.version>2.12.5</jackson.version>
 		<fastjson.version>1.2.78</fastjson.version>
-		<joda-time.version>2.10.12</joda-time.version>
+		<joda-time.version>2.10.13</joda-time.version>
 		<guava.version>31.0.1-jre</guava.version>
 		<tomcat-jdbc.version>9.0.53</tomcat-jdbc.version>
 		<hikaricp.version>4.0.3</hikaricp.version>
