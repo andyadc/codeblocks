@@ -1,7 +1,12 @@
 package com.andyadc.test.http;
 
+import com.andyadc.codeblocks.common.annotation.NotNull;
+import com.andyadc.codeblocks.kit.idgen.UUID;
 import okhttp3.CipherSuite;
 import okhttp3.ConnectionSpec;
+import okhttp3.Cookie;
+import okhttp3.CookieJar;
+import okhttp3.HttpUrl;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -14,9 +19,31 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 public class OkHttpTests {
+
+	public void testCookie() {
+		OkHttpClient.Builder builder = new OkHttpClient.Builder();
+		builder.cookieJar(new CookieJar() {
+			@Override
+			public void saveFromResponse(@NotNull HttpUrl httpUrl, @NotNull List<Cookie> list) {
+
+			}
+
+			@NotNull
+			@Override
+			public List<Cookie> loadForRequest(@NotNull HttpUrl httpUrl) {
+				Cookie cookie = new Cookie.Builder()
+					.hostOnlyDomain(httpUrl.host())
+					.name("session").value(UUID.randomUUID())
+					.build();
+				return Arrays.asList(cookie);
+			}
+		});
+	}
 
 	public static final MediaType MEDIA_TYPE_MARKDOWN
 		= MediaType.parse("text/x-markdown; charset=utf-8");
