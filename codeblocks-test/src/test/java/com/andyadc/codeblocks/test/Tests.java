@@ -1,5 +1,6 @@
 package com.andyadc.codeblocks.test;
 
+import com.andyadc.codeblocks.framework.http.HttpRequestException;
 import com.andyadc.codeblocks.kit.concurrent.ThreadUtil;
 import org.junit.jupiter.api.Test;
 
@@ -13,6 +14,19 @@ import org.junit.jupiter.api.Test;
  * 3、assert断言失败将面临程序的退出。这在一个生产环境下的应用是绝不能容忍的。一般都是通过异常处理来解决程序中潜在的错误。但是使用断言就很危险，一旦失败系统就挂了。
  */
 public class Tests {
+
+	@Test
+	public void testTry() {
+		try {
+			System.out.println("try");
+			throw new HttpRequestException("aaa");
+		} catch (Exception e) {
+			System.out.println("catch");
+			throw new HttpRequestException(e);
+		} finally {
+			System.out.println("finally");
+		}
+	}
 
 	@Test
 	public void test001() {

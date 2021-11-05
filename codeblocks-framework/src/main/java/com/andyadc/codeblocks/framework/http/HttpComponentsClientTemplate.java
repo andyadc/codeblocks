@@ -180,7 +180,6 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 			int statusCode = statusLine.getStatusCode();
 			if (statusCode != HttpStatus.SC_OK) { // 200
 				request.abort();
-				EntityUtils.consume(response.getEntity());
 				throw new HttpRequestException("HttpClient error, code: " + statusCode + ", message: " + statusLine.getReasonPhrase());
 			}
 			HttpEntity entity = response.getEntity();
@@ -188,7 +187,6 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 			if (entity != null) {
 				result = EntityUtils.toString(entity, charset);
 			}
-			EntityUtils.consume(entity);
 			return result;
 		} catch (Exception e) {
 			if (response != null) {
