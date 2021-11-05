@@ -173,11 +173,14 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 	}
 
 	private String process(HttpUriRequest request) throws Exception {
-		try (CloseableHttpResponse response = httpClient.execute(request)) {
+		CloseableHttpResponse response = null;
+		try {
+			response = httpClient.execute(request);
 			StatusLine statusLine = response.getStatusLine();
 			int statusCode = statusLine.getStatusCode();
 			if (statusCode != HttpStatus.SC_OK) { // 200
 				request.abort();
+				EntityUtils.consume(response.getEntity());
 				throw new HttpRequestException("HttpClient error, code: " + statusCode + ", message: " + statusLine.getReasonPhrase());
 			}
 			HttpEntity entity = response.getEntity();
@@ -187,6 +190,11 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 			}
 			EntityUtils.consume(entity);
 			return result;
+		} catch (Exception e) {
+			if (response != null) {
+				EntityUtils.consume(response.getEntity());
+			}
+			throw new HttpRequestException(e);
 		}
 	}
 
