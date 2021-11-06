@@ -3,6 +3,15 @@ package com.andyadc.codeblocks.test;
 import com.andyadc.codeblocks.framework.http.HttpRequestException;
 import com.andyadc.codeblocks.kit.concurrent.ThreadUtil;
 import org.junit.jupiter.api.Test;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.support.PropertiesLoaderUtils;
+
+import java.io.IOException;
+import java.nio.file.*;
+import java.time.LocalTime;
+import java.util.Objects;
+import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 /**
  * assert关键字用法简单，但是使用assert往往会让你陷入越来越深的陷阱中。应避免使用。笔者经过研究，总结了以下原因：
@@ -14,6 +23,66 @@ import org.junit.jupiter.api.Test;
  * 3、assert断言失败将面临程序的退出。这在一个生产环境下的应用是绝不能容忍的。一般都是通过异常处理来解决程序中潜在的错误。但是使用断言就很危险，一旦失败系统就挂了。
  */
 public class Tests {
+
+	private static String filename = null;
+	private static ClassPathResource resource = null;
+	private static WatchService watchService = null;
+	private static Properties properties = null;
+
+	static {
+
+		try {
+			filename = "app.properties";
+			resource = new ClassPathResource(filename);
+			watchService = FileSystems.getDefault().newWatchService();
+			Paths.get(resource.getFile().getParent())
+				.register(watchService,
+					StandardWatchEventKinds.ENTRY_MODIFY,
+					StandardWatchEventKinds.ENTRY_DELETE
+				);
+
+			properties = PropertiesLoaderUtils.loadProperties(resource);
+			System.out.println(">>>" + properties);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		Thread watchThread = new Thread(() -> {
+			while (true) {
+				try {
+					WatchKey watchKey = watchService.take();
+					for (WatchEvent<?> watchEvent : watchKey.pollEvents()) {
+						if (Objects.equals(watchEvent.context().toString(), filename)) {
+							properties = PropertiesLoaderUtils.loadProperties(resource);
+							break;
+						}
+					}
+					watchKey.reset();
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+
+		watchThread.setDaemon(true);
+		watchThread.start();
+
+		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+			try {
+				watchService.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}));
+	}
+
+	@Test
+	public void testWatchService() throws InterruptedException {
+		while (true) {
+			System.out.println(LocalTime.now() + " - " + properties);
+			TimeUnit.SECONDS.sleep(3L);
+		}
+	}
 
 	@Test
 	public void testTry() {
