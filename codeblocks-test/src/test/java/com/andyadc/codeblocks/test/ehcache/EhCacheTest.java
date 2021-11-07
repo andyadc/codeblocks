@@ -1,19 +1,27 @@
 package com.andyadc.codeblocks.test.ehcache;
 
+import com.github.benmanes.caffeine.cache.Policy;
 import org.ehcache.Cache;
 import org.ehcache.CacheManager;
 import org.ehcache.PersistentCacheManager;
+import org.ehcache.config.CacheConfiguration;
 import org.ehcache.config.Configuration;
 import org.ehcache.config.builders.CacheConfigurationBuilder;
 import org.ehcache.config.builders.CacheManagerBuilder;
+import org.ehcache.config.builders.PooledExecutionServiceConfigurationBuilder;
 import org.ehcache.config.builders.ResourcePoolsBuilder;
 import org.ehcache.config.units.EntryUnit;
 import org.ehcache.config.units.MemoryUnit;
 import org.ehcache.core.EhcacheManager;
+import org.ehcache.expiry.Duration;
+import org.ehcache.expiry.Expirations;
+import org.ehcache.expiry.ExpiryPolicy;
+import org.ehcache.impl.config.persistence.CacheManagerPersistenceConfiguration;
 import org.ehcache.xml.XmlConfiguration;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 import static org.ehcache.config.builders.CacheConfigurationBuilder.newCacheConfigurationBuilder;
 import static org.ehcache.config.builders.CacheManagerBuilder.newCacheManagerBuilder;
@@ -22,6 +30,31 @@ import static org.ehcache.config.builders.CacheManagerBuilder.newCacheManagerBui
  * andy.an
  */
 public class EhCacheTest {
+
+	@Test
+	public void testPersistenceBuild() {
+		CacheManager cacheManager = CacheManagerBuilder.newCacheManagerBuilder()
+			.using(PooledExecutionServiceConfigurationBuilder
+				.newPooledExecutionServiceConfigurationBuilder()
+				.defaultPool("default", 1, 10)
+				.build())
+			.with(new CacheManagerPersistenceConfiguration(
+				new File("/cache")
+			))
+			.build(true);
+
+		CacheConfigurationBuilder.newCacheConfigurationBuilder(
+			String.class, String.class,
+			ResourcePoolsBuilder.newResourcePoolsBuilder()
+				.disk(100L, MemoryUnit.MB, true)
+		).withDiskStoreThreadPool("defulat", 5)
+			.withExpiry(Expirations.timeToLiveExpiration(Duration.of(50, TimeUnit.SECONDS)))
+			.withSizeOfMaxObjectGraph(3)
+			.withSizeOfMaxObjectSize(1L, MemoryUnit.KB);
+
+
+		cacheManager.close();
+	}
 
 	@Test
 	public void basicXML() {
