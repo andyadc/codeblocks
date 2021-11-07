@@ -50,8 +50,11 @@ public class Tests {
 		Thread watchThread = new Thread(() -> {
 			while (true) {
 				try {
+					System.out.println("111");
 					WatchKey watchKey = watchService.take();
+					System.out.println("222");
 					for (WatchEvent<?> watchEvent : watchKey.pollEvents()) {
+						System.out.println("333");
 						if (Objects.equals(watchEvent.context().toString(), filename)) {
 							properties = PropertiesLoaderUtils.loadProperties(resource);
 							break;
@@ -76,12 +79,16 @@ public class Tests {
 		}));
 	}
 
-	@Test
-	public void testWatchService() throws InterruptedException {
+	public static void main(String[] args) throws Exception {
 		while (true) {
 			System.out.println(LocalTime.now() + " - " + properties);
 			TimeUnit.SECONDS.sleep(3L);
 		}
+	}
+
+	@Test
+	public void testWatchService() throws InterruptedException {
+
 	}
 
 	@Test
