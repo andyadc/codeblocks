@@ -1,6 +1,5 @@
 package com.andyadc.codeblocks.test.ehcache;
 
-import com.github.benmanes.caffeine.cache.Policy;
 import org.ehcache.Cache;
 import org.ehcache.CacheManager;
 import org.ehcache.PersistentCacheManager;
@@ -8,50 +7,58 @@ import org.ehcache.config.CacheConfiguration;
 import org.ehcache.config.Configuration;
 import org.ehcache.config.builders.CacheConfigurationBuilder;
 import org.ehcache.config.builders.CacheManagerBuilder;
+import org.ehcache.config.builders.ExpiryPolicyBuilder;
 import org.ehcache.config.builders.PooledExecutionServiceConfigurationBuilder;
 import org.ehcache.config.builders.ResourcePoolsBuilder;
 import org.ehcache.config.units.EntryUnit;
 import org.ehcache.config.units.MemoryUnit;
 import org.ehcache.core.EhcacheManager;
-import org.ehcache.expiry.Duration;
-import org.ehcache.expiry.Expirations;
-import org.ehcache.expiry.ExpiryPolicy;
 import org.ehcache.impl.config.persistence.CacheManagerPersistenceConfiguration;
 import org.ehcache.xml.XmlConfiguration;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.util.concurrent.TimeUnit;
-
-import static org.ehcache.config.builders.CacheConfigurationBuilder.newCacheConfigurationBuilder;
-import static org.ehcache.config.builders.CacheManagerBuilder.newCacheManagerBuilder;
+import java.time.Duration;
 
 /**
  * andy.an
  */
 public class EhCacheTest {
 
+	private static final String cache_path = "/opt/ehcache";
+
+	/**
+	 * disk
+	 */
 	@Test
-	public void testPersistenceBuild() {
+	public void testThreadPoolAndPersistence() {
+		String thread_pool_alias = "default";
 		CacheManager cacheManager = CacheManagerBuilder.newCacheManagerBuilder()
 			.using(PooledExecutionServiceConfigurationBuilder
 				.newPooledExecutionServiceConfigurationBuilder()
-				.defaultPool("default", 1, 10)
+				.defaultPool(thread_pool_alias, 1, 10)
 				.build())
 			.with(new CacheManagerPersistenceConfiguration(
-				new File("/cache")
+				new File(cache_path)
 			))
 			.build(true);
 
-		CacheConfigurationBuilder.newCacheConfigurationBuilder(
+		CacheConfiguration<String, String> configuration = CacheConfigurationBuilder.newCacheConfigurationBuilder(
 			String.class, String.class,
 			ResourcePoolsBuilder.newResourcePoolsBuilder()
 				.disk(100L, MemoryUnit.MB, true)
-		).withDiskStoreThreadPool("defulat", 5)
-			.withExpiry(Expirations.timeToLiveExpiration(Duration.of(50, TimeUnit.SECONDS)))
-			.withSizeOfMaxObjectGraph(3)
-			.withSizeOfMaxObjectSize(1L, MemoryUnit.KB);
+		).withDiskStoreThreadPool(thread_pool_alias, 5)
+			.withExpiry(
+				ExpiryPolicyBuilder.timeToLiveExpiration(Duration.ofSeconds(10L))
+			)
+			.withSizeOfMaxObjectGraph(3L)
+			.withSizeOfMaxObjectSize(1L, MemoryUnit.KB)
+			.build();
 
+		Cache<String, String> cache = cacheManager.createCache("mycache", configuration);
+		cache.put("name", "adc");
+
+		System.out.println(cache.get("name"));
 
 		cacheManager.close();
 	}
@@ -71,8 +78,8 @@ public class EhCacheTest {
 
 	@Test
 	public void basicProgrammatic() {
-		CacheManager cacheManager = newCacheManagerBuilder()
-			.withCache("basicCache", newCacheConfigurationBuilder(Long.class, String.class,
+		CacheManager cacheManager = CacheManagerBuilder.newCacheManagerBuilder()
+			.withCache("basicCache", CacheConfigurationBuilder.newCacheConfigurationBuilder(Long.class, String.class,
 				ResourcePoolsBuilder.newResourcePoolsBuilder()
 					.heap(10, EntryUnit.ENTRIES)
 					.offheap(1, MemoryUnit.MB)
