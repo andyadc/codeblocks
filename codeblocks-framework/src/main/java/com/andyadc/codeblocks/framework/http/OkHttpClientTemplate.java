@@ -166,7 +166,7 @@ public class OkHttpClientTemplate extends AbstractHttpClientTemplate {
 	private String process(Request request) throws IOException {
 		try (Response response = httpClient.newCall(request).execute()) {
 			if (!response.isSuccessful()) {
-				throw new RuntimeException("OkHttpClient unexpected code " + response);
+				throw new RuntimeException("OkHttpClient unexpected error >>> " + response);
 			}
 			ResponseBody body = response.body();
 			String result = null;

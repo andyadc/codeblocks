@@ -91,8 +91,8 @@ public class HttpClientTemplateTest {
 		Map<String, String> headerMap = new HashMap<>();
 		headerMap.put("header1", "header1");
 
-//		String result = template.post("http://localhost:9999/hello/", json, params);
-		String result = template.form("http://localhost:9999/echo/hello/", params, headerMap);
+		String result = template.post("http://localhost:9999/samples", json, params);
+//		String result = template.form("http://localhost:9999/echo/hello/", params, headerMap);
 
 		System.out.println(result);
 	}
@@ -108,8 +108,9 @@ public class HttpClientTemplateTest {
 		Map<String, String> headerMap = new HashMap<>();
 		headerMap.put("header1", "header1");
 
-//		String result = template.post("http://localhost:9999/hello/", json, params);
-		String result = template.form("http://localhost:9999/echo/hello/", params, headerMap);
+		String result = template.post("http://localhost:9999/samples", json);
+//		String result = template.post("http://localhost:9999/samples", json, params);
+//		String result = template.form("http://localhost:9999/echo/hello/", params, headerMap);
 
 		System.out.println(result);
 	}
