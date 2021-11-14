@@ -28,7 +28,50 @@ public class EhCacheTest {
 	private static final String cache_path = "/opt/ehcache";
 
 	/**
-	 * disk
+	 * offheap cache
+	 * 使用堆外缓存， 需要添加 JVM 启动参数， 如 -XX：MaxDirectMemorySize=10G
+	 */
+	@Test
+	public void testOffheapCache() {
+		CacheManager cacheManager = CacheManagerBuilder.newCacheManagerBuilder().build(true);
+
+		CacheConfigurationBuilder<String, String> configuration = CacheConfigurationBuilder.newCacheConfigurationBuilder(
+			String.class, String.class,
+			ResourcePoolsBuilder.newResourcePoolsBuilder()
+				.offheap(100L, MemoryUnit.MB)
+		)
+			.withDispatcherConcurrency(4)
+			.withExpiry(
+				ExpiryPolicyBuilder.timeToLiveExpiration(Duration.ofSeconds(10L))
+			)
+			.withSizeOfMaxObjectGraph(3)
+			.withSizeOfMaxObjectSize(1, MemoryUnit.KB);
+
+		Cache<String, String> mycache = cacheManager.createCache("mycache", configuration);
+	}
+
+	/**
+	 * heap cache
+	 */
+	@Test
+	public void testHeapCache() {
+		CacheManager cacheManager = CacheManagerBuilder.newCacheManagerBuilder().build(true);
+
+		CacheConfigurationBuilder<String, String> configuration = CacheConfigurationBuilder.newCacheConfigurationBuilder(
+			String.class, String.class,
+			ResourcePoolsBuilder.newResourcePoolsBuilder()
+				.heap(100L, EntryUnit.ENTRIES) // 设置缓存的条目数量，当超出此数量时按 LRU 进行缓存回收
+		)
+			.withDispatcherConcurrency(4)
+			.withExpiry(
+				ExpiryPolicyBuilder.timeToLiveExpiration(Duration.ofSeconds(10L))
+			);
+
+		Cache<String, String> mycache = cacheManager.createCache("mycache", configuration);
+	}
+
+	/**
+	 * disk cache
 	 */
 	@Test
 	public void testThreadPoolAndPersistence() {
