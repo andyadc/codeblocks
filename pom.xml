@@ -413,6 +413,11 @@
 				<artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
 				<version>1.2.7</version>
 			</dependency>
+			<dependency>
+				<groupId>org.glassfish</groupId>
+				<artifactId>jakarta.el</artifactId>
+				<version>3.0.3</version>
+			</dependency>
 			<!-- https://github.com/jsr107/jsr107spec -->
 			<dependency>
 				<groupId>javax.cache</groupId>
