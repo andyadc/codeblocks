@@ -83,7 +83,7 @@
 		<zxing.version>3.4.1</zxing.version>
 		<poi.version>5.1.0</poi.version>
 		<slf4j.version>1.7.32</slf4j.version>
-		<logback.version>1.2.6</logback.version>
+		<logback.version>1.2.7</logback.version>
 		<mockito.version>4.0.0</mockito.version>
 		<junit.version>4.13.2</junit.version>
 		<junit-jupiter.version>5.8.1</junit-jupiter.version>
