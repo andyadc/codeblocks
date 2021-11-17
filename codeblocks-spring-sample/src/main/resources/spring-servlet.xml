@@ -46,7 +46,6 @@
 
             <!-- 等价于下面 xml 配置 -->
             <!--<bean class="com.andyadc.codeblocks.framework.jackson.CustomerMappingJackson2HttpMessageConverter">-->
-
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
                 <property name="prettyPrint" value="false"/>
                 <property name="objectMapper">
@@ -71,8 +70,6 @@
     <!--1、首先检查路径扩展名（如my.pdf）；2、其次检查Parameter（如my?format=pdf）；3、检查Accept Header -->
     <bean id="contentNegotiationManager"
           class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
-        <!-- 扩展名至mimeType的映射,即 /user.json => application/json -->
-        <property name="favorPathExtension" value="true"/>
         <!-- 用于开启 /userinfo/123?format=json 的支持 -->
         <property name="favorParameter" value="true"/>
         <property name="parameterName" value="format"/>
