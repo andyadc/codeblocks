@@ -30,7 +30,6 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * ref:https://www.iteye.com/blog/shift-alt-ctrl-2433670
  * <p>
  * 1.基于HttpClient 4.5 +
  * 2.仅实现同步调用
