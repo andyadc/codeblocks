@@ -65,7 +65,7 @@ public abstract class URLUtils {
 		String jarPath = StringUtils.substringBetween(archiveFilePath, prefix, suffix);
 		File archiveFile = null;
 		if (StringUtils.isNotBlank(jarPath)) {
-			jarPath = PathConstants.SLASH + URLUtils.decode(jarPath);
+			jarPath = PathConstants.SLASH + decode(jarPath);
 			archiveFile = new File(jarPath);
 			archiveFile = archiveFile.exists() ? archiveFile : null;
 		}
@@ -214,7 +214,7 @@ public abstract class URLUtils {
 	 *         If character encoding needs to be consulted, but named character encoding is not supported
 	 */
 	public static String decode(String value, String encoding) throws IllegalArgumentException {
-		String decodedValue = null;
+		String decodedValue;
 		try {
 			decodedValue = URLDecoder.decode(value, encoding);
 		} catch (Exception e) {
@@ -271,6 +271,7 @@ public abstract class URLUtils {
 				JarFile jarFile = new JarFile(file);
 				flag = jarFile != null;
 			} catch (Exception e) {
+				flag = false;
 			}
 		} else if (JAR.equals(protocol)) {
 			flag = true;

@@ -45,8 +45,9 @@ public abstract class ServiceLoaders {
 
 	public static <T> ServiceLoader<T> load(Class<T> serviceClass, ClassLoader classLoader) {
 		Map<Class<?>, ServiceLoader<?>> serviceLoadersMap = serviceLoadersCache.computeIfAbsent(classLoader, cl -> new ConcurrentHashMap<>());
-		ServiceLoader<T> serviceLoader = (ServiceLoader<T>) serviceLoadersMap.computeIfAbsent(serviceClass,
-			service -> ServiceLoader.load(service, classLoader));
-		return serviceLoader;
+		return (ServiceLoader<T>) serviceLoadersMap.computeIfAbsent(
+			serviceClass,
+			service -> ServiceLoader.load(service, classLoader)
+		);
 	}
 }

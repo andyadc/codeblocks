@@ -117,7 +117,8 @@ public class MethodUtils {
 	 * @return non-null read-only {@link Set}
 	 * @see #getMethods(Class, boolean, boolean, Predicate[])
 	 */
-	public static Set<Method> getAllMethods(Class<?> declaringClass, Predicate<? super Method>... methodsToFilter) {
+	public static Set<Method> getAllMethods(Class<?> declaringClass,
+											Predicate<? super Method>... methodsToFilter) {
 		return getMethods(declaringClass, true, true, methodsToFilter);
 	}
 
@@ -140,13 +141,15 @@ public class MethodUtils {
 	 * @param parameterTypes the parameter types
 	 * @return if not found, return <code>null</code>
 	 */
-	static Method findMethod(Class<?> type, String methodName, Class<?>... parameterTypes) {
+	static Method findMethod(Class<?> type,
+							 String methodName,
+							 Class<?>... parameterTypes) {
 		Method method = null;
 		try {
 			if (type != null && StringUtils.isNotEmpty(methodName)) {
 				method = type.getDeclaredMethod(methodName, parameterTypes);
 			}
-		} catch (NoSuchMethodException e) {
+		} catch (NoSuchMethodException ignored) {
 		}
 		return method;
 	}
@@ -160,7 +163,9 @@ public class MethodUtils {
 	 * @param <T>             the return type
 	 * @return the target method's execution result
 	 */
-	public static <T> T invokeMethod(Object object, String methodName, Object... parameterValues) {
+	public static <T> T invokeMethod(Object object,
+									 String methodName,
+									 Object... parameterValues) {
 		Class<?>[] parameterTypes = ClassUtils.resolveTypes(parameterValues);
 		return invokeMethod(object, methodName, parameterTypes, parameterValues);
 	}
@@ -175,8 +180,11 @@ public class MethodUtils {
 	 * @param <T>             the return type
 	 * @return the target method's execution result
 	 */
-	public static <T> T invokeMethod(Object object, String methodName, Class[] parameterTypes, Object[] parameterValues) {
-		Class type = object.getClass();
+	public static <T> T invokeMethod(Object object,
+									 String methodName,
+									 Class<?>[] parameterTypes,
+									 Object[] parameterValues) {
+		Class<?> type = object.getClass();
 		Method method = findMethod(type, methodName, parameterTypes);
 		if (method == null) {
 			throw new IllegalStateException(String.format("cannot find method %s,class: %s", methodName, type.getName()));
@@ -184,15 +192,16 @@ public class MethodUtils {
 		return invokeMethod(object, method, parameterValues);
 	}
 
-	public static <T> T invokeMethod(Object object, Method method, Object... parameterValues) {
-		T value = null;
+	public static <T> T invokeMethod(Object object,
+									 Method method,
+									 Object... parameterValues) {
+		T value;
 		try {
 			enableAccessible(method);
 			value = (T) method.invoke(object, parameterValues);
 		} catch (Exception e) {
 			throw new IllegalArgumentException(e);
 		}
-
 		return value;
 	}
 
@@ -209,53 +218,43 @@ public class MethodUtils {
 	 * @see Elements#overrides(ExecutableElement, ExecutableElement, TypeElement)
 	 */
 	public static boolean overrides(Method overrider, Method overridden) {
-
 		if (overrider == null || overridden == null) {
 			return false;
 		}
-
 		// equality comparison: If two methods are same
 		if (Objects.equals(overrider, overridden)) {
 			return false;
 		}
-
 		// Modifiers comparison: Any method must be non-static method
 		if (isStatic(overrider) || isStatic(overridden)) { //
 			return false;
 		}
-
 		// Modifiers comparison: the accessibility of any method must not be private
 		if (isPrivate(overrider) || isPrivate(overridden)) {
 			return false;
 		}
-
 		// Inheritance comparison: The declaring class of overrider must be inherit from the overridden's
 		if (!overridden.getDeclaringClass().isAssignableFrom(overrider.getDeclaringClass())) {
 			return false;
 		}
-
 		// Method comparison: must not be "default" method
 		if (overrider.isDefault()) {
 			return false;
 		}
-
 		// Method comparison: The method name must be equal
 		if (!Objects.equals(overrider.getName(), overridden.getName())) {
 			return false;
 		}
-
 		// Method comparison: The count of method parameters must be equal
 		if (!Objects.equals(overrider.getParameterCount(), overridden.getParameterCount())) {
 			return false;
 		}
-
 		// Method comparison: Any parameter type of overrider must equal the overridden's
 		for (int i = 0; i < overrider.getParameterCount(); i++) {
 			if (!Objects.equals(overridden.getParameterTypes()[i], overrider.getParameterTypes()[i])) {
 				return false;
 			}
 		}
-
 		// Method comparison: The return type of overrider must be inherit from the overridden's
 		return overridden.getReturnType().isAssignableFrom(overrider.getReturnType());
 

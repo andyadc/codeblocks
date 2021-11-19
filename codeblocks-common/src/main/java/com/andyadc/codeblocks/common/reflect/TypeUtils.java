@@ -89,7 +89,6 @@ public abstract class TypeUtils extends BaseUtils {
 				actualTypeArgumentClasses.add(rawClass);
 			}
 		}
-
 		return unmodifiableList(actualTypeArgumentClasses);
 	}
 
@@ -163,7 +162,6 @@ public abstract class TypeUtils extends BaseUtils {
 	public static List<ParameterizedType> getAllGenericSuperClasses(Type type,
 																	Predicate<ParameterizedType>... typeFilters) {
 		Class<?> rawClass = getRawClass(type);
-
 		if (rawClass == null || rawClass.isInterface()) {
 			return emptyList();
 		}
@@ -180,7 +178,6 @@ public abstract class TypeUtils extends BaseUtils {
 			.filter(TypeUtils::isParameterizedType)
 			.map(ParameterizedType.class::cast)
 			.collect(Collectors.toList());
-
 		return filter(allGenericSuperClasses, typeFilters);
 	}
 
@@ -393,7 +390,6 @@ public abstract class TypeUtils extends BaseUtils {
 
 	public static Set<Type> getAllTypes(Type type, Predicate<Type>... typeFilters) {
 		Set<Type> allTypes = new LinkedHashSet<>();
-
 		// add the specified type
 		allTypes.add(type);
 		// add all super types
@@ -421,7 +417,6 @@ public abstract class TypeUtils extends BaseUtils {
 				.map(Class.class::cast)
 				.forEach(superClass -> parameterizedTypes.addAll(findParameterizedTypes(superClass)));
 		}
-
 		return Collections.unmodifiableSet(parameterizedTypes);                     // build as a Set
 	}
 }

@@ -179,11 +179,9 @@ public abstract class CollectionUtils extends BaseUtils {
 		if (one == another) {
 			return true;
 		}
-
 		if (isEmpty(one) && isEmpty(another)) {
 			return true;
 		}
-
 		if (size(one) != size(another)) {
 			return false;
 		}
@@ -205,7 +203,6 @@ public abstract class CollectionUtils extends BaseUtils {
 	 */
 	public static <T> int addAll(Collection<T> collection, T... values) {
 		int size = values == null ? 0 : values.length;
-
 		if (collection == null || size < 1) {
 			return 0;
 		}

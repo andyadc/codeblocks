@@ -25,15 +25,12 @@ public abstract class ProxyUtils {
 		if (ClassUtils.isArray(type)) {
 			return false;
 		}
-
 		if (ClassUtils.isPrimitive(type)) {
 			return false;
 		}
-
 		if (ClassUtils.isFinal(type)) {
 			return false;
 		}
-
 		if (!ConstructorUtils.hasNonPrivateConstructorWithoutParameters(type)) {
 			return false;
 		}
@@ -42,7 +39,8 @@ public abstract class ProxyUtils {
 			MemberUtils.NON_STATIC_METHOD_PREDICATE,
 			MemberUtils.FINAL_METHOD_PREDICATE,
 			MemberUtils.NON_PRIVATE_METHOD_PREDICATE,
-			MethodUtils.OBJECT_METHOD_PREDICATE.negate());
+			MethodUtils.OBJECT_METHOD_PREDICATE.negate()
+		);
 
 		Set<Method> methods = MethodUtils.getAllDeclaredMethods(type, predicate);
 		return methods.isEmpty();

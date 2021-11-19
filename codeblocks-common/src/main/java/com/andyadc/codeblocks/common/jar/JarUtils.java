@@ -53,7 +53,8 @@ public class JarUtils {
 	 */
 	protected static void assertJarURLProtocol(URL jarURL) throws NullPointerException, IllegalArgumentException {
 		final String protocol = jarURL.getProtocol(); //NPE check
-		if (!ProtocolConstants.JAR.equals(protocol) && !ProtocolConstants.FILE.equals(protocol)) {
+		if (!ProtocolConstants.JAR.equals(protocol)
+			&& !ProtocolConstants.FILE.equals(protocol)) {
 			String message = String.format("jarURL Protocol[%s] is unsupported ,except %s and %s ", protocol, ProtocolConstants.JAR, ProtocolConstants.FILE);
 			throw new IllegalArgumentException(message);
 		}
@@ -115,8 +116,7 @@ public class JarUtils {
 	public static JarEntry findJarEntry(URL jarURL) throws IOException {
 		JarFile jarFile = JarUtils.toJarFile(jarURL);
 		final String relativePath = JarUtils.resolveRelativePath(jarURL);
-		JarEntry jarEntry = jarFile.getJarEntry(relativePath);
-		return jarEntry;
+		return jarFile.getJarEntry(relativePath);
 	}
 
 	/**

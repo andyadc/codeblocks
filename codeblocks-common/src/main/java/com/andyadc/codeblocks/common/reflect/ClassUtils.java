@@ -87,7 +87,6 @@ public abstract class ClassUtils {
 	 * </ul>
 	 *
 	 * @see javax.management.openmbean.SimpleType
-	 * @since 1.0.0
 	 */
 	public static final Set<Class<?>> SIMPLE_TYPES = asSet(
 		Void.class,
@@ -1009,7 +1008,6 @@ public abstract class ClassUtils {
 				try {
 					codeSourceLocation = new File(path).toURI().toURL();
 				} catch (MalformedURLException ignored) {
-					codeSourceLocation = null;
 				}
 			}
 		} else {

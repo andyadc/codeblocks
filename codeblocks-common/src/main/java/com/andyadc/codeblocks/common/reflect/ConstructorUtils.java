@@ -20,7 +20,8 @@ public abstract class ConstructorUtils {
 	 * otherwise <code>false</code>
 	 */
 	public static boolean isNonPrivateConstructorWithoutParameters(Constructor<?> constructor) {
-		return !MemberUtils.isPrivate(constructor) && constructor.getParameterCount() < 1;
+		return !MemberUtils.isPrivate(constructor)
+			&& constructor.getParameterCount() < 1;
 	}
 
 	public static boolean hasNonPrivateConstructorWithoutParameters(Class<?> type) {

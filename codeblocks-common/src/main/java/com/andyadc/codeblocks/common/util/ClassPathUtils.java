@@ -27,7 +27,7 @@ public class ClassPathUtils {
 		if (runtimeMXBean.isBootClassPathSupported()) {
 			bootstrapClassPaths = resolveClassPaths(runtimeMXBean.getBootClassPath());
 		}
-		return Collections.unmodifiableSet(bootstrapClassPaths);
+		return bootstrapClassPaths;
 	}
 
 	private static Set<String> initClassPaths() {
@@ -98,6 +98,7 @@ public class ClassPathUtils {
 				CodeSource codeSource = protectionDomain.getCodeSource();
 				location = codeSource == null ? null : codeSource.getLocation();
 			} catch (SecurityException exception) {
+				location = null;
 			}
 		} else if (!type.isPrimitive() && !type.isArray() && !type.isSynthetic()) { // Bootstrap ClassLoader
 			// Class was loaded by Bootstrap ClassLoader

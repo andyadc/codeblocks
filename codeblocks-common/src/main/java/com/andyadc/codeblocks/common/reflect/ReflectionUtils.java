@@ -24,7 +24,6 @@ public abstract class ReflectionUtils {
 	 * Sun JDK 实现类：sun.reflect.Reflection全名称
 	 */
 	public static final String SUN_REFLECT_REFLECTION_CLASS_NAME = "sun.reflect.Reflection";
-
 	/**
 	 * Current Type
 	 */
@@ -102,8 +101,6 @@ public abstract class ReflectionUtils {
 
 	/**
 	 * Get Caller class
-	 *
-	 * @return 获取调用该方法的 Class name
 	 */
 	public static String getCallerClassName() {
 		return getCallerClassName(sunReflectReflectionInvocationFrame);
@@ -115,7 +112,6 @@ public abstract class ReflectionUtils {
 	 * @param invocationFrame invocation frame
 	 * @return Class name under specified invocation frame
 	 * @throws IndexOutOfBoundsException 当<code>invocationFrame</code>数值为负数或者超出实际的层次
-	 * @see Thread#getStackTrace()
 	 */
 	protected static String getCallerClassName(int invocationFrame) throws IndexOutOfBoundsException {
 		if (supportedSunReflectReflection) {
@@ -128,8 +124,6 @@ public abstract class ReflectionUtils {
 
 	/**
 	 * 通用实现方式，获取调用类名
-	 *
-	 * @return 调用类名
 	 * @see #getCallerClassNameInGeneralJVM(int)
 	 */
 	static String getCallerClassNameInGeneralJVM() {
@@ -174,7 +168,7 @@ public abstract class ReflectionUtils {
 	 */
 	public static Class<?> getCallerClassInGeneralJVM(int invocationFrame) {
 		String className = getCallerClassNameInGeneralJVM(invocationFrame + 1);
-		Class<?> targetClass = null;
+		Class<?> targetClass;
 		try {
 			targetClass = Class.forName(className);
 		} catch (ClassNotFoundException impossibleException) {

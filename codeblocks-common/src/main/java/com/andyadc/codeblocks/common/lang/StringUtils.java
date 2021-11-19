@@ -14,8 +14,6 @@ public class StringUtils {
 	public static final String[] EMPTY_STRING_ARRAY = new String[0];
 	/**
 	 * Represents a failed index search.
-	 *
-	 * @since 2.1
 	 */
 	public static final int INDEX_NOT_FOUND = -1;
 
@@ -151,7 +149,7 @@ public class StringUtils {
 		int increase = replacement.length() - replLength;
 		increase = (increase < 0 ? 0 : increase);
 		increase *= (max < 0 ? 16 : (max > 64 ? 64 : max));
-		StringBuffer buf = new StringBuffer(text.length() + increase);
+		StringBuilder buf = new StringBuilder(text.length() + increase);
 		while (end != INDEX_NOT_FOUND) {
 			buf.append(text, start, end).append(replacement);
 			start = end + replLength;
@@ -334,7 +332,6 @@ public class StringUtils {
 	 * @param separator the String to search for, may be null
 	 * @return the substring before the last occurrence of the separator,
 	 * <code>null</code> if null String input
-	 * @since 2.0
 	 */
 	public static String substringBeforeLast(String str, String separator) {
 		if (isEmpty(str) || isEmpty(separator)) {
@@ -374,7 +371,6 @@ public class StringUtils {
 	 * @param separator the String to search for, may be null
 	 * @return the substring after the last occurrence of the separator,
 	 * <code>null</code> if null String input
-	 * @since 2.0
 	 */
 	public static String substringAfterLast(String str, String separator) {
 		if (isEmpty(str)) {

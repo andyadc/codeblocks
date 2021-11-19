@@ -32,12 +32,11 @@ public class PriorityComparator implements Comparator<Object> {
 
 		int priorityValue1 = getValue(priority1);
 		int priorityValue2 = getValue(priority2);
-
 		return Integer.compare(priorityValue1, priorityValue2);
 	}
 
 	private static Class<?> resolveClass(Object object) {
-		return object instanceof Class ? (Class) object : object.getClass();
+		return object instanceof Class ? (Class<?>) object : object.getClass();
 	}
 
 	private static int getValue(Priority priority) {

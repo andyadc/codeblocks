@@ -80,7 +80,6 @@ public class SimpleJarEntryScanner {
 
 		for (JarEntry jarEntry : jarEntriesList) {
 			String jarEntryName = jarEntry.getName();
-
 			boolean accept = false;
 			if (recursive) {
 				accept = jarEntryName.startsWith(relativePath);

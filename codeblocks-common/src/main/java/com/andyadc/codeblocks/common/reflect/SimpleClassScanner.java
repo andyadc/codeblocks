@@ -99,7 +99,7 @@ public class SimpleClassScanner {
 					classesSet.add(class_);
 				}
 			}
-		} catch (IOException e) {
+		} catch (IOException ignored) {
 		}
 		return Collections.unmodifiableSet(classesSet);
 	}
