@@ -10,10 +10,6 @@ import org.springframework.web.context.ServletContextAware;
 
 import javax.servlet.ServletContext;
 
-/**
- * @author andy.an
- * @since 2018/6/7
- */
 //@Component
 public class StartupListener implements ApplicationContextAware, ServletContextAware, InitializingBean, ApplicationListener<ContextRefreshedEvent> {
 

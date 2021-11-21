@@ -11,10 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author andy.an
- * @since 2018/6/5
- */
+
 public class ControllerExceptionResolver implements HandlerExceptionResolver {
 
 	private static final Logger logger = LoggerFactory.getLogger(ControllerExceptionResolver.class);

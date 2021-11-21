@@ -3,10 +3,6 @@ package com.andyadc.codeblocks.showcase.common.db;
 import com.p6spy.engine.common.P6Util;
 import com.p6spy.engine.spy.appender.MessageFormattingStrategy;
 
-/**
- * andy.an
- * 2020/3/18
- */
 public class CustomizationFormat implements MessageFormattingStrategy {
 
 	@Override

@@ -1,9 +1,5 @@
 package com.andyadc.codeblocks.showcase.sys.service;
 
-/**
- * @author andaicheng
- * @version 2017/6/13
- */
 public interface SpringTransactionService {
 
     void service1();

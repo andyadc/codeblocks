@@ -8,10 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * @author andaicheng
- * @version 2017/6/13
- */
 @Service
 public class SpringTransactionServiceImpl implements SpringTransactionService {
 

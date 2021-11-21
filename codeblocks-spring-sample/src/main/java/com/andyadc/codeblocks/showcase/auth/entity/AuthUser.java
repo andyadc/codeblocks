@@ -1,6 +1,5 @@
 package com.andyadc.codeblocks.showcase.auth.entity;
 
-
 import com.andyadc.codeblocks.common.BaseEntity;
 import com.andyadc.codeblocks.common.annotation.MetaData;
 

@@ -8,10 +8,6 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-/**
- * @author andy.an
- * @since 2018/6/5
- */
 public class ControllerArgumentResolver implements HandlerMethodArgumentResolver {
 
     private static final Logger logger = LoggerFactory.getLogger(ControllerArgumentResolver.class);

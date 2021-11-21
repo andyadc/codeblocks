@@ -12,16 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
-/**
- * @author andaicheng
- * @version 2017/1/4
- */
 @Service("authService")
 public class AuthServiceImpl implements AuthService {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthServiceImpl.class);
 
-    private AuthUserMapper authUserMapper;
+    private final AuthUserMapper authUserMapper;
 
 	public AuthServiceImpl(AuthUserMapper authUserMapper) {
 		this.authUserMapper = authUserMapper;
@@ -69,5 +65,4 @@ public class AuthServiceImpl implements AuthService {
 		logger.info("Updated authUser userId={}, result={}", authUser.getId(), changed > 0);
         return authUser;
     }
-
 }

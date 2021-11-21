@@ -5,10 +5,6 @@ import com.andyadc.codeblocks.showcase.sys.service.SysService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-/**
- * @author andaicheng
- * @version 2017/2/23
- */
 @Service
 public class SysServiceImpl implements SysService {
 
