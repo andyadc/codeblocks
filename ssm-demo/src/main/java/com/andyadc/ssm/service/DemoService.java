@@ -8,10 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- * @author andy.an
- * @since 2018/9/29
- */
 @Service
 public class DemoService {
 
@@ -26,5 +22,4 @@ public class DemoService {
 		logger.info("demo id: {}", demo.getId());
 		int i = 1 / 0;
 	}
-
 }

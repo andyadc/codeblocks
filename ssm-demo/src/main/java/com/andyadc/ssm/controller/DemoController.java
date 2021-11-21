@@ -8,10 +8,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.UUID;
 
-/**
- * @author andy.an
- * @since 2018/9/29
- */
 @RequestMapping("/demo")
 @Controller
 public class DemoController {

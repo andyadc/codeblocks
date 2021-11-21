@@ -2,10 +2,6 @@ package com.andyadc.ssm.dto;
 
 import java.util.Date;
 
-/**
- * @author andy.an
- * @since 2018/9/29
- */
 public class DemoDTO {
 
 	private Long id;
