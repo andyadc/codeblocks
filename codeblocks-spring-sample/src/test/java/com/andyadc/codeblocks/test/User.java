@@ -4,10 +4,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author andy.an
- * @since 2018/8/15
- */
 public class User {
 
     private Long id;

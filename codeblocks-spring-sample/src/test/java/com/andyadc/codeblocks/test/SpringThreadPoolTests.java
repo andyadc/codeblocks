@@ -12,9 +12,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * TODO
  */
-public class ThreadPoolTests {
+public class SpringThreadPoolTests {
 
-	private static final Logger logger = LoggerFactory.getLogger(ThreadPoolTests.class);
+	private static final Logger logger = LoggerFactory.getLogger(SpringThreadPoolTests.class);
 
 	public static ThreadPoolTaskExecutor build() {
 		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();

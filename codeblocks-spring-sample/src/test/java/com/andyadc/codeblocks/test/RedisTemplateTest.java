@@ -10,10 +10,6 @@ import org.springframework.data.redis.support.atomic.RedisAtomicLong;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-/**
- * @author andy.an
- * @since 2018/5/28
- */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = {"classpath:/applicationContext.xml"})
 public class RedisTemplateTest {

@@ -5,10 +5,6 @@ import org.junit.jupiter.api.Test;
 import java.io.InputStream;
 import java.util.Properties;
 
-/**
- * @author andy.an
- * @since 2018/6/17
- */
 public class PropertiesTest {
 
     @Test
@@ -18,6 +14,5 @@ public class PropertiesTest {
         Properties properties = new Properties();
         properties.load(inputStream);
         System.out.println(properties.getProperty("app.id"));
-
     }
 }

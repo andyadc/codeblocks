@@ -3,13 +3,9 @@ package com.andyadc.codeblocks.test;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-/**
- * @author andy.an
- * @since 2018/8/15
- */
 public final class JsonUtils {
 
-    private static ObjectMapper objectMapper;
+    private static final ObjectMapper objectMapper;
 
     static {
         objectMapper = new ObjectMapper();

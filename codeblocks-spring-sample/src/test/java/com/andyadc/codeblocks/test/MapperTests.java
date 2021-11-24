@@ -8,12 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-/**
- * andy.an
- * 2020/3/27
- */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = {"classpath:/applicationContext.xml"})
 public class MapperTests {

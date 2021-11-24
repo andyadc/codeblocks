@@ -12,10 +12,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author andy.an
- * @since 2018/12/7
- */
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = {"classpath:/applicationContext.xml"})
 public class SpringProperties {
