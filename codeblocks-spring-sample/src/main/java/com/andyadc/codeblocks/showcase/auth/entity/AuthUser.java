@@ -1,49 +1,64 @@
 package com.andyadc.codeblocks.showcase.auth.entity;
 
 import com.andyadc.codeblocks.common.BaseEntity;
-import com.andyadc.codeblocks.common.annotation.MetaData;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.beans.Transient;
 import java.time.LocalDateTime;
+import java.util.StringJoiner;
 
-@MetaData(desc = "系统权限用户", tableName = "t_auth_user")
+@Table
+@Entity
 public class AuthUser extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private String username;
+	@Id
+	private Long id;
 
-    private String nickname;
+	private String username;
 
-    private String password;
+	private String nickname;
 
-    private String salt;
+	private String password;
 
-    private String mobile;
+	private String salt;
+
+	private String mobile;
 
     private String email;
 
     private Integer type;
 
-    private Integer status;
+	private Integer status;
 
-    private Integer deleted;
+	private Integer deleted;
 
-    private LocalDateTime createTime;
+	private LocalDateTime createTime;
 
-    private LocalDateTime updateTime;
+	private LocalDateTime updateTime;
 
-    private Integer version;
+	private Integer version;
 
-    public String getUsername() {
-        return username;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getNickname() {
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getNickname() {
         return nickname;
     }
 
@@ -127,30 +142,33 @@ public class AuthUser extends BaseEntity {
         return version;
     }
 
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
 
-    @Override
-    public String toString() {
-        return "AuthUser{" +
-                "username=" + username +
-                ", nickname=" + nickname +
-                ", password=" + password +
-                ", salt=" + salt +
-                ", mobile=" + mobile +
-                ", email=" + email +
-                ", type=" + type +
-                ", status=" + status +
-                ", deleted=" + deleted +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
-                ", version=" + version +
-                "} " + super.toString();
-    }
+	// TODO
+	@Transient
+	@javax.persistence.Transient
+	public String getCredentialsSalt() {
+		return username + "-" + salt;
+	}
 
-    @Transient
-    public String getCredentialsSalt() {
-        return username + "-" + salt;
-    }
+	@Override
+	public String toString() {
+		return new StringJoiner(", ", AuthUser.class.getSimpleName() + "[", "]")
+			.add("id=" + id)
+			.add("username='" + username + "'")
+			.add("nickname='" + nickname + "'")
+			.add("password='" + password + "'")
+			.add("salt='" + salt + "'")
+			.add("mobile='" + mobile + "'")
+			.add("email='" + email + "'")
+			.add("type=" + type)
+			.add("status=" + status)
+			.add("deleted=" + deleted)
+			.add("createTime=" + createTime)
+			.add("updateTime=" + updateTime)
+			.add("version=" + version)
+			.toString();
+	}
 }
