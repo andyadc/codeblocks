@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * <url>https://mkyong.com/java/java-aes-encryption-and-decryption/</url>
  */
-public class CryptoUtils {
+public final class CryptoUtils {
 
 	public static byte[] getRandomNonce(int numBytes) {
 		byte[] nonce = new byte[numBytes];
@@ -38,8 +38,7 @@ public class CryptoUtils {
 		// iterationCount = 65536
 		// keyLength = 256
 		KeySpec spec = new PBEKeySpec(password, salt, 65536, 256);
-		SecretKey secret = new SecretKeySpec(factory.generateSecret(spec).getEncoded(), "AES");
-		return secret;
+		return new SecretKeySpec(factory.generateSecret(spec).getEncoded(), "AES");
 	}
 
 	// hex representation
@@ -48,7 +47,6 @@ public class CryptoUtils {
 		for (byte b : bytes) {
 			result.append(String.format("%02x", b));
 		}
-
 		return result.toString();
 	}
 
@@ -66,7 +64,6 @@ public class CryptoUtils {
 			result.add(hex.substring(index, Math.min(index + blockSize, hex.length())));
 			index += blockSize;
 		}
-
 		return result.toString();
 	}
 }

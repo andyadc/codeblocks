@@ -16,6 +16,7 @@ import java.nio.charset.StandardCharsets;
  * i = IV bytes
  * c = content bytes (encrypted content)
  */
+@Deprecated
 public class EncryptorAesCbc {
 
 	// AES-CBC, IvParameterSpec, 16 bytes IV
