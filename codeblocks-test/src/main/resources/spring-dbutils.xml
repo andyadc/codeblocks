@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns="http://www.springframework.org/schema/beans"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- dbutils -->
+	<bean id="queryRunner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">
+		<constructor-arg ref="dataSourceProxy"/>
+	</bean>
+
+	<tx:annotation-driven proxy-target-class="true"/>
+
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSourceProxy"/>
+	</bean>
+
+	<bean id="dataSourceProxy" class="org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy">
+		<property name="targetDataSource" ref="hikariDataSource"/>
+	</bean>
+
+	<!-- HikariCP dataSource -->
+	<bean id="hikariDataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+		<constructor-arg ref="hikariConfig"/>
+	</bean>
+
+	<!-- HikariCP configuration -->
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<property name="poolName" value="spring-hikari-pool"/>
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3307/idea"/>
+		<property name="username" value="root"/>
+		<property name="password" value="andyadc"/>
+		<property name="maximumPoolSize" value="20"/>
+		<property name="minimumIdle" value="10"/>
+		<property name="idleTimeout" value="30000"/>
+		<property name="connectionTestQuery" value="SELECT 1"/>
+		<property name="autoCommit" value="false"/>
+		<property name="dataSourceProperties">
+			<props>
+				<prop key="cachePrepStmts">true</prop>
+				<prop key="useServerPrepStmts">true</prop>
+				<prop key="prepStmtCacheSize">250</prop>
+				<prop key="prepStmtCacheSqlLimit">2048</prop>
+			</props>
+		</property>
+	</bean>
+</beans>
