@@ -10,6 +10,11 @@
 		<constructor-arg ref="dataSourceProxy"/>
 	</bean>
 
+	<bean id="dbUtilsTemplate" class="com.andyadc.codeblocks.test.db.DbUtilsTemplate">
+		<!--		<property name="dataSource" ref="hikariDataSource"/>-->
+		<property name="dataSource" ref="dbcpDataSource"/>
+	</bean>
+
 	<tx:annotation-driven proxy-target-class="true"/>
 
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -18,6 +23,14 @@
 
 	<bean id="dataSourceProxy" class="org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy">
 		<property name="targetDataSource" ref="hikariDataSource"/>
+	</bean>
+
+	<!-- dbcp -->
+	<bean id="dbcpDataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
+		<property name="url" value="jdbc:mysql://localhost:3307/idea"/>
+		<property name="username" value="root"/>
+		<property name="password" value="andyadc"/>
 	</bean>
 
 	<!-- HikariCP dataSource -->

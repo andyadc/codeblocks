@@ -21,6 +21,22 @@ public class SpringDbUtilsTests {
 
 	@Autowired
 	private QueryRunner queryRunner;
+	@Autowired
+	private DbUtilsTemplate dbUtilsTemplate;
+
+	@Test
+	public void testUpdateByTemplate() {
+		for (int i = 0; i < 10; i++) {
+			String sql = "insert into demo (name) values ('" + UUID.randomUUID().toString() + "')";
+			dbUtilsTemplate.update(sql);
+		}
+	}
+
+	@Test
+	public void testQueryByTemplate() {
+		String sql = "select * from demo";
+		dbUtilsTemplate.query(sql);
+	}
 
 	@Transactional
 	@Test
