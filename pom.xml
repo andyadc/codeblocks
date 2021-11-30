@@ -60,7 +60,7 @@
 		<hikaricp.version>4.0.3</hikaricp.version>
 		<druid.version>1.2.8</druid.version>
 		<mysql-driver.version>8.0.27</mysql-driver.version>
-		<h2.version>1.4.200</h2.version>
+		<h2.version>1.4.202</h2.version>
 		<jsqlparser.version>4.2</jsqlparser.version>
 		<fst.version>2.57</fst.version>
 		<kryo.version>4.0.2</kryo.version>
@@ -86,7 +86,7 @@
 		<logback.version>1.2.7</logback.version>
 		<mockito.version>4.1.0</mockito.version>
 		<junit.version>4.13.2</junit.version>
-		<junit-jupiter.version>5.8.1</junit-jupiter.version>
+		<junit-jupiter.version>5.8.2</junit-jupiter.version>
 		<jmh.version>1.33</jmh.version>
 
 		<!-- maven plugins -->
