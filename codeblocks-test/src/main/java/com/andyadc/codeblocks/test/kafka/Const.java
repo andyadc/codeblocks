@@ -1,8 +1,6 @@
 package com.andyadc.codeblocks.test.kafka;
 
 /**
- * @author andy.an
- * @since 2018/11/2
  */
 public class Const {
 

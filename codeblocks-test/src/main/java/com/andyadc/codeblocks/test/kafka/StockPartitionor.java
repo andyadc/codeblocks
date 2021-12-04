@@ -12,40 +12,35 @@ import java.util.Map;
  * <code>
  * properties.put(ProducerConfig.PARTITIONER_CLASS_CONFIG, StockPartitionor.class.getName());
  * </code>
- *
- * @author andy.an
- * @since 2018/8/24
  */
 public class StockPartitionor implements Partitioner {
 
-    private static final Logger logger = LoggerFactory.getLogger(StockPartitionor.class);
+	private static final Logger logger = LoggerFactory.getLogger(StockPartitionor.class);
 
-    /**
-     * 分区数
-     */
-    private static final Integer PARTITIONS = 6;
+	/**
+	 * 分区数
+	 */
+	private static final Integer PARTITIONS = 6;
 
-    @Override
-    public int partition(String topic, Object key, byte[] keyBytes, Object value, byte[] valueBytes, Cluster cluster) {
-        if (key == null) {
-            return 0;
-        }
-        String stockCode = String.valueOf(key);
-        try {
-            return Integer.valueOf(stockCode.substring(stockCode.length() - 2)) % PARTITIONS;
-        } catch (NumberFormatException e) {
-            logger.error("Parse message key occurs exception, key: " + stockCode, e);
-            return 0;
-        }
-    }
+	@Override
+	public int partition(String topic, Object key, byte[] keyBytes, Object value, byte[] valueBytes, Cluster cluster) {
+		if (key == null) {
+			return 0;
+		}
+		String stockCode = String.valueOf(key);
+		try {
+			return Integer.parseInt(stockCode.substring(stockCode.length() - 2)) % PARTITIONS;
+		} catch (NumberFormatException e) {
+			logger.error("Parse message key occurs exception, key: " + stockCode, e);
+			return 0;
+		}
+	}
 
-    @Override
-    public void close() {
+	@Override
+	public void close() {
+	}
 
-    }
-
-    @Override
-    public void configure(Map<String, ?> configs) {
-
-    }
+	@Override
+	public void configure(Map<String, ?> configs) {
+	}
 }
