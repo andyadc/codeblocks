@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
 	   xmlns:tx="http://www.springframework.org/schema/tx"
 	   xmlns="http://www.springframework.org/schema/beans"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	   	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<context:property-placeholder ignore-unresolvable="true"
+								  ignore-resource-not-found="true"
+								  location="classpath*:/database.properties"
+	/>
 
 	<!-- dbutils -->
 	<bean id="queryRunner" class="org.apache.commons.dbutils.QueryRunner" scope="prototype">
@@ -11,8 +18,8 @@
 	</bean>
 
 	<bean id="dbUtilsTemplate" class="com.andyadc.codeblocks.test.db.DbUtilsTemplate">
-		<!--		<property name="dataSource" ref="hikariDataSource"/>-->
-		<property name="dataSource" ref="dbcpDataSource"/>
+		<property name="dataSource" ref="hikariDataSource"/>
+		<!--		<property name="dataSource" ref="dbcpDataSource"/>-->
 	</bean>
 
 	<tx:annotation-driven proxy-target-class="true"/>
@@ -22,15 +29,16 @@
 	</bean>
 
 	<bean id="dataSourceProxy" class="org.springframework.jdbc.datasource.TransactionAwareDataSourceProxy">
-		<property name="targetDataSource" ref="hikariDataSource"/>
+		<!--		<property name="targetDataSource" ref="hikariDataSource"/>-->
+		<property name="targetDataSource" ref="dbcpDataSource"/>
 	</bean>
 
 	<!-- dbcp -->
 	<bean id="dbcpDataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
-		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-		<property name="url" value="jdbc:mysql://localhost:3307/idea"/>
-		<property name="username" value="root"/>
-		<property name="password" value="andyadc"/>
+		<property name="driverClassName" value="${db.mysql.driverClassName}"/>
+		<property name="url" value="${db.mysql.url}"/>
+		<property name="username" value="${db.mysql.username}"/>
+		<property name="password" value="${db.mysql.password}"/>
 	</bean>
 
 	<!-- HikariCP dataSource -->
@@ -41,10 +49,10 @@
 	<!-- HikariCP configuration -->
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
 		<property name="poolName" value="spring-hikari-pool"/>
-		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
-		<property name="jdbcUrl" value="jdbc:mysql://localhost:3307/idea"/>
-		<property name="username" value="root"/>
-		<property name="password" value="andyadc"/>
+		<property name="driverClassName" value="${db.mysql.driverClassName}"/>
+		<property name="jdbcUrl" value="${db.mysql.url}"/>
+		<property name="username" value="${db.mysql.username}"/>
+		<property name="password" value="${db.mysql.password}"/>
 		<property name="maximumPoolSize" value="20"/>
 		<property name="minimumIdle" value="10"/>
 		<property name="idleTimeout" value="30000"/>

@@ -36,7 +36,7 @@ public class SpringDbUtilsTests {
 
 	@Test
 	public void testQueryByTemplate() {
-		String sql = "select * from demo";
+		String sql = "select id, name from demo";
 		dbUtilsTemplate.query(sql);
 	}
 
@@ -48,5 +48,6 @@ public class SpringDbUtilsTests {
 	public void testUpdate() throws Exception {
 		String sql = "insert into demo (name) values ('" + UUID.randomUUID().toString() + "')";
 		queryRunner.update(sql);
+		int i = 1 / 10;
 	}
 }
