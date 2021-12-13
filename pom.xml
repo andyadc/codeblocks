@@ -42,12 +42,12 @@
 		<httpcomponents.version>4.5.13</httpcomponents.version>
 		<okhttp.version>4.9.3</okhttp.version>
 		<hibernate-validator.version>6.2.0.Final</hibernate-validator.version>
-		<mybatis.version>3.5.7</mybatis.version>
+		<mybatis.version>3.5.8</mybatis.version>
 		<mybatis-spring.version>2.0.6</mybatis-spring.version>
 		<spring-data-redis.version>2.6.0</spring-data-redis.version>
 		<zookeeper.version>3.7.0</zookeeper.version>
 		<redisson.version>3.16.6</redisson.version>
-		<jedis.version>3.7.0</jedis.version>
+		<jedis.version>3.7.1</jedis.version>
 		<lettuce.version>6.1.5.RELEASE</lettuce.version>
 		<kafka-clients.version>2.8.1</kafka-clients.version>
 		<curator.version>5.2.0</curator.version>
@@ -56,12 +56,12 @@
 		<fastjson.version>1.2.78</fastjson.version>
 		<joda-time.version>2.10.13</joda-time.version>
 		<guava.version>31.0.1-jre</guava.version>
-		<tomcat-jdbc.version>9.0.55</tomcat-jdbc.version>
+		<tomcat-jdbc.version>9.0.56</tomcat-jdbc.version>
 		<hikaricp.version>4.0.3</hikaricp.version>
 		<druid.version>1.2.8</druid.version>
 		<mysql-driver.version>8.0.27</mysql-driver.version>
 		<h2.version>2.0.202</h2.version>
-		<jsqlparser.version>4.2</jsqlparser.version>
+		<jsqlparser.version>4.3</jsqlparser.version>
 		<fst.version>2.57</fst.version>
 		<kryo.version>4.0.2</kryo.version>
 		<protostuff.version>1.7.4</protostuff.version>
