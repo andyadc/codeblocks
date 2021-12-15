@@ -56,10 +56,31 @@ import java.util.UUID;
  */
 @SuppressWarnings("WeakerAccess")
 public class Bytes implements Comparable<Bytes>, Serializable, Iterable<Byte> {
+	private static final long serialVersionUID = 1L;
 
 	private static final Bytes EMPTY = Bytes.wrap(new byte[0]);
 
 	/* FACTORY ***************************************************************************************************/
+	private final byte[] byteArray;
+	private final ByteOrder byteOrder;
+	private final BytesFactory factory;
+	private transient int hashCodeCache;
+
+	Bytes(byte[] byteArray, ByteOrder byteOrder) {
+		this(byteArray, byteOrder, new Factory());
+	}
+
+	/**
+	 * Creates a new immutable instance
+	 *
+	 * @param byteArray internal byte array
+	 * @param byteOrder the internal byte order - this is used to interpret given array, not to change it
+	 */
+	Bytes(byte[] byteArray, ByteOrder byteOrder, BytesFactory factory) {
+		this.byteArray = byteArray;
+		this.byteOrder = byteOrder;
+		this.factory = factory;
+	}
 
 	/**
 	 * Creates a new instance with an empty array filled with zeros.
@@ -290,6 +311,16 @@ public class Bytes implements Comparable<Bytes>, Serializable, Iterable<Byte> {
 	 */
 	public static Bytes from(short short2Byte) {
 		return wrap(ByteBuffer.allocate(2).putShort(short2Byte).array());
+	}
+
+	/**
+	 * Creates a new instance from given 2 byte short array.
+	 *
+	 * @param shortArray to create from
+	 * @return new instance
+	 */
+	public static Bytes from(short... shortArray) {
+		return wrap(Util.Converter.toByteArray(Objects.requireNonNull(shortArray, "must provide at least a single short")));
 	}
 
 	/**
@@ -637,6 +668,8 @@ public class Bytes implements Comparable<Bytes>, Serializable, Iterable<Byte> {
 		return parse(base32Rfc4648String, new BaseEncoding(BaseEncoding.BASE32_RFC4848, BaseEncoding.BASE32_RFC4848_PADDING));
 	}
 
+	/* OBJECT ****************************************************************************************************/
+
 	/**
 	 * Parsing of base36 encoded byte arrays.
 	 * <p>
@@ -713,6 +746,8 @@ public class Bytes implements Comparable<Bytes>, Serializable, Iterable<Byte> {
 		return random(length, new Random(seed));
 	}
 
+	/* TRANSFORMER **********************************************************************************************/
+
 	/**
 	 * A new instance with random bytes.
 	 *
@@ -725,31 +760,6 @@ public class Bytes implements Comparable<Bytes>, Serializable, Iterable<Byte> {
 		random.nextBytes(array);
 		return wrap(array);
 	}
-
-	/* OBJECT ****************************************************************************************************/
-
-	private final byte[] byteArray;
-	private final ByteOrder byteOrder;
-	private final BytesFactory factory;
-	private transient int hashCodeCache;
-
-	Bytes(byte[] byteArray, ByteOrder byteOrder) {
-		this(byteArray, byteOrder, new Factory());
-	}
-
-	/**
-	 * Creates a new immutable instance
-	 *
-	 * @param byteArray internal byte array
-	 * @param byteOrder the internal byte order - this is used to interpret given array, not to change it
-	 */
-	Bytes(byte[] byteArray, ByteOrder byteOrder, BytesFactory factory) {
-		this.byteArray = byteArray;
-		this.byteOrder = byteOrder;
-		this.factory = factory;
-	}
-
-	/* TRANSFORMER **********************************************************************************************/
 
 	/**
 	 * Creates a new instance with the current array appended to the provided data (ie. append at the end).
@@ -1126,6 +1136,8 @@ public class Bytes implements Comparable<Bytes>, Serializable, Iterable<Byte> {
 		return transform(new BytesTransformer.MessageDigestTransformer(algorithm));
 	}
 
+	/* VALIDATORS ***************************************************************************************************/
+
 	/**
 	 * Generic transformation of this instance.
 	 * <p>
@@ -1142,8 +1154,6 @@ public class Bytes implements Comparable<Bytes>, Serializable, Iterable<Byte> {
 		return factory.wrap(transformer.transform(internalArray(), isMutable()), byteOrder);
 	}
 
-	/* VALIDATORS ***************************************************************************************************/
-
 	/**
 	 * Checks the content of each byte for 0 values
 	 *
@@ -1152,6 +1162,8 @@ public class Bytes implements Comparable<Bytes>, Serializable, Iterable<Byte> {
 	public boolean validateNotOnlyZeros() {
 		return validate(BytesValidators.notOnlyOf((byte) 0));
 	}
+
+	/* ATTRIBUTES ************************************************************************************************/
 
 	/**
 	 * Applies all given validators and returns true if all of them return true (default AND concatenation).
@@ -1162,8 +1174,6 @@ public class Bytes implements Comparable<Bytes>, Serializable, Iterable<Byte> {
 	public boolean validate(BytesValidator... bytesValidators) {
 		return BytesValidators.and(Objects.requireNonNull(bytesValidators)).validate(internalArray());
 	}
-
-	/* ATTRIBUTES ************************************************************************************************/
 
 	/**
 	 * The byte length of the underlying byte array.
@@ -1446,6 +1456,8 @@ public class Bytes implements Comparable<Bytes>, Serializable, Iterable<Byte> {
 		return Util.Byte.countByteArray(internalArray(), pattern);
 	}
 
+	/* CONVERTERS POSSIBLY REUSING THE INTERNAL ARRAY ***************************************************************/
+
 	/**
 	 * Calculates the entropy of the internal byte array. This might be useful for judging the internal data
 	 * for using e.g. in security relevant use case. In statistical mechanics, entropy is related to the number of
@@ -1461,8 +1473,6 @@ public class Bytes implements Comparable<Bytes>, Serializable, Iterable<Byte> {
 	public double entropy() {
 		return Util.Byte.entropy(internalArray());
 	}
-
-	/* CONVERTERS POSSIBLY REUSING THE INTERNAL ARRAY ***************************************************************/
 
 	/**
 	 * Create a new instance which shares the same underlying array
@@ -1557,11 +1567,11 @@ public class Bytes implements Comparable<Bytes>, Serializable, Iterable<Byte> {
 		return internalArray();
 	}
 
+	/* ENCODER ************************************************************************************************/
+
 	byte[] internalArray() {
 		return byteArray;
 	}
-
-	/* ENCODER ************************************************************************************************/
 
 	/**
 	 * Binary (aka "1" and "0") representation. This is especially useful for debugging purposes.
@@ -1762,6 +1772,8 @@ public class Bytes implements Comparable<Bytes>, Serializable, Iterable<Byte> {
 		return encodeCharset(charset).getBytes(charset);
 	}
 
+	/* CONVERTERS WITHOUT REUSING THE INTERNAL ARRAY ****************************************************************/
+
 	/**
 	 * Encode the internal byte-array with given encoder.
 	 *
@@ -1771,8 +1783,6 @@ public class Bytes implements Comparable<Bytes>, Serializable, Iterable<Byte> {
 	public String encode(BinaryToTextEncoding.Encoder encoder) {
 		return encoder.encode(internalArray(), byteOrder);
 	}
-
-	/* CONVERTERS WITHOUT REUSING THE INTERNAL ARRAY ****************************************************************/
 
 	/**
 	 * Returns a copy of the internal byte-array as {@link List} collection type
@@ -2174,6 +2184,4 @@ public class Bytes implements Comparable<Bytes>, Serializable, Iterable<Byte> {
 			return new Bytes(array, byteOrder);
 		}
 	}
-
-	static final long serialVersionUID = 1L;
 }

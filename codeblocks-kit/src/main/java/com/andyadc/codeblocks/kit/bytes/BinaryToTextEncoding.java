@@ -65,7 +65,6 @@ public interface BinaryToTextEncoding {
 
 		@Override
 		public String encode(byte[] byteArray, ByteOrder byteOrder) {
-
 			final char[] buffer = new char[byteArray.length * 2];
 			final char[] lookup = upperCase ? LOOKUP_TABLE_UPPER : LOOKUP_TABLE_LOWER;
 
@@ -81,7 +80,6 @@ public interface BinaryToTextEncoding {
 
 		@Override
 		public byte[] decode(CharSequence hexString) {
-
 			int start;
 			if (Objects.requireNonNull(hexString).length() > 2 &&
 				hexString.charAt(0) == '0' && hexString.charAt(1) == 'x') {
@@ -89,7 +87,6 @@ public interface BinaryToTextEncoding {
 			} else {
 				start = 0;
 			}
-
 
 			int len = hexString.length();
 			boolean isOddLength = len % 2 != 0;
@@ -164,7 +161,9 @@ public interface BinaryToTextEncoding {
 
 		@Override
 		public String encode(byte[] array, ByteOrder byteOrder) {
-			return new BigInteger(1, (byteOrder == ByteOrder.BIG_ENDIAN) ? array : Bytes.from(array).reverse().array()).toString(radix);
+			return new BigInteger(1,
+				(byteOrder == ByteOrder.BIG_ENDIAN) ? array : Bytes.from(array).reverse().array()
+			).toString(radix);
 		}
 
 		@Override

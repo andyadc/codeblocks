@@ -30,6 +30,9 @@ import java.util.UUID;
  */
 final class Util {
 
+	private Util() {
+	}
+
 	/**
 	 * Util methods related general purpose byte utility.
 	 */
@@ -553,6 +556,33 @@ final class Util {
 				buffer.clear();
 				byte[] intBytes = buffer.putInt(intArray[i]).array();
 				System.arraycopy(intBytes, 0, primitivesArray, (i * 4), intBytes.length);
+			}
+			return primitivesArray;
+		}
+
+		/**
+		 * Creates a byte array from given short array.
+		 * The resulting byte array will have length shortArray * 2.
+		 *
+		 * <p>
+		 * <strong>Analysis</strong>
+		 * <ul>
+		 * <li>Time Complexity: <code>O(n)</code></li>
+		 * <li>Space Complexity: <code>O(n)</code></li>
+		 * <li>Alters Parameters: <code>false</code></li>
+		 * </ul>
+		 * </p>
+		 *
+		 * @param shortArray to convert
+		 * @return resulting byte array
+		 */
+		static byte[] toByteArray(short[] shortArray) {
+			byte[] primitivesArray = new byte[shortArray.length * 2];
+			ByteBuffer buffer = ByteBuffer.allocate(2);
+			for (int i = 0; i < shortArray.length; i++) {
+				buffer.clear();
+				byte[] shortBytes = buffer.putShort(shortArray[i]).array();
+				System.arraycopy(shortBytes, 0, primitivesArray, (i * 2), shortBytes.length);
 			}
 			return primitivesArray;
 		}
@@ -1102,9 +1132,6 @@ final class Util {
 			}
 		}
 
-	}
-
-	private Util() {
 	}
 
 	/**
