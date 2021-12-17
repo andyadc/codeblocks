@@ -50,6 +50,8 @@ public class DbUtilsTemplate {
 			});
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			DbUtils.closeQuietly(connection);
 		}
 	}
 
