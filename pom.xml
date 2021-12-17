@@ -79,12 +79,12 @@
 		<commons-io.version>2.11.0</commons-io.version>
 		<commons-dbutils.version>1.7</commons-dbutils.version>
 		<caffeine.version>2.9.3</caffeine.version>
-		<ehcache.version>3.9.7</ehcache.version>
+		<ehcache.version>3.9.8</ehcache.version>
 		<zxing.version>3.4.1</zxing.version>
 		<poi.version>5.1.0</poi.version>
 		<slf4j.version>1.7.32</slf4j.version>
 		<logback.version>1.2.7</logback.version>
-		<mockito.version>4.1.0</mockito.version>
+		<mockito.version>4.2.0</mockito.version>
 		<junit.version>4.13.2</junit.version>
 		<junit-jupiter.version>5.8.2</junit-jupiter.version>
 		<jmh.version>1.33</jmh.version>
