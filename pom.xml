@@ -52,7 +52,7 @@
 		<kafka-clients.version>2.8.1</kafka-clients.version>
 		<curator.version>5.2.0</curator.version>
 		<rabbitmq-clients.version>5.13.1</rabbitmq-clients.version>
-		<jackson.version>2.13.0</jackson.version>
+		<jackson.version>2.13.1</jackson.version>
 		<fastjson.version>1.2.78</fastjson.version>
 		<joda-time.version>2.10.13</joda-time.version>
 		<guava.version>31.0.1-jre</guava.version>
