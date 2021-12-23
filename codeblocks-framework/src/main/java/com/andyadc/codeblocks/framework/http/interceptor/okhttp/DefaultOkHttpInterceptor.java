@@ -1,11 +1,13 @@
 package com.andyadc.codeblocks.framework.http.interceptor.okhttp;
 
 import com.andyadc.codeblocks.common.annotation.NotNull;
+import com.andyadc.codeblocks.common.constants.Constants;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 
 import java.io.IOException;
 
@@ -20,6 +22,11 @@ public class DefaultOkHttpInterceptor implements Interceptor {
 		Request request = chain.request();
 		logger.info(String.format("Sending request %s on %s%n%s",
 			request.url(), chain.connection(), request.headers()));
+
+		String traceId = MDC.get(Constants.TRACE_ID);
+		if (traceId != null) {
+			request = request.newBuilder().addHeader(Constants.TRACE_ID, traceId).build();
+		}
 
 		long t1 = System.nanoTime();
 		Response response = chain.proceed(request);

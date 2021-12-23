@@ -11,6 +11,7 @@ import java.time.ZoneId;
 public interface Constants {
 
 	int PROCESSOR_NUM = Runtime.getRuntime().availableProcessors();
+	String TRACE_ID = "traceId";
 	Charset DEFAULT_CHARSET = StandardCharsets.UTF_8;
 	String DEFAULT_CHARSET_FORMAT = DEFAULT_CHARSET.name();
 	ZoneId DEFAULT_ZONE_ID = ZoneId.of("Asia/Shanghai");
