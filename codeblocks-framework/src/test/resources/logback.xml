@@ -1,43 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration debug="true">
+<configuration debug="true" scan="true" scanPeriod="60 seconds">
 
-    <property name="APP_ID" value="codeblocks-framework"/>
-    <property name="KAFKA_TOPIC" value="test"/>
+	<property name="APP_ID" value="codeblocks-framework"/>
+
+	<!-- kafka -->
+	<property name="KAFKA_TOPIC" value="test"/>
 	<property name="BOOTSTRAP_SERVERS" value="www.qq-server.com:9092"/>
 
-    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
 			<Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread]-[%X{traceId}] %-5level %logger{36} - %msg%n</Pattern>
-        </encoder>
-    </appender>
+		</encoder>
+	</appender>
 
-    <appender name="KAFKA" class="com.andyadc.codeblocks.framework.kafka.logback.KafkaAppender">
-        <encoder>
-            <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
-        </encoder>
-        <topic>${KAFKA_TOPIC}</topic>
-        <!-- we don't care how the log messages will be partitioned  -->
-        <keyingStrategy class="com.andyadc.codeblocks.framework.kafka.logback.keying.NamingKeyingStrategy">
-            <keyName>${APP_ID}</keyName>
-        </keyingStrategy>
-        <!-- use async delivery. the application threads are not blocked by logging -->
-        <deliveryStrategy class="com.andyadc.codeblocks.framework.kafka.logback.delivery.AsynchronousDeliveryStrategy"/>
+	<appender name="KAFKA" class="com.andyadc.codeblocks.framework.kafka.logback.KafkaAppender">
+		<encoder>
+			<Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</Pattern>
+		</encoder>
+		<topic>${KAFKA_TOPIC}</topic>
+		<!-- we don't care how the log messages will be partitioned  -->
+		<keyingStrategy class="com.andyadc.codeblocks.framework.kafka.logback.keying.NamingKeyingStrategy">
+			<keyName>${APP_ID}</keyName>
+		</keyingStrategy>
+		<!-- use async delivery. the application threads are not blocked by logging -->
+		<deliveryStrategy class="com.andyadc.codeblocks.framework.kafka.logback.delivery.AsynchronousDeliveryStrategy"/>
 
-        <producerConfig>bootstrap.servers=${BOOTSTRAP_SERVERS}</producerConfig>
-        <!-- don't wait for a broker to ack the reception of a batch.  -->
-        <producerConfig>acks=0</producerConfig>
-        <!-- wait up to 1000ms and collect log messages before sending them as a batch -->
-        <producerConfig>linger.ms=1000</producerConfig>
-        <!-- even if the producer buffer runs full, do not block the application but start to drop messages -->
-        <producerConfig>max.block.ms=0</producerConfig>
-        <!-- define a client-id that you use to identify yourself against the kafka broker -->
-        <producerConfig>client.id=${HOSTNAME}-${APP_ID}-logback</producerConfig>
+		<producerConfig>bootstrap.servers=${BOOTSTRAP_SERVERS}</producerConfig>
+		<!-- don't wait for a broker to ack the reception of a batch.  -->
+		<producerConfig>acks=0</producerConfig>
+		<!-- wait up to 1000ms and collect log messages before sending them as a batch -->
+		<producerConfig>linger.ms=1000</producerConfig>
+		<!-- even if the producer buffer runs full, do not block the application but start to drop messages -->
+		<producerConfig>max.block.ms=0</producerConfig>
+		<!-- define a client-id that you use to identify yourself against the kafka broker -->
+		<producerConfig>client.id=${HOSTNAME}-${APP_ID}-logback</producerConfig>
+	</appender>
 
-    </appender>
-
-    <root level="info">
-        <appender-ref ref="STDOUT"/>
-        <!--<appender-ref ref="KAFKA"/>-->
-    </root>
+	<root level="info">
+		<appender-ref ref="STDOUT"/>
+		<!--<appender-ref ref="KAFKA"/>-->
+	</root>
 
 </configuration>
