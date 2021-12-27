@@ -12,17 +12,17 @@ import java.util.Map;
  */
 public class JacksonJsonFormatter implements JsonFormatter {
 
-    public static final int BUFFER_SIZE = 512;
+	public static final int BUFFER_SIZE = 512;
 
-    private ObjectMapper objectMapper;
-    private boolean prettyPrint;
+	private ObjectMapper objectMapper;
+	private boolean prettyPrint;
 
-    public JacksonJsonFormatter() {
-        this.objectMapper = new ObjectMapper();
-        this.prettyPrint = false;
-    }
+	public JacksonJsonFormatter() {
+		this.objectMapper = new ObjectMapper();
+		this.prettyPrint = false;
+	}
 
-    @Override
+	@Override
 	public String toJsonString(Map<String, Object> m) throws IOException {
 		StringWriter writer = new StringWriter(BUFFER_SIZE);
 		JsonGenerator generator = this.objectMapper.getFactory().createGenerator(writer);
@@ -34,23 +34,22 @@ public class JacksonJsonFormatter implements JsonFormatter {
 		this.objectMapper.writeValue(generator, m);
 
 		writer.flush();
-        return writer.toString();
-    }
+		return writer.toString();
+	}
 
-    public ObjectMapper getObjectMapper() {
-        return objectMapper;
-    }
+	public ObjectMapper getObjectMapper() {
+		return objectMapper;
+	}
 
-    public void setObjectMapper(ObjectMapper objectMapper) {
-        this.objectMapper = objectMapper;
-    }
+	public void setObjectMapper(ObjectMapper objectMapper) {
+		this.objectMapper = objectMapper;
+	}
 
-    public boolean isPrettyPrint() {
-        return prettyPrint;
-    }
+	public boolean isPrettyPrint() {
+		return prettyPrint;
+	}
 
-    public void setPrettyPrint(boolean prettyPrint) {
-        this.prettyPrint = prettyPrint;
-    }
+	public void setPrettyPrint(boolean prettyPrint) {
+		this.prettyPrint = prettyPrint;
+	}
 }
-

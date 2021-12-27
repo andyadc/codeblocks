@@ -21,9 +21,6 @@ import java.io.IOException;
 /**
  * msgpack RedisSerializer
  * <url>https://github.com/msgpack/msgpack-java</url>
- *
- * @author andy.an
- * @since 2018/5/30
  */
 public class MsgpackRedisSerializer implements RedisSerializer<Object> {
 
@@ -72,7 +69,6 @@ public class MsgpackRedisSerializer implements RedisSerializer<Object> {
 	 * @see GenericJackson2JsonRedisSerializer
 	 */
 	private static class NullValueSerializer extends StdSerializer<NullValue> {
-
 		private static final long serialVersionUID = 1L;
 		private final String classIdentifier;
 
@@ -80,7 +76,6 @@ public class MsgpackRedisSerializer implements RedisSerializer<Object> {
 		 * @param classIdentifier can be {@literal null} and will be defaulted to {@code @class}.
 		 */
 		NullValueSerializer(@Nullable String classIdentifier) {
-
 			super(NullValue.class);
 			this.classIdentifier = StringUtils.hasText(classIdentifier) ? classIdentifier : "@class";
 		}
@@ -90,9 +85,7 @@ public class MsgpackRedisSerializer implements RedisSerializer<Object> {
 		 * @see com.fasterxml.jackson.databind.ser.std.StdSerializer#serialize(java.lang.Object, com.fasterxml.jackson.core.JsonGenerator, com.fasterxml.jackson.databind.SerializerProvider)
 		 */
 		@Override
-		public void serialize(NullValue value, JsonGenerator jgen, SerializerProvider provider)
-			throws IOException {
-
+		public void serialize(NullValue value, JsonGenerator jgen, SerializerProvider provider) throws IOException {
 			jgen.writeStartObject();
 			jgen.writeStringField(classIdentifier, NullValue.class.getName());
 			jgen.writeEndObject();
