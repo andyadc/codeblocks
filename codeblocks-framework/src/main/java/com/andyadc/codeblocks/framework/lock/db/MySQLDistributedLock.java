@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.framework.lock;
+package com.andyadc.codeblocks.framework.lock.db;
 
 import com.andyadc.codeblocks.common.function.ThrowableAction;
 import com.andyadc.codeblocks.common.function.ThrowableSupplier;
@@ -17,9 +17,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 
-public class DatabaseDistributedLock implements Lock {
+public class MySQLDistributedLock implements Lock {
 
-	private static final Logger logger = LoggerFactory.getLogger(DatabaseDistributedLock.class);
+	private static final Logger logger = LoggerFactory.getLogger(MySQLDistributedLock.class);
 
 	private static final String CREATE_LOCK_TABLE_DDL_SQL = "CREATE TABLE locks(\n" +
 		"id BIGINT NOT NULL PRIMARY KEY GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),\n" +
@@ -51,7 +51,7 @@ public class DatabaseDistributedLock implements Lock {
 
 	private DataSource dataSource;
 
-	public DatabaseDistributedLock() {
+	public MySQLDistributedLock() {
 		initDataSource();
 		initTables();
 	}
