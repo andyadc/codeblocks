@@ -7,13 +7,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * @author andaicheng
- * @since 2018/4/10
- */
 public abstract class Dialect {
 
-    private static final Pattern ORDERBYSPLITPATTERN = Pattern.compile("(.*)ORDER\\s+BY(.*)", Pattern.CASE_INSENSITIVE);
+    private static final Pattern ORDER_BY_SPLIT_PATTERN = Pattern.compile("(.*)ORDER\\s+BY(.*)", Pattern.CASE_INSENSITIVE);
 
     protected static String getLineSql(String sql) {
         return sql.replaceAll("[\r\n]", " ").replaceAll("\\s{2,}", " ");
@@ -37,7 +33,7 @@ public abstract class Dialect {
      * @return 如果包含order by语句则返回2个元素数组，0元素为order by前部分，1元素为后部分；否则直接返回1个元素的原始SQL的数组
      */
     public static String[] splitOrderBy(String sql) {
-        Matcher matcher = ORDERBYSPLITPATTERN.matcher(sql);
+		Matcher matcher = ORDER_BY_SPLIT_PATTERN.matcher(sql);
         if (matcher.find()) {
             return new String[]{matcher.group(1), matcher.group(2)};
         } else {
@@ -73,5 +69,4 @@ public abstract class Dialect {
     public abstract String getPageString(final String sql, final int offset, final int limit);
 
     public abstract boolean supportsPage();
-
 }

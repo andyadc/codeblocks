@@ -6,10 +6,6 @@ import java.io.Serializable;
 import java.util.Locale;
 import java.util.regex.Pattern;
 
-/**
- * @author andy.an
- * @since 2018/4/18
- */
 public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;

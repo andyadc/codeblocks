@@ -6,37 +6,25 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author andy.an
- * @since 2018/4/16
- */
 public class PageBounds extends RowBounds implements Serializable {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    private final static int NO_PAGE = 1;
-    /**
-     * 页号
-     */
-    protected int page = NO_PAGE;
-    /**
-     * 分页大小
-     */
-    protected int limit = NO_ROW_LIMIT;
+	private final static int NO_PAGE = 1;
 
-    /**
-     * 结果集是否包含TotalCount
-     */
-    protected boolean containsTotalCount;
+	// 页号
+	protected int page = NO_PAGE;
 
-    /**
-     * 是否异步统计
-     */
-    protected Boolean asyncTotalCount;
+	// 分页大小
+	protected int limit = NO_ROW_LIMIT;
 
-    /**
-     * 分页排序信息
-     */
-    protected List<Order> orders = new ArrayList<>();
+	// 结果集是否包含TotalCount
+	protected boolean containsTotalCount;
+
+	// 是否异步统计
+	protected Boolean asyncTotalCount;
+
+	// 分页排序信息
+	protected List<Order> orders = new ArrayList<>();
 
     public PageBounds() {
         containsTotalCount = false;

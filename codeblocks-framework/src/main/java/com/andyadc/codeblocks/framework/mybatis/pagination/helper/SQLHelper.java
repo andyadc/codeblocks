@@ -12,10 +12,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-/**
- * @author andy.an
- * @since 2018/4/18
- */
 public class SQLHelper {
 
 	private static final Logger logger = LoggerFactory.getLogger(SQLHelper.class);

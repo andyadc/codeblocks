@@ -1,9 +1,5 @@
 package com.andyadc.codeblocks.framework.mybatis.pagination.dialect;
 
-/**
- * @author andy.an
- * @since 2018/4/17
- */
 public class DialectFactory {
 
     public static Dialect buildDialect(Dialect.Type dialectType) {

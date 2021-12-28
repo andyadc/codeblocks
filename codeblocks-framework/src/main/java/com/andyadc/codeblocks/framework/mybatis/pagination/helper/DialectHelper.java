@@ -6,13 +6,9 @@ import com.andyadc.codeblocks.framework.mybatis.pagination.dialect.DialectFactor
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * @author andy.an
- * @since 2018/4/17
- */
 public class DialectHelper {
 
-    private static Map<Dialect.Type, Dialect> DIALECTS = new ConcurrentHashMap<>(8);
+    private static final Map<Dialect.Type, Dialect> DIALECTS = new ConcurrentHashMap<>(8);
 
     public static Dialect getDialect(Dialect.Type dialectType) {
         if (DIALECTS.containsKey(dialectType)) {

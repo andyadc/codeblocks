@@ -1,12 +1,6 @@
 package com.andyadc.codeblocks.framework.mybatis.util;
 
-final class PatternMatchUtils {
-
-	public static void main(String[] args) {
-		String id = "com.andyadc.codeblocks.mybatis.mapper.selectPagingwww";
-		String regex = "*.selectPaging";
-		System.out.println(simpleMatch(regex, id));
-	}
+public final class PatternMatchUtils {
 
 	/**
 	 * Match a String against the given pattern, supporting the following simple
@@ -43,9 +37,9 @@ final class PatternMatchUtils {
 			}
 			return false;
 		}
-		return (str.length() >= firstIndex &&
-			pattern.substring(0, firstIndex).equals(str.substring(0, firstIndex)) &&
-			simpleMatch(pattern.substring(firstIndex), str.substring(firstIndex)));
+		return (str.length() >= firstIndex
+			&& pattern.substring(0, firstIndex).equals(str.substring(0, firstIndex))
+			&& simpleMatch(pattern.substring(firstIndex), str.substring(firstIndex)));
 	}
 
 	/**
