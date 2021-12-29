@@ -1,8 +1,5 @@
 package com.andyadc.codeblocks.common.constants;
 
-/**
- * andy.an
- */
 public final class EnvConstant {
 	public static final String ENV_DEV = "dev";
 	public static final String ENV_TEST = "test";

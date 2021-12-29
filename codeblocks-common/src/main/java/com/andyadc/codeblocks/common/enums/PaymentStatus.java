@@ -1,9 +1,5 @@
 package com.andyadc.codeblocks.common.enums;
 
-/**
- * @author andy.an
- * @since 2018/5/28
- */
 public enum PaymentStatus {
 
 	INIT(0, "Init", "初始化"),

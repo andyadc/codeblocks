@@ -3,6 +3,7 @@ package com.andyadc.codeblocks.common.constants;
 import static java.lang.System.getProperty;
 
 public interface SystemConstants {
+
 	String JAVA_VERSION = getProperty("java.version");
 
 	String JAVA_VENDOR = getProperty("java.vendor");

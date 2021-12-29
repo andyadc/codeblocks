@@ -1,6 +1,7 @@
 package com.andyadc.codeblocks.common.constants;
 
 public interface FileSuffixConstants {
+
 	/**
 	 * Jar File suffix : ".jar"
 	 */
@@ -18,8 +19,6 @@ public interface FileSuffixConstants {
 
 	/**
 	 * Class File suffix : ".class"
-	 *
-	 * @since 1.0.0
 	 */
 	String CLASS = Constants.DOT + Constants.CLASS;
 }

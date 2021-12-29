@@ -4,10 +4,6 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.time.ZoneId;
 
-/**
- * andy.an
- * 2019/12/6
- */
 public interface Constants {
 
 	int PROCESSOR_NUM = Runtime.getRuntime().availableProcessors();

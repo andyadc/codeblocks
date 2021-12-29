@@ -4,10 +4,6 @@ import com.andyadc.codeblocks.common.enums.StatusCode;
 
 import java.io.Serializable;
 
-/**
- * @author andy.an
- * @since 2018/3/25
- */
 public class Response<T> implements Serializable {
     private static final long serialVersionUID = 1L;
 

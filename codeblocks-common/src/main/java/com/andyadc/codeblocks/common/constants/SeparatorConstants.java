@@ -1,6 +1,7 @@
 package com.andyadc.codeblocks.common.constants;
 
 public interface SeparatorConstants {
+
 	/**
 	 * Exclamation : "!"
 	 */
