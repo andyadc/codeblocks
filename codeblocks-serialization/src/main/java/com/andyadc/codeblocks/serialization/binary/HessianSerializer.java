@@ -8,15 +8,11 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-/**
- * andy.an
- */
 public class HessianSerializer {
 
 	public static <T> byte[] serialize(T obj) {
 		ByteArrayOutputStream os = new ByteArrayOutputStream();
 		Hessian2Output output = new Hessian2Output(os);
-
 		try {
 			output.writeObject(obj);
 			output.flush();
@@ -40,7 +36,6 @@ public class HessianSerializer {
 	public static Object deserialize(byte[] bytes) {
 		ByteArrayInputStream is = new ByteArrayInputStream(bytes);
 		Hessian2Input input = new Hessian2Input(is);
-
 		try {
 			return input.readObject();
 		} catch (IOException e) {

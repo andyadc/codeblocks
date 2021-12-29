@@ -6,10 +6,6 @@ import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import com.esotericsoftware.kryo.pool.KryoPool;
 
-/**
- * andy.an
- * 2019/12/26
- */
 public class KryoSerializer {
 
 	private static final int BUFFER_SIZE = 2 * 1024;

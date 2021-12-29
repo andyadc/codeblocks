@@ -11,10 +11,6 @@ import com.andyadc.codeblocks.serialization.json.JacksonSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * @author andaicheng
- * @version 2016/12/30
- */
 public class SerializerExecutor {
 
 	private static final Logger logger = LoggerFactory.getLogger(SerializerExecutor.class);
@@ -52,7 +48,7 @@ public class SerializerExecutor {
 		} else if (serializerType == SerializerType.JDK_BINARY) {
 			bytes = JDKSerializer.serialize(object);
 		} else {
-			throw new SerializerException("Invalid serializer type of binary : " + serializerType);
+			throw new SerializerException("Invalid serializer type of binary: " + serializerType);
 		}
 
 		if (compress) {
@@ -62,7 +58,6 @@ public class SerializerExecutor {
 		} else {
 			print(bytes, object.getClass(), true, false, serializerLogPrint);
 		}
-
 		return bytes;
 	}
 
@@ -81,13 +76,12 @@ public class SerializerExecutor {
 		} else if (serializerType == SerializerType.JDK_BINARY) {
 			object = JDKSerializer.deserialize(bytes);
 		} else {
-			throw new SerializerException("Invalid serializer type of binary : " + serializerType);
+			throw new SerializerException("Invalid serializer type of binary: " + serializerType);
 		}
 
 		if (!compress) {
 			print(bytes, object.getClass(), false, false, serializerLogPrint);
 		}
-
 		return object;
 	}
 
@@ -97,7 +91,7 @@ public class SerializerExecutor {
 		} else if (serializerType == SerializerType.FAST_JSON) {
 			return FastjsonSerializer.toJSON(object);
 		} else {
-			throw new SerializerException("Invalid serializer type of json : " + serializerType);
+			throw new SerializerException("Invalid serializer type of json: " + serializerType);
 		}
 	}
 
@@ -107,7 +101,7 @@ public class SerializerExecutor {
 		} else if (serializerType == SerializerType.FAST_JSON) {
 			return FastjsonSerializer.fromJSON(json, clazz);
 		} else {
-			throw new SerializerException("Invalid serializer type of json : " + serializerType);
+			throw new SerializerException("Invalid serializer type of json: " + serializerType);
 		}
 	}
 
@@ -122,9 +116,18 @@ public class SerializerExecutor {
 	public static void print(byte[] bytes, Class<?> clazz, boolean serialize, boolean compress, boolean serializerLogPrint) {
 		if (serializerLogPrint) {
 			if (clazz != null) {
-				logger.info("{}, size={} KB, {} Byte, compress={}, class={}", serialize ? "Serialize" : "Deserialize", (float) bytes.length / 1024, bytes.length, compress, clazz.getName());
+				logger.info("{}, size={} KB, {} Byte, compress={}, class={}",
+					serialize ? "Serialize" : "Deserialize",
+					(float) bytes.length / 1024,
+					bytes.length,
+					compress,
+					clazz.getName());
 			} else {
-				logger.info("{}, size={} KB, {} Byte, compress={}", serialize ? "Serialize" : "Deserialize", (float) bytes.length / 1024, bytes.length, compress);
+				logger.info("{}, size={} KB, {} Byte, compress={}",
+					serialize ? "Serialize" : "Deserialize",
+					(float) bytes.length / 1024,
+					bytes.length,
+					compress);
 			}
 		}
 	}

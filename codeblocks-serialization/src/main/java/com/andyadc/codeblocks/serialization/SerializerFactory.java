@@ -7,10 +7,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Properties;
 
-/**
- * @author andaicheng
- * @version 2016/12/30
- */
 public class SerializerFactory {
 
 	private static final Logger logger = LoggerFactory.getLogger(SerializerFactory.class);
@@ -34,7 +30,7 @@ public class SerializerFactory {
 		jsonSerializerType = SerializerType.fromString(jsonSerializer);
 		logger.info("Json serializer is {}", jsonSerializerType);
 
-		serializerLogPrint = Boolean.valueOf(properties.getProperty("serializerLogPrint"));
+		serializerLogPrint = Boolean.parseBoolean(properties.getProperty("serializerLogPrint"));
 	}
 
 	public static SerializerType getBinarySerializerType() {

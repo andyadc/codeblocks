@@ -1,7 +1,6 @@
 package com.andyadc.codeblocks.serialization.binary;
 
 import com.andyadc.codeblocks.serialization.SerializerException;
-import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,10 +9,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-/**
- * @author andaicheng
- * @version 2016/12/30
- */
 public class JDKSerializer {
 
 	private static final Logger logger = LoggerFactory.getLogger(JDKSerializer.class);
@@ -26,7 +21,10 @@ public class JDKSerializer {
 			throw new SerializerException("Object is null");
 		}
 		byte[] bytes;
-		try (ByteArrayOutputStream baos = new ByteArrayOutputStream(); ObjectOutputStream oos = new ObjectOutputStream(baos)) {
+		try (
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			ObjectOutputStream oos = new ObjectOutputStream(baos)
+		) {
 			oos.writeObject(object);
 			bytes = baos.toByteArray();
 		} catch (Exception e) {
@@ -38,11 +36,14 @@ public class JDKSerializer {
 
 	@SuppressWarnings("unchecked")
 	public static <T> T deserialize(byte[] bytes) {
-		if (ArrayUtils.isEmpty(bytes)) {
+		if (bytes == null || bytes.length == 0) {
 			throw new SerializerException("Bytes is null or empty");
 		}
 		Object object;
-		try (ByteArrayInputStream bais = new ByteArrayInputStream(bytes); ObjectInputStream ois = new ObjectInputStream(bais)) {
+		try (
+			ByteArrayInputStream bais = new ByteArrayInputStream(bytes);
+			ObjectInputStream ois = new ObjectInputStream(bais)
+		) {
 			object = ois.readObject();
 		} catch (Exception e) {
 			logger.error("JDKSerializer deserialize error!", e);

@@ -1,14 +1,12 @@
 package com.andyadc.codeblocks.test;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-/**
- * @author andaicheng
- * @since 2018/4/6
- */
-public class Entity {
+public class TestBean implements Serializable {
 
 	private Integer id;
 	private String name;
@@ -16,6 +14,7 @@ public class Entity {
 	private Float height;
 	private Boolean flag;
 	private Date datetime;
+	private LocalDateTime createTime;
 	private List<String> hobbies;
 	private Map<String, Integer> scores;
 
@@ -65,6 +64,14 @@ public class Entity {
 
 	public void setDatetime(Date datetime) {
 		this.datetime = datetime;
+	}
+
+	public LocalDateTime getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(LocalDateTime createTime) {
+		this.createTime = createTime;
 	}
 
 	public List<String> getHobbies() {

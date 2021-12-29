@@ -3,10 +3,6 @@ package com.andyadc.codeblocks.serialization.binary;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.pool.KryoPool;
 
-/**
- * andy.an
- * 2019/12/26
- */
 public class KryoSerializerFactory {
 
 	private static final int MAX_DEPTH = 1024;

@@ -1,15 +1,11 @@
 package com.andyadc.codeblocks.serialization.compression;
 
-/**
- * @author andaicheng
- * @version 2017/1/9
- */
 public enum CompressorType {
 
     QUICK_LZ_COMPRESSOR("quickLzCompressor"),
     SNAPPY_COMPRESSOR("snappyCompressor");
 
-    private String value;
+    private final String value;
 
     CompressorType(String value) {
         this.value = value;
@@ -21,8 +17,7 @@ public enum CompressorType {
                 return type;
             }
         }
-
-        throw new IllegalArgumentException("Mismatched type with value=" + value);
+		throw new IllegalArgumentException("Mismatched type with value: " + value);
     }
 
     public String getValue() {

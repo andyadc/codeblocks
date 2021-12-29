@@ -6,13 +6,9 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.text.SimpleDateFormat;
 
-/**
- * @author andaicheng
- * @version 2016/12/30
- */
 public class JacksonSerializer {
 
-    private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
 	private static final ObjectMapper mapper;
 
     static {
@@ -35,7 +31,6 @@ public class JacksonSerializer {
         if (StringUtils.isBlank(json)) {
             throw new SerializerException("Json is null or empty");
         }
-
         try {
             return mapper.readValue(json, clazz);
         } catch (Exception e) {

@@ -9,16 +9,11 @@ import org.objenesis.ObjenesisStd;
 
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * @author andaicheng
- * @version 2016/12/30
- */
 @SuppressWarnings("unchecked")
 public class ProtostuffSerializer {
 
     private static final Objenesis OBJENESIS = new ObjenesisStd(true);
     private static final ConcurrentHashMap<Class<?>, Schema<?>> SCHEMA_MAP = new ConcurrentHashMap<>();
-
     private static final ThreadLocal<LinkedBuffer> BUFFERS = ThreadLocal.withInitial(LinkedBuffer::allocate);
 
     private ProtostuffSerializer() {
@@ -36,9 +31,8 @@ public class ProtostuffSerializer {
     }
 
     public static <T> T deserialize(byte[] bytes, Class<T> clazz) {
-        Schema<T> schema = getSchema(clazz);
-
         T object = OBJENESIS.newInstance(clazz);
+		Schema<T> schema = getSchema(clazz);
         ProtostuffIOUtil.mergeFrom(bytes, object, schema);
         return object;
     }
@@ -54,5 +48,4 @@ public class ProtostuffSerializer {
         }
         return schema;
     }
-
 }

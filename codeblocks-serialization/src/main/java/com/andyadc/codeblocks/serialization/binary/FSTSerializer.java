@@ -1,13 +1,8 @@
 package com.andyadc.codeblocks.serialization.binary;
 
 import com.andyadc.codeblocks.serialization.SerializerException;
-import org.apache.commons.lang3.ArrayUtils;
 import org.nustaq.serialization.FSTConfiguration;
 
-/**
- * @author andaicheng
- * @version 2017/2/13
- */
 public class FSTSerializer {
 
     public static <T> byte[] serialize(T object) {
@@ -29,9 +24,9 @@ public class FSTSerializer {
 
     @SuppressWarnings({"unchecked"})
     public static <T> T deserialize(FSTConfiguration fst, byte[] bytes) {
-        if (ArrayUtils.isEmpty(bytes)) {
-            throw new SerializerException("Bytes is null or empty");
-        }
+        if (bytes == null || bytes.length == 0) {
+			throw new SerializerException("Bytes is null or empty");
+		}
         return (T) fst.asObject(bytes);
     }
 }
