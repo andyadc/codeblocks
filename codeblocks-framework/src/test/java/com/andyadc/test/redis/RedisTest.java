@@ -8,16 +8,10 @@ import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 import redis.clients.jedis.Pipeline;
 
-/**
- * @author andy.an
- * @since 2018/12/4
- */
 public class RedisTest {
 
-	private static final String HOST = "192.168.55.9";
+	private static final String HOST = "127.0.0.1";
 	private static final int PORT = 6379;
-//    private static final String HOST = "www.qq-server.com";
-//    private static final int PORT = 6377;
 
 	private static final JedisPool pool;
 	private static Jedis jedis;
@@ -34,61 +28,60 @@ public class RedisTest {
 	}
 
 	@BeforeAll
-    public static void before() {
-        jedis = pool.getResource();
-    }
+	public static void before() {
+		jedis = pool.getResource();
+	}
 
 	@AfterAll
-    public static void after() {
-        jedis.close();
-    }
+	public static void after() {
+		jedis.close();
+	}
 
-    @Test
-    public void ping() {
-        System.out.println(jedis.ping());
-    }
+	@Test
+	public void ping() {
+		System.out.println(jedis.ping());
+	}
 
-    @Test
-    public void testSet() {
-        jedis.flushDB();
+	@Test
+	public void testSet() {
+		jedis.flushDB();
 
-        long start = System.currentTimeMillis();
+		long start = System.currentTimeMillis();
 
-        for (int i = 0; i < 1000; i++) {
-            jedis.set("key" + i, "v" + i);
-        }
+		for (int i = 0; i < 1000; i++) {
+			jedis.set("key" + i, "v" + i);
+		}
 		System.out.println("Elapsed time: " + (System.currentTimeMillis() - start));
-    }
+	}
 
-    @Test
-    public void testPipeline() {
-        jedis.flushDB();
+	@Test
+	public void testPipeline() {
+		jedis.flushDB();
 
-        Pipeline pipeline = jedis.pipelined();
-        long start = System.currentTimeMillis();
+		Pipeline pipeline = jedis.pipelined();
+		long start = System.currentTimeMillis();
 
-        for (int i = 0; i < 1000; i++) {
-            pipeline.set("key" + i, "v" + i);
+		for (int i = 0; i < 1000; i++) {
+			pipeline.set("key" + i, "v" + i);
 
-            if (i % 100 == 0) {
-                pipeline.sync();
-            }
-        }
+			if (i % 100 == 0) {
+				pipeline.sync();
+			}
+		}
 
 		System.out.println("Elapsed time: " + (System.currentTimeMillis() - start));
-    }
+	}
 
-    @Test
-    public void testKey() {
-        System.out.println("flush db: " + jedis.flushDB());
+	@Test
+	public void testKey() {
+		System.out.println("flush db: " + jedis.flushDB());
 
-        System.out.println("exist: " + jedis.exists("username"));
-        System.out.println("set" + jedis.set("username", "andyadc"));
-        System.out.println(jedis.get("username"));
+		System.out.println("exist: " + jedis.exists("username"));
+		System.out.println("set" + jedis.set("username", "andyadc"));
+		System.out.println(jedis.get("username"));
 
-        jedis.expire("username", 10);
-        jedis.ttl("username");
-        jedis.persist("username");
-
-    }
+		jedis.expire("username", 10);
+		jedis.ttl("username");
+		jedis.persist("username");
+	}
 }
