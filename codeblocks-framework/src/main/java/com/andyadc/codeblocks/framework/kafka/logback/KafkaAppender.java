@@ -15,10 +15,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-/**
- * @author andy.an
- * @since 2018/12/6
- */
 public class KafkaAppender<E> extends KafkaAppenderConfig<E> {
 
     /**

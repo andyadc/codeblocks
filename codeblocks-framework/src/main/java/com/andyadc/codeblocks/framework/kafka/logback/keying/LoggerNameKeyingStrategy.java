@@ -4,10 +4,6 @@ import ch.qos.logback.classic.spi.ILoggingEvent;
 
 import java.nio.ByteBuffer;
 
-/**
- * @author andy.an
- * @since 2018/12/7
- */
 public class LoggerNameKeyingStrategy implements KeyingStrategy<ILoggingEvent> {
 
     @Override

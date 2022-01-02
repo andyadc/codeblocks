@@ -9,9 +9,6 @@ import java.text.SimpleDateFormat;
 
 /**
  * 自定义 Jackson2 转换
- *
- * @author andy.an
- * @since 2018/6/4
  */
 public class CustomerMappingJackson2HttpMessageConverter extends MappingJackson2HttpMessageConverter {
 

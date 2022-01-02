@@ -3,10 +3,6 @@ package com.andyadc.codeblocks.framework.kafka.logback.delivery;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
-/**
- * @author andy.an
- * @since 2018/12/6
- */
 @FunctionalInterface
 public interface DeliveryStrategy {
 
