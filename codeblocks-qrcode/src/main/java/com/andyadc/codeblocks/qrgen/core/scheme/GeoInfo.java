@@ -17,7 +17,7 @@ public class GeoInfo extends Schema {
 	 */
 	public GeoInfo() {
 		super();
-		this.points = new ArrayList<String>();
+		this.points = new ArrayList<>();
 	}
 
 	public static GeoInfo parse(final String geoInfoCode) {
@@ -40,7 +40,7 @@ public class GeoInfo extends Schema {
 			throw new IllegalArgumentException("this is not a geo info code: " + code);
 		}
 		String[] points = code.trim().toLowerCase().replaceAll(GEO + ":", "").split(",");
-		if (points != null && points.length > 0) {
+		if (points.length > 0) {
 			for (String point : points) {
 				this.points.add(point);
 			}

@@ -20,8 +20,7 @@ public class SchemeUtil {
 	 * @param paramSeparator the string that splits the parameters
 	 * @return the parsed key/value map
 	 */
-	public static Map<String, String> getParameters(final String qrCode,
-													final String paramSeparator) {
+	public static Map<String, String> getParameters(final String qrCode, final String paramSeparator) {
 		return getParameters(qrCode, paramSeparator,
 			DEFAULT_KEY_VALUE_SEPARATOR);
 	}
@@ -48,10 +47,10 @@ public class SchemeUtil {
 	public static Map<String, String> getParameters(final String qrCode,
 													final String paramSeparator,
 													final String keyValueSeparator) {
-		Map<String, String> result = new LinkedHashMap<String, String>();
+		Map<String, String> result = new LinkedHashMap<>();
 		String[] parts = qrCode.split(paramSeparator);
-		for (int i = 0; i < parts.length; i++) {
-			String[] param = parts[i].split(keyValueSeparator);
+		for (String part : parts) {
+			String[] param = part.split(keyValueSeparator);
 			if (param.length > 1) {
 				result.put(param[0], param[1]);
 			}

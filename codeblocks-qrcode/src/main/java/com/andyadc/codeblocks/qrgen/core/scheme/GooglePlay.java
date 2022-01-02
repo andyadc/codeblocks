@@ -36,7 +36,7 @@ public class GooglePlay extends Schema {
 			throw new IllegalArgumentException("this is not a google play code: " + code);
 		}
 		String[] paths = code.trim().toLowerCase().replace("}}}", "").split("=");
-		if (paths != null && paths.length > 1) {
+		if (paths.length > 1) {
 			setAppPackage(paths[1]);
 		}
 		return this;

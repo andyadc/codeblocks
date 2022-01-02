@@ -30,8 +30,12 @@ public class EnterpriseWifi extends Wifi {
 	}
 
 	public static String escape(final String text) {
-		return text.replace("\\", "\\\\").replace(",", "\\,").replace(";", "\\;").replace(".", "\\.")
-			.replace("\"", "\\\"").replace("'", "\\'");
+		return text.replace("\\", "\\\\")
+			.replace(",", "\\,")
+			.replace(";", "\\;")
+			.replace(".", "\\.")
+			.replace("\"", "\\\"")
+			.replace("'", "\\'");
 	}
 
 	public static String unescape(final String text) {

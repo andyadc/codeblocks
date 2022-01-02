@@ -44,14 +44,12 @@ public class MatrixToSvgWriter {
 
 	static void writeToStream(BitMatrix matrix, OutputStream outs, MatrixToImageConfig matrixToImageConfig) throws IOException {
 		SVGGraphics2D g2 = toSvgDocument(matrix, matrixToImageConfig);
-
 		OutputStreamWriter out = new OutputStreamWriter(outs);
 		g2.stream(out);
 	}
 
 	static void writeToPath(BitMatrix matrix, Path file, MatrixToImageConfig matrixToImageConfig) throws IOException {
 		SVGGraphics2D g2 = toSvgDocument(matrix, matrixToImageConfig);
-
 		FileWriter out = new FileWriter(file.toFile());
 		g2.stream(out);
 	}

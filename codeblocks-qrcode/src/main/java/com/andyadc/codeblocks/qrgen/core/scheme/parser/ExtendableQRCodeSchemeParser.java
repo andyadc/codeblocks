@@ -56,7 +56,7 @@ public class ExtendableQRCodeSchemeParser implements QRCodeSchemeParser {
 
 	@Override
 	public Set<Class<? extends Schema>> getSupportedSchemes() {
-		Set<Class<? extends Schema>> supportedSchemes = new LinkedHashSet<Class<? extends Schema>>();
+		Set<Class<? extends Schema>> supportedSchemes = new LinkedHashSet<>();
 		for (QRCodeSchemeParser parser : getParser()) {
 			supportedSchemes.addAll(parser.getSupportedSchemes());
 		}
@@ -82,7 +82,7 @@ public class ExtendableQRCodeSchemeParser implements QRCodeSchemeParser {
 	}
 
 	protected Set<QRCodeSchemeParser> loadParser() {
-		Set<QRCodeSchemeParser> result = new LinkedHashSet<QRCodeSchemeParser>();
+		Set<QRCodeSchemeParser> result = new LinkedHashSet<>();
 		try {
 			Enumeration<URL> resources = this.getClass().getClassLoader().getResources("META-INF/qrcode.meta");
 			for (URL url : Collections.list(resources)) {
@@ -150,7 +150,5 @@ public class ExtendableQRCodeSchemeParser implements QRCodeSchemeParser {
 			supportedSchemes.add(Url.class);
 			return supportedSchemes;
 		}
-
 	}
-
 }
