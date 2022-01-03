@@ -28,8 +28,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
- * @author andaicheng
- * @version 2016/4/16
+ * session
  */
 public final class CaptchaServlet extends HttpServlet {
 
@@ -79,7 +78,7 @@ public final class CaptchaServlet extends HttpServlet {
             ImageIO.write(bufferedImage, "png", outputStream);
             outputStream.flush();
         } catch (Exception e) {
-            logger.error("CaptchaServlet handle error", e);
+			logger.error("CaptchaServlet occur error", e);
         }
     }
 

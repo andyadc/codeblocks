@@ -88,7 +88,7 @@ public class GifDecoder {
 	protected byte[] pixelStack;
 	protected byte[] pixels;
 
-	protected ArrayList frames; // frames read from current file
+	protected ArrayList<GifFrame> frames; // frames read from current file
 	protected int frameCount;
 
 	/**
@@ -98,10 +98,9 @@ public class GifDecoder {
 	 * @return delay in milliseconds
 	 */
 	public int getDelay(int n) {
-		//
 		delay = -1;
 		if ((n >= 0) && (n < frameCount)) {
-			delay = ((GifFrame) frames.get(n)).delay;
+			delay = frames.get(n).delay;
 		}
 		return delay;
 	}
@@ -233,7 +232,7 @@ public class GifDecoder {
 	public BufferedImage getFrame(int n) {
 		BufferedImage im = null;
 		if ((n >= 0) && (n < frameCount)) {
-			im = ((GifFrame) frames.get(n)).image;
+			im = frames.get(n).image;
 		}
 		return im;
 	}
@@ -268,8 +267,10 @@ public class GifDecoder {
 			status = STATUS_OPEN_ERROR;
 		}
 		try {
-			is.close();
+			if (is != null)
+				is.close();
 		} catch (IOException e) {
+			// do nothing
 		}
 		return status;
 	}
@@ -297,8 +298,10 @@ public class GifDecoder {
 			status = STATUS_OPEN_ERROR;
 		}
 		try {
-			is.close();
+			if (is != null)
+				is.close();
 		} catch (IOException e) {
+			// do nothing
 		}
 		return status;
 	}
@@ -314,8 +317,10 @@ public class GifDecoder {
 		status = STATUS_OK;
 		try {
 			name = name.trim().toLowerCase();
-			if ((name.indexOf("file:") >= 0) ||
-				(name.indexOf(":/") > 0)) {
+			if (
+				(name.indexOf("file:") >= 0)
+					|| (name.indexOf(":/") > 0)
+			) {
 				URL url = new URL(name);
 				in = new BufferedInputStream(url.openStream());
 			} else {
@@ -325,7 +330,6 @@ public class GifDecoder {
 		} catch (IOException e) {
 			status = STATUS_OPEN_ERROR;
 		}
-
 		return status;
 	}
 
@@ -476,7 +480,7 @@ public class GifDecoder {
 	protected void init() {
 		status = STATUS_OK;
 		frameCount = 0;
-		frames = new ArrayList();
+		frames = new ArrayList<>();
 		gct = null;
 		lct = null;
 	}
@@ -512,6 +516,7 @@ public class GifDecoder {
 					n += count;
 				}
 			} catch (IOException e) {
+				// do nothing
 			}
 
 			if (n < blockSize) {
@@ -535,6 +540,7 @@ public class GifDecoder {
 		try {
 			n = in.read(c);
 		} catch (IOException e) {
+			// do nothing
 		}
 		if (n < nbytes) {
 			status = STATUS_FORMAT_ERROR;

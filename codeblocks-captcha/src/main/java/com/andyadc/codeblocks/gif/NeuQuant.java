@@ -21,7 +21,6 @@ package com.andyadc.codeblocks.gif;
  */
 
 // Ported to Java 12/00 K Weiner
-
 public class NeuQuant {
 
 	protected static final int netsize = 256; /* number of colours used */
@@ -259,8 +258,7 @@ public class NeuQuant {
 				if (rad <= 1)
 					rad = 0;
 				for (j = 0; j < rad; j++)
-					radpower[j] =
-						alpha * (((rad * rad - j * j) * radbias) / (rad * rad));
+					radpower[j] = alpha * (((rad * rad - j * j) * radbias) / (rad * rad));
 			}
 		}
 		//fprintf(stderr,"finished 1D learning: final alpha=%f !\n",((float)alpha)/initalpha);
@@ -381,6 +379,7 @@ public class NeuQuant {
 					p[1] -= (a * (p[1] - g)) / alpharadbias;
 					p[2] -= (a * (p[2] - r)) / alpharadbias;
 				} catch (Exception e) {
+					// do nothing
 				} // prevents 1.3 miscompilation
 			}
 			if (k > lo) {
@@ -390,6 +389,7 @@ public class NeuQuant {
 					p[1] -= (a * (p[1] - g)) / alpharadbias;
 					p[2] -= (a * (p[2] - r)) / alpharadbias;
 				} catch (Exception e) {
+					// do nothing
 				}
 			}
 		}
@@ -398,7 +398,6 @@ public class NeuQuant {
 	/* Move neuron i towards biased (b,g,r) by factor alpha
 	   ---------------------------------------------------- */
 	protected void altersingle(int alpha, int i, int b, int g, int r) {
-
 		/* alter hit neuron */
 		int[] n = network[i];
 		n[0] -= (alpha * (n[0] - b)) / initalpha;
