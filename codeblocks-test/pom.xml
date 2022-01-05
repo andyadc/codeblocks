@@ -153,6 +153,14 @@
 			<version>0.7.4</version>
 		</dependency>
 
+		<!-- https://github.com/openjdk/jol -->
+		<!-- Java Object Layout: Core -->
+		<dependency>
+			<groupId>org.openjdk.jol</groupId>
+			<artifactId>jol-core</artifactId>
+			<version>0.16</version>
+		</dependency>
+
 		<dependency>
 			<groupId>org.apache.kafka</groupId>
 			<artifactId>kafka-clients</artifactId>
