@@ -6,7 +6,8 @@ public enum SerializerType {
 	KRYO_BINARY("kryoBinarySerializer"),
 	JDK_BINARY("jdkBinarySerializer"),
 	JACKSON_JSON("jacksonJsonSerializer"),
-	FAST_JSON("fastJsonSerializer");
+	FAST_JSON("fastJsonSerializer"),
+	;
 
 	private final String value;
 
