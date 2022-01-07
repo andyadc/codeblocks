@@ -10,10 +10,6 @@ import java.util.Enumeration;
 import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
-/**
- * @author andaicheng
- * @version 2017/1/8
- */
 public final class IPUtil {
 
 	private static final Logger logger = LoggerFactory.getLogger(IPUtil.class);
@@ -54,8 +50,10 @@ public final class IPUtil {
 		}
 
 		String[] octets = ip.split("\\.");
-		return (Long.parseLong(octets[0]) << 24) + (Integer.parseInt(octets[1]) << 16)
-			+ (Integer.parseInt(octets[2]) << 8) + Integer.parseInt(octets[3]);
+		return (Long.parseLong(octets[0]) << 24)
+			+ (Integer.parseInt(octets[1]) << 16)
+			+ (Integer.parseInt(octets[2]) << 8)
+			+ Integer.parseInt(octets[3]);
 	}
 
 	public static boolean isIPv4Private(String ip) {
@@ -94,7 +92,8 @@ public final class IPUtil {
 		Enumeration<?> enumeration = request.getHeaderNames();
 		while (enumeration.hasMoreElements()) {
 			String paraName = (String) enumeration.nextElement();
-			if ("x-forward-for".equalsIgnoreCase(paraName) || "x-forwarded-for".equalsIgnoreCase(paraName)) {
+			if ("x-forward-for".equalsIgnoreCase(paraName)
+				|| "x-forwarded-for".equalsIgnoreCase(paraName)) {
 				ip = request.getHeader(paraName);
 				break;
 			}
@@ -140,5 +139,4 @@ public final class IPUtil {
 		}
 		return null;
 	}
-
 }

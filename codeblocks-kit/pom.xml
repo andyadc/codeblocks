@@ -92,6 +92,7 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<!-- https://www.bouncycastle.org/java.html -->
 		<dependency>
 			<groupId>org.bouncycastle</groupId>
 			<artifactId>bcprov-jdk15on</artifactId>
@@ -99,13 +100,6 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- https://github.com/stephenc/eaio-uuid -->
-		<dependency>
-			<groupId>com.github.stephenc.eaio-uuid</groupId>
-			<artifactId>uuid</artifactId>
-			<version>3.4.2</version>
-			<scope>provided</scope>
-		</dependency>
 		<!-- ipaddress -->
 		<dependency>
 			<groupId>com.github.seancfoley</groupId>

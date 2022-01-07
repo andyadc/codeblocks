@@ -3,7 +3,6 @@ package com.andyadc.codeblocks.kit;
 /**
  * A byte utility class that manipulates bytes.
  *
- * @author andaicheng
  */
 public final class ByteUtil {
 

@@ -1,6 +1,6 @@
 package com.andyadc.codeblocks.test.file;
 
-import com.andyadc.codeblocks.kit.StopWatch;
+import org.springframework.util.StopWatch;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;

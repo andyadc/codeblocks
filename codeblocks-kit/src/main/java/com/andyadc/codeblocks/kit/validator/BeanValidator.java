@@ -13,10 +13,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * @author andaicheng
- * @since 2018/7/22
- */
 public class BeanValidator {
 
 	private static final ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();

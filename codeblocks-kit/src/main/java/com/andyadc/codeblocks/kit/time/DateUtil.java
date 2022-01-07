@@ -11,7 +11,6 @@ import java.util.TimeZone;
 /**
  * <code>org.apache.commons.lang3.time.DateUtils</code>
  *
- * @author andaicheng
  */
 public final class DateUtil {
 

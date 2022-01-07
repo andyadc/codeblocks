@@ -7,10 +7,6 @@ import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @author andaicheng
- * @version 2017/3/12
- */
 public final class ServletUtil {
 
     private ServletUtil() {
@@ -61,8 +57,9 @@ public final class ServletUtil {
     }
 
     public static void setToCookie(HttpServletResponse response,
-                                   String key, String value,
-                                   int maxAge) {
+								   String key,
+								   String value,
+								   int maxAge) {
         Cookie cookie = new Cookie(key, value);
         cookie.setHttpOnly(true);
         cookie.setPath("/");

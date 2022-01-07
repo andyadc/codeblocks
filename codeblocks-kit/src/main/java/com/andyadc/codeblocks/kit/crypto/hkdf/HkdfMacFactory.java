@@ -41,8 +41,29 @@ public interface HkdfMacFactory {
 	 */
 	@SuppressWarnings("WeakerAccess")
 	final class Default implements HkdfMacFactory {
+
 		private final String macAlgorithmName;
 		private final Provider provider;
+
+		/**
+		 * Creates a mac factory
+		 *
+		 * @param macAlgorithmName as used by {@link Mac#getInstance(String)}
+		 */
+		public Default(String macAlgorithmName) {
+			this(macAlgorithmName, null);
+		}
+
+		/**
+		 * Creates a mac factory
+		 *
+		 * @param macAlgorithmName as used by {@link Mac#getInstance(String)}
+		 * @param provider         the security provider, see {@link Mac#getInstance(String, Provider)}; may be null to use default
+		 */
+		public Default(String macAlgorithmName, Provider provider) {
+			this.macAlgorithmName = macAlgorithmName;
+			this.provider = provider;
+		}
 
 		/**
 		 * Creates a factory creating HMAC with SHA-256
@@ -71,26 +92,6 @@ public interface HkdfMacFactory {
 		@Deprecated
 		public static HkdfMacFactory hmacSha1() {
 			return new Default("HmacSHA1", null);
-		}
-
-		/**
-		 * Creates a mac factory
-		 *
-		 * @param macAlgorithmName as used by {@link Mac#getInstance(String)}
-		 */
-		public Default(String macAlgorithmName) {
-			this(macAlgorithmName, null);
-		}
-
-		/**
-		 * Creates a mac factory
-		 *
-		 * @param macAlgorithmName as used by {@link Mac#getInstance(String)}
-		 * @param provider         the security provider, see {@link Mac#getInstance(String, Provider)}; may be null to use default
-		 */
-		public Default(String macAlgorithmName, Provider provider) {
-			this.macAlgorithmName = macAlgorithmName;
-			this.provider = provider;
 		}
 
 		@Override

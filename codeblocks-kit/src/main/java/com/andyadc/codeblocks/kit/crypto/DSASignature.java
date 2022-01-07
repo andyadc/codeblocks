@@ -18,8 +18,6 @@ import java.util.Map;
 /**
  * Digital Signature Algorithm
  *
- * @author andy.an
- * @since 2018/3/4
  */
 public final class DSASignature {
 

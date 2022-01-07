@@ -10,7 +10,6 @@ import java.security.SecureRandom;
 import java.util.Enumeration;
 
 /**
- * @author Jason Song(song_s@ctrip.com)
  */
 public final class MachineUtil {
 

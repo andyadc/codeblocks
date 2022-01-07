@@ -3,8 +3,6 @@ package com.andyadc.codeblocks.kit.text;
 /**
  * A string utility class that manipulates string.
  *
- * @author andaicheng
- * @version 1.0, 2016-10-07
  */
 public final class StringUtil {
 

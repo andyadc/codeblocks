@@ -7,8 +7,6 @@ import java.util.regex.Pattern;
  * https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/constant/RegexConstants.java#L11
  * https://github.com/Blankj/AndroidUtilCode/blob/master/utilcode/src/main/java/com/blankj/utilcode/util/RegexUtils.java
  *
- * @author andy.an
- * @since 2018/6/5
  */
 public final class RegexConstant {
 

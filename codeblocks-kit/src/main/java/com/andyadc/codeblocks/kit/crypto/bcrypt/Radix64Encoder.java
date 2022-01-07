@@ -14,7 +14,6 @@ package com.andyadc.codeblocks.kit.crypto.bcrypt;
  */
 public interface Radix64Encoder {
 
-
 	/**
 	 * Encode given raw byte array to a Radix64 style, UTF-8 encoded byte array.
 	 *
@@ -31,23 +30,6 @@ public interface Radix64Encoder {
 	 */
 	byte[] decode(byte[] utf8EncodedRadix64String);
 
-	/*
-	 *  Licensed to the Apache Software Foundation (ASF) under one or more
-	 *  contributor license agreements.  See the NOTICE file distributed with
-	 *  this work for additional information regarding copyright ownership.
-	 *  The ASF licenses this file to You under the Apache License, Version 2.0
-	 *  (the "License"); you may not use this file except in compliance with
-	 *  the License.  You may obtain a copy of the License at
-	 *
-	 *     http://www.apache.org/licenses/LICENSE-2.0
-	 *
-	 *  Unless required by applicable law or agreed to in writing, software
-	 *  distributed under the License is distributed on an "AS IS" BASIS,
-	 *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	 *  See the License for the specific language governing permissions and
-	 *  limitations under the License.
-	 */
-
 	/**
 	 * A mod of Square's Okio Base64 encoder
 	 * <p>
@@ -56,6 +38,7 @@ public interface Radix64Encoder {
 	 * @see <a href="https://github.com/square/okio/blob/okio-parent-1.15.0/okio/src/main/java/okio/Base64.java">Okio</a>
 	 */
 	class Default implements Radix64Encoder {
+
 		private static final byte[] DECODE_TABLE = {
 			-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
 			-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
@@ -73,6 +56,31 @@ public interface Radix64Encoder {
 			'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5',
 			'6', '7', '8', '9'
 		};
+
+		private static byte[] encode(byte[] in, byte[] map) {
+			int length = 4 * (in.length / 3) + (in.length % 3 == 0 ? 0 : in.length % 3 + 1);
+			byte[] out = new byte[length];
+			int index = 0, end = in.length - in.length % 3;
+			for (int i = 0; i < end; i += 3) {
+				out[index++] = map[(in[i] & 0xff) >> 2];
+				out[index++] = map[((in[i] & 0x03) << 4) | ((in[i + 1] & 0xff) >> 4)];
+				out[index++] = map[((in[i + 1] & 0x0f) << 2) | ((in[i + 2] & 0xff) >> 6)];
+				out[index++] = map[(in[i + 2] & 0x3f)];
+			}
+
+			switch (in.length % 3) {
+				case 1:
+					out[index++] = map[(in[end] & 0xff) >> 2];
+					out[index] = map[(in[end] & 0x03) << 4];
+					break;
+				case 2:
+					out[index++] = map[(in[end] & 0xff) >> 2];
+					out[index++] = map[((in[end] & 0x03) << 4) | ((in[end + 1] & 0xff) >> 4)];
+					out[index] = map[((in[end + 1] & 0x0f) << 2)];
+					break;
+			}
+			return out;
+		}
 
 		@Override
 		public byte[] encode(byte[] in) {
@@ -142,30 +150,6 @@ public interface Radix64Encoder {
 			byte[] prefix = new byte[outCount];
 			System.arraycopy(out, 0, prefix, 0, outCount);
 			return prefix;
-		}
-
-		private static byte[] encode(byte[] in, byte[] map) {
-			int length = 4 * (in.length / 3) + (in.length % 3 == 0 ? 0 : in.length % 3 + 1);
-			byte[] out = new byte[length];
-			int index = 0, end = in.length - in.length % 3;
-			for (int i = 0; i < end; i += 3) {
-				out[index++] = map[(in[i] & 0xff) >> 2];
-				out[index++] = map[((in[i] & 0x03) << 4) | ((in[i + 1] & 0xff) >> 4)];
-				out[index++] = map[((in[i + 1] & 0x0f) << 2) | ((in[i + 2] & 0xff) >> 6)];
-				out[index++] = map[(in[i + 2] & 0x3f)];
-			}
-			switch (in.length % 3) {
-				case 1:
-					out[index++] = map[(in[end] & 0xff) >> 2];
-					out[index] = map[(in[end] & 0x03) << 4];
-					break;
-				case 2:
-					out[index++] = map[(in[end] & 0xff) >> 2];
-					out[index++] = map[((in[end] & 0x03) << 4) | ((in[end + 1] & 0xff) >> 4)];
-					out[index] = map[((in[end + 1] & 0x0f) << 2)];
-					break;
-			}
-			return out;
 		}
 	}
 }

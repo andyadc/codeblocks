@@ -2,9 +2,6 @@ package com.andyadc.codeblocks.kit.mask;
 
 import java.util.Arrays;
 
-/**
- * @author andaicheng
- */
 public final class Mask {
 
     protected static final char MASK_CHAR = '*';

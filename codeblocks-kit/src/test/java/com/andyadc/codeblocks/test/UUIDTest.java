@@ -31,12 +31,6 @@ public class UUIDTest {
 
 	@Benchmark
 	@Threads(5)
-	public void test01() {
-		UUID.fastUUID();
-	}
-
-	@Benchmark
-	@Threads(5)
 	public void test02() {
 		UUID.randomUUID();
 	}

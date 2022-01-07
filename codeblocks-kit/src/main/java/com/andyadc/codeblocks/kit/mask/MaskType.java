@@ -2,9 +2,6 @@ package com.andyadc.codeblocks.kit.mask;
 
 import java.util.regex.Pattern;
 
-/**
- * @author andaicheng
- */
 public enum MaskType {
 
     /**

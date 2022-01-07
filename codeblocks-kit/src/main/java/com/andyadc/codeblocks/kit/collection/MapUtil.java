@@ -5,8 +5,6 @@ import java.util.Map;
 
 /**
  * Provides utility methods.
- *
- * @author andaicheng
  */
 public final class MapUtil {
 

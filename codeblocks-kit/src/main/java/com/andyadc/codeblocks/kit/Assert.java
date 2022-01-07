@@ -7,7 +7,6 @@ import com.andyadc.codeblocks.kit.text.StringUtil;
  * <p>
  * <p>Useful for identifying programmer errors early and clearly at runtime.
  *
- * @author andaicheng
  */
 public final class Assert {
 

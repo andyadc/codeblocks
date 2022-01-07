@@ -8,8 +8,6 @@ import com.alibaba.fastjson.serializer.SimpleDateFormatSerializer;
 
 /**
  * json utility (via fastjson)
- *
- * @author andaicheng
  */
 public final class JsonUtil {
 

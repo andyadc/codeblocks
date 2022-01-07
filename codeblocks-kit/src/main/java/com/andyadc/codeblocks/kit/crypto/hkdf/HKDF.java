@@ -31,6 +31,7 @@ import java.nio.ByteBuffer;
  */
 @SuppressWarnings("WeakerAccess")
 public final class HKDF {
+
 	/**
 	 * Cache instances
 	 */
@@ -188,9 +189,11 @@ public final class HKDF {
 	 * @return new byte array of output keying material (OKM)
 	 */
 	public byte[] extractAndExpand(SecretKey saltExtract, byte[] inputKeyingMaterial, byte[] infoExpand, int outLengthByte) {
-		return new Expander(macFactory).execute(macFactory.createSecretKey(
-			new Extractor(macFactory).execute(saltExtract, inputKeyingMaterial)),
-			infoExpand, outLengthByte);
+		return new Expander(macFactory).execute(
+			macFactory.createSecretKey(new Extractor(macFactory).execute(saltExtract, inputKeyingMaterial)),
+			infoExpand,
+			outLengthByte
+		);
 	}
 
 	/**
@@ -205,6 +208,7 @@ public final class HKDF {
 	/* ************************************************************************** IMPL */
 
 	static final class Extractor {
+
 		private final HkdfMacFactory macFactory;
 
 		Extractor(HkdfMacFactory macFactory) {
@@ -234,6 +238,7 @@ public final class HKDF {
 	}
 
 	static final class Expander {
+
 		private final HkdfMacFactory macFactory;
 
 		Expander(HkdfMacFactory macFactory) {
@@ -249,20 +254,17 @@ public final class HKDF {
 		 * @return new byte array of output keying material (OKM)
 		 */
 		byte[] execute(SecretKey pseudoRandomKey, byte[] info, int outLengthBytes) {
-
 			if (outLengthBytes <= 0) {
 				throw new IllegalArgumentException("out length bytes must be at least 1");
 			}
-
 			if (pseudoRandomKey == null) {
 				throw new IllegalArgumentException("provided pseudoRandomKey must not be null");
 			}
 
-			Mac hmacHasher = macFactory.createInstance(pseudoRandomKey);
-
 			if (info == null) {
 				info = new byte[0];
 			}
+			Mac hmacHasher = macFactory.createInstance(pseudoRandomKey);
 
             /*
             The output OKM is calculated as follows:

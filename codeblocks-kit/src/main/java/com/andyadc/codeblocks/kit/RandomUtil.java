@@ -2,9 +2,6 @@ package com.andyadc.codeblocks.kit;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-/**
- * @author andy.an
- */
 public final class RandomUtil {
 
     private static final String LETTERS = "0123456789qazwsxedcrfvtgbyhnujmikolp";

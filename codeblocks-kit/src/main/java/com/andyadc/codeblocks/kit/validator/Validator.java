@@ -4,9 +4,6 @@ import javax.xml.bind.ValidationException;
 
 /**
  * Enum of Validator implementations.
- *
- * @author andy.an
- * @since 2017/11/2
  */
 public enum Validator {
 
