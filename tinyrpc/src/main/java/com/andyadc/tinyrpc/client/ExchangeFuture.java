@@ -12,17 +12,17 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-public class ExchangeFuture implements Future {
+public class ExchangeFuture implements Future<Object> {
 
 	private static final Map<String, ExchangeFuture> workingFutureMap = new ConcurrentHashMap<>();
 	private final long createdTime;
 	private final InvocationRequest request;
-	private final Promise promise;
+	private final Promise<Object> promise;
 
 	public ExchangeFuture(InvocationRequest request) {
 		this.createdTime = System.currentTimeMillis();
 		this.request = request;
-		this.promise = new DefaultPromise(new DefaultEventLoop());
+		this.promise = new DefaultPromise<>(new DefaultEventLoop());
 	}
 
 	public static ExchangeFuture createExchangeFuture(InvocationRequest request) {
@@ -71,7 +71,7 @@ public class ExchangeFuture implements Future {
 		return request;
 	}
 
-	public Promise getPromise() {
+	public Promise<Object> getPromise() {
 		return promise;
 	}
 }

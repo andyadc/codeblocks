@@ -98,6 +98,8 @@ public class ServiceInvocationHandler implements InvocationHandler {
 			case "toString":
 				// TODO
 				break;
+			default:
+				break;
 		}
 		return null;
 	}

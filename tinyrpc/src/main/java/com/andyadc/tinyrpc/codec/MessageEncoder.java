@@ -7,7 +7,7 @@ import io.netty.handler.codec.MessageToByteEncoder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class MessageEncoder extends MessageToByteEncoder {
+public class MessageEncoder extends MessageToByteEncoder<Object> {
 
 	private static final Logger logger = LoggerFactory.getLogger(MessageEncoder.class);
 

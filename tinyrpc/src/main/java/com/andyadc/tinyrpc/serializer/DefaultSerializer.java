@@ -19,7 +19,8 @@ public class DefaultSerializer implements Serializer {
 	@Override
 	public byte[] serialize(Object source) throws IOException {
 		Class<?> targetClass = source.getClass();
-		com.andyadc.codeblocks.common.io.Serializer serializer = serializers.getMostCompatible(targetClass);
+		com.andyadc.codeblocks.common.io.Serializer serializer
+			= serializers.getMostCompatible(targetClass);
 		return serializer.serialize(source);
 	}
 
