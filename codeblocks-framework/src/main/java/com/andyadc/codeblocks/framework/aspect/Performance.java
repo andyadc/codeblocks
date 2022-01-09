@@ -8,7 +8,6 @@ import java.lang.annotation.Target;
 /**
  * 标识需要计算方法执行时间
  *
- * @author andaicheng
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

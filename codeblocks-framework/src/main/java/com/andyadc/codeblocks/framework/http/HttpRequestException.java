@@ -1,6 +1,7 @@
 package com.andyadc.codeblocks.framework.http;
 
 public class HttpRequestException extends RuntimeException {
+
 	public HttpRequestException(Throwable cause) {
 		super(cause);
 	}

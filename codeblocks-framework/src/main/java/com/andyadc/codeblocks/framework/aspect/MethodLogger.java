@@ -14,8 +14,6 @@ import java.util.Arrays;
  * <ur>https://www.yegor256.com/2014/06/01/aop-aspectj-java-method-logging.html</ur>
  * MethodSignature.class.cast(point.getSignature()).getMethod().getName()
  *
- * @author andy.an
- * @since 2018/10/17
  */
 @Aspect
 public final class MethodLogger {

@@ -10,7 +10,6 @@ import java.time.Instant;
 /**
  * 性能切面
  *
- * @author andaicheng
  */
 public class PerformanceMonitor {
 
