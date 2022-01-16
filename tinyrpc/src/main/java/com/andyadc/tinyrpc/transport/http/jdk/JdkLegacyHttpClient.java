@@ -1,6 +1,6 @@
 package com.andyadc.tinyrpc.transport.http.jdk;
 
-import com.andyadc.tinyrpc.transport.DefaultHttpHeaders;
+import com.andyadc.tinyrpc.transport.http.DefaultHttpHeaders;
 import com.andyadc.tinyrpc.transport.http.HttpClient;
 import com.andyadc.tinyrpc.transport.http.HttpHeaders;
 import com.andyadc.tinyrpc.transport.http.HttpRequest;

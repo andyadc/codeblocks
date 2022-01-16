@@ -1,7 +1,5 @@
 package com.andyadc.tinyrpc.transport.http;
 
-import com.andyadc.tinyrpc.transport.DefaultHttpHeaders;
-
 /**
  * 默认http应答消息
  */

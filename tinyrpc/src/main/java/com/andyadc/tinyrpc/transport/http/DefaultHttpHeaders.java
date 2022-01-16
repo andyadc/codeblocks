@@ -1,6 +1,4 @@
-package com.andyadc.tinyrpc.transport;
-
-import com.andyadc.tinyrpc.transport.http.HttpHeaders;
+package com.andyadc.tinyrpc.transport.http;
 
 import java.util.HashMap;
 import java.util.Map;
