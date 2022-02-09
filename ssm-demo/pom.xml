@@ -17,13 +17,13 @@
 		<spring.version>5.3.15</spring.version>
 		<aspectj.version>1.9.7</aspectj.version>
 		<mybatis.version>3.5.9</mybatis.version>
-		<mybatis-spring.version>2.0.6</mybatis-spring.version>
+		<mybatis-spring.version>2.0.7</mybatis-spring.version>
 		<mysql-driver.version>8.0.28</mysql-driver.version>
 		<hikaricp.version>4.0.3</hikaricp.version>
 		<cglib.version>3.3.0</cglib.version>
 
 		<jackson.version>2.13.1</jackson.version>
-		<slf4j.version>1.7.32</slf4j.version>
+		<slf4j.version>1.7.35</slf4j.version>
 		<logback.version>1.2.10</logback.version>
 		<junit-jupiter.version>5.8.2</junit-jupiter.version>
 
