@@ -193,24 +193,32 @@
         <finalName>codeblocks-spring-sample</finalName>
 
         <plugins>
-            <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <configuration>
-                    <reload>manual</reload>
-                    <httpConnector>
-                        <port>${webserver.port}</port>
-                    </httpConnector>
+			<!-- https://www.eclipse.org/jetty/documentation/jetty-9/index.html#jetty-maven-plugin -->
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<configuration>
+					<reload>manual</reload>
+					<httpConnector>
+						<port>${webserver.port}</port>
+					</httpConnector>
 					<webApp>
-                        <contextPath>/${project.build.finalName}</contextPath>
+						<contextPath>/${project.build.finalName}</contextPath>
 					</webApp>
-                </configuration>
-            </plugin>
+				</configuration>
+			</plugin>
 
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>versions-maven-plugin</artifactId>
-            </plugin>
+			<!-- http://www.mojohaus.org/versions-maven-plugin/ -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>versions-maven-plugin</artifactId>
+				<configuration>
+					<allowSnapshots>false</allowSnapshots>
+					<excludes>
+						<exclude>io.netty:netty-all</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
         </plugins>
     </build>
 </project>
