@@ -138,11 +138,6 @@
 			<groupId>com.alibaba</groupId>
 			<artifactId>fastjson</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>com.github.stephenc.eaio-uuid</groupId>
-			<artifactId>uuid</artifactId>
-			<version>3.4.2</version>
-		</dependency>
 
 		<!-- j2ee jakarta-->
 		<dependency>
@@ -186,7 +181,6 @@
 			<artifactId>junit-jupiter-api</artifactId>
 			<scope>test</scope>
 		</dependency>
-
     </dependencies>
 
     <build>
