@@ -3,10 +3,6 @@ package com.andyadc.codeblocks.kit.bean;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * @author andy.an
- * @since 2018/4/23
- */
 public class BeanCopier {
 
     private static final Map<String, net.sf.cglib.beans.BeanCopier> beanCopierMap = new ConcurrentHashMap<>();

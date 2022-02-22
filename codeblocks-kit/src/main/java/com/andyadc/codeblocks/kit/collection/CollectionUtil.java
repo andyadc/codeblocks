@@ -2,9 +2,6 @@ package com.andyadc.codeblocks.kit.collection;
 
 import java.util.Collection;
 
-/**
- *
- */
 public final class CollectionUtil {
 
 	/**

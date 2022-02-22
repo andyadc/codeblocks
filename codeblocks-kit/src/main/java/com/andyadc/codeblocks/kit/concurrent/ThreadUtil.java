@@ -9,8 +9,6 @@ import java.util.concurrent.TimeUnit;
  * <p>
  * 2. 正确的InterruptedException处理方法
  *
- * @author andy.an
- * @since 2018/10/25
  */
 public class ThreadUtil {
 

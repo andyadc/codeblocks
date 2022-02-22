@@ -2,9 +2,6 @@ package com.andyadc.codeblocks.kit.collection;
 
 import java.lang.reflect.Array;
 
-/**
- *
- */
 public final class ArrayUtil {
 
 	/**

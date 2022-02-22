@@ -14,8 +14,6 @@ import java.util.concurrent.TimeUnit;
  * the executor has room in its queue, or a timeout occurs (in which
  * case a {@link RejectedExecutionException} is thrown.
  *
- * @author andy.an
- * @since 2018/6/4
  */
 public class CallerBlocksPolicy implements RejectedExecutionHandler {
 

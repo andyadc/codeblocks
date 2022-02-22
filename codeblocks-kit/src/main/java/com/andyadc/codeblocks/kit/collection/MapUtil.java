@@ -3,9 +3,6 @@ package com.andyadc.codeblocks.kit.collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-/**
- * Provides utility methods.
- */
 public final class MapUtil {
 
     /**

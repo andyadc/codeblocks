@@ -2,7 +2,6 @@ package com.andyadc.codeblocks.kit.text;
 
 /**
  * A string utility class that manipulates string.
- *
  */
 public final class StringUtil {
 

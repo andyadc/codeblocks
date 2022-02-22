@@ -7,8 +7,6 @@ import java.util.Map;
 /**
  * Slf4j 异步线程设置 MDC
  *
- * @author andy.an
- * @since 2018/6/4
  */
 public class MDCRunnable implements Runnable {
 

@@ -5,10 +5,6 @@ import org.slf4j.MDC;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
-/**
- * andy.an
- * 2019/11/21
- */
 public class MDCCallable<V> implements Callable<V> {
 
 	private final Callable<V> callable;

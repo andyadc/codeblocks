@@ -51,9 +51,9 @@ public final class IPUtil {
 
 		String[] octets = ip.split("\\.");
 		return (Long.parseLong(octets[0]) << 24)
-			+ (Integer.parseInt(octets[1]) << 16)
-			+ (Integer.parseInt(octets[2]) << 8)
-			+ Integer.parseInt(octets[3]);
+			+ (Long.parseLong(octets[1]) << 16)
+			+ (Long.parseLong(octets[2]) << 8)
+			+ Long.parseLong(octets[3]);
 	}
 
 	public static boolean isIPv4Private(String ip) {
@@ -88,7 +88,6 @@ public final class IPUtil {
 
 	public static String getReqIp(HttpServletRequest request) {
 		String ip = null;
-		//匹配大小写，保证无论Nginx如何配置代理参数，系统都能正常获取代理IP
 		Enumeration<?> enumeration = request.getHeaderNames();
 		while (enumeration.hasMoreElements()) {
 			String paraName = (String) enumeration.nextElement();
@@ -126,7 +125,6 @@ public final class IPUtil {
 				Enumeration<InetAddress> inetAddresses = ni.getInetAddresses();
 				while (inetAddresses.hasMoreElements()) {
 					InetAddress address = inetAddresses.nextElement();
-
 					// ignores all invalidated addresses
 					if (address.isLinkLocalAddress() || address.isLoopbackAddress() || address.isAnyLocalAddress()) {
 						continue;

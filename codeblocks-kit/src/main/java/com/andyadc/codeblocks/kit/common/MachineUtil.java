@@ -9,8 +9,6 @@ import java.nio.ByteBuffer;
 import java.security.SecureRandom;
 import java.util.Enumeration;
 
-/**
- */
 public final class MachineUtil {
 
     private static final Logger logger = LoggerFactory.getLogger(MachineUtil.class);
