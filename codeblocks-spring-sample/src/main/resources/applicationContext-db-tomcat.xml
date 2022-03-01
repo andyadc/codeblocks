@@ -10,15 +10,19 @@
 	<bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource"
 		  destroy-method="close">
         <!-- Connection Info -->
-        <property name="driverClassName" value="${jdbc.driver}"/>
-        <property name="url" value="${jdbc.url}"/>
-        <property name="username" value="${jdbc.username}"/>
-        <property name="password" value="${jdbc.password}"/>
+		<property name="driverClassName" value="${jdbc.driver}"/>
+		<property name="url" value="${jdbc.url}"/>
+		<property name="username" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.password}"/>
 
-        <!-- Connection Pooling Info -->
-        <property name="maxActive" value="${tomcat.jdbc.pool.maxActive}"/>
-        <property name="maxIdle" value="${tomcat.jdbc.pool.maxIdle}"/>
-        <property name="minIdle" value="0"/>
-        <property name="defaultAutoCommit" value="false"/>
-    </bean>
+		<!-- Connection Pooling Info -->
+		<property name="maxActive" value="${tomcat.jdbc.pool.maxActive}"/>
+		<property name="maxIdle" value="${tomcat.jdbc.pool.maxIdle}"/>
+		<property name="minIdle" value="0"/>
+		<property name="defaultAutoCommit" value="false"/>
+
+		<property name="logAbandoned" value="true"/>
+		<property name="removeAbandonedTimeout" value="180"/>
+		<property name="removeAbandoned" value="true"/>
+	</bean>
 </beans>
