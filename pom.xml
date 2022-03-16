@@ -64,7 +64,7 @@
 		<jsqlparser.version>4.3</jsqlparser.version>
 		<fst.version>2.57</fst.version>
 		<kryo.version>4.0.2</kryo.version>
-		<protostuff.version>1.7.4</protostuff.version>
+		<protostuff.version>1.8.0</protostuff.version>
 		<hessian.version>4.0.65</hessian.version>
 		<cglib.version>3.3.0</cglib.version>
 		<objenesis.version>3.2</objenesis.version>
