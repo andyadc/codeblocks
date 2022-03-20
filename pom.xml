@@ -46,7 +46,7 @@
 		<mybatis-spring.version>2.0.7</mybatis-spring.version>
 		<spring-data-redis.version>2.6.2</spring-data-redis.version>
 		<zookeeper.version>3.8.0</zookeeper.version>
-		<redisson.version>3.16.8</redisson.version>
+		<redisson.version>3.17.0</redisson.version>
 		<jedis.version>4.1.1</jedis.version>
 		<lettuce.version>6.1.8.RELEASE</lettuce.version>
 		<kafka-clients.version>2.8.1</kafka-clients.version>
@@ -81,7 +81,7 @@
 		<caffeine.version>2.9.3</caffeine.version>
 		<ehcache.version>3.10.0</ehcache.version>
 		<zxing.version>3.4.1</zxing.version>
-		<poi.version>5.2.1</poi.version>
+		<poi.version>5.2.2</poi.version>
 		<slf4j.version>1.7.36</slf4j.version>
 		<logback.version>1.2.11</logback.version>
 		<mockito.version>4.4.0</mockito.version>
