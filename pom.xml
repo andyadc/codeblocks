@@ -37,7 +37,7 @@
 
     <properties>
 		<spring.version>5.3.17</spring.version>
-		<aspectj.version>1.9.9</aspectj.version>
+		<aspectj.version>1.9.9.1</aspectj.version>
 		<netty.version>4.1.75.Final</netty.version>
 		<httpcomponents.version>4.5.13</httpcomponents.version>
 		<okhttp.version>4.9.3</okhttp.version>
@@ -47,7 +47,7 @@
 		<spring-data-redis.version>2.6.3</spring-data-redis.version>
 		<zookeeper.version>3.8.0</zookeeper.version>
 		<redisson.version>3.17.0</redisson.version>
-		<jedis.version>4.2.0</jedis.version>
+		<jedis.version>4.2.1</jedis.version>
 		<lettuce.version>6.1.8.RELEASE</lettuce.version>
 		<kafka-clients.version>2.8.1</kafka-clients.version>
 		<curator.version>5.2.1</curator.version>
