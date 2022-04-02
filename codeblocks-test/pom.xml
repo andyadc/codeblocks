@@ -89,12 +89,12 @@
 		<dependency>
 			<groupId>com.auth0</groupId>
 			<artifactId>java-jwt</artifactId>
-			<version>3.18.3</version>
+			<version>3.19.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.auth0</groupId>
 			<artifactId>jwks-rsa</artifactId>
-			<version>0.20.2</version>
+			<version>0.21.1</version>
 		</dependency>
 
 		<dependency>
@@ -154,6 +154,7 @@
 			<groupId>org.ehcache</groupId>
 			<artifactId>ehcache</artifactId>
 		</dependency>
+
 		<!-- https://github.com/snazy/ohc -->
 		<dependency>
 			<groupId>org.caffinitas.ohc</groupId>
@@ -178,6 +179,7 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
+
 		<!-- https://github.com/apache/commons-pool -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -260,7 +262,7 @@
 		<dependency>
 			<groupId>com.konghq</groupId>
 			<artifactId>unirest-java</artifactId>
-			<version>3.13.6</version>
+			<version>3.13.7</version>
 		</dependency>
 
 		<dependency>
