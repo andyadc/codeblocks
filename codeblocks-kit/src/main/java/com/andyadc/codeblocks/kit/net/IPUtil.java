@@ -18,6 +18,18 @@ public final class IPUtil {
 	private static final Pattern ip_v4_pattern = Pattern.compile("^(?:" + _255 + "\\.){3}" + _255 + "$");
 
 	private static final String LOCAL_IP;
+	private static final String[] HEADERS_TO_TRY = {
+		"X-Forwarded-For",
+		"Proxy-Client-IP",
+		"WL-Proxy-Client-IP",
+		"HTTP_X_FORWARDED_FOR",
+		"HTTP_X_FORWARDED",
+		"HTTP_X_CLUSTER_CLIENT_IP",
+		"HTTP_CLIENT_IP",
+		"HTTP_FORWARDED_FOR",
+		"HTTP_FORWARDED",
+		"HTTP_VIA",
+		"REMOTE_ADDR"};
 
 	static {
 		LOCAL_IP = getHostAddress();
@@ -136,5 +148,15 @@ public final class IPUtil {
 			logger.error("Get host address error", e);
 		}
 		return null;
+	}
+
+	public String getClientIpAddress(HttpServletRequest request) {
+		for (String header : HEADERS_TO_TRY) {
+			String ip = request.getHeader(header);
+			if (ip != null && ip.length() != 0 && !"unknown".equalsIgnoreCase(ip)) {
+				return ip;
+			}
+		}
+		return request.getRemoteAddr();
 	}
 }
