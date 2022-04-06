@@ -7,10 +7,16 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
 
 import java.io.IOException;
-import java.nio.file.*;
+import java.nio.file.FileSystems;
+import java.nio.file.Paths;
+import java.nio.file.StandardWatchEventKinds;
+import java.nio.file.WatchEvent;
+import java.nio.file.WatchKey;
+import java.nio.file.WatchService;
 import java.time.LocalTime;
 import java.util.Objects;
 import java.util.Properties;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -118,5 +124,24 @@ public class Tests {
 		String url = null;
 		assert url != null : "url is null";
 		System.out.println(url);
+	}
+
+	@Test
+	public void testStringFormat() {
+		String str = String.format("%d %d %d", 121343L, 1, 3);
+		System.out.println(str);
+	}
+
+	@Test
+	public void testRandomArray() {
+		int[] array = ThreadLocalRandom.current().ints(
+			10L,
+			100,
+			999).toArray();
+
+		for (int i : array) {
+			System.out.println(i);
+		}
+
 	}
 }
