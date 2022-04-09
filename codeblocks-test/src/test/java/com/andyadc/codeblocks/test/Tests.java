@@ -13,7 +13,10 @@ import java.nio.file.StandardWatchEventKinds;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalTime;
+import java.util.Date;
 import java.util.Objects;
 import java.util.Properties;
 import java.util.concurrent.ThreadLocalRandom;
@@ -142,6 +145,20 @@ public class Tests {
 		for (int i : array) {
 			System.out.println(i);
 		}
+	}
 
+	@Test
+	public void test003() throws Exception {
+		String pattern = "yyyy-MM-dd HH:mm:ss";
+		DateFormat dateFormat = new SimpleDateFormat(pattern);
+		String dateStr = "22-04-07 14:33:26";
+		System.out.println(dateStr.length());
+		Date date = dateFormat.parse(dateStr);
+		System.out.println(date);
+
+		dateStr = " 2022-04-07 14:33:26 ";
+		System.out.println(dateStr.length());
+		date = dateFormat.parse(dateStr.trim());
+		System.out.println(date);
 	}
 }

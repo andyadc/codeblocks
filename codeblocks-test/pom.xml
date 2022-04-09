@@ -63,23 +63,6 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.ow2.asm</groupId>
-			<artifactId>asm-commons</artifactId>
-			<version>9.2</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.google.inject</groupId>
-			<artifactId>guice</artifactId>
-			<version>5.1.0</version>
-		</dependency>
-		<dependency>
-			<groupId>com.google.inject.extensions</groupId>
-			<artifactId>guice-multibindings</artifactId>
-			<version>4.2.3</version>
-		</dependency>
-
-		<dependency>
 			<groupId>org.joda</groupId>
 			<artifactId>joda-money</artifactId>
 			<version>1.0.1</version>
@@ -121,6 +104,12 @@
 			<groupId>io.vavr</groupId>
 			<artifactId>vavr</artifactId>
 			<version>0.10.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.ow2.asm</groupId>
+			<artifactId>asm-commons</artifactId>
+			<version>9.3</version>
 		</dependency>
 
 		<!-- https://github.com/EsotericSoftware/reflectasm -->
