@@ -1,0 +1,77 @@
+package com.andyadc.bms.security.auth.ajax;
+
+import com.andyadc.bms.common.RespCode;
+import com.andyadc.bms.common.Response;
+import com.andyadc.bms.listener.LoggedUser;
+import com.andyadc.bms.security.model.UserContext;
+import com.andyadc.bms.security.model.token.JwtToken;
+import com.andyadc.bms.security.model.token.JwtTokenFactory;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.WebAttributes;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
+
+import javax.inject.Inject;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+@Component
+public class AjaxAwareAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+
+	private final ObjectMapper mapper;
+	private final JwtTokenFactory tokenFactory;
+
+	@Inject
+	public AjaxAwareAuthenticationSuccessHandler(final ObjectMapper mapper, final JwtTokenFactory tokenFactory) {
+		this.mapper = mapper;
+		this.tokenFactory = tokenFactory;
+	}
+
+	@Override
+	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+		UserContext userContext = (UserContext) authentication.getPrincipal();
+
+		JwtToken accessToken = tokenFactory.createAccessJwtToken(userContext);
+		JwtToken refreshToken = tokenFactory.createRefreshToken(userContext);
+
+		Map<String, String> tokenMap = new HashMap<>(4, 1);
+		tokenMap.put("token", accessToken.getToken());
+		tokenMap.put("refreshToken", refreshToken.getToken());
+
+		response.setStatus(HttpStatus.OK.value());
+		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+		mapper.writeValue(response.getWriter(), Response.of(RespCode.SUCC, tokenMap));
+
+		clearAuthenticationAttributes(request);
+//		setAttributes(request, userContext);
+	}
+
+	// TODO
+	private void setAttributes(HttpServletRequest request, UserContext userContext) {
+		final HttpSession session = request.getSession(true);
+		if (session == null) {
+			return;
+		}
+		session.setAttribute("loggedUser", new LoggedUser(userContext.getUsername()));
+	}
+
+	/**
+	 * Removes temporary authentication-related data which may have been stored
+	 * in the session during the authentication process..
+	 */
+	protected final void clearAuthenticationAttributes(HttpServletRequest request) {
+		final HttpSession session = request.getSession(false);
+		if (session == null) {
+			return;
+		}
+		session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
+	}
+}
