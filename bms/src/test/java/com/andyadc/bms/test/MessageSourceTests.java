@@ -7,9 +7,6 @@ import org.springframework.context.MessageSource;
 import javax.inject.Inject;
 import java.util.Locale;
 
-/**
- * https://www.baeldung.com/spring-custom-validation-message-source
- */
 @SpringBootTest(
 //	webEnvironment = SpringBootTest.WebEnvironment.NONE
 )

@@ -1,4 +1,4 @@
-package com.andyadc.bms.cache.redis;
+package com.andyadc.bms.redis;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;

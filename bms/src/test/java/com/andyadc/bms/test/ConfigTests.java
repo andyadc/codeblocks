@@ -4,12 +4,12 @@ import com.andyadc.bms.file.FileStorageSettings;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.annotation.Resource;
+import javax.inject.Inject;
 
 @SpringBootTest
 public class ConfigTests {
 
-	@Resource
+	@Inject
 	public FileStorageSettings fileStorageSettings;
 
 	@Test

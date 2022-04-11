@@ -1,4 +1,4 @@
-package com.andyadc.bms.cache.redis;
+package com.andyadc.bms.redis;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;

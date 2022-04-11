@@ -6,14 +6,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.annotation.Resource;
+import javax.inject.Inject;
 
 @SpringBootTest
 public class ServiceTests {
 
-	@Resource
+	@Inject
 	private ObjectMapper objectMapper;
-	@Resource
+	@Inject
 	private AuthUserService authUserService;
 
 	@Test

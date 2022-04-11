@@ -1,14 +1,14 @@
 package com.andyadc.bms.test;
 
 import com.andyadc.bms.auth.dto.AuthUserDTO;
-import com.andyadc.bms.cache.redis.RedisOperator;
 import com.andyadc.bms.common.Constants;
+import com.andyadc.bms.redis.RedisOperator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 
-import javax.annotation.Resource;
+import javax.inject.Inject;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -19,11 +19,11 @@ import java.util.concurrent.TimeUnit;
 @SpringBootTest
 public class RedisTests {
 
-	@Resource
+	@Inject
 	private ObjectMapper objectMapper;
-	@Resource
+	@Inject
 	private RedisTemplate<String, Object> redisTemplate;
-	@Resource
+	@Inject
 	private RedisOperator redisOperator;
 
 	@Test

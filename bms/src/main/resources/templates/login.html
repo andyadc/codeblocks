@@ -68,7 +68,8 @@
 
 		</form>
 		<br/>
-		Current Locale : <span th:utext="${#locale}"></span>
+		<label th:utext="#{label.current.locale}">locale</label>
+		<span th:utext="${#locale}"></span>
 		<br/><br/>
 		<a class="btn btn-default" th:href="@{/registration.html}" th:utext="#{label.form.loginSignUp}">signup</a>
 		<br/><br/>

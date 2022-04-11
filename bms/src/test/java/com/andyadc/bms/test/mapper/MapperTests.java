@@ -11,7 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.annotation.Resource;
 import javax.inject.Inject;
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
@@ -20,11 +19,11 @@ import java.util.List;
 @SpringBootTest
 public class MapperTests {
 
-	@Resource
+	@Inject
 	public AuthUserMapper authUserMapper;
-	@Resource
+	@Inject
 	private ObjectMapper objectMapper;
-	@Resource
+	@Inject
 	private AuthMapper authMapper;
 	@Inject
 	private CommonMapper commonMapper;
