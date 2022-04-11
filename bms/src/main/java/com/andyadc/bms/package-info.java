@@ -10,6 +10,10 @@ package com.andyadc.bms;
 // spring-security-session
 // https://www.baeldung.com/spring-security-session
 
+// error
+// https://www.baeldung.com/exception-handling-for-rest-with-spring
+// https://www.baeldung.com/global-error-handler-in-a-spring-rest-api
+
 // servlet
 // https://www.baeldung.com/spring-reading-httpservletrequest-multiple-times
 // https://github.com/eugenp/tutorials/tree/master/spring-web-modules/spring-mvc-basics-3/src/main/java/com/baeldung/cachedrequest
