@@ -1,7 +1,9 @@
 package com.andyadc.bms;
 
-//	https://github.com/svlada/springboot-security-jwt
-//	https://svlada.com/jwt-token-authentication-with-spring-boot/
+// https://github.com/svlada/springboot-security-jwt
+// https://svlada.com/jwt-token-authentication-with-spring-boot/
+// https://github.com/beamofsoul/BusinessInfrastructurePlatformGroupVersion
+// https://github.com/bfwg/springboot-jwt-starter
 
 // registration
 // https://www.baeldung.com/spring-security-registration

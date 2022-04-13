@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		 xmlns="http://maven.apache.org/POM/4.0.0"
-		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.6.5</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.6.5</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
 
-	<groupId>com.andyadc</groupId>
-	<artifactId>bms</artifactId>
-	<version>1.0.0</version>
-	<name>BMS</name>
-	<description>Backend manage system</description>
+    <groupId>com.andyadc</groupId>
+    <artifactId>bms-api</artifactId>
+    <version>1.0.0</version>
+    <name>bms-api</name>
+    <description>Backend manage system api</description>
 
-	<properties>
-		<commons-io.version>2.11.0</commons-io.version>
-		<guava.version>31.1-jre</guava.version>
-		<jjwt.version>0.11.2</jjwt.version>
-		<bouncycastle.version>1.70</bouncycastle.version>
+    <properties>
+        <commons-io.version>2.11.0</commons-io.version>
+        <guava.version>31.1-jre</guava.version>
+        <jjwt.version>0.11.2</jjwt.version>
+        <bouncycastle.version>1.70</bouncycastle.version>
 
-		<java.version>1.8</java.version>
-		<maven.compiler.source>8</maven.compiler.source>
-		<maven.compiler.target>8</maven.compiler.target>
+        <java.version>1.8</java.version>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
 	</properties>
 
 	<dependencies>
