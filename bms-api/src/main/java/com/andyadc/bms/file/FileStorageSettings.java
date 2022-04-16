@@ -8,10 +8,10 @@ import org.springframework.context.annotation.Configuration;
 public class FileStorageSettings {
 
 	// KB
-	private Long maxSize;
-	private OsPath windows;
-	private OsPath linux;
-	private OsPath mac;
+	protected Long maxSize;
+	protected OsPath windows;
+	protected OsPath linux;
+	protected OsPath mac;
 
 	public OsPath getPath() {
 		String os = System.getProperty("os.name");

@@ -1,7 +1,6 @@
 package com.andyadc.bms.test;
 
 import com.andyadc.bms.auth.dto.AuthUserDTO;
-import com.andyadc.bms.common.Constants;
 import com.andyadc.bms.redis.RedisOperator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -27,8 +26,14 @@ public class RedisTests {
 	private RedisOperator redisOperator;
 
 	@Test
+	public void testSet() {
+		redisOperator.set("a", 12345);
+		System.out.println(redisOperator.get("a"));
+	}
+
+	@Test
 	public void testGet() {
-		Object o = redisOperator.get(Constants.REDIS_CACHE_PREFIX + "auth:user:" + "adc");
+		Object o = redisOperator.get("auth:user:" + "adc");
 		System.out.println(o);
 		AuthUserDTO dto = objectMapper.convertValue(o, AuthUserDTO.class);
 		System.out.println(dto);
