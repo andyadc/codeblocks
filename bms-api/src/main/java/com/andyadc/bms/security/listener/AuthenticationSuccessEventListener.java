@@ -1,5 +1,6 @@
 package com.andyadc.bms.security.listener;
 
+import com.andyadc.bms.security.model.UserContext;
 import com.andyadc.bms.security.service.LoginAttemptService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +22,8 @@ public class AuthenticationSuccessEventListener implements ApplicationListener<A
 	public void onApplicationEvent(AuthenticationSuccessEvent event) {
 		logger.info(">>> AuthenticationSuccessEventListener <<<");
 		Authentication authentication = event.getAuthentication();
-		loginAttemptService.loginSucceeded((String) authentication.getPrincipal());
+		UserContext context = (UserContext) authentication.getPrincipal();
+		loginAttemptService.loginSucceeded(context.getUsername());
 	}
 
 	@Inject

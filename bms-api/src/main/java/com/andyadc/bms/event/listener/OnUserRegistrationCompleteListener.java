@@ -11,7 +11,6 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
-import org.thymeleaf.TemplateEngine;
 
 import javax.inject.Inject;
 import java.time.Duration;
@@ -24,7 +23,6 @@ public class OnUserRegistrationCompleteListener implements ApplicationListener<O
 	private static final Logger logger = LoggerFactory.getLogger(OnUserRegistrationCompleteListener.class);
 
 	private JavaMailSender mailSender;
-	private TemplateEngine templateEngine;
 
 	//TODO
 	@Async
