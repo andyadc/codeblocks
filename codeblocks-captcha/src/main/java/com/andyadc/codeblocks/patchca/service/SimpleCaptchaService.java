@@ -35,6 +35,6 @@ public class SimpleCaptchaService extends AbstractCaptchaService {
 
     @Override
     public Captcha getCaptcha() {
-        return null;
+        return super.getCaptcha();
     }
 }

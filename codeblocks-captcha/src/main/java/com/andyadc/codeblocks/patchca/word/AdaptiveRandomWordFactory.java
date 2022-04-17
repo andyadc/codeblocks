@@ -7,8 +7,8 @@ public class AdaptiveRandomWordFactory extends RandomWordFactory {
     protected String wideCharacters;
 
     public AdaptiveRandomWordFactory() {
-        characters = "absdegkmnopwx23456789";
-        wideCharacters = "mw";
+        characters = "ABCDEFGHKLMNPQRSTUVWXYabcdefghjkmnpstuvwxy23456789";
+		wideCharacters = "mw";
     }
 
     public void setWideCharacters(String wideCharacters) {

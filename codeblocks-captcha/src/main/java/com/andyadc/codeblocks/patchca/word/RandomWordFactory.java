@@ -9,8 +9,8 @@ public class RandomWordFactory implements WordFactory {
     protected int maxLength;
 
     public RandomWordFactory() {
-        characters = "absdegkmnopwx23456789";
-        minLength = 6;
+        characters = "ABCDEFGHKLMNPQRSTUVWXYabcdefghjkmnpstuvwxy23456789";
+		minLength = 6;
         maxLength = 6;
     }
 

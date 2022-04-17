@@ -1,12 +1,15 @@
 package com.andyadc.codeblocks.test;
 
-import com.andyadc.codeblocks.patchca.color.SingleColorFactory;
+import com.andyadc.codeblocks.patchca.color.GradientColorFactory;
 import com.andyadc.codeblocks.patchca.filter.predefined.CurvesRippleFilterFactory;
 import com.andyadc.codeblocks.patchca.filter.predefined.DiffuseRippleFilterFactory;
 import com.andyadc.codeblocks.patchca.filter.predefined.DoubleRippleFilterFactory;
 import com.andyadc.codeblocks.patchca.filter.predefined.MarbleRippleFilterFactory;
 import com.andyadc.codeblocks.patchca.filter.predefined.WobbleRippleFilterFactory;
+import com.andyadc.codeblocks.patchca.service.Captcha;
 import com.andyadc.codeblocks.patchca.service.ConfigurableCaptchaService;
+import com.andyadc.codeblocks.patchca.utils.encoder.EncoderHelper;
+import com.andyadc.codeblocks.patchca.word.AdaptiveRandomWordFactory;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -47,10 +50,12 @@ public class PatchcaFilterDemo extends Frame implements ActionListener {
 		f.setVisible(true);
 	}
 
+	@Override
 	public void update(Graphics g) {
 		paint(g);
 	}
 
+	@Override
 	public void paint(Graphics g) {
 		if (img == null) {
 			createImage();
@@ -62,7 +67,10 @@ public class PatchcaFilterDemo extends Frame implements ActionListener {
 
 	public void createImage() {
 		ConfigurableCaptchaService cs = new ConfigurableCaptchaService();
-		cs.setColorFactory(new SingleColorFactory(new Color(25, 60, 170)));
+		cs.setWordFactory(new AdaptiveRandomWordFactory());
+		cs.setColorFactory(new GradientColorFactory());
+//		cs.setBackgroundFactory(new GradientBackgroundFactory());
+//		cs.setColorFactory(new SingleColorFactory(new Color(25, 60, 170)));
 		switch (counter % 5) {
 			case 0:
 				cs.setFilterFactory(new CurvesRippleFilterFactory(cs.getColorFactory()));
@@ -80,8 +88,14 @@ public class PatchcaFilterDemo extends Frame implements ActionListener {
 				cs.setFilterFactory(new DiffuseRippleFilterFactory());
 				break;
 		}
-		img = cs.getCaptcha().getImage();
+		Captcha captcha = cs.getCaptcha();
+		img = captcha.getImage();
+
 		counter++;
+
+		String code = captcha.getChallenge();
+		System.out.println(code + " - " + counter);
+		System.out.println(EncoderHelper.genCaptchaImage(captcha));
 	}
 
 	@Override

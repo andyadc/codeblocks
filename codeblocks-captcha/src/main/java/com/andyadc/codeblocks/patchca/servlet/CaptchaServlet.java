@@ -1,6 +1,5 @@
 package com.andyadc.codeblocks.patchca.servlet;
 
-import com.andyadc.codeblocks.kit.text.StringUtil;
 import com.andyadc.codeblocks.patchca.background.BackgroundFactory;
 import com.andyadc.codeblocks.patchca.filter.ConfigurableFilterFactory;
 import com.andyadc.codeblocks.patchca.filter.library.AbstractImageOp;
@@ -10,6 +9,7 @@ import com.andyadc.codeblocks.patchca.service.Captcha;
 import com.andyadc.codeblocks.patchca.service.ConfigurableCaptchaService;
 import com.andyadc.codeblocks.patchca.text.renderer.BestFitTextRenderer;
 import com.andyadc.codeblocks.patchca.text.renderer.TextRenderer;
+import com.andyadc.codeblocks.patchca.utils.Utils;
 import com.andyadc.codeblocks.patchca.word.RandomWordFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,10 +33,9 @@ import java.util.concurrent.ThreadLocalRandom;
 public final class CaptchaServlet extends HttpServlet {
 
     private static final Logger logger = LoggerFactory.getLogger(CaptchaServlet.class);
-    private static final long serialVersionUID = 1L;
 
-    private static final String CHARACTERS = "AaBbCcDdEeFfGgHhJjKkMmNnQqXxYyPpWwSsTtRrUui123456789";
-    private static final String CAPTCHA_SESSION = "_captcha";
+	private static final String CHARACTERS = "AaBbCcDdEeFfGgHhJjKkMmNnQqXxYyPpWwSsTtRrUui23456789";
+	private static final String CAPTCHA_SESSION = "_captcha";
     private static final String CAPTCHA_SIZE = "_size";
     private static final String CAPTCHA_HEIGHT = "_height";
     private static final String CAPTCHA_WIDTH = "_width";
@@ -49,8 +48,8 @@ public final class CaptchaServlet extends HttpServlet {
 
     public static boolean validateCaptcha(HttpServletRequest request, String userCaptcha) {
         return request != null
-                && StringUtil.isNotBlank(userCaptcha)
-                && userCaptcha.equalsIgnoreCase(String.valueOf(request.getSession().getAttribute(CAPTCHA_SESSION)));
+			&& Utils.isNotBlank(userCaptcha)
+			&& userCaptcha.equalsIgnoreCase(String.valueOf(request.getSession().getAttribute(CAPTCHA_SESSION)));
     }
 
     @Override
@@ -92,21 +91,21 @@ public final class CaptchaServlet extends HttpServlet {
         String length = request.getParameter(CAPTCHA_LENGTH);
 
         fontFactory = new RandomFontFactory();
-        int fontSize = Integer.parseInt(StringUtil.defaultIfBlank(size, "25"));
+		int fontSize = Integer.parseInt(Utils.defaultIfBlank(size, "25"));
         fontFactory.setMaxSize(fontSize);
-        fontFactory.setMinSize(fontSize);
-        configurableCaptchaService.setFontFactory(fontFactory);
+		fontFactory.setMinSize(fontSize);
+		configurableCaptchaService.setFontFactory(fontFactory);
 
-        wordFactory = new RandomWordFactory();
-        wordFactory.setCharacters(CHARACTERS);
-        int l = Integer.parseInt(StringUtil.defaultIfBlank(length, "4"));
-        wordFactory.setMaxLength(l);
-        wordFactory.setMinLength(l);
-        configurableCaptchaService.setWordFactory(wordFactory);
+		wordFactory = new RandomWordFactory();
+		wordFactory.setCharacters(CHARACTERS);
+		int l = Integer.parseInt(Utils.defaultIfBlank(length, "4"));
+		wordFactory.setMaxLength(l);
+		wordFactory.setMinLength(l);
+		configurableCaptchaService.setWordFactory(wordFactory);
 
-        configurableCaptchaService.setHeight(Integer.parseInt(StringUtil.defaultIfBlank(height, "30")));
-        configurableCaptchaService.setWidth(Integer.parseInt(StringUtil.defaultIfBlank(width, "100")));
-    }
+		configurableCaptchaService.setHeight(Integer.parseInt(Utils.defaultIfBlank(height, "30")));
+		configurableCaptchaService.setWidth(Integer.parseInt(Utils.defaultIfBlank(width, "100")));
+	}
 
     @Override
     public void destroy() {

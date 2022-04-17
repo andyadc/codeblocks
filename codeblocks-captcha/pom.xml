@@ -26,14 +26,9 @@
             <scope>provided</scope>
         </dependency>
 		<dependency>
-			<groupId>com.andyadc</groupId>
-			<artifactId>codeblocks-kit</artifactId>
-			<version>1.0.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
 			<groupId>jakarta.servlet</groupId>
 			<artifactId>jakarta.servlet-api</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
@@ -46,5 +41,4 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
 </project>

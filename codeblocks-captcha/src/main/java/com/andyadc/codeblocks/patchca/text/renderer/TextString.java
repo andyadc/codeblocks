@@ -35,7 +35,6 @@ public class TextString {
                     maxx = tc.getX() + tc.getWidth();
                 }
             }
-
         }
         return maxx - minx;
     }
@@ -57,7 +56,6 @@ public class TextString {
                     maxy = tc.getY() + tc.getHeight();
                 }
             }
-
         }
         return maxy - miny;
     }

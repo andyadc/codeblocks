@@ -26,18 +26,18 @@ public class PatchcaFilterDemoPNG {
                     cs.setFilterFactory(new MarbleRippleFilterFactory());
                     break;
                 case 2:
-                    cs.setFilterFactory(new DoubleRippleFilterFactory());
-                    break;
-                case 3:
-                    cs.setFilterFactory(new WobbleRippleFilterFactory());
-                    break;
-                case 4:
-                    cs.setFilterFactory(new DiffuseRippleFilterFactory());
-                    break;
-            }
-            FileOutputStream fos = new FileOutputStream("patcha_demo" + counter + ".png");
-            EncoderHelper.getChallangeAndWriteImage(cs, "png", fos);
-            fos.close();
-        }
+					cs.setFilterFactory(new DoubleRippleFilterFactory());
+					break;
+				case 3:
+					cs.setFilterFactory(new WobbleRippleFilterFactory());
+					break;
+				case 4:
+					cs.setFilterFactory(new DiffuseRippleFilterFactory());
+					break;
+			}
+			FileOutputStream fos = new FileOutputStream("patcha_demo" + counter + ".png");
+			EncoderHelper.getChallangeAndWriteImage(cs, "png", fos);
+			fos.close();
+		}
     }
 }
