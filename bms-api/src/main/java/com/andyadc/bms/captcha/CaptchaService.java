@@ -17,6 +17,7 @@ import com.google.common.cache.RemovalListener;
 import com.google.common.cache.RemovalListeners;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
@@ -29,6 +30,15 @@ public class CaptchaService {
 
 	private static final Logger logger = LoggerFactory.getLogger(CaptchaService.class);
 
+	@Value("${captcha.image.length:6}")
+	private Integer length;
+
+	@Value("${captcha.image.height:70}")
+	private Integer height;
+
+	@Value("${captcha.image.width:160}")
+	private Integer width;
+
 	private static final RemovalListener<String, String> listener = (notification) ->
 		logger.info("Removed captcha cache key: {}", notification.getKey()
 		);
@@ -40,13 +50,13 @@ public class CaptchaService {
 
 	private final LongAdder adder = new LongAdder();
 
-	public CaptchaDTO gen(Integer height, Integer width, Integer length) {
+	public CaptchaDTO gen() {
 		CaptchaDTO dto = new CaptchaDTO();
 		Captcha captcha = createCaptcha(height, width, length);
 		dto.setCaptchaId(adder.longValue() + "");
 		captchaCache.put(dto.getCaptchaId(), captcha.getChallenge());
 
-//		dto.setCaptchaCode(captcha.getChallenge());
+		dto.setCaptchaCode(captcha.getChallenge());
 		String captchaImage = EncoderHelper.genCaptchaImage(captcha);
 		dto.setCaptchaPngImage(captchaImage);
 		return dto;

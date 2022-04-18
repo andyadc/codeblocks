@@ -9,6 +9,7 @@ public enum RespCode {
 	AUTHENTICATION_FAIL("010", "Invalid username or password"),
 	JWT_TOKEN_EXPIRED("020", "Token has expired"),
 	PERMISSION_MISSED("030", "User doesn't have any privileges"),
+	VALIDATE_CODE_ERROR("050", "Validate code error"),
 	;
 
 	private final String code;

@@ -4,6 +4,21 @@
 			"name": "redis.key.prefix",
 			"type": "java.lang.String",
 			"description": "Description for redis.key.prefix."
+		},
+		{
+			"name": "captcha.image.length",
+			"type": "java.lang.String",
+			"description": "Description for captcha.image.length."
+		},
+		{
+			"name": "captcha.image.height",
+			"type": "java.lang.String",
+			"description": "Description for captcha.image.height."
+		},
+		{
+			"name": "captcha.image.width",
+			"type": "java.lang.String",
+			"description": "Description for captcha.image.width."
 		}
 	]
 }

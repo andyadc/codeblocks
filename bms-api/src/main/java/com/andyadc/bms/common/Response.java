@@ -41,6 +41,14 @@ public class Response<T> {
 		return of(respCode.getCode(), respCode.getMessage(), t);
 	}
 
+	public static <T> Response<T> success(T t) {
+		return of(RespCode.SUCC, t);
+	}
+
+	public static <T> Response<T> success() {
+		return of(RespCode.SUCC);
+	}
+
 	public Integer getStatus() {
 		return status;
 	}

@@ -15,7 +15,7 @@ public class CaptchaServiceTests {
 
 	@Test
 	public void testGen() {
-		CaptchaDTO dto = captchaService.gen(null, null, 5);
+		CaptchaDTO dto = captchaService.gen();
 		System.out.println(dto);
 		System.out.println(captchaService.validate(dto));
 	}
