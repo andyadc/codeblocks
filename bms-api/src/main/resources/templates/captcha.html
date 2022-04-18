@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Captcha</title>
+	<link href="static/favicon.ico" rel="icon" type="image/x-icon">
+
+	<script src="https://code.jquery.com/jquery-1.12.4.min.js" type="text/javascript"></script>
+	<script>
+		$(function () {
+			genCaptcha();
+		})
+
+		function genCaptcha() {
+			$.get('/api/captcha/gen', function (data) {
+				if (data.code === '000') {
+					const image = data.data
+					console.log(image);
+					$("#captchaImage").attr("src", "data:image/png;base64," + image.captchaPngImage);
+					$("#captchaImage").attr("captchaId", image.captchaId);
+				} else {
+					console.log("Captcha fetch error")
+				}
+			});
+		}
+
+		function gen() {
+			const params = {height: 150, width: 350, length: 10};
+
+			var request = $.ajax({
+				url: "/api/captcha/gen",
+				type: "POST",
+				dataType: "json",
+				contentType: "application/json",
+				data: JSON.stringify(params)
+			})
+
+			request.done(function (data, textStatus, jqXHR) {
+				console.log("Done!")
+				console.log(textStatus)
+				if (data.code === '000') {
+					const image = data.data
+					console.log(image);
+					$("#captchaImage").attr("src", "data:image/png;base64," + image.captchaPngImage);
+					$("#captchaImage").attr("captchaId", image.captchaId);
+				} else {
+					console.log("Captcha fetch error")
+				}
+			})
+
+			request.fail(function (jqXHR, textStatus) {
+				alert("Request failed: " + textStatus);
+			});
+		}
+
+		function refresh() {
+			gen();
+		}
+	</script>
+</head>
+<body>
+<img captchaId="" id="captchaImage" onclick="refresh()" src="">
+</body>
+</html>

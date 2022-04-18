@@ -12,7 +12,7 @@ public class TokensPurgeTask {
 	private static final Logger logger = LoggerFactory.getLogger(TokensPurgeTask.class);
 
 	@Async
-	@Scheduled(initialDelay = 5000L, fixedRate = 5000L)
+	@Scheduled(initialDelay = 10000L, fixedRate = 60000L)
 	public void purgeExpired() {
 		logger.info("purge expired tokens!");
 	}

@@ -1,17 +1,19 @@
 package com.andyadc.bms.common;
 
+import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.StringJoiner;
 
 public class Response<T> {
 
-	private final ZonedDateTime timestamp;
 	private String code;
 	private String message;
 	private Integer status;
+	private final ZonedDateTime timestamp;
 	private T data;
 
 	public Response() {
-		this.timestamp = ZonedDateTime.now();
+		this.timestamp = ZonedDateTime.now(ZoneId.of("UTC"));
 	}
 
 	public Response(String code, String message) {
@@ -83,5 +85,16 @@ public class Response<T> {
 
 	public void setData(T data) {
 		this.data = data;
+	}
+
+	@Override
+	public String toString() {
+		return new StringJoiner(", ", Response.class.getSimpleName() + "[", "]")
+			.add("code=" + code)
+			.add("message=" + message)
+			.add("status=" + status)
+			.add("timestamp=" + timestamp)
+			.add("data=" + data)
+			.toString();
 	}
 }

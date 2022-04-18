@@ -1,7 +1,9 @@
 package com.andyadc.bms.test;
 
 import com.andyadc.bms.auth.dto.AuthUserDTO;
+import com.andyadc.bms.common.Response;
 import com.andyadc.bms.redis.RedisOperator;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -29,14 +31,30 @@ public class RedisTests {
 	public void testSet() {
 		redisOperator.set("a", 12345);
 		System.out.println(redisOperator.get("a"));
+
+		AuthUserDTO dto = new AuthUserDTO();
+		dto.setId(Long.MAX_VALUE);
+		dto.setStatus(0);
+		dto.setUsername("adc");
+		Response<AuthUserDTO> response = Response.success(dto);
+		String key = String.join(":", "auth", "user", dto.getUsername());
+		redisOperator.set(key, response);
 	}
 
 	@Test
 	public void testGet() {
-		Object o = redisOperator.get("auth:user:" + "adc");
-		System.out.println(o);
-		AuthUserDTO dto = objectMapper.convertValue(o, AuthUserDTO.class);
-		System.out.println(dto);
+		String key = String.join(":", "auth", "user", "adc");
+		Object value = redisOperator.get(key);
+		System.out.println(value);
+		System.out.println(value instanceof String);
+
+		Response<AuthUserDTO> response = objectMapper.convertValue(value, new TypeReference<Response<AuthUserDTO>>() {
+		});
+		System.out.println(response);
+
+//		Response<AuthUserDTO> response = objectMapper.convertValue(value, Response.class);
+//		objectMapper.readValue(value, new TypeReference<Response<AuthUserDTO>>(){});
+//		System.out.println(response);
 	}
 
 	@Test

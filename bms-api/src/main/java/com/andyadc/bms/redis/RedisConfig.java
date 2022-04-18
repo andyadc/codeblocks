@@ -1,8 +1,5 @@
 package com.andyadc.bms.redis;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
@@ -13,11 +10,19 @@ import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+import javax.inject.Inject;
+
 @EnableCaching
 @Configuration
 public class RedisConfig {
 
+	private ObjectMapper objectMapper;
 	private final StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
+
+	@Inject
+	public void setObjectMapper(ObjectMapper objectMapper) {
+		this.objectMapper = objectMapper;
+	}
 
 	@Bean(name = "redisTemplate")
 	public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
@@ -36,10 +41,7 @@ public class RedisConfig {
 
 	private RedisSerializer<Object> buildJacksonRedisSerializer() {
 		Jackson2JsonRedisSerializer<Object> redisSerializer = new Jackson2JsonRedisSerializer<>(Object.class);
-		ObjectMapper mapper = new ObjectMapper();
-		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-		mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-		redisSerializer.setObjectMapper(mapper);
+		redisSerializer.setObjectMapper(objectMapper);
 		return redisSerializer;
 	}
 }

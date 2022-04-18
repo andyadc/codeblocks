@@ -40,6 +40,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	public static final String AUTHENTICATION_HEADER_NAME = "Authorization";
 	public static final String AUTHENTICATION_URL = "/api/auth/login";
 	public static final String REFRESH_TOKEN_URL = "/api/auth/token";
+	public static final String CAPTCHA_URL = "/api/captcha/**";
+	public static final String REGISTER_URL = "/api/auth/register";
 	public static final String API_ROOT_URL = "/api/**";
 
 	private static final List<String> permitAllEndpointList = new ArrayList<>();
@@ -47,7 +49,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	static {
 		permitAllEndpointList.add(AUTHENTICATION_URL);
 		permitAllEndpointList.add(REFRESH_TOKEN_URL);
-		permitAllEndpointList.add("/api/auth/register");
+		permitAllEndpointList.add(REGISTER_URL);
+		permitAllEndpointList.add(CAPTCHA_URL);
 	}
 
 	private RestAuthenticationEntryPoint authenticationEntryPoint;

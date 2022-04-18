@@ -30,15 +30,6 @@ public class CaptchaService {
 
 	private static final Logger logger = LoggerFactory.getLogger(CaptchaService.class);
 
-	@Value("${captcha.image.length:6}")
-	private Integer length;
-
-	@Value("${captcha.image.height:70}")
-	private Integer height;
-
-	@Value("${captcha.image.width:160}")
-	private Integer width;
-
 	private static final RemovalListener<String, String> listener = (notification) ->
 		logger.info("Removed captcha cache key: {}", notification.getKey()
 		);
@@ -50,7 +41,28 @@ public class CaptchaService {
 
 	private final LongAdder adder = new LongAdder();
 
+	@Value("${captcha.image.length:6}")
+	private Integer length;
+	@Value("${captcha.image.height:70}")
+	private Integer height;
+	@Value("${captcha.image.width:160}")
+	private Integer width;
+
 	public CaptchaDTO gen() {
+		return create(height, width, length);
+	}
+
+	public CaptchaDTO gen(CaptchaDTO dto) {
+		if (dto == null) {
+			dto = new CaptchaDTO();
+		}
+		Integer _height = dto.getHeight() != null ? dto.getHeight() : height;
+		Integer _width = dto.getWidth() != null ? dto.getWidth() : width;
+		Integer _length = dto.getLength() != null ? dto.getLength() : length;
+		return create(_height, _width, _length);
+	}
+
+	private CaptchaDTO create(Integer height, Integer width, Integer length) {
 		CaptchaDTO dto = new CaptchaDTO();
 		Captcha captcha = createCaptcha(height, width, length);
 		dto.setCaptchaId(adder.longValue() + "");
