@@ -16,11 +16,15 @@ import java.nio.file.WatchService;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import java.util.Properties;
+import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * assert关键字用法简单，但是使用assert往往会让你陷入越来越深的陷阱中。应避免使用。笔者经过研究，总结了以下原因：
@@ -98,6 +102,24 @@ public class Tests {
 	@Test
 	public void testWatchService() throws InterruptedException {
 
+	}
+
+	@Test
+	public void testCollection() {
+		List<String> keyList = new ArrayList<>();
+		keyList.add("a");
+		keyList.add("b");
+		keyList.add("c");
+		System.out.println(keyList);
+
+		List<String> collect = keyList.stream().map(k -> String.join(":", "bms", k)).collect(Collectors.toList());
+		System.out.println(collect);
+	}
+
+	@Test
+	public void testStringJoin() {
+		String str = String.join(":", "bms", "auth_token", UUID.randomUUID().toString());
+		System.out.println(str);
 	}
 
 	@Test

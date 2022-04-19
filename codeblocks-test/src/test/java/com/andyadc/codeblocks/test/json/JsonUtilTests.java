@@ -1,14 +1,11 @@
-package com.andyadc.codeblocks.test;
+package com.andyadc.codeblocks.test.json;
 
-import com.andyadc.codeblocks.kit.JsonUtil;
+import com.alibaba.fastjson2.JSON;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-/**
- * andy.an
- */
 public class JsonUtilTests {
 
 	private int a;
@@ -24,7 +21,7 @@ public class JsonUtilTests {
     public static void main(String[] args) {
 		JsonUtilTests dto = new JsonUtilTests();
 
-        System.out.println(JsonUtil.toJSONString(dto));
+		System.out.println(JSON.toJSONString(dto));
     }
 
     public int getA() {

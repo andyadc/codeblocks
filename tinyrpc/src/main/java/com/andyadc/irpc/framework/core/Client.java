@@ -1,6 +1,6 @@
 package com.andyadc.irpc.framework.core;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson2.JSON;
 import com.andyadc.irpc.framework.core.proxy.JDKProxyFactory;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;

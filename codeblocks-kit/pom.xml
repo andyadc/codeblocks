@@ -86,11 +86,6 @@
 			<artifactId>commons-codec</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>fastjson</artifactId>
-			<scope>provided</scope>
-		</dependency>
 
 		<!-- https://www.bouncycastle.org/java.html -->
 		<dependency>

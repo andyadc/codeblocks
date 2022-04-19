@@ -1,7 +1,7 @@
 package com.andyadc.codeblocks.framework.idgen.snowflake;
 
+import com.alibaba.fastjson2.JSON;
 import com.andyadc.codeblocks.framework.idgen.IDGenPropertyFactory;
-import com.andyadc.codeblocks.kit.JsonUtil;
 import com.google.common.collect.Maps;
 import org.apache.commons.io.FileUtils;
 import org.apache.curator.RetryPolicy;
@@ -28,26 +28,26 @@ import java.util.concurrent.TimeUnit;
  */
 public class SnowflakeZookeeperHolder {
 
-    private static final Logger logger = LoggerFactory.getLogger(SnowflakeZookeeperHolder.class);
+	private static final Logger logger = LoggerFactory.getLogger(SnowflakeZookeeperHolder.class);
 
 	private static final String CURR_NODE_NAME = IDGenPropertyFactory.getProperties().getProperty("idgen.name");
-    private static final String PREFIX_ZK_PATH = "/idgen/snowflake/" + CURR_NODE_NAME;
-    private static final String PATH_PERSIST = PREFIX_ZK_PATH + "/persist";//保存所有数据持久的永久节点
-    private static final String PROP_PATH = System.getProperty("java.io.tmpdir") + File.separator + CURR_NODE_NAME + "/conf/{port}/workerID.properties";
-    private String zk_AddressNode = null;//保存自身的key  ip:port-000000001
-    private String listenAddress;//保存自身的key ip:port
-    private String ip;
-    private String port;
-    private String connectionString;
-    private long lastUpdateTime;
-    private int workerID;
+	private static final String PREFIX_ZK_PATH = "/idgen/snowflake/" + CURR_NODE_NAME;
+	private static final String PATH_PERSIST = PREFIX_ZK_PATH + "/persist";//保存所有数据持久的永久节点
+	private static final String PROP_PATH = System.getProperty("java.io.tmpdir") + File.separator + CURR_NODE_NAME + "/conf/{port}/workerID.properties";
+	private final String listenAddress;//保存自身的 key ip:port
+	private final String ip;
+	private final String port;
+	private final String connectionString;
+	private String zk_AddressNode = null;//保存自身的 key  ip:port-000000001
+	private long lastUpdateTime;
+	private int workerID;
 
-    public SnowflakeZookeeperHolder(String ip, String port, String connectionString) {
-        this.ip = ip;
-        this.port = port;
-        this.listenAddress = ip + ":" + port;
-        this.connectionString = connectionString;
-    }
+	public SnowflakeZookeeperHolder(String ip, String port, String connectionString) {
+		this.ip = ip;
+		this.port = port;
+		this.listenAddress = ip + ":" + port;
+		this.connectionString = connectionString;
+	}
 
     public boolean init() {
         try {
@@ -96,13 +96,13 @@ public class SnowflakeZookeeperHolder {
 
             }
         } catch (Exception e) {
-            logger.error("Start node error {}", e);
+			logger.error("Start node error", e);
             Properties properties = new Properties();
             try {
-                properties.load(new FileInputStream(new File(PROP_PATH.replace("{port}", port + ""))));
-                workerID = Integer.valueOf(properties.getProperty("workerID"));
-                logger.warn("START FAILED ,use local node file properties workerID-{}", workerID);
-            } catch (IOException e1) {
+				properties.load(new FileInputStream(PROP_PATH.replace("{port}", port + "")));
+				workerID = Integer.parseInt(properties.getProperty("workerID"));
+				logger.warn("START FAILED ,use local node file properties workerID-{}", workerID);
+			} catch (IOException e1) {
                 logger.error("Read file error ", e1);
                 return false;
             }
@@ -178,7 +178,7 @@ public class SnowflakeZookeeperHolder {
         try {
             curator.setData().forPath(path, buildEndpointData().getBytes());
         } catch (Exception e) {
-            logger.info("Update init data error path is {} error is {}", path, e);
+			logger.info("Update init data error path is {} error", path, e);
         }
         lastUpdateTime = System.currentTimeMillis();
     }
@@ -196,11 +196,11 @@ public class SnowflakeZookeeperHolder {
 
     private String buildEndpointData() {
         Endpoint endpoint = new Endpoint(ip, port, System.currentTimeMillis());
-        return JsonUtil.toJSONString(endpoint);
+		return JSON.toJSONString(endpoint);
     }
 
     private Endpoint parseEndpointData(String data) {
-        return JsonUtil.parseObject(data, Endpoint.class);
+		return JSON.parseObject(data, Endpoint.class);
     }
 
     public int getWorkerID() {
