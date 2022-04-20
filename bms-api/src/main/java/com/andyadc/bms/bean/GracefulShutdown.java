@@ -26,6 +26,10 @@ public class GracefulShutdown implements TomcatConnectorCustomizer, ApplicationL
 	public void onApplicationEvent(ContextClosedEvent event) {
 		logger.info("Protocol handler is shutting down");
 
+		if (this.connector == null) {
+			return;
+		}
+
 		this.connector.pause();
 		Executor executor = this.connector.getProtocolHandler().getExecutor();
 		if (executor instanceof ThreadPoolExecutor) {

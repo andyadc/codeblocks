@@ -25,17 +25,23 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.LongAdder;
 
+// TODO via redis
 @Service
 public class CaptchaService {
 
 	private static final Logger logger = LoggerFactory.getLogger(CaptchaService.class);
 
-	private static final RemovalListener<String, String> listener = (notification) ->
+	private static final RemovalListener<String, Object> listener = (notification) ->
 		logger.info("Removed captcha cache key: {}", notification.getKey()
 		);
 
 	private static final Cache<String, String> captchaCache = CacheBuilder.newBuilder()
 		.expireAfterWrite(61L, TimeUnit.SECONDS)
+		.removalListener(RemovalListeners.asynchronous(listener, Executors.newSingleThreadExecutor()))
+		.build();
+
+	private static final Cache<String, Integer> captchaUserCache = CacheBuilder.newBuilder()
+		.expireAfterWrite(1L, TimeUnit.DAYS)
 		.removalListener(RemovalListeners.asynchronous(listener, Executors.newSingleThreadExecutor()))
 		.build();
 
@@ -47,6 +53,22 @@ public class CaptchaService {
 	private Integer height;
 	@Value("${captcha.image.width:160}")
 	private Integer width;
+
+	public boolean needCaptcha(Long uid) {
+		Integer count = captchaUserCache.getIfPresent("login-" + uid);
+		return count != null && count >= 5;
+	}
+
+	public void loginFailedAdder(Long uid) {
+		String key = "login-" + uid;
+		Integer count = captchaUserCache.getIfPresent(key);
+		if (count != null) {
+			count++;
+			captchaUserCache.put(key, count);
+		} else {
+			captchaUserCache.put(key, 1);
+		}
+	}
 
 	public CaptchaDTO gen() {
 		return create(height, width, length);

@@ -18,6 +18,7 @@ package com.andyadc.bms;
 // error
 // https://www.baeldung.com/exception-handling-for-rest-with-spring
 // https://www.baeldung.com/global-error-handler-in-a-spring-rest-api
+// https://thepracticaldeveloper.com/custom-error-handling-rest-controllers-spring-boot/
 
 // servlet
 // https://www.baeldung.com/spring-reading-httpservletrequest-multiple-times
@@ -45,3 +46,14 @@ package com.andyadc.bms;
 
 //	thymeleaf
 //	https://mp.weixin.qq.com/s/Uvv1q3iQn2IwAB1crHWS1g
+
+// http
+// https://www.baeldung.com/rest-template
+// https://www.baeldung.com/spring-resttemplate-logging
+// https://github.com/eugenp/tutorials/tree/master/spring-web-modules/spring-resttemplate
+
+// json
+// https://www.baeldung.com/spring-boot-customize-jackson-objectmapper
+
+// log
+// https://www.baeldung.com/spring-boot-testing-log-level

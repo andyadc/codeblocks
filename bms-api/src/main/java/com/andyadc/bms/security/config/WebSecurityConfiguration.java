@@ -51,6 +51,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		permitAllEndpointList.add(REFRESH_TOKEN_URL);
 		permitAllEndpointList.add(REGISTER_URL);
 		permitAllEndpointList.add(CAPTCHA_URL);
+
+		permitAllEndpointList.add("/h2-console/**");
 	}
 
 	private RestAuthenticationEntryPoint authenticationEntryPoint;
@@ -150,11 +152,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) {
-		web.ignoring().antMatchers(
-			"/resources/**",
-			"/static/**",
-			"/h2-console/**"
-		);
 	}
 
 	@Override

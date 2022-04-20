@@ -13,7 +13,11 @@ public class IndexController {
 	@RequestMapping({"/", "/index"})
 	public ModelAndView index(ModelMap modelMap) {
 		modelMap.addAttribute("timestamp", ZonedDateTime.now());
-
 		return new ModelAndView("index", modelMap);
+	}
+
+	@RequestMapping("/captcha")
+	public String index() {
+		return "captcha";
 	}
 }

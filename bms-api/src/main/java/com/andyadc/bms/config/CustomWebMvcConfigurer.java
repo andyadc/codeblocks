@@ -34,13 +34,12 @@ public class CustomWebMvcConfigurer implements WebMvcConfigurer {
 		this.objectMapper = objectMapper;
 	}
 
-	// TODO
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
+
 		String path = fileStorageSettings.getPath().getPath();
 		registry.addResourceHandler(FileStorageConstants.RESOURCE_PATH_PATTERNS).addResourceLocations("file:" + path);
-		registry.addResourceHandler("/resources/**").addResourceLocations("/", "/resources/");
-		registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
 
 		logger.info("ResourceHandlers added!");
 	}
