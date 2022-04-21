@@ -90,8 +90,8 @@
 		<!-- https://www.bouncycastle.org/java.html -->
 		<dependency>
 			<groupId>org.bouncycastle</groupId>
-			<artifactId>bcprov-jdk15on</artifactId>
-			<version>1.70</version>
+			<artifactId>bcprov-jdk18on</artifactId>
+			<version>1.71</version>
 			<scope>provided</scope>
 		</dependency>
 
