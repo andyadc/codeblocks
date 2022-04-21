@@ -9,6 +9,9 @@ package com.andyadc.bms;
 // https://www.baeldung.com/spring-security-registration
 // https://www.baeldung.com/registration-verify-user-by-email
 
+// csrf
+// https://www.baeldung.com/java-json-web-tokens-jjwt
+
 // https://gitee.com/felord/spring-security-oauth2-tutorial
 // https://github.com/youlaitech/youlai-mall/tree/master/youlai-auth/src/main/java/com/youlai/auth/security/extension
 

@@ -10,6 +10,7 @@ import java.time.ZonedDateTime;
  */
 public class ErrorResponse {
 
+	// timestamp
 	private final ZonedDateTime timestamp;
 	// HTTP Response Status Code
 	private HttpStatus status;
@@ -17,16 +18,17 @@ public class ErrorResponse {
 	private String message;
 	// Error code
 	private ErrorCode errorCode;
+	private String path;
 
 	public ErrorResponse() {
 		this.timestamp = ZonedDateTime.now(ZoneId.of("UTC"));
 	}
 
 	protected ErrorResponse(final String message, final ErrorCode errorCode, HttpStatus status) {
+		this();
 		this.message = message;
 		this.errorCode = errorCode;
 		this.status = status;
-		this.timestamp = ZonedDateTime.now(ZoneId.of("UTC"));
 	}
 
 	public static ErrorResponse of(final String message, final ErrorCode errorCode, HttpStatus status) {
@@ -55,5 +57,17 @@ public class ErrorResponse {
 
 	public void setErrorCode(ErrorCode errorCode) {
 		this.errorCode = errorCode;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public ZonedDateTime getTimestamp() {
+		return timestamp;
 	}
 }

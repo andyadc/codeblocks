@@ -1,15 +1,21 @@
 package com.andyadc.bms.web;
 
+import com.andyadc.bms.service.ExceptionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.concurrent.TimeUnit;
 
-@RequestMapping("/ex")
+@RequestMapping("/exception")
 @RestController
 public class ExceptionController {
+
+	private final ExceptionService exceptionService;
+
+	public ExceptionController(ExceptionService exceptionService) {
+		this.exceptionService = exceptionService;
+	}
 
 	@RequestMapping("/success")
 	public ResponseEntity<Object> success() {
@@ -22,8 +28,9 @@ public class ExceptionController {
 		return ResponseEntity.ok("timeout");
 	}
 
-	@RequestMapping("/exception")
+	@RequestMapping("/throw")
 	public Object exception() {
-		return new SQLIntegrityConstraintViolationException("OHO");
+		Object ret = exceptionService.throwException();
+		return ResponseEntity.ok(ret);
 	}
 }

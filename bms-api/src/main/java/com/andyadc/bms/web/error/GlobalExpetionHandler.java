@@ -1,7 +1,6 @@
 package com.andyadc.bms.web.error;
 
 import com.andyadc.bms.common.ErrorResponse;
-import com.andyadc.bms.common.RespCode;
 import com.andyadc.bms.common.Response;
 import com.andyadc.bms.exception.IllegalRequestException;
 import com.google.common.base.Throwables;
@@ -27,11 +26,12 @@ public class GlobalExpetionHandler {
 		String stackTrace = ExceptionUtils.getStackTrace(e);
 		logger.error(stackTrace);
 
-		System.out.println("> " + request.getServletPath() + request.getContextPath());
+		String path = request.getServletPath();
 
 		ErrorResponse response = new ErrorResponse();
 		response.setStatus(HttpStatus.BAD_REQUEST);
-		response.setMessage(RespCode.UNKNOWN.getMessage());
+		response.setMessage(e.getMessage());
+		response.setPath(path);
 
 		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
 	}

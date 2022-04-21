@@ -1,12 +1,15 @@
 package com.andyadc.bms.security.model.token;
 
 import com.andyadc.bms.security.config.JwtSettings;
+import com.andyadc.bms.security.exception.JwtGenException;
 import com.andyadc.bms.security.model.Scopes;
 import com.andyadc.bms.security.model.UserContext;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +26,8 @@ import java.util.stream.Collectors;
 @Component
 public class JwtTokenFactory implements InitializingBean {
 
+	private static final Logger logger = LoggerFactory.getLogger(JwtTokenFactory.class);
+
 	private final JwtSettings settings;
 	private Key key;
 
@@ -37,19 +42,25 @@ public class JwtTokenFactory implements InitializingBean {
 		key = new SecretKeySpec(keyBytes, SignatureAlgorithm.HS512.getJcaName());
 	}
 
+	public void invalidateJwtToken(UserContext userContext) {
+
+	}
+
 	/**
 	 * Factory method for issuing new JWT Tokens.
 	 */
 	public AccessJwtToken createAccessJwtToken(UserContext userContext) {
-		if (StringUtils.isBlank(userContext.getUsername())) {
-			throw new IllegalArgumentException("Cannot create JWT Token without username");
+		String username = userContext.getUsername();
+		if (StringUtils.isBlank(username)) {
+			throw new JwtGenException("Cannot create JWT Token without username");
 		}
 
 		if (userContext.getAuthorities() == null || userContext.getAuthorities().isEmpty()) {
-			throw new IllegalArgumentException("User doesn't have any privileges");
+			logger.warn("{} has no any privileges", username);
+//			throw new JwtGenException("User doesn't have any privileges");
 		}
 
-		Claims claims = Jwts.claims().setSubject(userContext.getUsername());
+		Claims claims = Jwts.claims().setSubject(username);
 		claims.put("scopes", userContext.getAuthorities().stream().map(Object::toString).collect(Collectors.toList()));
 
 		LocalDateTime currentTime = LocalDateTime.now();
@@ -73,7 +84,7 @@ public class JwtTokenFactory implements InitializingBean {
 
 	public JwtToken createRefreshToken(UserContext userContext) {
 		if (StringUtils.isBlank(userContext.getUsername())) {
-			throw new IllegalArgumentException("Cannot create JWT Token without username");
+			throw new JwtGenException("Cannot create JWT Token without username");
 		}
 
 		LocalDateTime currentTime = LocalDateTime.now();
@@ -95,5 +106,4 @@ public class JwtTokenFactory implements InitializingBean {
 
 		return new AccessJwtToken(token, claims);
 	}
-
 }

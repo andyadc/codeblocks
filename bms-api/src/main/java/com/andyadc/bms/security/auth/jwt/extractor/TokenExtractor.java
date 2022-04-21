@@ -6,5 +6,9 @@ package com.andyadc.bms.security.auth.jwt.extractor;
  */
 public interface TokenExtractor {
 
-	String extract(String payload);
+	/**
+	 * @param header http request header
+	 * @return token
+	 */
+	String extract(String header);
 }
