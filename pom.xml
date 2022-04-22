@@ -24,7 +24,6 @@
 		<module>codeblocks-test</module>
 		<module>codeblocks-spring-sample</module>
 		<module>codeblocks-qrcode</module>
-		<module>codeblocks-cache</module>
 		<module>ssm-demo</module>
 		<module>tinyrpc</module>
 		<module>tiny-interceptor</module>
@@ -40,15 +39,15 @@
     </prerequisites>
 
     <properties>
-		<spring.version>5.3.17</spring.version>
+		<spring.version>5.3.19</spring.version>
 		<aspectj.version>1.9.9.1</aspectj.version>
-		<netty.version>4.1.75.Final</netty.version>
+		<netty.version>4.1.76.Final</netty.version>
 		<httpcomponents.version>4.5.13</httpcomponents.version>
 		<okhttp.version>4.9.3</okhttp.version>
 		<hibernate-validator.version>6.2.3.Final</hibernate-validator.version>
 		<mybatis.version>3.5.9</mybatis.version>
 		<mybatis-spring.version>2.0.7</mybatis-spring.version>
-		<spring-data-redis.version>2.6.3</spring-data-redis.version>
+		<spring-data-redis.version>2.6.4</spring-data-redis.version>
 		<zookeeper.version>3.8.0</zookeeper.version>
 		<redisson.version>3.17.0</redisson.version>
 		<jedis.version>4.2.2</jedis.version>
@@ -88,13 +87,13 @@
 		<poi.version>5.2.2</poi.version>
 		<slf4j.version>1.7.36</slf4j.version>
 		<logback.version>1.2.11</logback.version>
-		<mockito.version>4.5.0</mockito.version>
+		<mockito.version>4.5.1</mockito.version>
 		<junit.version>4.13.2</junit.version>
 		<junit-jupiter.version>5.8.2</junit-jupiter.version>
 		<jmh.version>1.35</jmh.version>
 
 		<!-- maven plugins -->
-		<jetty-maven-plugin.version>9.4.45.v20220203</jetty-maven-plugin.version>
+		<jetty-maven-plugin.version>9.4.46.v20220331</jetty-maven-plugin.version>
 		<versions-maven-plugin.version>2.10.0</versions-maven-plugin.version>
 
 		<java.version>1.8</java.version>
