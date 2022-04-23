@@ -2,10 +2,11 @@ package com.andyadc.bms.security.auth.ajax;
 
 import com.andyadc.bms.common.RespCode;
 import com.andyadc.bms.common.Response;
-import com.andyadc.bms.listener.LoggedUser;
 import com.andyadc.bms.security.model.UserContext;
 import com.andyadc.bms.security.model.token.JwtToken;
 import com.andyadc.bms.security.model.token.JwtTokenFactory;
+import com.andyadc.bms.service.AuthTokenService;
+import com.andyadc.codeblocks.kit.idgen.UUID;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,10 +31,17 @@ public class AjaxAwareAuthenticationSuccessHandler implements AuthenticationSucc
 	private final ObjectMapper mapper;
 	private final JwtTokenFactory tokenFactory;
 
+	private AuthTokenService authTokenService;
+
 	@Inject
 	public AjaxAwareAuthenticationSuccessHandler(final ObjectMapper mapper, final JwtTokenFactory tokenFactory) {
 		this.mapper = mapper;
 		this.tokenFactory = tokenFactory;
+	}
+
+	@Inject
+	public void setAuthTokenService(AuthTokenService authTokenService) {
+		this.authTokenService = authTokenService;
 	}
 
 	@Override
@@ -46,21 +55,20 @@ public class AjaxAwareAuthenticationSuccessHandler implements AuthenticationSucc
 		tokenMap.put("token", accessToken.getToken());
 		tokenMap.put("refreshToken", refreshToken.getToken());
 
+		userContext.setToken(UUID.randomUUID());
+		tokenMap.put("accessToken", userContext.getToken());
+
 		response.setStatus(HttpStatus.OK.value());
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+		response.setCharacterEncoding(StandardCharsets.UTF_8.name());
 		mapper.writeValue(response.getWriter(), Response.of(RespCode.SUCC, tokenMap));
 
 		clearAuthenticationAttributes(request);
-//		setAttributes(request, userContext);
+		saveAuthenticationUserContext(userContext);
 	}
 
-	// TODO
-	private void setAttributes(HttpServletRequest request, UserContext userContext) {
-		final HttpSession session = request.getSession(true);
-		if (session == null) {
-			return;
-		}
-		session.setAttribute("loggedUser", new LoggedUser(userContext.getUsername()));
+	private void saveAuthenticationUserContext(UserContext userContext) {
+		authTokenService.saveAuthToken(userContext);
 	}
 
 	/**

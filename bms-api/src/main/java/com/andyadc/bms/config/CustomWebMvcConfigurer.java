@@ -13,6 +13,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.inject.Inject;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @EnableWebMvc
@@ -47,6 +48,7 @@ public class CustomWebMvcConfigurer implements WebMvcConfigurer {
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
 		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+		converter.setDefaultCharset(StandardCharsets.UTF_8);
 		converter.setObjectMapper(objectMapper);
 
 		converters.add(converter);

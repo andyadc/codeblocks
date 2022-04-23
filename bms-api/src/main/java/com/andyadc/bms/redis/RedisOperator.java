@@ -3,10 +3,12 @@ package com.andyadc.bms.redis;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.connection.RedisStringCommands;
 import org.springframework.data.redis.core.Cursor;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ScanOptions;
+import org.springframework.data.redis.core.types.Expiration;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Component;
 
@@ -24,12 +26,11 @@ import java.util.stream.Collectors;
 @Component
 public class RedisOperator {
 
-	@Value("${redis.key.prefix:}")
-	private String prefix;
-
 	private final RedisTemplate<String, Object> redisTemplate;
 	private final RedisSerializer keySerializer;
 	private final RedisSerializer valueSerializer;
+	@Value("${redis.key.prefix:}")
+	private String prefix;
 
 	public RedisOperator(RedisTemplate<String, Object> redisTemplate) {
 		this.redisTemplate = redisTemplate;
@@ -69,16 +70,25 @@ public class RedisOperator {
 	 *
 	 * @param kvs k-v map
 	 */
-	public void batchSet(Map<String, Object> kvs) {
+	public void batchSet(Map<String, Object> kvs, Long timeout, TimeUnit unit) {
 		redisTemplate.executePipelined(new RedisCallback<Object>() {
 			@Override
 			public Object doInRedis(RedisConnection connection) throws DataAccessException {
 				connection.openPipeline();
 				kvs.forEach((k, v) -> {
-					connection.set(
-						Objects.requireNonNull(keySerializer.serialize(buildKey(k))),
-						Objects.requireNonNull(valueSerializer.serialize(v))
-					);
+					if (timeout != null && unit != null) {
+						connection.set(
+							Objects.requireNonNull(keySerializer.serialize(buildKey(k))),
+							Objects.requireNonNull(valueSerializer.serialize(v)),
+							Expiration.from(timeout, unit),
+							RedisStringCommands.SetOption.UPSERT
+						);
+					} else {
+						connection.set(
+							Objects.requireNonNull(keySerializer.serialize(buildKey(k))),
+							Objects.requireNonNull(valueSerializer.serialize(v))
+						);
+					}
 				});
 				// 不需要close, 否则拿不到返回值
 				// connection.closePipeline();
@@ -97,7 +107,7 @@ public class RedisOperator {
 		return count == null ? 0L : count;
 	}
 
-	public boolean expire(String key, long timeout, TimeUnit unit) {
+	public boolean expire(String key, Long timeout, TimeUnit unit) {
 		key = buildKey(key);
 		Boolean ret = redisTemplate.expire(key, timeout, unit);
 		return ret != null && ret;
@@ -118,7 +128,7 @@ public class RedisOperator {
 		redisTemplate.opsForValue().set(key, value);
 	}
 
-	public void set(String key, Object value, long timeout, TimeUnit unit) {
+	public void set(String key, Object value, Long timeout, TimeUnit unit) {
 		key = buildKey(key);
 		redisTemplate.opsForValue().set(key, value, timeout, unit);
 	}

@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
-@EnableWebSecurity(debug = true)
+@EnableWebSecurity(debug = false)
 @EnableGlobalMethodSecurity(
 	prePostEnabled = true,
 	securedEnabled = true,

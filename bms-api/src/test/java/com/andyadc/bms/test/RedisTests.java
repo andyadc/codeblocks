@@ -29,8 +29,8 @@ public class RedisTests {
 
 	@Test
 	public void testSet() {
-		redisOperator.set("a", 12345);
-		System.out.println(redisOperator.get("a"));
+//		redisOperator.set("a", 12345);
+//		System.out.println(redisOperator.get("a"));
 
 		AuthUserDTO dto = new AuthUserDTO();
 		dto.setId(Long.MAX_VALUE);
@@ -68,7 +68,7 @@ public class RedisTests {
 
 	@Test
 	public void testExpire() {
-		System.out.println(redisOperator.expire("a", 60, TimeUnit.SECONDS));
+		System.out.println(redisOperator.expire("a", 60L, TimeUnit.SECONDS));
 	}
 
 	@Test
@@ -105,6 +105,6 @@ public class RedisTests {
 		map.put("a1", new AuthUserDTO(1L, "a1", "aaaaaa"));
 		map.put("a2", new AuthUserDTO(2L, "a2", "bbbbbb"));
 		map.put("a3", new AuthUserDTO(3L, "a3", "vvvvvv"));
-		redisOperator.batchSet(map);
+		redisOperator.batchSet(map, null, null);
 	}
 }

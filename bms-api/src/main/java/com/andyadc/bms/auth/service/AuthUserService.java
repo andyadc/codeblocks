@@ -5,7 +5,9 @@ import com.andyadc.bms.auth.entity.AuthMenu;
 import com.andyadc.bms.auth.entity.AuthUser;
 import com.andyadc.bms.auth.mapper.AuthMapper;
 import com.andyadc.bms.auth.mapper.AuthUserMapper;
+import com.andyadc.bms.exception.IllegalPasswordException;
 import com.andyadc.bms.security.PasswordService;
+import com.andyadc.bms.validation.PasswordConstraintValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -42,6 +44,10 @@ public class AuthUserService {
 	}
 
 	public AuthUser register(AuthUserDTO dto) {
+		boolean valid = PasswordConstraintValidator.isValid(dto.getPassword(), dto.getUsername());
+		if (!valid) {
+			throw new IllegalPasswordException("Illegal password");
+		}
 		String password = passwordService.encode(dto.getPassword());
 		AuthUser authUser = new AuthUser();
 		authUser.setPassword(password);

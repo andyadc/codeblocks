@@ -11,17 +11,24 @@ public class UserContext implements Serializable {
 	private static final long serialVersionUID = -1596997375272146695L;
 	private final String username;
 	private final long timestamp;
-	private final List<GrantedAuthority> authorities;
+	private List<GrantedAuthority> authorities;
 	private Long uid;
+	private String token;
 
-	private UserContext(String username, List<GrantedAuthority> authorities) {
+	public UserContext(String username) {
 		this.username = username;
-		this.authorities = authorities;
 		this.timestamp = System.currentTimeMillis();
 	}
 
+	private UserContext(String username, List<GrantedAuthority> authorities) {
+		this(username);
+		this.authorities = authorities;
+	}
+
 	public static UserContext create(String username, List<GrantedAuthority> authorities) {
-		if (StringUtils.isBlank(username)) throw new IllegalArgumentException("Username is blank: " + username);
+		if (StringUtils.isBlank(username)) {
+			throw new IllegalArgumentException("Username is blank: " + username);
+		}
 		return new UserContext(username, authorities);
 	}
 
@@ -39,6 +46,14 @@ public class UserContext implements Serializable {
 
 	public long getTimestamp() {
 		return timestamp;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 	public List<GrantedAuthority> getAuthorities() {

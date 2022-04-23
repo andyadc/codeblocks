@@ -14,7 +14,7 @@ import java.io.IOException;
 
 @Order(value = Ordered.HIGHEST_PRECEDENCE)
 @Component
-@WebFilter(filterName = "ContentCachingFilter", urlPatterns = "/*")
+@WebFilter(filterName = "contentCachingFilter", urlPatterns = "/*")
 public class ContentCachingFilter extends OncePerRequestFilter {
 
 	@Override

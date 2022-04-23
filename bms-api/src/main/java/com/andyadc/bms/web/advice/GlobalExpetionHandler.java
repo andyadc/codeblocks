@@ -1,8 +1,9 @@
-package com.andyadc.bms.web.error;
+package com.andyadc.bms.web.advice;
 
 import com.andyadc.bms.common.ErrorResponse;
 import com.andyadc.bms.common.Response;
 import com.andyadc.bms.exception.IllegalRequestException;
+import com.andyadc.bms.security.exception.JwtExpiredTokenException;
 import com.google.common.base.Throwables;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
@@ -20,6 +21,16 @@ import java.sql.SQLIntegrityConstraintViolationException;
 public class GlobalExpetionHandler {
 
 	private static final Logger logger = LoggerFactory.getLogger(GlobalExpetionHandler.class);
+
+	// @ExceptionHandler(value = {JwtExpiredTokenException.class})
+	public ResponseEntity<Object> handlerJwtExpiredTokenException(JwtExpiredTokenException e, HttpServletRequest request) {
+		ErrorResponse response = new ErrorResponse();
+		response.setStatus(HttpStatus.UNAUTHORIZED);
+		response.setMessage(e.getMessage());
+		response.setPath(request.getServletPath());
+
+		return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+	}
 
 	@ExceptionHandler(value = IllegalRequestException.class)
 	public ResponseEntity<Object> handleIllegalRequestException(IllegalRequestException e, HttpServletRequest request) {
