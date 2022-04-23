@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 public abstract class ResponseWriter {
@@ -28,7 +29,7 @@ public abstract class ResponseWriter {
 		}
 
 		response.setStatus(HttpServletResponse.SC_OK);
-		response.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding(StandardCharsets.UTF_8.name());
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
 		String resBody = objectMapper.writeValueAsString(this.body(request));
