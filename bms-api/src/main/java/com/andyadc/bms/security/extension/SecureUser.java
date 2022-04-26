@@ -20,6 +20,8 @@ import java.util.TreeSet;
  */
 public class SecureUser implements UserDetails, CredentialsContainer {
 
+	private static final long serialVersionUID = 7143629026786216545L;
+
 	private final String userId;
 	private final String username;
 	private final Set<GrantedAuthority> authorities;

@@ -12,6 +12,8 @@ import java.util.Set;
 
 public class BearerTokenResponse implements Serializable {
 
+	private static final long serialVersionUID = 4089977300536355901L;
+
 	private AccessToken accessToken;
 
 	private RefreshToken refreshToken;

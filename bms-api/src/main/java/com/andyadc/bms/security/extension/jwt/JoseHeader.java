@@ -25,7 +25,6 @@ import java.util.function.Consumer;
  * @see <a target="_blank" href="https://tools.ietf.org/html/rfc7519#section-5">JWT JOSE Header</a>
  * @see <a target="_blank" href="https://tools.ietf.org/html/rfc7515#section-4">JWS JOSE Header</a>
  * @see <a target="_blank" href="https://tools.ietf.org/html/rfc7516#section-4">JWE JOSE Header</a>
- * @since 0.0.1
  */
 public class JoseHeader {
 

@@ -1,7 +1,11 @@
 package com.andyadc.bms.common;
 
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
+import java.util.Objects;
 import java.util.StringJoiner;
 
 public class Response<T> {
@@ -9,11 +13,16 @@ public class Response<T> {
 	private String code;
 	private String message;
 	private Integer status;
-	private final ZonedDateTime timestamp;
+	private String traceId;
 	private T data;
+	private final ZonedDateTime timestamp;
 
 	public Response() {
 		this.timestamp = ZonedDateTime.now(ZoneId.of("UTC"));
+		Object traceId = RequestContextHolder.currentRequestAttributes().getAttribute("traceId", RequestAttributes.SCOPE_REQUEST);
+		if (traceId instanceof String) {
+			setTraceId(Objects.toString(traceId));
+		}
 	}
 
 	public Response(String code, String message) {
@@ -79,6 +88,14 @@ public class Response<T> {
 		return timestamp;
 	}
 
+	public String getTraceId() {
+		return traceId;
+	}
+
+	public void setTraceId(String traceId) {
+		this.traceId = traceId;
+	}
+
 	public T getData() {
 		return data;
 	}
@@ -94,6 +111,7 @@ public class Response<T> {
 			.add("message=" + message)
 			.add("status=" + status)
 			.add("timestamp=" + timestamp)
+			.add("traceId=" + traceId)
 			.add("data=" + data)
 			.toString();
 	}

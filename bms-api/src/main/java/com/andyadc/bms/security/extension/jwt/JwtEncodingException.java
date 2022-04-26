@@ -4,6 +4,8 @@ import org.springframework.security.oauth2.jwt.JwtException;
 
 public class JwtEncodingException extends JwtException {
 
+	private static final long serialVersionUID = 5580237937471711931L;
+
 	/**
 	 * Constructs a {@code JwtEncodingException} using the provided parameters.
 	 *

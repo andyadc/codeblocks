@@ -20,7 +20,6 @@ import java.util.function.Consumer;
  * @see Jwt
  * @see JwtClaimAccessor
  * @see <a target="_blank" href="https://tools.ietf.org/html/rfc7519#section-4">JWT Claims Set</a>
- * @since 0.0.1
  */
 public class JwtClaimsSet implements JwtClaimAccessor {
 

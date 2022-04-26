@@ -3,9 +3,10 @@ package com.andyadc.bms.common;
 public enum RespCode {
 
 	SUCC("000", "Success"),
+	UNKNOWN("-1", "Unknown error"),
 	PENDING("999", "Please wait"),
-	UNKNOWN("500", "Unknown error"),
 	Method_Not_Allowed("405", "Method Not Allowed"),
+	UNAUTHORIZED("401", "Unauthorized"),
 	AUTHENTICATION_FAIL("010", "Invalid username or password"),
 	JWT_TOKEN_EXPIRED("020", "Token has expired"),
 	PERMISSION_MISSED("030", "User doesn't have any privileges"),

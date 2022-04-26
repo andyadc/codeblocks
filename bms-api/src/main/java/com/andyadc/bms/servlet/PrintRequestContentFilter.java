@@ -8,6 +8,8 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StreamUtils;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -39,6 +41,7 @@ public class PrintRequestContentFilter extends OncePerRequestFilter {
 			traceId = UUID.randomUUID();
 		}
 		MDC.put(TRACE_ID, traceId);
+		RequestContextHolder.currentRequestAttributes().setAttribute("traceId", traceId, RequestAttributes.SCOPE_REQUEST);
 		Instant start = Instant.now();
 
 		InputStream inputStream = request.getInputStream();
@@ -49,6 +52,7 @@ public class PrintRequestContentFilter extends OncePerRequestFilter {
 
 		Instant end = Instant.now();
 		logger.info("{} in {} ms", uri, Duration.between(start, end).toMillis());
+		RequestContextHolder.resetRequestAttributes();
 	}
 
 	@Override
