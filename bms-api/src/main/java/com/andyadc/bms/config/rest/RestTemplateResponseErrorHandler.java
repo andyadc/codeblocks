@@ -1,5 +1,6 @@
-package com.andyadc.bms.config;
+package com.andyadc.bms.config.rest;
 
+import com.andyadc.bms.exception.HttpRequestException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -31,7 +32,7 @@ public class RestTemplateResponseErrorHandler implements ResponseErrorHandler {
 			//Handle CLIENT_ERROR
 			logger.error("CLIENT_ERROR");
 			if (response.getStatusCode() == HttpStatus.NOT_FOUND) {
-				throw new RuntimeException();
+				throw new HttpRequestException(HttpStatus.NOT_FOUND.toString());
 			}
 		}
 	}

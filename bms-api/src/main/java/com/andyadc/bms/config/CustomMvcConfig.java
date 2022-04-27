@@ -5,9 +5,12 @@ import com.andyadc.bms.file.FileStorageSettings;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -18,9 +21,9 @@ import java.util.List;
 
 @EnableWebMvc
 @Configuration
-public class CustomWebMvcConfigurer implements WebMvcConfigurer {
+public class CustomMvcConfig implements WebMvcConfigurer {
 
-	private static final Logger logger = LoggerFactory.getLogger(CustomWebMvcConfigurer.class);
+	private static final Logger logger = LoggerFactory.getLogger(CustomMvcConfig.class);
 
 	private FileStorageSettings fileStorageSettings;
 	private ObjectMapper objectMapper;
@@ -52,5 +55,11 @@ public class CustomWebMvcConfigurer implements WebMvcConfigurer {
 		converter.setObjectMapper(objectMapper);
 
 		converters.add(converter);
+	}
+
+	@Bean
+	@ConditionalOnMissingBean(RequestContextListener.class)
+	public RequestContextListener requestContextListener() {
+		return new RequestContextListener();
 	}
 }
