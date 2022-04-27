@@ -14,13 +14,19 @@ public class RestTemplateTests {
 
 	@Test
 	public void testGet() {
-		ResponseEntity<String> entity = restTemplate.getForEntity("http://localhost:8080/ex/success", String.class);
+		ResponseEntity<String> entity = restTemplate.getForEntity("http://localhost:8080/exception/success", String.class);
 		System.out.println(entity.getBody());
 	}
 
 	@Test
 	public void testTimeout() {
-		ResponseEntity<String> entity = restTemplate.getForEntity("http://localhost:8080/ex/timeout", String.class);
+		ResponseEntity<String> entity = restTemplate.getForEntity("http://localhost:8080/exception/timeout", String.class);
+		System.out.println(entity.getBody());
+	}
+
+	@Test
+	public void testThrow() {
+		ResponseEntity<String> entity = restTemplate.getForEntity("http://localhost:8080/exception/throw", String.class);
 		System.out.println(entity.getBody());
 	}
 }

@@ -1,4 +1,4 @@
-package com.andyadc.boot.runner;
+package com.andyadc.boot.rest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

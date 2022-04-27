@@ -1,13 +1,19 @@
-package com.andyadc.boot.runner;
+package com.andyadc.boot.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.client.BufferingClientHttpRequestFactory;
 import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.ResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 public class RestClientConfig {
@@ -21,7 +27,17 @@ public class RestClientConfig {
 
 	@Bean
 	public RestTemplate restTemplate(RestTemplateBuilder builder) {
-		RestTemplate restTemplate = builder.errorHandler(responseErrorHandler).build();
+		RestTemplate restTemplate = builder
+			.errorHandler(responseErrorHandler)
+			.build();
+
+		List<ClientHttpRequestInterceptor> interceptors = restTemplate.getInterceptors();
+		if (CollectionUtils.isEmpty(interceptors)) {
+			interceptors = new ArrayList<>();
+		}
+		interceptors.add(new LoggingInterceptor());
+		restTemplate.setInterceptors(interceptors);
+
 		restTemplate.setRequestFactory(this.clientHttpRequestFactory());
 
 		return restTemplate;
@@ -31,9 +47,13 @@ public class RestClientConfig {
 	 * URLConnection
 	 */
 	public ClientHttpRequestFactory clientHttpRequestFactory() {
-		SimpleClientHttpRequestFactory factory = new SimpleClientHttpRequestFactory();
-		factory.setConnectTimeout(3 * 1000);
-		factory.setReadTimeout(7 * 1000);
+		SimpleClientHttpRequestFactory simplefactory = new SimpleClientHttpRequestFactory();
+		simplefactory.setConnectTimeout(3 * 1000);
+		simplefactory.setReadTimeout(7 * 1000);
+
+		// the use of this factory involves a performance drawback
+		ClientHttpRequestFactory factory =
+			new BufferingClientHttpRequestFactory(simplefactory);
 
 		return factory;
 	}
