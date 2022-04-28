@@ -1,9 +1,12 @@
 package com.andyadc.bms.auth.dto;
 
-import org.hibernate.validator.constraints.Length;
+import com.andyadc.bms.validation.PhoneNumber;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.StringJoiner;
 
@@ -13,18 +16,23 @@ public class AuthUserDTO implements Serializable {
 
 	private Long id;
 
-	@Length(min = 3, max = 15, message = "用户名长度必须在3到15位之间")
+	@Size(min = 3, max = 5, message = "用户名长度必须在3到15位之间")
 	@NotBlank
 	private String username;
 
-	@Length(min = 6, max = 18, message = "密码长度必须在6到18位之间")
+	@Email
+	private String email;
+
+	@PhoneNumber(regex = "^1\\d{10}$")
+	private String phoneNo;
+
 	@NotBlank
 	private String password;
 	private String confirmPassword;
 
 	private Integer status;
 
-	private List<String> authorities;
+	private List<String> authorities = new ArrayList<>();
 
 	public AuthUserDTO() {
 	}
@@ -33,6 +41,10 @@ public class AuthUserDTO implements Serializable {
 		this.id = id;
 		this.username = username;
 		this.password = password;
+	}
+
+	private boolean passwordMatch() {
+		return password != null && password.equals(confirmPassword);
 	}
 
 	public Long getId() {
@@ -49,6 +61,22 @@ public class AuthUserDTO implements Serializable {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhoneNo() {
+		return phoneNo;
+	}
+
+	public void setPhoneNo(String phoneNo) {
+		this.phoneNo = phoneNo;
 	}
 
 	public String getPassword() {
@@ -88,6 +116,7 @@ public class AuthUserDTO implements Serializable {
 		return new StringJoiner(", ", AuthUserDTO.class.getSimpleName() + "[", "]")
 			.add("id=" + id)
 			.add("username=" + username)
+			.add("email=" + email)
 			.add("status=" + status)
 			.add("authorities=" + authorities)
 			.toString();

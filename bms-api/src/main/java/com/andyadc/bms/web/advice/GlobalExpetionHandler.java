@@ -1,7 +1,9 @@
 package com.andyadc.bms.web.advice;
 
 import com.andyadc.bms.common.ErrorResponse;
+import com.andyadc.bms.common.RespCode;
 import com.andyadc.bms.common.Response;
+import com.andyadc.bms.exception.IllegalPasswordException;
 import com.andyadc.bms.exception.IllegalRequestException;
 import com.andyadc.bms.security.exception.JwtExpiredTokenException;
 import com.google.common.base.Throwables;
@@ -21,6 +23,13 @@ import java.sql.SQLIntegrityConstraintViolationException;
 public class GlobalExpetionHandler {
 
 	private static final Logger logger = LoggerFactory.getLogger(GlobalExpetionHandler.class);
+
+	@ExceptionHandler(value = IllegalPasswordException.class)
+	public ResponseEntity<Object> handleIllegalPasswordException(IllegalPasswordException e, HttpServletRequest request) {
+		String stackTrace = ExceptionUtils.getStackTrace(e);
+		logger.error(stackTrace);
+		return ResponseEntity.ok(Response.of(RespCode.ILLEGAL_PASSWORD));
+	}
 
 	// @ExceptionHandler(value = {JwtExpiredTokenException.class})
 	public ResponseEntity<Object> handlerJwtExpiredTokenException(JwtExpiredTokenException e, HttpServletRequest request) {
