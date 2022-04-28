@@ -4,7 +4,6 @@ import com.andyadc.bms.common.WebUtil;
 import com.andyadc.bms.security.exception.AuthMethodNotSupportedException;
 import com.andyadc.bms.security.model.LoginRequest;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,8 +59,7 @@ public class AjaxLoginProcessingFilter extends AbstractAuthenticationProcessingF
 		}
 		// TODO log
 		BufferedReader reader = request.getReader();
-		String s = IOUtils.toString(reader);
-		System.out.println(">>> " + s);
+//		String s = IOUtils.toString(reader);
 
 		LoginRequest loginRequest = objectMapper.readValue(request.getReader(), LoginRequest.class);
 		if (StringUtils.isBlank(loginRequest.getUsername()) || StringUtils.isBlank(loginRequest.getPassword())) {

@@ -23,7 +23,7 @@ public class AuthUserDTO implements Serializable {
 	@Email
 	private String email;
 
-	@PhoneNumber(regex = "^1\\d{10}$")
+	@PhoneNumber(regex = "^1[3-9](\\d){9}$")
 	private String phoneNo;
 
 	@NotBlank
@@ -43,7 +43,7 @@ public class AuthUserDTO implements Serializable {
 		this.password = password;
 	}
 
-	private boolean passwordMatch() {
+	public boolean passwordMatch() {
 		return password != null && password.equals(confirmPassword);
 	}
 

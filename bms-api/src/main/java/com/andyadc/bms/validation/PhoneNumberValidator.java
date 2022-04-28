@@ -16,6 +16,7 @@ public class PhoneNumberValidator implements ConstraintValidator<PhoneNumber, St
 		if (phoneRegex.length() > 1) {
 			DEFAULT_PATTERN = Pattern.compile(phoneRegex);
 		}
+		System.out.println("PhoneNumberValidator initialized");
 	}
 
 	@Override

@@ -11,6 +11,7 @@ import com.andyadc.bms.validation.PasswordConstraintValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import javax.inject.Inject;
 import java.time.LocalDateTime;
@@ -44,10 +45,19 @@ public class AuthUserService {
 	}
 
 	public AuthUser register(AuthUserDTO dto) {
-		boolean valid = PasswordConstraintValidator.isValid(dto.getPassword(), dto.getUsername());
-		if (!valid) {
+		Assert.notNull(dto, "Illegal register info. AuthUserDTO is null");
+
+		if (!dto.passwordMatch()) {
+			logger.warn("Passwords do NOT match!");
 			throw new IllegalPasswordException("Illegal password");
 		}
+
+		boolean valid = PasswordConstraintValidator.isValid(dto.getPassword(), dto.getUsername());
+		if (!valid) {
+			logger.warn("The password does not meet the password policy requirements.");
+			throw new IllegalPasswordException("Illegal password");
+		}
+
 		String password = passwordService.encode(dto.getPassword());
 		AuthUser authUser = new AuthUser();
 		authUser.setPassword(password);
