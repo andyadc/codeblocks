@@ -2,9 +2,11 @@ package com.andyadc.bms.event.listener;
 
 import com.andyadc.bms.auth.entity.AuthUser;
 import com.andyadc.bms.event.OnUserRegistrationCompleteEvent;
+import com.andyadc.codeblocks.kit.text.StringUtil;
 import org.apache.commons.lang3.ThreadUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.annotation.Order;
 import org.springframework.mail.SimpleMailMessage;
@@ -24,6 +26,11 @@ public class OnUserRegistrationCompleteListener implements ApplicationListener<O
 
 	private JavaMailSender mailSender;
 
+	@Value("${spring.mail.username}")
+	private String mailFrom;
+	@Value("${mail.send.mock}")
+	private Boolean mailSendMock;
+
 	//TODO
 	@Async
 	@Override
@@ -32,24 +39,39 @@ public class OnUserRegistrationCompleteListener implements ApplicationListener<O
 	}
 
 	private void confirmRegistration(OnUserRegistrationCompleteEvent event) {
+		AuthUser authUser = event.getAuthUser();
+		logger.info("Send mail after user registration. {}", authUser.getId() + "-" + authUser.getUsername());
+		String email = authUser.getEmail();
+		if (StringUtil.isBlank(email)) {
+			logger.warn("User email is null.");
+			return;
+		}
+
+		String subject = "Registration Confirmation";
+		String token = UUID.randomUUID().toString();
+		String confirmationUrl
+			= event.getUrl() + "/pub/regitrationConfirm?activationCode=" + token
+			+ "&t=" + System.currentTimeMillis();
+
+		String message = "You registered successfully. To confirm your registration, please click on the below link.";
+
 		try {
-			AuthUser authUser = event.getAuthUser();
-			logger.info("AuthUser [{}-{}] register completed", authUser.getId(), authUser.getUsername());
-
-			String subject = "Registration Confirmation";
-			String token = UUID.randomUUID().toString();
-			String confirmationUrl
-				= event.getUrl() + "/regitrationConfirm.html?token=" + token;
-
 			SimpleMailMessage mailMessage = new SimpleMailMessage();
 			mailMessage.setSubject(subject);
-			mailMessage.setTo(authUser.getEmail());
+			mailMessage.setTo(email);
+			mailMessage.setFrom(mailFrom);
+			mailMessage.setText(message + " \r\n" + confirmationUrl);
+			if (!mailSendMock) {
+				mailSender.send(mailMessage);
+				logger.info("Confirmation email sent. {}", authUser.getId() + "-" + authUser.getUsername());
+			} else {
+				logger.warn("Confirmation email mock sent");
+			}
 
-			logger.info("Mail {}", mailMessage);
-//			mailSender.send(mailMessage);
 			ThreadUtils.sleep(Duration.ofSeconds(3L));
+			logger.warn("This is delay test!");
 		} catch (Exception e) {
-			logger.error("", e);
+			logger.error("Mail send error. {}", authUser.getId() + "-" + authUser.getUsername(), e);
 		}
 	}
 

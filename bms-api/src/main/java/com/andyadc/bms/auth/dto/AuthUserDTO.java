@@ -16,7 +16,7 @@ public class AuthUserDTO implements Serializable {
 
 	private Long id;
 
-	@Size(min = 3, max = 5, message = "用户名长度必须在3到15位之间")
+	@Size(min = 3, max = 15, message = "用户名长度必须在3到15位之间")
 	@NotBlank
 	private String username;
 

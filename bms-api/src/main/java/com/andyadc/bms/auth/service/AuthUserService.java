@@ -62,7 +62,8 @@ public class AuthUserService {
 		AuthUser authUser = new AuthUser();
 		authUser.setPassword(password);
 		authUser.setUsername(dto.getUsername());
-		authUser.setStatus(1);
+		authUser.setEmail(dto.getEmail());
+		authUser.setStatus(0);
 		authUser.setDeleted(0);
 		authUser.setVersion(1);
 		authUser.setCreateTime(LocalDateTime.now());

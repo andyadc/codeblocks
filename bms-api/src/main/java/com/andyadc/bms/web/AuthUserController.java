@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping("/api")
@@ -36,9 +37,15 @@ public class AuthUserController {
 	}
 
 	@PostMapping("/auth/register")
-	public ResponseEntity<Object> register(@Validated @RequestBody AuthUserDTO user) {
+	public ResponseEntity<Object> register(@Validated @RequestBody AuthUserDTO user, HttpServletRequest request) {
 		AuthUser registeredUser = authUserService.register(user);
-		applicationEventPublisher.publishEvent(new OnUserRegistrationCompleteEvent(registeredUser));
+
+		OnUserRegistrationCompleteEvent completeEvent = new OnUserRegistrationCompleteEvent(registeredUser);
+		String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+		completeEvent.setUrl(url);
+		completeEvent.setLocale(request.getLocale());
+		applicationEventPublisher.publishEvent(completeEvent);
+
 		return ResponseEntity.ok("success");
 	}
 

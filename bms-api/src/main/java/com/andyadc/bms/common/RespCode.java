@@ -9,6 +9,7 @@ public enum RespCode {
 	UNAUTHORIZED("401", "Unauthorized"),
 	AUTHENTICATION_FAIL("010", "Invalid username or password"),
 	ILLEGAL_PASSWORD("011", "Illegal password"),
+	ACTIVATION_ERROR("012", "Activation error"),
 	JWT_TOKEN_EXPIRED("020", "Token has expired"),
 	PERMISSION_MISSED("030", "User doesn't have any privileges"),
 	VALIDATE_CODE_ERROR("050", "Validate code error"),
