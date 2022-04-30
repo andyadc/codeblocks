@@ -32,16 +32,8 @@ public class MailService {
 	@Value("${spring.mail.username}")
 	private String mailFrom;
 
-	@Value("classpath:static/favicon.ico")
+	@Value("classpath:static/images/robot.png")
 	private Resource resourceFile;
-
-	public static void main(String[] args) throws Exception {
-		Resource resource = new ClassPathResource("static/favicon.ico");
-		System.out.println(resource.exists());
-		System.out.println(resource.contentLength());
-		System.out.println(resource.getFilename());
-
-	}
 
 	@Inject
 	public void setMailSender(JavaMailSender mailSender) {
@@ -61,9 +53,9 @@ public class MailService {
 		helper.setTo(to);
 		helper.setSubject(subject);
 		helper.setText(htmlBody, true);
-//		helper.addInline("favicon.ico", resourceFile);
+		helper.addInline("attachment.png", resourceFile);
 
-		Resource resource = new ClassPathResource("static/favicon.ico");
+		Resource resource = new ClassPathResource("static/images/tiger.jpg");
 		String attachmentFilename = MimeUtility.encodeWord(resource.getFilename(), "utf-8", "B");
 		helper.addAttachment(attachmentFilename, resource.getFile());
 

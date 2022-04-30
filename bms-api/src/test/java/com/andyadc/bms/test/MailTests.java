@@ -10,10 +10,14 @@ import javax.inject.Inject;
 import javax.mail.Session;
 import javax.mail.Store;
 import javax.mail.URLName;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+/**
+ * https://blog.csdn.net/Monten_Cristo/article/details/117464187
+ */
 @SpringBootTest
 public class MailTests {
 
@@ -59,7 +63,7 @@ public class MailTests {
 	public void testSimpleSend() {
 		SimpleMailMessage mailMessage = new SimpleMailMessage();
 		mailMessage.setSubject("test");
-		mailMessage.setText("hello mail");
+		mailMessage.setText("hello mail, " + LocalDateTime.now());
 		mailMessage.setTo("andaicheng@qq.com");
 		mailMessage.setFrom("andaicheng@163.com");
 		javaMailSender.send(mailMessage);
