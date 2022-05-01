@@ -1,7 +1,6 @@
 package com.andyadc.codeblocks.serialization;
 
 import com.andyadc.codeblocks.serialization.binary.FSTSerializerFactory;
-import com.andyadc.codeblocks.serialization.binary.KryoSerializerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,8 +21,6 @@ public class SerializerFactory {
 		logger.info("Binary serializer is {}", binarySerializerType);
 		if (binarySerializerType == SerializerType.FST_BINARY) {
 			FSTSerializerFactory.initialize();
-		} else if (binarySerializerType == SerializerType.KRYO_BINARY) {
-			KryoSerializerFactory.initialize();
 		}
 
 		String jsonSerializer = properties.getProperty("jsonSerializerType");

@@ -4,6 +4,7 @@ public enum SerializerType {
 
 	FST_BINARY("fstBinarySerializer"),
 	KRYO_BINARY("kryoBinarySerializer"),
+	PROTO_BINARY("protostuffSerializer"),
 	JDK_BINARY("jdkBinarySerializer"),
 	JACKSON_JSON("jacksonJsonSerializer"),
 	FAST_JSON("fastJsonSerializer"),

@@ -2,21 +2,26 @@ package com.andyadc.codeblocks.test;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringJoiner;
 
-public class TestBean implements Serializable {
+class Bean implements Serializable {
+
+	private static final long serialVersionUID = 4650673407078015618L;
 
 	private Integer id;
 	private String name;
 	private Long num;
 	private Float height;
 	private Boolean flag;
-	private Date datetime;
-	private LocalDateTime createTime;
-	private List<String> hobbies;
-	private Map<String, Integer> scores;
+	private Date datetime = new Date();
+	private LocalDateTime createTime = LocalDateTime.now();
+	private List<String> hobbies = new ArrayList<>();
+	private Map<String, Integer> scores = new HashMap<>();
 
 	public Integer getId() {
 		return id;
@@ -88,5 +93,20 @@ public class TestBean implements Serializable {
 
 	public void setScores(Map<String, Integer> scores) {
 		this.scores = scores;
+	}
+
+	@Override
+	public String toString() {
+		return new StringJoiner(", ", Bean.class.getSimpleName() + "[", "]")
+			.add("id=" + id)
+			.add("name=" + name)
+			.add("num=" + num)
+			.add("height=" + height)
+			.add("flag=" + flag)
+			.add("datetime=" + datetime)
+			.add("createTime=" + createTime)
+			.add("hobbies=" + hobbies)
+			.add("scores=" + scores)
+			.toString();
 	}
 }

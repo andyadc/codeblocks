@@ -4,84 +4,45 @@ import com.andyadc.codeblocks.serialization.SerializerException;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
-import com.esotericsoftware.kryo.pool.KryoPool;
+import com.esotericsoftware.kryo.util.Pool;
 
 public class KryoSerializer {
 
-	private static final int BUFFER_SIZE = 2 * 1024;
-	private static final int MAX_BUFFER_SIZE = 512 * 1024;
-
 	public static <T> byte[] serialize(T object) {
-		return serialize(object, BUFFER_SIZE, MAX_BUFFER_SIZE);
-	}
-
-	private static <T> byte[] serialize(T object, int bufferSize, int maxBufferSize) {
 		if (object == null) {
-			throw new SerializerException("Object is null");
+			throw new SerializerException("Object is null.");
 		}
 
-		KryoPool pool = KryoSerializerFactory.getDefaultPool();
-		Kryo kryo = null;
-		byte[] bytes;
-		try (Output output = new Output(bufferSize, maxBufferSize)) {
-			kryo = pool.borrow();
-			kryo.writeClassAndObject(output, object);
-			bytes = output.toBytes();
-		} finally {
-			if (kryo != null) {
-				pool.release(kryo);
-			}
-		}
+		Pool<Kryo> kryoPool = KryoSerializerFactory.getKryoPool();
+		Kryo kryo = kryoPool.obtain();
+		Pool<Output> outputPool = KryoSerializerFactory.getOutputPool();
+		Output output = outputPool.obtain();
+		kryo.writeObject(output, object);
+		byte[] bytes = output.toBytes();
+
+		outputPool.free(output);
+		kryoPool.free(kryo);
 		return bytes;
 	}
 
-	public static <T> byte[] serialize(Kryo kryo, T object) {
-		return serialize(kryo, object, BUFFER_SIZE, MAX_BUFFER_SIZE);
-	}
-
-	private static <T> byte[] serialize(Kryo kryo, T object, int bufferSize, int maxBufferSize) {
-		if (object == null) {
-			throw new SerializerException("Object is null");
-		}
-
-		byte[] bytes;
-		try (Output output = new Output(bufferSize, maxBufferSize)) {
-			kryo.writeClassAndObject(output, object);
-			bytes = output.toBytes();
-		}
-		return bytes;
-	}
-
-	@SuppressWarnings({"unchecked"})
-	public static <T> T deserialize(byte[] bytes) {
+	public static <T> T deserialize(byte[] bytes, Class<T> clazz) {
 		if (bytes == null || bytes.length == 0) {
-			throw new SerializerException("Bytes is null or empty");
+			throw new SerializerException("Bytes is null or empty.");
+		}
+		if (clazz == null) {
+			throw new SerializerException("Target bean is null.");
 		}
 
-		KryoPool pool = KryoSerializerFactory.getDefaultPool();
-		Kryo kryo = null;
-		Object object;
-		try (Input input = new Input(bytes)) {
-			kryo = pool.borrow();
-			object = kryo.readClassAndObject(input);
-		} finally {
-			if (kryo != null) {
-				pool.release(kryo);
-			}
-		}
-		return (T) object;
-	}
+		Pool<Kryo> kryoPool = KryoSerializerFactory.getKryoPool();
+		Kryo kryo = kryoPool.obtain();
 
-	@SuppressWarnings({"unchecked"})
-	public static <T> T deserialize(Kryo kryo, byte[] bytes) {
-		if (bytes == null || bytes.length == 0) {
-			throw new SerializerException("Bytes is null or empty");
-		}
+		Pool<Input> inputPool = KryoSerializerFactory.getInputPool();
+		Input input = inputPool.obtain();
+		input.setBuffer(bytes);
+		T t = kryo.readObject(input, clazz);
 
-		Object object;
-		try (Input input = new Input(bytes)) {
-			object = kryo.readClassAndObject(input);
-		}
-		return (T) object;
+		inputPool.free(input);
+		kryoPool.free(kryo);
+		return t;
 	}
 }

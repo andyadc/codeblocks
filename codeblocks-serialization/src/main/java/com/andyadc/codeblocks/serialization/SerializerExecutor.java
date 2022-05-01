@@ -3,6 +3,7 @@ package com.andyadc.codeblocks.serialization;
 import com.andyadc.codeblocks.serialization.binary.FSTSerializer;
 import com.andyadc.codeblocks.serialization.binary.JDKSerializer;
 import com.andyadc.codeblocks.serialization.binary.KryoSerializer;
+import com.andyadc.codeblocks.serialization.binary.ProtostuffSerializer;
 import com.andyadc.codeblocks.serialization.compression.CompressorExecutor;
 import com.andyadc.codeblocks.serialization.compression.CompressorFactory;
 import com.andyadc.codeblocks.serialization.compression.CompressorType;
@@ -19,16 +20,16 @@ public class SerializerExecutor {
 		return serialize(object, CompressorFactory.isCompress());
 	}
 
-	public static <T> T deserialize(byte[] bytes) {
-		return deserialize(bytes, CompressorFactory.isCompress());
+	public static <T> T deserialize(byte[] bytes, Class<T> clazz) {
+		return deserialize(bytes, clazz, CompressorFactory.isCompress());
 	}
 
 	public static <T> byte[] serialize(T object, boolean compress) {
 		return serialize(object, SerializerFactory.getBinarySerializerType(), CompressorFactory.getCompressorType(), compress, SerializerFactory.isSerializerLogPrint());
 	}
 
-	public static <T> T deserialize(byte[] bytes, boolean compress) {
-		return deserialize(bytes, SerializerFactory.getBinarySerializerType(), CompressorFactory.getCompressorType(), compress, SerializerFactory.isSerializerLogPrint());
+	public static <T> T deserialize(byte[] bytes, Class<T> clazz, boolean compress) {
+		return deserialize(bytes, clazz, SerializerFactory.getBinarySerializerType(), CompressorFactory.getCompressorType(), compress, SerializerFactory.isSerializerLogPrint());
 	}
 
 	public static <T> String toJSON(T object) {
@@ -45,6 +46,8 @@ public class SerializerExecutor {
 			bytes = FSTSerializer.serialize(object);
 		} else if (serializerType == SerializerType.KRYO_BINARY) {
 			bytes = KryoSerializer.serialize(object);
+		} else if (serializerType == SerializerType.PROTO_BINARY) {
+			bytes = ProtostuffSerializer.serialize(object);
 		} else if (serializerType == SerializerType.JDK_BINARY) {
 			bytes = JDKSerializer.serialize(object);
 		} else {
@@ -61,7 +64,7 @@ public class SerializerExecutor {
 		return bytes;
 	}
 
-	public static <T> T deserialize(byte[] bytes, SerializerType serializerType, CompressorType compressorType, boolean compress, boolean serializerLogPrint) {
+	public static <T> T deserialize(byte[] bytes, Class<T> clazz, SerializerType serializerType, CompressorType compressorType, boolean compress, boolean serializerLogPrint) {
 		if (compress) {
 			print(bytes, null, false, true, serializerLogPrint);
 			bytes = decompress(bytes, compressorType);
@@ -72,7 +75,9 @@ public class SerializerExecutor {
 		if (serializerType == SerializerType.FST_BINARY) {
 			object = FSTSerializer.deserialize(bytes);
 		} else if (serializerType == SerializerType.KRYO_BINARY) {
-			object = KryoSerializer.deserialize(bytes);
+			object = KryoSerializer.deserialize(bytes, clazz);
+		} else if (serializerType == SerializerType.PROTO_BINARY) {
+			object = ProtostuffSerializer.deserialize(bytes, clazz);
 		} else if (serializerType == SerializerType.JDK_BINARY) {
 			object = JDKSerializer.deserialize(bytes);
 		} else {
