@@ -26,14 +26,20 @@ public class MailService {
 
 	private static final Logger logger = LoggerFactory.getLogger(MailService.class);
 
+	private final SpringTemplateEngine templateEngine;
+	private final ITemplateResolver templateResolver;
 	private JavaMailSender mailSender;
 	private MessageSource messageSource;
 
 	@Value("${spring.mail.username}")
 	private String mailFrom;
-
 	@Value("classpath:static/images/robot.png")
 	private Resource resourceFile;
+
+	public MailService() {
+		templateResolver = mailTemplateResolver();
+		templateEngine = thymeleafTemplateEngine();
+	}
 
 	@Inject
 	public void setMailSender(JavaMailSender mailSender) {
@@ -43,6 +49,16 @@ public class MailService {
 	@Inject
 	public void setMessageSource(MessageSource messageSource) {
 		this.messageSource = messageSource;
+	}
+
+	public void sendMessageUsingThymeleafTemplate(String to, String subject, Map<String, Object> templateModel) throws MessagingException, IOException {
+		Context thymeleafContext = new Context();
+		thymeleafContext.setVariables(templateModel);
+
+//		String htmlBody = templateEngine.process("email-template.html", thymeleafContext);
+		String htmlBody = templateEngine.process("verfication-code-mail", thymeleafContext);
+
+		sendHtmlMessage(to, subject, htmlBody);
 	}
 
 	private void sendHtmlMessage(String to, String subject, String htmlBody) throws MessagingException, IOException {
@@ -61,27 +77,17 @@ public class MailService {
 
 		mailSender.send(message);
 		String messageID = message.getMessageID();
-		System.out.println("messageID: " + messageID);
+		logger.info("messageID: {}", messageID);
 	}
 
-	public void sendMessageUsingThymeleafTemplate(String to, String subject, Map<String, Object> templateModel) throws MessagingException, IOException {
-		Context thymeleafContext = new Context();
-		thymeleafContext.setVariables(templateModel);
-
-		String htmlBody = thymeleafTemplateEngine().process("email-template.html", thymeleafContext);
-
-		sendHtmlMessage(to, subject, htmlBody);
-	}
-
-	public SpringTemplateEngine thymeleafTemplateEngine() {
+	private SpringTemplateEngine thymeleafTemplateEngine() {
 		SpringTemplateEngine templateEngine = new SpringTemplateEngine();
-		templateEngine.setTemplateResolver(mailTemplateResolver());
+		templateEngine.setTemplateResolver(templateResolver);
 		templateEngine.setTemplateEngineMessageSource(messageSource);
-
 		return templateEngine;
 	}
 
-	public ITemplateResolver mailTemplateResolver() {
+	private ITemplateResolver mailTemplateResolver() {
 		ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
 		templateResolver.setPrefix("templates/mail/");
 		templateResolver.setSuffix(".html");

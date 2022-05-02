@@ -72,7 +72,7 @@ public class MailTests {
 	@Test
 	public void testSendHtmlMail() throws Exception {
 		String to = "andaicheng@gmail.com";
-		String subject = "Mime mail";
+		String subject = "Mime mail 1";
 		Map<String, Object> data = new HashMap<>();
 		data.put("recipientName", "andyadc");
 		data.put("senderName", "adc");
