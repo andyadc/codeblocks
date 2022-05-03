@@ -1,4 +1,4 @@
-package com.andyadc.bms.file;
+package com.andyadc.bms.modules.file;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

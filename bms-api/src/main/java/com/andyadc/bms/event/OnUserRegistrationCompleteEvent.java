@@ -1,6 +1,6 @@
 package com.andyadc.bms.event;
 
-import com.andyadc.bms.auth.entity.AuthUser;
+import com.andyadc.bms.modules.auth.entity.AuthUser;
 import org.springframework.context.ApplicationEvent;
 
 import java.util.Locale;

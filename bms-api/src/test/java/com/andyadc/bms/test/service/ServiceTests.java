@@ -1,7 +1,7 @@
 package com.andyadc.bms.test.service;
 
-import com.andyadc.bms.auth.dto.AuthUserDTO;
-import com.andyadc.bms.auth.service.AuthUserService;
+import com.andyadc.bms.modules.auth.dto.AuthUserDTO;
+import com.andyadc.bms.modules.auth.service.AuthUserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

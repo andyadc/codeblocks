@@ -1,7 +1,7 @@
 package com.andyadc.bms.test;
 
-import com.andyadc.bms.auth.dto.AuthUserDTO;
 import com.andyadc.bms.common.Response;
+import com.andyadc.bms.modules.auth.dto.AuthUserDTO;
 import com.andyadc.bms.redis.RedisOperator;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

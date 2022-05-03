@@ -50,6 +50,8 @@ package com.andyadc.bms;
 
 //	thymeleaf
 //	https://mp.weixin.qq.com/s/Uvv1q3iQn2IwAB1crHWS1g
+//	email
+//	https://www.thymeleaf.org/doc/articles/springmail.html
 
 // http
 // https://www.baeldung.com/rest-template
@@ -61,3 +63,7 @@ package com.andyadc.bms;
 
 // log
 // https://www.baeldung.com/spring-boot-testing-log-level
+
+// jdbc
+// https://www.baeldung.com/spring-jdbc-jdbctemplate
+

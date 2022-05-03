@@ -2,8 +2,8 @@ package com.andyadc.bms.web;
 
 import com.andyadc.bms.common.RespCode;
 import com.andyadc.bms.common.Response;
-import com.andyadc.bms.file.FileStorageDTO;
-import com.andyadc.bms.file.FileStorageService;
+import com.andyadc.bms.modules.file.FileStorageDTO;
+import com.andyadc.bms.modules.file.FileStorageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;

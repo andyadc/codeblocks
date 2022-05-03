@@ -16,4 +16,9 @@ public class TestController {
 	public String test2() {
 		return "mail/verfication-code-mail";
 	}
+
+	@RequestMapping("/3")
+	public String test3() {
+		return "mail/verfication-code-mail";
+	}
 }

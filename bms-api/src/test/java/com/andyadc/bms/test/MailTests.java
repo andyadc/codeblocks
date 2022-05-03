@@ -11,7 +11,10 @@ import javax.mail.Session;
 import javax.mail.Store;
 import javax.mail.URLName;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
@@ -60,7 +63,7 @@ public class MailTests {
 	}
 
 	@Test
-	public void testSimpleSend() {
+	public void testJavaSimpleMailSender() {
 		SimpleMailMessage mailMessage = new SimpleMailMessage();
 		mailMessage.setSubject("test");
 		mailMessage.setText("hello mail, " + LocalDateTime.now());
@@ -70,13 +73,30 @@ public class MailTests {
 	}
 
 	@Test
+	public void testSimpleMail() {
+		List<String> to = Arrays.asList("andaicheng@qq.com", "andaicheng@gmail.com");
+		mailService.sendSimpleMessage(to.get(0), "Ping", "This is nothing");
+	}
+
+	@Test
+	public void testComplexMail() throws Exception {
+		List<String> pathList = new ArrayList<>();
+		pathList.add("D:\\temp\\1.png");
+		pathList.add("D:\\temp\\123.zip");
+		mailService.sendComplexMail("andaicheng@qq.com", "Attachment", "Some attachments", false, null, pathList);
+	}
+
+	@Test
 	public void testSendHtmlMail() throws Exception {
-		String to = "andaicheng@gmail.com";
-		String subject = "Mime mail 1";
+		String to = "andaicheng@qq.com";
+		String subject = "Registration Confirmation";
 		Map<String, Object> data = new HashMap<>();
-		data.put("recipientName", "andyadc");
-		data.put("senderName", "adc");
-		data.put("text", "This mime mail");
+//		data.put("recipientName", "andyadc");
+//		data.put("senderName", "adc");
+//		data.put("text", "This mime mail");
+		data.put("name", "andyadc");
+		data.put("email", to);
+		data.put("url", "https://www.ithome.com/");
 		mailService.sendMessageUsingThymeleafTemplate(to, subject, data);
 	}
 }

@@ -1,11 +1,11 @@
-package com.andyadc.bms.auth.service;
+package com.andyadc.bms.modules.auth.service;
 
-import com.andyadc.bms.auth.dto.AuthUserDTO;
-import com.andyadc.bms.auth.entity.AuthMenu;
-import com.andyadc.bms.auth.entity.AuthUser;
-import com.andyadc.bms.auth.mapper.AuthMapper;
-import com.andyadc.bms.auth.mapper.AuthUserMapper;
 import com.andyadc.bms.exception.IllegalPasswordException;
+import com.andyadc.bms.modules.auth.dto.AuthUserDTO;
+import com.andyadc.bms.modules.auth.entity.AuthMenu;
+import com.andyadc.bms.modules.auth.entity.AuthUser;
+import com.andyadc.bms.modules.auth.mapper.AuthMapper;
+import com.andyadc.bms.modules.auth.mapper.AuthUserMapper;
 import com.andyadc.bms.security.PasswordService;
 import com.andyadc.bms.validation.PasswordConstraintValidator;
 import org.slf4j.Logger;

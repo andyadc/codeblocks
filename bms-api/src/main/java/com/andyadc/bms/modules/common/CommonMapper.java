@@ -1,4 +1,4 @@
-package com.andyadc.bms.auth.mapper;
+package com.andyadc.bms.modules.common;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

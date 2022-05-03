@@ -1,4 +1,4 @@
-package com.andyadc.bms.file;
+package com.andyadc.bms.modules.file;
 
 public final class FileStorageConstants {
 

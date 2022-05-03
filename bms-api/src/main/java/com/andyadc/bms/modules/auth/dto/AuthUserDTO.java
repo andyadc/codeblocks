@@ -1,4 +1,4 @@
-package com.andyadc.bms.auth.dto;
+package com.andyadc.bms.modules.auth.dto;
 
 import com.andyadc.bms.validation.PhoneNumber;
 

@@ -1,7 +1,7 @@
 package com.andyadc.bms.security;
 
-import com.andyadc.bms.auth.dto.AuthUserDTO;
-import com.andyadc.bms.auth.service.AuthUserService;
+import com.andyadc.bms.modules.auth.dto.AuthUserDTO;
+import com.andyadc.bms.modules.auth.service.AuthUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
 package com.andyadc.bms.service;
 
-import com.andyadc.bms.auth.service.AuthUserService;
+import com.andyadc.bms.modules.auth.service.AuthUserService;
 import com.andyadc.bms.service.dto.ActivationDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,9 +1,9 @@
 package com.andyadc.bms.web;
 
-import com.andyadc.bms.auth.dto.AuthUserDTO;
-import com.andyadc.bms.auth.entity.AuthUser;
-import com.andyadc.bms.auth.service.AuthUserService;
 import com.andyadc.bms.event.OnUserRegistrationCompleteEvent;
+import com.andyadc.bms.modules.auth.dto.AuthUserDTO;
+import com.andyadc.bms.modules.auth.entity.AuthUser;
+import com.andyadc.bms.modules.auth.service.AuthUserService;
 import com.andyadc.bms.security.SecurityUtils;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,7 @@
-package com.andyadc.bms.file;
+package com.andyadc.bms.modules.file;
 
-import com.andyadc.bms.file.exception.FileSizeLimitExceededException;
+import com.andyadc.bms.modules.file.exception.FileCreateException;
+import com.andyadc.bms.modules.file.exception.FileSizeLimitExceededException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class FileStorageService {
 
 	private static final Logger logger = LoggerFactory.getLogger(FileStorageService.class);
+
 	private static final String separator = File.separator;
 	private static final boolean gen_unique_file_name = false;
 	private FileStorageSettings fileStorageSettings;
@@ -63,7 +65,10 @@ public class FileStorageService {
 		String dir = fileStorageSettings.getPath().getPath() + date + separator;
 		File dirFile = new File(dir);
 		if (!dirFile.exists()) {
-			dirFile.mkdirs();
+			boolean mkdirs = dirFile.mkdirs();
+			if (!mkdirs) {
+				throw new FileCreateException("Can not create file " + dirFile.getName());
+			}
 		}
 
 		String filename = "";

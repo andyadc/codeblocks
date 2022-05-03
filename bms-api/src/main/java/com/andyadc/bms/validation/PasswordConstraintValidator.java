@@ -19,6 +19,7 @@ import java.util.Arrays;
 public class PasswordConstraintValidator {
 
 	public static boolean isValid(final String password, String username) {
+		// Password Strength and Rules
 		final PasswordValidator validator = new PasswordValidator(
 			Arrays.asList(
 				// length between 6 and 18 characters

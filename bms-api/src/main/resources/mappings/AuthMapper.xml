@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.andyadc.bms.auth.mapper.AuthMapper">
+<mapper namespace="com.andyadc.bms.modules.auth.mapper.AuthMapper">
 
-	<resultMap id="MenuBaseResultMap" type="com.andyadc.bms.auth.entity.AuthMenu">
+	<resultMap id="MenuBaseResultMap" type="com.andyadc.bms.modules.auth.entity.AuthMenu">
 		<id column="id" jdbcType="BIGINT" property="id"/>
 		<result column="parent_id" jdbcType="BIGINT" property="parentId"/>
 		<result column="type" jdbcType="TINYINT" property="type"/>
@@ -41,7 +41,7 @@
 		WHERE u.id = #{userId}
 	</select>
 
-	<insert id="insertMenuSelective" parameterType="com.andyadc.bms.auth.entity.AuthMenu">
+	<insert id="insertMenuSelective" parameterType="com.andyadc.bms.modules.auth.entity.AuthMenu">
 		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
@@ -148,7 +148,7 @@
 		</trim>
 	</insert>
 
-	<update id="updateMenuByPrimaryKeySelective" parameterType="com.andyadc.bms.auth.entity.AuthMenu">
+	<update id="updateMenuByPrimaryKeySelective" parameterType="com.andyadc.bms.modules.auth.entity.AuthMenu">
 		update auth_menu
 		<set>
 			<if test="parentId != null">
@@ -203,7 +203,7 @@
 		where id = #{id,jdbcType=BIGINT}
 	</update>
 
-	<insert id="insertUserSelective" parameterType="com.andyadc.bms.auth.entity.AuthUser">
+	<insert id="insertUserSelective" parameterType="com.andyadc.bms.modules.auth.entity.AuthUser">
 		<selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
 			SELECT LAST_INSERT_ID()
 		</selectKey>
@@ -292,7 +292,7 @@
 		</trim>
 	</insert>
 
-	<update id="updateUserByPrimaryKeySelective" parameterType="com.andyadc.bms.auth.entity.AuthUser">
+	<update id="updateUserByPrimaryKeySelective" parameterType="com.andyadc.bms.modules.auth.entity.AuthUser">
 		update auth_user
 		<set>
 			<if test="username != null">
@@ -337,5 +337,4 @@
 		</set>
 		where id = #{id,jdbcType=BIGINT}
 	</update>
-
 </mapper>

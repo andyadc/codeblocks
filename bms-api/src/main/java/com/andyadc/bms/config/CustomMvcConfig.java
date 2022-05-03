@@ -1,7 +1,7 @@
 package com.andyadc.bms.config;
 
-import com.andyadc.bms.file.FileStorageConstants;
-import com.andyadc.bms.file.FileStorageSettings;
+import com.andyadc.bms.modules.file.FileStorageConstants;
+import com.andyadc.bms.modules.file.FileStorageSettings;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

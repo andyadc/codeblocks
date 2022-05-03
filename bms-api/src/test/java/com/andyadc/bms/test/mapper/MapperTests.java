@@ -1,9 +1,9 @@
 package com.andyadc.bms.test.mapper;
 
-import com.andyadc.bms.auth.entity.AuthUser;
-import com.andyadc.bms.auth.mapper.AuthMapper;
-import com.andyadc.bms.auth.mapper.AuthUserMapper;
-import com.andyadc.bms.auth.mapper.CommonMapper;
+import com.andyadc.bms.modules.auth.entity.AuthUser;
+import com.andyadc.bms.modules.auth.mapper.AuthMapper;
+import com.andyadc.bms.modules.auth.mapper.AuthUserMapper;
+import com.andyadc.bms.modules.common.CommonMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;

@@ -1,4 +1,4 @@
-package com.andyadc.bms.auth.entity;
+package com.andyadc.bms.modules.auth.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Registration confirm</title>
+	<style>
+		body {
+			font-family: 'Roboto', 'DejaVu Sans', Arial, Helvetica, sans-serif;
+		}
+
+		a.link {
+			font-family: Helvetica Neue, Helvetica, Helvetica, Arial, sans-serif;
+			color: #FFF;
+			background-color: #63b175;
+			border: solid #63b175;
+			text-decoration: none;
+			font-weight: bold;
+			display: block;
+			width: 360px;
+			text-align: center;
+			padding: 10px 0;
+			border-radius: 10px;
+		}
+	</style>
+</head>
+<body>
+<h1>Confirm your account</h1>
+<div>Welcome to AwesomeApp <b th:text="${name}">name</b> !</div>
+<p>
+	Your account has been created on our platform; here is your login information
+	<br/><br/>
+	Email address : <b th:text="${email}">email</b><br/>
+	<br/>
+	To confirm the validity of your email address, please click on the link below
+</p>
+<p style="text-align: left;">
+	<a class="link" href="_blank" th:href="${url}">Confirm my account</a>
+</p>
+<br>
+<p>
+	<img height="160" src="cid:divider.png"/>
+</p>
+<p>
+	Regards, <br/>
+	&emsp; <em>The AwesomeApp Team</em>
+</p>
+</body>
+</html>
