@@ -1,6 +1,6 @@
 package com.andyadc.bms.test;
 
-import com.andyadc.bms.service.MailService;
+import com.andyadc.bms.service.EmailService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mail.SimpleMailMessage;
@@ -22,12 +22,12 @@ import java.util.Properties;
  * https://blog.csdn.net/Monten_Cristo/article/details/117464187
  */
 @SpringBootTest
-public class MailTests {
+public class EmailTests {
 
 	@Inject
 	private JavaMailSender javaMailSender;
 	@Inject
-	private MailService mailService;
+	private EmailService mailService;
 
 	@Test
 	public void testStore() throws Exception {
@@ -79,24 +79,23 @@ public class MailTests {
 	}
 
 	@Test
-	public void testComplexMail() throws Exception {
+	public void testComplexMail() {
+		String to = "andaicheng@qq.com";
+		String subject = "Registration Confirmation";
+
 		List<String> pathList = new ArrayList<>();
 		pathList.add("D:\\temp\\1.png");
 		pathList.add("D:\\temp\\123.zip");
-		mailService.sendComplexMail("andaicheng@qq.com", "Attachment", "Some attachments", false, null, pathList);
-	}
 
-	@Test
-	public void testSendHtmlMail() throws Exception {
-		String to = "andaicheng@qq.com";
-		String subject = "Registration Confirmation";
-		Map<String, Object> data = new HashMap<>();
-//		data.put("recipientName", "andyadc");
-//		data.put("senderName", "adc");
-//		data.put("text", "This mime mail");
-		data.put("name", "andyadc");
-		data.put("email", to);
-		data.put("url", "https://www.ithome.com/");
-		mailService.sendMessageUsingThymeleafTemplate(to, subject, data);
+		Map<String, Object> templateModel = new HashMap<>();
+		templateModel.put("name", "andyadc");
+		templateModel.put("email", to);
+		templateModel.put("url", "https://www.ithome.com/");
+
+		Map<String, String> inlineMap = new HashMap<>();
+		inlineMap.put("divider.png", "static/images/divider.png");
+
+		String template = "registration-confirm";
+		mailService.sendComplexMail(to, subject, template, templateModel, inlineMap, pathList);
 	}
 }

@@ -36,7 +36,7 @@ public class EmailConfig {
 //		mailSender.setPort(465);
 
 		Properties props = mailSender.getJavaMailProperties();
-		props.setProperty("mail.debug", "true");
+//		props.setProperty("mail.debug", "true");
 		props.setProperty("mail.mime.splitlongparameters", "false");
 //		props.setProperty("mail.transport.protocol", "smtp");
 //		props.setProperty("mail.smtp.auth", true);

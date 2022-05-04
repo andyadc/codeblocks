@@ -22,7 +22,6 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
 import java.io.File;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.time.Duration;
 import java.time.Instant;
@@ -30,9 +29,9 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class MailService {
+public class EmailService {
 
-	private static final Logger logger = LoggerFactory.getLogger(MailService.class);
+	private static final Logger logger = LoggerFactory.getLogger(EmailService.class);
 
 	private final SpringTemplateEngine templateEngine;
 	private final ITemplateResolver templateResolver;
@@ -44,7 +43,7 @@ public class MailService {
 	@Value("classpath:static/images/divider.png")
 	private Resource resourceFile;
 
-	public MailService() {
+	public EmailService() {
 		templateResolver = mailTemplateResolver();
 		templateEngine = thymeleafTemplateEngine();
 	}
@@ -60,8 +59,8 @@ public class MailService {
 	}
 
 	public boolean sendSimpleMessage(String to, String subject, String text) {
-		SimpleMailMessage mailMessage = new SimpleMailMessage();
 		Instant begin = Instant.now();
+		SimpleMailMessage mailMessage = new SimpleMailMessage();
 		try {
 			mailMessage.setTo(to);
 			mailMessage.setFrom(mailFrom);
@@ -78,10 +77,32 @@ public class MailService {
 		return false;
 	}
 
-	public void sendComplexMail(String to, String subject, String text,
-								boolean isHtmlMail,
-								Map<String, String> inlineImageMap,
-								List<String> filePathList) throws MessagingException, UnsupportedEncodingException {
+	public boolean sendComplexMail(String to, String subject, String template,
+								   Map<String, Object> templateModel,
+								   Map<String, String> inlineImageMap,
+								   List<String> filePathList) {
+		Instant begin = Instant.now();
+
+		Context thymeleafContext = new Context();
+		thymeleafContext.setVariables(templateModel);
+
+		try {
+			String htmlBody = templateEngine.process(template, thymeleafContext);
+			sendComplexMail(to, subject, htmlBody, true, inlineImageMap, filePathList);
+			return true;
+		} catch (Exception e) {
+			logger.error("SendComplexMail error.", e);
+		} finally {
+			Instant end = Instant.now();
+			logger.info("SendComplexMail elapsed time: {} ms", Duration.between(begin, end).toMillis());
+		}
+		return false;
+	}
+
+	private void sendComplexMail(String to, String subject, String text,
+								 boolean isHtmlMail,
+								 Map<String, String> inlineImageMap,
+								 List<String> filePathList) throws MessagingException, UnsupportedEncodingException {
 		MimeMessage message = mailSender.createMimeMessage();
 
 		MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8"); // true = multipart
@@ -97,9 +118,11 @@ public class MailService {
 		// Add the inline image, referenced from the HTML code as "cid:${imageResourceName}"
 		if (inlineImageMap != null && inlineImageMap.size() > 0) {
 			for (Map.Entry<String, String> entry : inlineImageMap.entrySet()) {
-				FileSystemResource resource = new FileSystemResource(new File(entry.getValue()));
+				Resource resource = new ClassPathResource(entry.getValue());
 				helper.addInline(entry.getKey(), resource);
 			}
+		} else {
+			helper.addInline("divider.png", resourceFile);
 		}
 
 		if (filePathList != null && filePathList.size() > 0) {
@@ -112,36 +135,6 @@ public class MailService {
 				helper.addAttachment(filename, resource.getFile());
 			}
 		}
-
-		mailSender.send(message);
-		String messageID = message.getMessageID();
-		logger.info("Message-ID: {}", messageID);
-	}
-
-	public void sendMessageUsingThymeleafTemplate(String to, String subject, Map<String, Object> templateModel) throws MessagingException, IOException {
-		Context thymeleafContext = new Context();
-		thymeleafContext.setVariables(templateModel);
-
-//		String htmlBody = templateEngine.process("email-template.html", thymeleafContext);
-//		String htmlBody = templateEngine.process("verfication-code-mail", thymeleafContext);
-		String htmlBody = templateEngine.process("registration-confirm", thymeleafContext);
-
-		sendHtmlMessage(to, subject, htmlBody);
-	}
-
-	private void sendHtmlMessage(String to, String subject, String htmlBody) throws MessagingException, IOException {
-		MimeMessage message = mailSender.createMimeMessage();
-		MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8"); // true = multipart
-
-		helper.setFrom(mailFrom);
-		helper.setTo(to);
-		helper.setSubject(subject);
-		helper.setText(htmlBody, true); // true = isHtml
-		helper.addInline("divider.png", resourceFile);
-
-		Resource resource = new ClassPathResource("static/images/tiger.jpg");
-		String attachmentFilename = MimeUtility.encodeWord(resource.getFilename(), "utf-8", "B");
-		helper.addAttachment(attachmentFilename, resource.getFile());
 
 		mailSender.send(message);
 		String messageID = message.getMessageID();

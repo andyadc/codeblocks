@@ -3,7 +3,9 @@ package com.andyadc.bms.security.auth.ajax;
 import com.andyadc.bms.common.WebUtil;
 import com.andyadc.bms.security.exception.AuthMethodNotSupportedException;
 import com.andyadc.bms.security.model.LoginRequest;
+import com.andyadc.codeblocks.kit.net.IPUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +23,6 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
 import java.io.IOException;
 
 public class AjaxLoginProcessingFilter extends AbstractAuthenticationProcessingFilter {
@@ -45,10 +46,9 @@ public class AjaxLoginProcessingFilter extends AbstractAuthenticationProcessingF
 
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
+		String ip = IPUtil.getRemoteIp(request);
 		if (!HttpMethod.POST.name().equalsIgnoreCase(request.getMethod())) {
-			if (logger.isDebugEnabled()) {
-				logger.debug("Authentication request method not supported. Request method: " + request.getMethod());
-			}
+			logger.warn("Authentication request method not supported. Request method: " + request.getMethod());
 			throw new AuthMethodNotSupportedException("Authentication method not supported");
 		}
 		if (!WebUtil.isAjax(request)) {
@@ -57,12 +57,12 @@ public class AjaxLoginProcessingFilter extends AbstractAuthenticationProcessingF
 			}
 			//TODO
 		}
-		// TODO log
-		BufferedReader reader = request.getReader();
-//		String s = IOUtils.toString(reader);
 
 		LoginRequest loginRequest = objectMapper.readValue(request.getReader(), LoginRequest.class);
+		logger.info("Login username: [{}], IP: {}", loginRequest.getUsername(), ip);
 		if (StringUtils.isBlank(loginRequest.getUsername()) || StringUtils.isBlank(loginRequest.getPassword())) {
+			String requestStr = IOUtils.toString(request.getReader());
+			logger.warn("Login request info: {}", requestStr);
 			throw new AuthenticationServiceException("Username or Password not provided");
 		}
 

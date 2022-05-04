@@ -19,6 +19,11 @@
 			"name": "captcha.image.width",
 			"type": "java.lang.String",
 			"description": "Description for captcha.image.width."
+		},
+		{
+			"name": "mail.send.mock",
+			"type": "java.lang.String",
+			"description": "Description for mail.send.mock."
 		}
 	]
 }

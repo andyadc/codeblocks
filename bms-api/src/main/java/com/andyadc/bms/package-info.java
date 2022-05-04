@@ -67,3 +67,4 @@ package com.andyadc.bms;
 // jdbc
 // https://www.baeldung.com/spring-jdbc-jdbctemplate
 
+// https://turkogluc.com/spring-rest-activity-notification/

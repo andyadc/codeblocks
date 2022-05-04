@@ -2,7 +2,7 @@ package com.andyadc.bms.event.listener;
 
 import com.andyadc.bms.event.OnUserRegistrationCompleteEvent;
 import com.andyadc.bms.modules.auth.entity.AuthUser;
-import com.andyadc.bms.service.MailService;
+import com.andyadc.bms.service.EmailService;
 import com.andyadc.codeblocks.kit.text.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +21,7 @@ public class OnUserRegistrationCompleteListener implements ApplicationListener<O
 
 	private static final Logger logger = LoggerFactory.getLogger(OnUserRegistrationCompleteListener.class);
 
-	private MailService mailService;
+	private EmailService mailService;
 
 	@Value("${mail.send.mock}")
 	private Boolean mailSendMock;
@@ -65,7 +65,7 @@ public class OnUserRegistrationCompleteListener implements ApplicationListener<O
 	}
 
 	@Inject
-	public void setMailService(MailService mailService) {
+	public void setMailService(EmailService mailService) {
 		this.mailService = mailService;
 	}
 }
