@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.util.Enumeration;
-import java.util.StringTokenizer;
 import java.util.regex.Pattern;
 
 public final class IPUtil {
@@ -42,12 +41,6 @@ public final class IPUtil {
 		return LOCAL_IP;
 	}
 
-	public static void main(String[] args) {
-		System.out.println(ipV4ToLong("114.141.191.195"));//1921892291
-		System.out.println(longToIpV4(1L));
-		System.out.println(getLocalIp());
-	}
-
 	public static String longToIpV4(long longIp) {
 		int octet3 = (int) ((longIp >> 24) % 256);
 		int octet2 = (int) ((longIp >> 16) % 256);
@@ -79,26 +72,7 @@ public final class IPUtil {
 		return ip_v4_pattern.matcher(ip).matches();
 	}
 
-	public static String getIpFromRequest(HttpServletRequest request) {
-		String ip;
-		boolean found = false;
-		if ((ip = request.getHeader("x-forwarded-for")) != null) {
-			StringTokenizer tokenizer = new StringTokenizer(ip, ",");
-			while (tokenizer.hasMoreTokens()) {
-				ip = tokenizer.nextToken().trim();
-				if (isIPv4Valid(ip) && !isIPv4Private(ip)) {
-					found = true;
-					break;
-				}
-			}
-		}
-		if (!found) {
-			ip = request.getRemoteAddr();
-		}
-		return ip;
-	}
-
-	public static String getReqIp(HttpServletRequest request) {
+	public static String getRemoteIp(HttpServletRequest request) {
 		String ip = null;
 		Enumeration<?> enumeration = request.getHeaderNames();
 		while (enumeration.hasMoreElements()) {
@@ -150,7 +124,7 @@ public final class IPUtil {
 		return null;
 	}
 
-	public String getClientIpAddress(HttpServletRequest request) {
+	public static String getClientIpAddress(HttpServletRequest request) {
 		for (String header : HEADERS_TO_TRY) {
 			String ip = request.getHeader(header);
 			if (ip != null && ip.length() != 0 && !"unknown".equalsIgnoreCase(ip)) {

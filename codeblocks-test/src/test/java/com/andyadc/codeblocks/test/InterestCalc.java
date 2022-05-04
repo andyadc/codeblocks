@@ -1,5 +1,9 @@
 package com.andyadc.codeblocks.test;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.NumberFormat;
+
 /**
  * 复利率(compound rate)
  * F（未来的资金量）=P（本金）*（1+i（利率））^n（投资年限，当然也可能不以年作为时间单位，视具体情况而定）
@@ -41,11 +45,12 @@ public class InterestCalc {
 		// 12-418344.82228688314
 		// 1-410598.7606211209
 
-		System.out.println(calcCompoundRate(100000d, 0.032d, 10, 1d));
-		System.out.println(calcCompoundRate(100000d, 0.0286d, 10, 1d));
+		System.out.println(calcCompoundRate(1000000d, 0.03d, 10, 1d));
+		System.out.println(calcCompoundRate(1000000d, 0.035d, 10, 1d));
+		System.out.println(calcCompoundRate(1000000d, 0.040d, 10, 1d));
+		System.out.println(calcCompoundRate(1000000d, 0.045d, 10, 1d));
 		System.out.println(calcCompoundRate(1000000d, 0.05d, 10, 1d));
-		System.out.println(calcCompoundRate(1000000d, 0.05d, 10, 1d));
-		System.out.println(calcCompoundRate(1000000d, 0.04d, 10, 1d));
+		System.out.println(calcCompoundRate(1000000d, 0.10d, 10, 1d));
 	}
 
 	/**
@@ -57,7 +62,15 @@ public class InterestCalc {
 	 * @param times     每年复利次数
 	 */
 	private static double calcCompoundRate(double principal, double rate, int year, double times) {
-		return principal * Math.pow(1d + (rate / times), year * times);
+		double value = principal * Math.pow(1d + (rate / times), year * times);
+
+		NumberFormat format = NumberFormat.getNumberInstance();
+		format.setMaximumFractionDigits(2);
+		format.setRoundingMode(RoundingMode.HALF_UP);
+
+		String v = format.format(value);
+		System.out.println("rate: " + rate + " - " + v);
+		return new BigDecimal(String.valueOf(value)).setScale(2, RoundingMode.HALF_UP).doubleValue();
 	}
 
 	public static void calculate(int p, int t, double r, int n) {
