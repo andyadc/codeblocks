@@ -15,7 +15,7 @@ public class AuthUser {
 	private String nickname;
 	private String password;
 	private String salt;
-	private String mobile;
+	private String phoneNo;
 	private String email;
 	private Integer type;
 	private Integer status;
@@ -68,12 +68,12 @@ public class AuthUser {
 		this.salt = salt;
 	}
 
-	public String getMobile() {
-		return mobile;
+	public String getPhoneNo() {
+		return phoneNo;
 	}
 
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
+	public void setPhoneNo(String phoneNo) {
+		this.phoneNo = phoneNo;
 	}
 
 	public String getEmail() {

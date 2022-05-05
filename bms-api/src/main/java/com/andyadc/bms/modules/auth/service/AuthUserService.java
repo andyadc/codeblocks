@@ -8,6 +8,7 @@ import com.andyadc.bms.modules.auth.mapper.AuthMapper;
 import com.andyadc.bms.modules.auth.mapper.AuthUserMapper;
 import com.andyadc.bms.security.PasswordService;
 import com.andyadc.bms.validation.PasswordConstraintValidator;
+import com.andyadc.codeblocks.kit.mask.MaskType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -27,21 +28,49 @@ public class AuthUserService {
 	private AuthUserMapper userMapper;
 	private PasswordService passwordService;
 
-	public AuthUserDTO findByUsername(String username) {
-		AuthUser authUser = userMapper.findByUsername(username);
+	public AuthUserDTO findByPhoneNo(String phoneNo) {
+		AuthUser authUser = userMapper.findByPhoneNo(phoneNo);
 		if (authUser == null) {
-			logger.error("Cannot find auth user, username - [{}]", username);
+			logger.warn("Cannot find auth user, phoneNo - [{}]", MaskType.MOBILE.mask(phoneNo));
 			return null;
 		}
 
+		Long userId = authUser.getId();
 		AuthUserDTO dto = new AuthUserDTO();
-		List<AuthMenu> menus = authMapper.selectMenuByUserId(authUser.getId());
-		List<String> permissionList = menus.stream().map(AuthMenu::getPermission).collect(Collectors.toList());
-		dto.setId(authUser.getId());
-		dto.setUsername(username);
+		dto.setId(userId);
+		dto.setPhoneNo(phoneNo);
+		dto.setUsername(authUser.getUsername());
 		dto.setPassword(authUser.getPassword());
+		dto.setStatus(authUser.getStatus());
+
+		List<String> permissionList = queryPermissionList(userId);
 		dto.setAuthorities(permissionList);
 		return dto;
+	}
+
+	public AuthUserDTO findByUsername(String username) {
+		AuthUser authUser = userMapper.findByUsername(username);
+		if (authUser == null) {
+			logger.warn("Cannot find auth user, username - [{}]", username);
+			return null;
+		}
+
+		Long userId = authUser.getId();
+		AuthUserDTO dto = new AuthUserDTO();
+		dto.setId(userId);
+		dto.setUsername(username);
+		dto.setPhoneNo(authUser.getPhoneNo());
+		dto.setPassword(authUser.getPassword());
+		dto.setStatus(authUser.getStatus());
+
+		List<String> permissionList = queryPermissionList(userId);
+		dto.setAuthorities(permissionList);
+		return dto;
+	}
+
+	private List<String> queryPermissionList(Long userId) {
+		List<AuthMenu> menus = authMapper.selectMenuByUserId(userId);
+		return menus.stream().map(AuthMenu::getPermission).collect(Collectors.toList());
 	}
 
 	public AuthUser register(AuthUserDTO dto) {
@@ -58,16 +87,19 @@ public class AuthUserService {
 			throw new IllegalPasswordException("Illegal password");
 		}
 
-		String password = passwordService.encode(dto.getPassword());
 		AuthUser authUser = new AuthUser();
+		String password = passwordService.encode(dto.getPassword());
 		authUser.setPassword(password);
 		authUser.setUsername(dto.getUsername());
 		authUser.setEmail(dto.getEmail());
+		authUser.setPhoneNo(dto.getPhoneNo());
 		authUser.setStatus(0);
 		authUser.setDeleted(0);
 		authUser.setVersion(1);
-		authUser.setCreateTime(LocalDateTime.now());
-		authUser.setUpdateTime(LocalDateTime.now());
+
+		LocalDateTime now = LocalDateTime.now();
+		authUser.setCreateTime(now);
+		authUser.setUpdateTime(now);
 		int result = authMapper.insertUserSelective(authUser);
 		return authUser;
 	}

@@ -25,6 +25,14 @@ public class SecurityService {
 		return Optional.ofNullable(dto);
 	}
 
+	public Optional<AuthUserDTO> findByPhoneNo(String phoneNo) {
+		Objects.requireNonNull(phoneNo);
+
+		AuthUserDTO dto = authUserService.findByPhoneNo(phoneNo);
+
+		return Optional.ofNullable(dto);
+	}
+
 	@Inject
 	public void setAuthUserService(AuthUserService authUserService) {
 		this.authUserService = authUserService;

@@ -45,12 +45,12 @@ public class AjaxLoginProcessingFilter extends AbstractAuthenticationProcessingF
 	}
 
 	@Override
-	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
-		String ip = IPUtil.getRemoteIp(request);
+	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException {
 		if (!HttpMethod.POST.name().equalsIgnoreCase(request.getMethod())) {
 			logger.warn("Authentication request method not supported. Request method: " + request.getMethod());
 			throw new AuthMethodNotSupportedException("Authentication method not supported");
 		}
+		String ip = IPUtil.getRemoteIp(request);
 		if (!WebUtil.isAjax(request)) {
 			if (logger.isDebugEnabled()) {
 				logger.debug("Authentication request not Ajax");
@@ -59,15 +59,16 @@ public class AjaxLoginProcessingFilter extends AbstractAuthenticationProcessingF
 		}
 
 		LoginRequest loginRequest = objectMapper.readValue(request.getReader(), LoginRequest.class);
-		logger.info("Login username: [{}], IP: {}", loginRequest.getUsername(), ip);
-		if (StringUtils.isBlank(loginRequest.getUsername()) || StringUtils.isBlank(loginRequest.getPassword())) {
+		String username = loginRequest.getUsername();
+		String password = loginRequest.getPassword();
+		logger.info("Login username: [{}], IP: {}", username, ip);
+		if (StringUtils.isBlank(username) || StringUtils.isBlank(password)) {
 			String requestStr = IOUtils.toString(request.getReader());
 			logger.warn("Login request info: {}", requestStr);
 			throw new AuthenticationServiceException("Username or Password not provided");
 		}
 
-		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword());
-
+		UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password);
 		return this.getAuthenticationManager().authenticate(token);
 	}
 

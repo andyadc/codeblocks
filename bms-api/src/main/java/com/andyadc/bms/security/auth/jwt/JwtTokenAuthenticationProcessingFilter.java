@@ -1,6 +1,5 @@
 package com.andyadc.bms.security.auth.jwt;
 
-import com.andyadc.bms.security.auth.JwtAuthenticationToken;
 import com.andyadc.bms.security.auth.jwt.extractor.TokenExtractor;
 import com.andyadc.bms.security.config.WebSecurityConfiguration;
 import com.andyadc.bms.security.model.token.RawAccessJwtToken;

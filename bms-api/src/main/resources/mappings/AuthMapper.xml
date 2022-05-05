@@ -23,10 +23,8 @@
 	</resultMap>
 
 	<sql id="Menu_Base_Column_List">
-		id
-		, parent_id, `type`, `name`, code, permission, component, `path`, icon, seq, target,
-		visible, `status`,
-		create_time, update_time, version
+		id, parent_id, `type`, `name`, code, permission, component, `path`, icon, seq, target,
+		visible, `status`, create_time, update_time, version
 	</sql>
 
 	<!-- /// -->
@@ -221,8 +219,8 @@
 			<if test="salt != null">
 				salt,
 			</if>
-			<if test="mobile != null">
-				mobile,
+			<if test="phoneNo != null">
+				phone_no,
 			</if>
 			<if test="email != null">
 				email,
@@ -262,8 +260,8 @@
 			<if test="salt != null">
 				#{salt,jdbcType=VARCHAR},
 			</if>
-			<if test="mobile != null">
-				#{mobile,jdbcType=VARCHAR},
+			<if test="phoneNo != null">
+				#{phoneNo,jdbcType=VARCHAR},
 			</if>
 			<if test="email != null">
 				#{email,jdbcType=VARCHAR},
@@ -307,8 +305,8 @@
 			<if test="salt != null">
 				salt = #{salt,jdbcType=VARCHAR},
 			</if>
-			<if test="mobile != null">
-				mobile = #{mobile,jdbcType=VARCHAR},
+			<if test="phoneNo != null">
+				phone_no = #{phoneNo,jdbcType=VARCHAR},
 			</if>
 			<if test="email != null">
 				email = #{email,jdbcType=VARCHAR},

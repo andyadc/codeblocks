@@ -16,4 +16,10 @@ public interface AuthUserMapper {
 	})
 	@Select(value = "select * from " + table_name + " where username = #{username} and deleted = 0 limit 1")
 	AuthUser findByUsername(String username);
+
+	@Results(value = {
+		@Result(property = "phoneNo", column = "phone_no")
+	})
+	@Select(value = "select * from " + table_name + " where phone_no = #{phoneNo} and deleted = 0 limit 1")
+	AuthUser findByPhoneNo(String phoneNo);
 }
