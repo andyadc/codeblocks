@@ -28,6 +28,10 @@ public class AuthUserService {
 	private AuthUserMapper userMapper;
 	private PasswordService passwordService;
 
+	public AuthUser findUserByPhoneNo(String phoneNo) {
+		return userMapper.findByPhoneNo(phoneNo);
+	}
+
 	public AuthUserDTO findByPhoneNo(String phoneNo) {
 		AuthUser authUser = userMapper.findByPhoneNo(phoneNo);
 		if (authUser == null) {

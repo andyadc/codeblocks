@@ -10,6 +10,8 @@ import com.andyadc.bms.security.auth.jwt.JwtAuthenticationProvider;
 import com.andyadc.bms.security.auth.jwt.JwtTokenAuthenticationProcessingFilter;
 import com.andyadc.bms.security.auth.jwt.SkipPathRequestMatcher;
 import com.andyadc.bms.security.auth.jwt.extractor.TokenExtractor;
+import com.andyadc.bms.security.auth.mobile.MobileAuthenticationProvider;
+import com.andyadc.bms.security.auth.mobile.MobileLoginAuthenticationProcessingFilter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -38,12 +40,15 @@ import java.util.List;
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	public static final String AUTHENTICATION_HEADER_NAME = "Authorization";
-	public static final String AUTHENTICATION_URL = "/api/auth/login";
-	public static final String REFRESH_TOKEN_URL = "/api/auth/token";
-	public static final String CAPTCHA_URL = "/api/captcha/**";
-	public static final String REGISTER_URL = "/api/auth/register";
-	public static final String LOGOUT_URL = "/api/auth/logout";
-	public static final String API_ROOT_URL = "/api/**";
+	private static final String API_ROOT_URL = "/api/**";
+	private static final String AUTHENTICATION_URL = "/api/auth/login";
+	private static final String REFRESH_TOKEN_URL = "/api/auth/token";
+	private static final String CAPTCHA_URL = "/api/captcha/**";
+	private static final String REGISTER_URL = "/api/auth/register";
+	private static final String LOGOUT_URL = "/api/auth/logout";
+
+	private static final String MOBILE_LOGIN_URL = "/api/mobile/login";
+	private static final String MOBILE_SEND_URL = "/api/mobile/send";
 
 	private static final List<String> permitAllEndpointList = new ArrayList<>();
 
@@ -54,6 +59,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		permitAllEndpointList.add(LOGOUT_URL);
 		permitAllEndpointList.add(CAPTCHA_URL);
 
+		permitAllEndpointList.add(MOBILE_LOGIN_URL);
+		permitAllEndpointList.add(MOBILE_SEND_URL);
+
 		permitAllEndpointList.add("/h2-console/**");
 	}
 
@@ -63,6 +71,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	private AjaxAuthenticationProvider ajaxAuthenticationProvider;
 	private JwtAuthenticationProvider jwtAuthenticationProvider;
+	private MobileAuthenticationProvider mobileAuthenticationProvider;
 
 	private AuthenticationManager authenticationManager;
 
@@ -94,6 +103,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		this.ajaxAuthenticationProvider = ajaxAuthenticationProvider;
 	}
 
+	@Inject
+	public void setMobileAuthenticationProvider(MobileAuthenticationProvider mobileAuthenticationProvider) {
+		this.mobileAuthenticationProvider = mobileAuthenticationProvider;
+	}
+
 	// TODO
 	@Inject
 	public void setAuthenticationManager(@Lazy AuthenticationManager authenticationManager) {
@@ -110,16 +124,22 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		this.tokenExtractor = tokenExtractor;
 	}
 
-	protected AjaxLoginProcessingFilter buildAjaxLoginProcessingFilter(String loginEntryPoint) throws Exception {
+	protected AjaxLoginProcessingFilter buildAjaxLoginProcessingFilter(String loginEntryPoint) {
 		AjaxLoginProcessingFilter filter = new AjaxLoginProcessingFilter(loginEntryPoint, authenticationSuccessHandler, authenticationFailureHandler, objectMapper);
 		filter.setAuthenticationManager(this.authenticationManager);
 		return filter;
 	}
 
-	protected JwtTokenAuthenticationProcessingFilter buildJwtTokenAuthenticationProcessingFilter(List<String> pathsToSkip, String pattern) throws Exception {
+	protected JwtTokenAuthenticationProcessingFilter buildJwtTokenAuthenticationProcessingFilter(List<String> pathsToSkip, String pattern) {
 		SkipPathRequestMatcher matcher = new SkipPathRequestMatcher(pathsToSkip, pattern);
 		JwtTokenAuthenticationProcessingFilter filter
 			= new JwtTokenAuthenticationProcessingFilter(matcher, authenticationFailureHandler, tokenExtractor);
+		filter.setAuthenticationManager(this.authenticationManager);
+		return filter;
+	}
+
+	protected MobileLoginAuthenticationProcessingFilter buildMobileLoginAuthenticationProcessingFilter(String loginEntryPoint) {
+		MobileLoginAuthenticationProcessingFilter filter = new MobileLoginAuthenticationProcessingFilter(loginEntryPoint, authenticationSuccessHandler, authenticationFailureHandler, objectMapper);
 		filter.setAuthenticationManager(this.authenticationManager);
 		return filter;
 	}
@@ -148,6 +168,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 			.and()
 			.addFilterBefore(new CustomCorsFilter(), UsernamePasswordAuthenticationFilter.class)
 			.addFilterBefore(buildAjaxLoginProcessingFilter(AUTHENTICATION_URL), UsernamePasswordAuthenticationFilter.class)
+			.addFilterBefore(buildMobileLoginAuthenticationProcessingFilter(MOBILE_LOGIN_URL), UsernamePasswordAuthenticationFilter.class)
 			.addFilterBefore(buildJwtTokenAuthenticationProcessingFilter(permitAllEndpointList, API_ROOT_URL), UsernamePasswordAuthenticationFilter.class)
 		;
 	}
@@ -160,6 +181,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) {
 		auth.authenticationProvider(ajaxAuthenticationProvider);
 		auth.authenticationProvider(jwtAuthenticationProvider);
+		auth.authenticationProvider(mobileAuthenticationProvider);
 	}
 
 	@Bean

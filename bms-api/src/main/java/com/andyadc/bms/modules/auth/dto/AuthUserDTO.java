@@ -1,6 +1,7 @@
 package com.andyadc.bms.modules.auth.dto;
 
 import com.andyadc.bms.validation.PhoneNumber;
+import com.andyadc.codeblocks.kit.mask.MaskType;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -31,6 +32,8 @@ public class AuthUserDTO implements Serializable {
 	private String confirmPassword;
 
 	private Integer status;
+
+	private String requestIP;
 
 	private List<String> authorities = new ArrayList<>();
 
@@ -111,13 +114,24 @@ public class AuthUserDTO implements Serializable {
 		this.authorities = authorities;
 	}
 
+	public String getRequestIP() {
+		return requestIP;
+	}
+
+	public void setRequestIP(String requestIP) {
+		this.requestIP = requestIP;
+	}
+
 	@Override
 	public String toString() {
 		return new StringJoiner(", ", AuthUserDTO.class.getSimpleName() + "[", "]")
 			.add("id=" + id)
 			.add("username=" + username)
-			.add("email=" + email)
+			.add("password=" + MaskType.PASSWORD.mask(password))
+			.add("email=" + MaskType.EMAIL.mask(email))
+			.add("phoneNo=" + MaskType.MOBILE.mask(phoneNo))
 			.add("status=" + status)
+			.add("requestIP=" + requestIP)
 			.add("authorities=" + authorities)
 			.toString();
 	}

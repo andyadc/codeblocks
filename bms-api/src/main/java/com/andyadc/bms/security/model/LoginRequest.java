@@ -12,6 +12,10 @@ public class LoginRequest implements Serializable {
 	private final String username;
 	private final String password;
 
+	private String email;
+	private String phoneNo;
+	private String verificationCode;
+
 	@JsonCreator
 	public LoginRequest(@JsonProperty("username") String username, @JsonProperty("password") String password) {
 		this.username = username;
@@ -24,5 +28,29 @@ public class LoginRequest implements Serializable {
 
 	public String getPassword() {
 		return password;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhoneNo() {
+		return phoneNo;
+	}
+
+	public void setPhoneNo(String phoneNo) {
+		this.phoneNo = phoneNo;
+	}
+
+	public String getVerificationCode() {
+		return verificationCode;
+	}
+
+	public void setVerificationCode(String verificationCode) {
+		this.verificationCode = verificationCode;
 	}
 }
