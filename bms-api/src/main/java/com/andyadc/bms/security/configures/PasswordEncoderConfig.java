@@ -1,4 +1,4 @@
-package com.andyadc.bms.security.config;
+package com.andyadc.bms.security.configures;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,11 +11,5 @@ public class PasswordEncoderConfig {
 	@Bean
 	protected PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
-//        return NoOpPasswordEncoder.getInstance();
 	}
-
-//    @Bean
-//    protected BCryptPasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
 }

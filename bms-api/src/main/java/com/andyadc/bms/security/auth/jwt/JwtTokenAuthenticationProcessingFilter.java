@@ -1,7 +1,7 @@
 package com.andyadc.bms.security.auth.jwt;
 
+import com.andyadc.bms.security.Constants;
 import com.andyadc.bms.security.auth.jwt.extractor.TokenExtractor;
-import com.andyadc.bms.security.config.WebSecurityConfiguration;
 import com.andyadc.bms.security.model.token.RawAccessJwtToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -33,7 +33,7 @@ public class JwtTokenAuthenticationProcessingFilter extends AbstractAuthenticati
 
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException, IOException, ServletException {
-		String tokenPayload = request.getHeader(WebSecurityConfiguration.AUTHENTICATION_HEADER_NAME);
+		String tokenPayload = request.getHeader(Constants.AUTHENTICATION_HEADER_NAME);
 		RawAccessJwtToken token = new RawAccessJwtToken(tokenExtractor.extract(tokenPayload));
 		return getAuthenticationManager().authenticate(new JwtAuthenticationToken(token));
 	}

@@ -2,6 +2,7 @@ package com.andyadc.bms.security.auth.mobile;
 
 import com.andyadc.bms.security.exception.AuthMethodNotSupportedException;
 import com.andyadc.bms.security.model.LoginRequest;
+import com.andyadc.codeblocks.kit.mask.MaskType;
 import com.andyadc.codeblocks.kit.net.IPUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
@@ -54,7 +55,7 @@ public class MobileLoginAuthenticationProcessingFilter extends AbstractAuthentic
 		String phoneNo = loginRequest.getPhoneNo();
 		String verificationCode = loginRequest.getVerificationCode();
 
-		logger.info("Login phoneNo: [{}], IP: {}", phoneNo, ip);
+		logger.info("Login phoneNo: [{}], IP: {}", MaskType.MOBILE.mask(phoneNo), ip);
 		if (StringUtils.isBlank(phoneNo) || StringUtils.isBlank(verificationCode)) {
 			String requestStr = IOUtils.toString(request.getReader());
 			logger.warn("Login request info: {}", requestStr);

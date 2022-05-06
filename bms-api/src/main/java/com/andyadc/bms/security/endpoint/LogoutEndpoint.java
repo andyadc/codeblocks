@@ -1,9 +1,9 @@
 package com.andyadc.bms.security.endpoint;
 
 import com.andyadc.bms.common.Response;
+import com.andyadc.bms.security.Constants;
 import com.andyadc.bms.security.auth.jwt.extractor.TokenExtractor;
-import com.andyadc.bms.security.config.JwtSettings;
-import com.andyadc.bms.security.config.WebSecurityConfiguration;
+import com.andyadc.bms.security.configures.JwtSettings;
 import com.andyadc.bms.security.model.UserContext;
 import com.andyadc.bms.security.model.token.RawAccessJwtToken;
 import com.andyadc.bms.service.AuthTokenService;
@@ -47,7 +47,7 @@ public class LogoutEndpoint {
 		produces = {MediaType.APPLICATION_JSON_VALUE}
 	)
 	public ResponseEntity<Object> logout(HttpServletRequest request) {
-		String token = tokenExtractor.extract(request.getHeader(WebSecurityConfiguration.AUTHENTICATION_HEADER_NAME));
+		String token = tokenExtractor.extract(request.getHeader(Constants.AUTHENTICATION_HEADER_NAME));
 		RawAccessJwtToken rawToken = new RawAccessJwtToken(token);
 		Jws<Claims> jwsClaims = rawToken.parseClaims(jwtSettings.getTokenSigningKey());
 		String subject = jwsClaims.getBody().getSubject();

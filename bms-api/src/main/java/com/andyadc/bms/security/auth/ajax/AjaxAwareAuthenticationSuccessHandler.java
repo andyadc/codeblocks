@@ -2,6 +2,7 @@ package com.andyadc.bms.security.auth.ajax;
 
 import com.andyadc.bms.common.RespCode;
 import com.andyadc.bms.common.Response;
+import com.andyadc.bms.security.Constants;
 import com.andyadc.bms.security.model.UserContext;
 import com.andyadc.bms.security.model.token.JwtToken;
 import com.andyadc.bms.security.model.token.JwtTokenFactory;
@@ -21,7 +22,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -60,7 +60,7 @@ public class AjaxAwareAuthenticationSuccessHandler implements AuthenticationSucc
 
 		response.setStatus(HttpStatus.OK.value());
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-		response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+		response.setCharacterEncoding(Constants.DEFAULT_CHARACTER_ENCODING);
 		mapper.writeValue(response.getWriter(), Response.of(RespCode.SUCC, tokenMap));
 
 		clearAuthenticationAttributes(request);

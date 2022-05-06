@@ -1,4 +1,4 @@
-package com.andyadc.bms.security.config;
+package com.andyadc.bms.security.configures;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

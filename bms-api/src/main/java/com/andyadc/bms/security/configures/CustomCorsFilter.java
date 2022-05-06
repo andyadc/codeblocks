@@ -1,4 +1,4 @@
-package com.andyadc.bms.security;
+package com.andyadc.bms.security.configures;
 
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;

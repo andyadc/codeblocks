@@ -4,6 +4,7 @@ import com.andyadc.bms.modules.auth.dto.AuthUserDTO;
 import com.andyadc.bms.security.SecurityService;
 import com.andyadc.bms.security.model.UserContext;
 import com.andyadc.bms.service.MobileService;
+import com.andyadc.codeblocks.kit.mask.MaskType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -41,7 +42,7 @@ public class MobileAuthenticationProvider implements AuthenticationProvider {
 
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-		Assert.notNull(authentication, "No authentication data provided");
+		Assert.notNull(authentication, "No authentication provided");
 
 		MobileAuthenticationToken authenticationToken = (MobileAuthenticationToken) authentication;
 		String phoneNo = (String) authenticationToken.getPrincipal();
@@ -49,12 +50,12 @@ public class MobileAuthenticationProvider implements AuthenticationProvider {
 
 		boolean checked = mobileService.checkVerificationCode(phoneNo, verificationCode);
 		if (!checked) {
-			logger.warn("VerificationCode is error. {}", phoneNo);
+			logger.warn("VerificationCode is error. {}", MaskType.MOBILE.mask(phoneNo));
 			throw new BadCredentialsException("Authentication failed. PhoneNo or VerificationCode not valid.");
 		}
 
 		AuthUserDTO userDTO = securityService.findByPhoneNo(phoneNo)
-			.orElseThrow(() -> new UsernameNotFoundException("User not found: " + phoneNo));
+			.orElseThrow(() -> new UsernameNotFoundException("User not found: " + MaskType.MOBILE.mask(phoneNo)));
 
 		if (userDTO.getAuthorities() == null) {
 			logger.warn("user authorities is null.");

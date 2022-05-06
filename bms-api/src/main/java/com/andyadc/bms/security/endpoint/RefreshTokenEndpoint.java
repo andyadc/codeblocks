@@ -1,11 +1,11 @@
 package com.andyadc.bms.security.endpoint;
 
 import com.andyadc.bms.modules.auth.dto.AuthUserDTO;
+import com.andyadc.bms.security.Constants;
 import com.andyadc.bms.security.SecurityService;
 import com.andyadc.bms.security.auth.jwt.extractor.TokenExtractor;
 import com.andyadc.bms.security.auth.jwt.verifier.TokenVerifier;
-import com.andyadc.bms.security.config.JwtSettings;
-import com.andyadc.bms.security.config.WebSecurityConfiguration;
+import com.andyadc.bms.security.configures.JwtSettings;
 import com.andyadc.bms.security.exception.InvalidJwtTokenException;
 import com.andyadc.bms.security.model.UserContext;
 import com.andyadc.bms.security.model.token.JwtToken;
@@ -44,7 +44,7 @@ public class RefreshTokenEndpoint {
 		produces = {MediaType.APPLICATION_JSON_VALUE}
 	)
 	public JwtToken refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-		String tokenPayload = tokenExtractor.extract(request.getHeader(WebSecurityConfiguration.AUTHENTICATION_HEADER_NAME));
+		String tokenPayload = tokenExtractor.extract(request.getHeader(Constants.AUTHENTICATION_HEADER_NAME));
 
 		RawAccessJwtToken rawToken = new RawAccessJwtToken(tokenPayload);
 		RefreshToken refreshToken = RefreshToken.create(rawToken, jwtSettings.getTokenSigningKey()).orElseThrow(() -> new InvalidJwtTokenException("Invalid jwt token: " + tokenPayload));

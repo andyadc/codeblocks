@@ -8,12 +8,13 @@ import java.util.List;
 
 public class UserContext implements Serializable {
 
-	private static final long serialVersionUID = -1596997375272146695L;
+	private static final long serialVersionUID = -5195196736469492576L;
+
 	private final String username;
 	private final long timestamp;
-	private List<GrantedAuthority> authorities;
 	private Long uid;
 	private String token;
+	private List<GrantedAuthority> authorities;
 
 	public UserContext(String username) {
 		this.username = username;

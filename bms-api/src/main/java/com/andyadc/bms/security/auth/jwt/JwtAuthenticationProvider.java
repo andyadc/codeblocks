@@ -1,6 +1,6 @@
 package com.andyadc.bms.security.auth.jwt;
 
-import com.andyadc.bms.security.config.JwtSettings;
+import com.andyadc.bms.security.configures.JwtSettings;
 import com.andyadc.bms.security.model.UserContext;
 import com.andyadc.bms.security.model.token.RawAccessJwtToken;
 import io.jsonwebtoken.Claims;

@@ -1,6 +1,5 @@
-package com.andyadc.bms.security.config;
+package com.andyadc.bms.security.configures;
 
-import com.andyadc.bms.security.CustomCorsFilter;
 import com.andyadc.bms.security.RestAuthenticationEntryPoint;
 import com.andyadc.bms.security.auth.ajax.AjaxAuthenticationProvider;
 import com.andyadc.bms.security.auth.ajax.AjaxAwareAuthenticationFailureHandler;
@@ -39,7 +38,6 @@ import java.util.List;
 )
 public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-	public static final String AUTHENTICATION_HEADER_NAME = "Authorization";
 	private static final String API_ROOT_URL = "/api/**";
 	private static final String AUTHENTICATION_URL = "/api/auth/login";
 	private static final String REFRESH_TOKEN_URL = "/api/auth/token";
