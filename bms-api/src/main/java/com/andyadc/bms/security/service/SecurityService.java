@@ -1,4 +1,4 @@
-package com.andyadc.bms.security;
+package com.andyadc.bms.security.service;
 
 import com.andyadc.bms.modules.auth.dto.AuthUserDTO;
 import com.andyadc.bms.modules.auth.service.AuthUserService;

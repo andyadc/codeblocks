@@ -1,8 +1,8 @@
 package com.andyadc.bms.security.auth.ajax;
 
 import com.andyadc.bms.modules.auth.dto.AuthUserDTO;
-import com.andyadc.bms.security.SecurityService;
 import com.andyadc.bms.security.model.UserContext;
+import com.andyadc.bms.security.service.SecurityService;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InsufficientAuthenticationException;

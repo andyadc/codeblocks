@@ -6,7 +6,7 @@ import com.andyadc.bms.modules.auth.entity.AuthMenu;
 import com.andyadc.bms.modules.auth.entity.AuthUser;
 import com.andyadc.bms.modules.auth.mapper.AuthMapper;
 import com.andyadc.bms.modules.auth.mapper.AuthUserMapper;
-import com.andyadc.bms.security.PasswordService;
+import com.andyadc.bms.security.service.PasswordService;
 import com.andyadc.bms.validation.PasswordConstraintValidator;
 import com.andyadc.codeblocks.kit.mask.MaskType;
 import org.slf4j.Logger;

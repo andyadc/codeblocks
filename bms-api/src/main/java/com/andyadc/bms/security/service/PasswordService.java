@@ -1,4 +1,4 @@
-package com.andyadc.bms.security;
+package com.andyadc.bms.security.service;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

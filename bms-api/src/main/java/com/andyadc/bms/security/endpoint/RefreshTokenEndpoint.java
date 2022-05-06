@@ -2,7 +2,6 @@ package com.andyadc.bms.security.endpoint;
 
 import com.andyadc.bms.modules.auth.dto.AuthUserDTO;
 import com.andyadc.bms.security.Constants;
-import com.andyadc.bms.security.SecurityService;
 import com.andyadc.bms.security.auth.jwt.extractor.TokenExtractor;
 import com.andyadc.bms.security.auth.jwt.verifier.TokenVerifier;
 import com.andyadc.bms.security.configures.JwtSettings;
@@ -12,6 +11,7 @@ import com.andyadc.bms.security.model.token.JwtToken;
 import com.andyadc.bms.security.model.token.JwtTokenFactory;
 import com.andyadc.bms.security.model.token.RawAccessJwtToken;
 import com.andyadc.bms.security.model.token.RefreshToken;
+import com.andyadc.bms.security.service.SecurityService;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
 import org.springframework.security.core.GrantedAuthority;

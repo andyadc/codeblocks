@@ -1,6 +1,6 @@
 package com.andyadc.bms.test.service;
 
-import com.andyadc.bms.security.PasswordService;
+import com.andyadc.bms.security.service.PasswordService;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 

@@ -1,4 +1,4 @@
-package com.andyadc.bms.security;
+package com.andyadc.bms.security.handler;
 
 import com.andyadc.bms.common.RespCode;
 import com.andyadc.bms.common.Response;

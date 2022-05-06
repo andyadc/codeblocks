@@ -1,8 +1,8 @@
 package com.andyadc.bms.security.auth.mobile;
 
 import com.andyadc.bms.modules.auth.dto.AuthUserDTO;
-import com.andyadc.bms.security.SecurityService;
 import com.andyadc.bms.security.model.UserContext;
+import com.andyadc.bms.security.service.SecurityService;
 import com.andyadc.bms.service.MobileService;
 import com.andyadc.codeblocks.kit.mask.MaskType;
 import org.slf4j.Logger;

@@ -1,6 +1,5 @@
 package com.andyadc.bms.security.configures;
 
-import com.andyadc.bms.security.RestAuthenticationEntryPoint;
 import com.andyadc.bms.security.auth.ajax.AjaxAuthenticationProvider;
 import com.andyadc.bms.security.auth.ajax.AjaxAwareAuthenticationFailureHandler;
 import com.andyadc.bms.security.auth.ajax.AjaxAwareAuthenticationSuccessHandler;
@@ -11,6 +10,7 @@ import com.andyadc.bms.security.auth.jwt.SkipPathRequestMatcher;
 import com.andyadc.bms.security.auth.jwt.extractor.TokenExtractor;
 import com.andyadc.bms.security.auth.mobile.MobileAuthenticationProvider;
 import com.andyadc.bms.security.auth.mobile.MobileLoginAuthenticationProcessingFilter;
+import com.andyadc.bms.security.handler.RestAuthenticationEntryPoint;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
