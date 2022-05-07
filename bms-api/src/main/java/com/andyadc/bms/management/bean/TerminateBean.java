@@ -1,4 +1,4 @@
-package com.andyadc.bms.bean;
+package com.andyadc.bms.management.bean;
 
 import org.springframework.boot.availability.ApplicationAvailability;
 import org.springframework.boot.availability.LivenessState;

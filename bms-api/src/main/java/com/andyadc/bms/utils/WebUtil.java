@@ -1,4 +1,4 @@
-package com.andyadc.bms.common;
+package com.andyadc.bms.utils;
 
 import org.springframework.security.web.savedrequest.SavedRequest;
 

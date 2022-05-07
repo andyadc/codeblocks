@@ -1,4 +1,4 @@
-package com.andyadc.bms.bean;
+package com.andyadc.bms.management.bean;
 
 import org.apache.catalina.connector.Connector;
 import org.slf4j.Logger;

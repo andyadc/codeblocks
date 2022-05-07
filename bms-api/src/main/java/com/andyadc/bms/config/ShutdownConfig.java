@@ -1,7 +1,7 @@
 package com.andyadc.bms.config;
 
-import com.andyadc.bms.bean.GracefulShutdown;
-import com.andyadc.bms.bean.TerminateBean;
+import com.andyadc.bms.management.bean.GracefulShutdown;
+import com.andyadc.bms.management.bean.TerminateBean;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
 import org.springframework.context.annotation.Bean;

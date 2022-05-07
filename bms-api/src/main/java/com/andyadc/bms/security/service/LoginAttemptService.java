@@ -1,5 +1,6 @@
 package com.andyadc.bms.security.service;
 
+import com.andyadc.bms.redis.RedisOperator;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
@@ -7,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
@@ -16,10 +18,10 @@ public class LoginAttemptService {
 	private static final Logger logger = LoggerFactory.getLogger(LoginAttemptService.class);
 
 	private final static int MAX_ATTEMPT = 10;
+	private RedisOperator redisOperator;
 	private final LoadingCache<String, Integer> attemptsCache;
 
 	public LoginAttemptService() {
-		super();
 		attemptsCache = CacheBuilder.newBuilder()
 			.expireAfterWrite(1, TimeUnit.HOURS)
 			.build(new CacheLoader<String, Integer>() {
@@ -53,5 +55,10 @@ public class LoginAttemptService {
 		} catch (final ExecutionException e) {
 			return false;
 		}
+	}
+
+	@Inject
+	public void setRedisOperator(RedisOperator redisOperator) {
+		this.redisOperator = redisOperator;
 	}
 }

@@ -68,3 +68,13 @@ package com.andyadc.bms;
 // https://www.baeldung.com/spring-jdbc-jdbctemplate
 
 // https://turkogluc.com/spring-rest-activity-notification/
+
+// Sign up with email
+// Enter your email address to create an account.
+// Please enter a valid email address
+// All sign up options
+// Already have an account? Sign in
+// No account? Create one
+// Click “Sign In” to agree to Medium’s Terms of Service and acknowledge that Medium’s Privacy Policy applies to you.
+// Click “Sign Up” to agree to Medium’s Terms of Service and acknowledge that Medium’s Privacy Policy applies to you.
+

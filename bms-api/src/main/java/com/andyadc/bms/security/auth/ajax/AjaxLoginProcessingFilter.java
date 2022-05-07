@@ -1,8 +1,8 @@
 package com.andyadc.bms.security.auth.ajax;
 
-import com.andyadc.bms.common.WebUtil;
 import com.andyadc.bms.security.exception.AuthMethodNotSupportedException;
 import com.andyadc.bms.security.model.LoginRequest;
+import com.andyadc.bms.utils.WebUtil;
 import com.andyadc.codeblocks.kit.net.IPUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.IOUtils;
