@@ -5,8 +5,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 
-@Entity
 @Table(name = "auth_user")
+@Entity
 public class AuthUser {
 
 	@Id
@@ -23,7 +23,7 @@ public class AuthUser {
 	private LocalDateTime createTime;
 	private LocalDateTime updateTime;
 	private Integer version;
-	private String memo;
+	private String comment;
 
 	public AuthUser() {
 	}
@@ -132,11 +132,11 @@ public class AuthUser {
 		this.version = version;
 	}
 
-	public String getMemo() {
-		return memo;
+	public String getComment() {
+		return comment;
 	}
 
-	public void setMemo(String memo) {
-		this.memo = memo;
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 }

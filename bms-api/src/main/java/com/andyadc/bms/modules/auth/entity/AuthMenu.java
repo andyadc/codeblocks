@@ -1,10 +1,14 @@
 package com.andyadc.bms.modules.auth.entity;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Table
+@Entity
 public class AuthMenu {
 
 	@Id
@@ -18,13 +22,16 @@ public class AuthMenu {
 	private String path;
 	private String icon;
 	private String target;
-	private Integer seq;
+	private Integer sort;
 	private Integer visible;
 	private Integer status;
 	private LocalDateTime createTime;
 	private LocalDateTime updateTime;
 	private Integer version;
-	private String memo;
+	private String comment;
+
+	@Transient
+	private List<AuthMenu> childMenu;
 
 	public AuthMenu() {
 	}
@@ -109,12 +116,12 @@ public class AuthMenu {
 		this.target = target;
 	}
 
-	public Integer getSeq() {
-		return seq;
+	public Integer getSort() {
+		return sort;
 	}
 
-	public void setSeq(Integer seq) {
-		this.seq = seq;
+	public void setSort(Integer sort) {
+		this.sort = sort;
 	}
 
 	public Integer getVisible() {
@@ -157,11 +164,19 @@ public class AuthMenu {
 		this.version = version;
 	}
 
-	public String getMemo() {
-		return memo;
+	public String getComment() {
+		return comment;
 	}
 
-	public void setMemo(String memo) {
-		this.memo = memo;
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+	public List<AuthMenu> getChildMenu() {
+		return childMenu;
+	}
+
+	public void setChildMenu(List<AuthMenu> childMenu) {
+		this.childMenu = childMenu;
 	}
 }

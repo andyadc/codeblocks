@@ -1,9 +1,11 @@
 package com.andyadc.bms.modules.auth.entity;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Table
+@Entity
 public class AuthRole {
 
 	@Id
@@ -11,9 +13,12 @@ public class AuthRole {
 	private String name;
 	private String code;
 	private Integer status;
+	private Integer sort;
+	private Integer dataScope;
 	private String createTime;
 	private String updateTime;
 	private Integer version;
+	private String comment;
 
 	public AuthRole() {
 	}
@@ -50,6 +55,22 @@ public class AuthRole {
 		this.status = status;
 	}
 
+	public Integer getSort() {
+		return sort;
+	}
+
+	public void setSort(Integer sort) {
+		this.sort = sort;
+	}
+
+	public Integer getDataScope() {
+		return dataScope;
+	}
+
+	public void setDataScope(Integer dataScope) {
+		this.dataScope = dataScope;
+	}
+
 	public String getCreateTime() {
 		return createTime;
 	}
@@ -72,5 +93,13 @@ public class AuthRole {
 
 	public void setVersion(Integer version) {
 		this.version = version;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 }

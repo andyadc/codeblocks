@@ -12,31 +12,34 @@
 		<result column="component" jdbcType="VARCHAR" property="component"/>
 		<result column="path" jdbcType="VARCHAR" property="path"/>
 		<result column="icon" jdbcType="VARCHAR" property="icon"/>
-		<result column="seq" jdbcType="INTEGER" property="seq"/>
+		<result column="sort" jdbcType="INTEGER" property="sort"/>
 		<result column="target" jdbcType="VARCHAR" property="target"/>
 		<result column="visible" jdbcType="TINYINT" property="visible"/>
 		<result column="status" jdbcType="TINYINT" property="status"/>
 		<result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
 		<result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
 		<result column="version" jdbcType="INTEGER" property="version"/>
-		<result column="memo" jdbcType="VARCHAR" property="memo"/>
+		<result column="comment" jdbcType="VARCHAR" property="comment"/>
 	</resultMap>
 
 	<sql id="Menu_Base_Column_List">
-		id, parent_id, `type`, `name`, code, permission, component, `path`, icon, seq, target,
-		visible, `status`, create_time, update_time, version
+		id, parent_id, `type`, `name`, code, permission, component, `path`, icon, sort, target,
+		visible, `status`
 	</sql>
 
 	<!-- /// -->
 
 	<select id="selectMenuByUserId" resultMap="MenuBaseResultMap">
-		SELECT m.*
+		SELECT DISTINCT
+		m.id, m.parent_id, m.type, m.name, m.code, m.permission, m.component,
+		m.path, m.icon, m.sort, m.target, m.visible, m.status
 		FROM auth_menu m
 		LEFT JOIN auth_role_menu rm ON m.id = rm.menu_id
 		LEFT JOIN auth_role r ON rm.role_id = r.id
 		LEFT JOIN auth_user_role ur ON ur.role_id = r.id
 		LEFT JOIN auth_user u ON u.id = ur.user_id
 		WHERE u.id = #{userId}
+		ORDER BY m.sort ASC
 	</select>
 
 	<insert id="insertMenuSelective" parameterType="com.andyadc.bms.modules.auth.entity.AuthMenu">
@@ -69,8 +72,8 @@
 			<if test="icon != null">
 				icon,
 			</if>
-			<if test="seq != null">
-				seq,
+			<if test="sort != null">
+				sort,
 			</if>
 			<if test="target != null">
 				target,
@@ -90,8 +93,8 @@
 			<if test="version != null">
 				version,
 			</if>
-			<if test="memo != null">
-				memo,
+			<if test="comment != null">
+				comment,
 			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -119,8 +122,8 @@
 			<if test="icon != null">
 				#{icon,jdbcType=VARCHAR},
 			</if>
-			<if test="seq != null">
-				#{seq,jdbcType=INTEGER},
+			<if test="sort != null">
+				#{sort,jdbcType=INTEGER},
 			</if>
 			<if test="target != null">
 				#{target,jdbcType=VARCHAR},
@@ -140,8 +143,8 @@
 			<if test="version != null">
 				#{version,jdbcType=INTEGER},
 			</if>
-			<if test="memo != null">
-				#{memo,jdbcType=VARCHAR},
+			<if test="comment != null">
+				#{comment,jdbcType=VARCHAR},
 			</if>
 		</trim>
 	</insert>
@@ -173,8 +176,8 @@
 			<if test="icon != null">
 				icon = #{icon,jdbcType=VARCHAR},
 			</if>
-			<if test="seq != null">
-				seq = #{seq,jdbcType=INTEGER},
+			<if test="sort != null">
+				sort = #{sort,jdbcType=INTEGER},
 			</if>
 			<if test="target != null">
 				target = #{target,jdbcType=VARCHAR},
@@ -194,8 +197,8 @@
 			<if test="version != null">
 				version = #{version,jdbcType=INTEGER},
 			</if>
-			<if test="memo != null">
-				memo = #{memo,jdbcType=VARCHAR},
+			<if test="comment != null">
+				comment = #{comment,jdbcType=VARCHAR},
 			</if>
 		</set>
 		where id = #{id,jdbcType=BIGINT}
@@ -243,8 +246,8 @@
 			<if test="version != null">
 				version,
 			</if>
-			<if test="memo != null">
-				memo,
+			<if test="comment != null">
+				comment,
 			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -284,8 +287,8 @@
 			<if test="version != null">
 				#{version,jdbcType=INTEGER},
 			</if>
-			<if test="memo != null">
-				#{memo,jdbcType=VARCHAR},
+			<if test="comment != null">
+				#{comment,jdbcType=VARCHAR},
 			</if>
 		</trim>
 	</insert>
@@ -329,8 +332,8 @@
 			<if test="version != null">
 				version = #{version,jdbcType=INTEGER},
 			</if>
-			<if test="memo != null">
-				memo = #{memo,jdbcType=VARCHAR},
+			<if test="comment != null">
+				comment = #{comment,jdbcType=VARCHAR},
 			</if>
 		</set>
 		where id = #{id,jdbcType=BIGINT}
