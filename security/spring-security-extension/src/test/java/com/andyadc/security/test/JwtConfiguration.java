@@ -1,4 +1,4 @@
-package com.andyadc.bms.security.config;
+package com.andyadc.security.test;
 
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.jwk.JWKSet;

@@ -7,6 +7,8 @@ import java.util.Collection;
 
 public class MiniAppAuthenticationToken extends AbstractAuthenticationToken {
 
+	private static final long serialVersionUID = 8886535805935071447L;
+
 	private final Object principal;
 
 	public MiniAppAuthenticationToken(Object principal) {

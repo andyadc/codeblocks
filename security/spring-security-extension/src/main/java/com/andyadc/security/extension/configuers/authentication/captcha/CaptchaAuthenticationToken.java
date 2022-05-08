@@ -7,6 +7,8 @@ import java.util.Collection;
 
 public class CaptchaAuthenticationToken extends AbstractAuthenticationToken {
 
+	private static final long serialVersionUID = 8975729746026281785L;
+
 	private final Object principal;
 	private String captcha;
 
