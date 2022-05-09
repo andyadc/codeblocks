@@ -43,7 +43,7 @@
         <appender-ref ref="ASYNCLOG"/>
     </logger>
 
-    <logger name="com.zaxxer.hikari" level="debug" additivity="false">
+    <logger name="com.zaxxer.hikari" level="info" additivity="false">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="ASYNCLOG"/>
     </logger>
