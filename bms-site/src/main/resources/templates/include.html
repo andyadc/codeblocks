@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="header(title)">
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+	<title th:text="${title}"></title>
+	<link rel="stylesheet" th:href="@{/assets/pear/css/pear.css}">
+</head>
+
+<div th:fragment="footer">
+	<script th:src="@{/assets/jquery.min.js}"></script>
+	<script th:src="@{/assets/layui/layui.js}"></script>
+	<script th:src="@{/assets/pear/pear.js}"></script>
+</div>

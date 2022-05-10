@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<th:block th:include="include :: header('Pear Admin 开发平台')"/>
+	<link rel="stylesheet" th:href="@{/bms/loader.css}"/>
+	<link rel="stylesheet" th:href="@{/bms/admin.css}"/>
+</head>
+<body class="layui-layout-body pear-admin">
+<div class="layui-layout layui-layout-admin">
+	<div class="layui-header">
+		<div class="layui-logo">
+			<img class="logo"/>
+			<span class="title"></span>
+		</div>
+		<ul class="layui-nav layui-layout-left">
+			<li class="collaspe layui-nav-item"><a class="layui-icon layui-icon-shrink-right" href="#"></a></li>
+			<li class="refresh layui-nav-item"><a class="layui-icon layui-icon-refresh-1" href="#" loading=600></a></li>
+		</ul>
+		<div class="layui-layout-control" id="control"></div>
+		<ul class="layui-nav layui-layout-right">
+			<li class="layui-nav-item layui-hide-xs"><a class="fullScreen layui-icon layui-icon-screen-full"
+														href="#"></a></li>
+			<li class="layui-nav-item layui-hide-xs"><a class="layui-icon layui-icon-website"
+														href="http://www.pearadmin.com"></a></li>
+			<li class="layui-nav-item layui-hide-xs message"></li>
+			<li class="layui-nav-item user">
+				<a class="layui-icon layui-icon-username" href="javascript:"></a>
+				<dl class="layui-nav-child">
+					<dd><a user-menu-id="5555" user-menu-title="基本资料" user-menu-url="/system/user/center">基本资料</a></dd>
+					<dd><a class="logout" href="javascript:void(0);">注销登录</a></dd>
+				</dl>
+			</li>
+			<li class="layui-nav-item setting"><a class="layui-icon layui-icon-more-vertical" href="#"></a></li>
+		</ul>
+	</div>
+	<div class="layui-side layui-bg-black">
+		<div class="layui-logo">
+			<img class="logo"/>
+			<span class="title"></span>
+		</div>
+		<div class="layui-side-scroll">
+			<div id="sideMenu"></div>
+		</div>
+	</div>
+	<div class="layui-body">
+		<div id="content"></div>
+	</div>
+	<div class="pear-cover"></div>
+	<div class="loader-main">
+		<div class="loader"></div>
+	</div>
+</div>
+<div class="pear-collasped-pe collaspe">
+	<a class="layui-icon layui-icon-shrink-right" href="#"></a>
+</div>
+<th:block th:include="include :: footer"/>
+<script th:inline="javascript">
+	layui.use(['admin', 'jquery', 'layer', 'popup'], function () {
+		let admin = layui.admin;
+		let $ = layui.jquery;
+		let layer = layui.layer;
+		let popup = layui.popup;
+
+		// 框架初始化时会读取 根目录下 pear.config.yml 文件作为初始化配置
+		// 你可以通过 admin.setConfigPath 方法修改配置文件位置
+		// 你可以通过 admin.setConfigType 方法修改配置文件类型
+		admin.setConfigType("yml");
+		admin.setConfigPath("pear.config.yml");
+		admin.render();
+
+		// 注销实现
+		admin.logout(function () {
+			let loading = layer.load();
+			$.ajax({
+				url: '/logout',
+				dataType: 'json',
+				type: 'post',
+				success: function (result) {
+					layer.close(loading);
+					if (result.success) {
+						popup.success(result.msg, function () {
+							location.href = "/";
+						});
+						return true;
+					}
+				}
+			})
+		})
+	})
+</script>
+</body>
+</html>
