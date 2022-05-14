@@ -71,7 +71,7 @@
 		<hessian.version>4.0.66</hessian.version>
 		<cglib.version>3.3.0</cglib.version>
 		<objenesis.version>3.2</objenesis.version>
-		<javassist.version>3.28.0-GA</javassist.version>
+		<javassist.version>3.29.0-GA</javassist.version>
 		<ognl.version>3.3.2</ognl.version>
 		<commons-lang.version>3.12.0</commons-lang.version>
 		<commons-text.version>1.9</commons-text.version>
