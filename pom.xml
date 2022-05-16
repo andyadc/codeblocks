@@ -32,6 +32,7 @@
 		<module>security</module>
 		<module>bms-api</module>
 		<module>bms-site</module>
+		<module>bms-temp</module>
 	</modules>
 
     <prerequisites>
