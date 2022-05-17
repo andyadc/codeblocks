@@ -1,6 +1,7 @@
 package com.andyadc.codeblocks.test.json;
 
 import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.TypeReference;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -13,10 +14,10 @@ public class FastjsonTests {
 	@Test
 	public void testString2Map() {
 		String jsonStr = "{\"name\":\"adc\",\"alias\":\"aa\",\"age\":\"18\"}";
-//		jsonStr = null;
 
-//		Map<String, String> map = JSON.parseObject(jsonStr, new TypeReference<Map<String, String>>(){});
-//		System.out.println(map);
+		Map<String, String> map = JSON.parseObject(jsonStr, new TypeReference<Map<String, String>>() {
+		});
+		System.out.println(map);
 	}
 
 	@Test

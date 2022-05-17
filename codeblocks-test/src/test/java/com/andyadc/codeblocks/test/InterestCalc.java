@@ -45,12 +45,9 @@ public class InterestCalc {
 		// 12-418344.82228688314
 		// 1-410598.7606211209
 
-		System.out.println(calcCompoundRate(1000000d, 0.03d, 10, 1d));
-		System.out.println(calcCompoundRate(1000000d, 0.035d, 10, 1d));
-		System.out.println(calcCompoundRate(1000000d, 0.040d, 10, 1d));
-		System.out.println(calcCompoundRate(1000000d, 0.045d, 10, 1d));
-		System.out.println(calcCompoundRate(1000000d, 0.05d, 10, 1d));
-		System.out.println(calcCompoundRate(1000000d, 0.10d, 10, 1d));
+		System.out.println(calcCompoundRate(10000d, 0.03d, 100, 1d));
+		System.out.println(calcCompoundRate(10000d, 0.035d, 100, 1d));
+		System.out.println(calcCompoundRate(10000d, 0.04d, 100, 1d));
 	}
 
 	/**
