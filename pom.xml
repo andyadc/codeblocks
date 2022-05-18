@@ -60,7 +60,7 @@
 		<fastjson.version>2.0.3</fastjson.version>
 		<joda-time.version>2.10.14</joda-time.version>
 		<guava.version>31.1-jre</guava.version>
-		<tomcat-jdbc.version>9.0.62</tomcat-jdbc.version>
+		<tomcat-jdbc.version>9.0.63</tomcat-jdbc.version>
 		<hikaricp.version>4.0.3</hikaricp.version>
 		<druid.version>1.2.9</druid.version>
 		<mysql-driver.version>8.0.29</mysql-driver.version>
