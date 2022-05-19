@@ -1,6 +1,7 @@
 package com.andyadc.bms.modules.auth.dto;
 
 import java.util.List;
+import java.util.StringJoiner;
 
 public class MenuDTO {
 
@@ -130,5 +131,25 @@ public class MenuDTO {
 
 	public void setChildren(List<MenuDTO> children) {
 		this.children = children;
+	}
+
+	@Override
+	public String toString() {
+		return new StringJoiner(", ", MenuDTO.class.getSimpleName() + "[", "]")
+			.add("id=" + id)
+			.add("parentId=" + parentId)
+			.add("type=" + type)
+			.add("name='" + name)
+			.add("code='" + code)
+			.add("permission='" + permission)
+			.add("component='" + component)
+			.add("path='" + path)
+			.add("icon='" + icon)
+			.add("target='" + target)
+			.add("sort=" + sort)
+			.add("visible=" + visible)
+			.add("status=" + status)
+			.add("children=" + children)
+			.toString();
 	}
 }

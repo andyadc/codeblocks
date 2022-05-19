@@ -1,4 +1,4 @@
-package com.andyadc.bms.web;
+package com.andyadc.bms.web.pear;
 
 import com.wf.captcha.utils.CaptchaUtil;
 import org.springframework.http.ResponseEntity;
@@ -12,13 +12,13 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@RequestMapping("/")
+@RequestMapping("/pear")
 @Controller
 public class LoginController {
 
 	@GetMapping("/login")
 	public ModelAndView login(HttpServletRequest request, ModelMap model) {
-		return new ModelAndView("login", model);
+		return new ModelAndView("pear/login", model);
 	}
 
 	@PostMapping(value = "/login")

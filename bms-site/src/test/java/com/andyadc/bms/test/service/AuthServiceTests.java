@@ -1,4 +1,4 @@
-package com.andyadc.bms.test;
+package com.andyadc.bms.test.service;
 
 import com.andyadc.bms.modules.auth.dto.MenuDTO;
 import com.andyadc.bms.modules.auth.service.AuthService;

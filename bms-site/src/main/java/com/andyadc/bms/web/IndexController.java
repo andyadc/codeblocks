@@ -15,16 +15,4 @@ public class IndexController {
 		modelMap.addAttribute("timestamp", ZonedDateTime.now());
 		return "index";
 	}
-
-	@RequestMapping({"/home"})
-	public String home(ModelMap modelMap) {
-		modelMap.addAttribute("timestamp", ZonedDateTime.now());
-		return "system/home";
-	}
-
-	@RequestMapping({"/console"})
-	public String console(ModelMap modelMap) {
-		modelMap.addAttribute("timestamp", ZonedDateTime.now());
-		return "console";
-	}
 }

@@ -1,4 +1,4 @@
-package com.andyadc.bms.web;
+package com.andyadc.bms.web.pear;
 
 import com.andyadc.bms.modules.auth.dto.UserQuery;
 import com.andyadc.bms.modules.auth.service.AuthService;
@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@RequestMapping("/sys")
+@RequestMapping("/pear/sys")
 @Controller
 public class SystemController {
 
@@ -33,7 +33,7 @@ public class SystemController {
 
 	@RequestMapping("/user/index")
 	public String userIndex() {
-		return "system/user/index";
+		return "pear/system/user/index";
 	}
 
 	@RequestMapping("/user/list")
