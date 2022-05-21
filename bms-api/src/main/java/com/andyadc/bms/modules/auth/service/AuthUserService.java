@@ -9,6 +9,7 @@ import com.andyadc.bms.modules.auth.mapper.AuthUserMapper;
 import com.andyadc.bms.security.service.PasswordService;
 import com.andyadc.bms.validation.PasswordConstraintValidator;
 import com.andyadc.codeblocks.kit.mask.MaskType;
+import com.andyadc.codeblocks.kit.text.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -74,7 +75,10 @@ public class AuthUserService {
 
 	private List<String> queryPermissionList(Long userId) {
 		List<AuthMenu> menus = authMapper.selectMenuByUserId(userId);
-		return menus.stream().map(AuthMenu::getPermission).collect(Collectors.toList());
+		return menus.stream()
+			.map(AuthMenu::getPermission)
+			.filter(StringUtil::isNotBlank)
+			.collect(Collectors.toList());
 	}
 
 	public AuthUser register(AuthUserDTO dto) {
