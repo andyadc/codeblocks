@@ -53,21 +53,24 @@ package com.andyadc.bms;
 //	email
 //	https://www.thymeleaf.org/doc/articles/springmail.html
 
-// http
+// HTTP
 // https://www.baeldung.com/rest-template
 // https://www.baeldung.com/spring-resttemplate-logging
 // https://github.com/eugenp/tutorials/tree/master/spring-web-modules/spring-resttemplate
 
-// json
+// JSON
 // https://www.baeldung.com/spring-boot-customize-jackson-objectmapper
 
-// log
+// LOG
 // https://www.baeldung.com/spring-boot-testing-log-level
 
-// jdbc
+// JDBC
 // https://www.baeldung.com/spring-jdbc-jdbctemplate
 
 // https://turkogluc.com/spring-rest-activity-notification/
+
+// Cache
+// https://www.baeldung.com/spring-cache-tutorial
 
 // Sign up with email
 // Enter your email address to create an account.

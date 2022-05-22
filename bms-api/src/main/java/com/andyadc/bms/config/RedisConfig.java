@@ -1,7 +1,6 @@
-package com.andyadc.bms.redis;
+package com.andyadc.bms.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -12,12 +11,11 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import javax.inject.Inject;
 
-@EnableCaching
 @Configuration
 public class RedisConfig {
 
-	private ObjectMapper objectMapper;
 	private final StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
+	private ObjectMapper objectMapper;
 
 	@Inject
 	public void setObjectMapper(ObjectMapper objectMapper) {
