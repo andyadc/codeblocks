@@ -1,6 +1,6 @@
 package com.andyadc.bms.config;
 
-import com.andyadc.bms.common.Constants;
+import com.andyadc.bms.constant.Constants;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;

@@ -1,6 +1,6 @@
 package com.andyadc.bms.security.model.token;
 
-import com.andyadc.bms.security.configures.JwtSettings;
+import com.andyadc.bms.security.configurers.JwtSettings;
 import com.andyadc.bms.security.exception.JwtGenException;
 import com.andyadc.bms.security.model.Scopes;
 import com.andyadc.bms.security.model.UserContext;

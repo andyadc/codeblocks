@@ -9,12 +9,15 @@ public class LoginRequest implements Serializable {
 
 	private static final long serialVersionUID = -4132982387426768761L;
 
-	private final String username;
-	private final String password;
+	private String username;
+	private String password;
 
 	private String email;
 	private String phoneNo;
 	private String verificationCode;
+
+	public LoginRequest() {
+	}
 
 	@JsonCreator
 	public LoginRequest(@JsonProperty("username") String username, @JsonProperty("password") String password) {

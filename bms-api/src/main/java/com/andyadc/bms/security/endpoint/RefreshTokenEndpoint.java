@@ -4,7 +4,7 @@ import com.andyadc.bms.modules.auth.dto.AuthUserDTO;
 import com.andyadc.bms.security.Constants;
 import com.andyadc.bms.security.auth.jwt.extractor.TokenExtractor;
 import com.andyadc.bms.security.auth.jwt.verifier.TokenVerifier;
-import com.andyadc.bms.security.configures.JwtSettings;
+import com.andyadc.bms.security.configurers.JwtSettings;
 import com.andyadc.bms.security.exception.InvalidJwtTokenException;
 import com.andyadc.bms.security.model.UserContext;
 import com.andyadc.bms.security.model.token.JwtToken;
