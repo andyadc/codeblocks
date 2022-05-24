@@ -16,7 +16,7 @@
 
 		<spring.version>5.3.20</spring.version>
 		<aspectj.version>1.9.9.1</aspectj.version>
-		<mybatis.version>3.5.9</mybatis.version>
+		<mybatis.version>3.5.10</mybatis.version>
 		<mybatis-spring.version>2.0.7</mybatis-spring.version>
 		<mysql-driver.version>8.0.29</mysql-driver.version>
 		<hikaricp.version>4.0.3</hikaricp.version>
