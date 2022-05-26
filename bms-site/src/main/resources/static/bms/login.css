@@ -15,8 +15,8 @@
 
 .layui-tab-content {
 	margin-top: 15px !important;
-	padding-left: 0px !important;
-	padding-right: 0px !important;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
 }
 
 .layui-form-item {
@@ -67,7 +67,7 @@ body {
 .code {
 	float: left;
 	margin-right: 13px;
-	margin: 0px !important;
+	margin: 0 !important;
 	border: #e6e6e6 1px solid;
 	display: inline-block !important;
 }
