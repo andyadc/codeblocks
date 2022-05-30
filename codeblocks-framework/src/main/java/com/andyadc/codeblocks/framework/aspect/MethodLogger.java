@@ -28,12 +28,13 @@ public final class MethodLogger {
 		try {
 			result = point.proceed();
 		} finally {
+			Instant end = Instant.now();
 			logger.info(
-				"Invoked {}, request={}, response={}, elapsed time={}",
+				"Invoked {}, request={}, response={}, elapsed time={} ms",
 				signature,
 				Arrays.toString(point.getArgs()),
 				result,
-				Duration.between(start, Instant.now()).toMillis()
+				Duration.between(start, end).toMillis()
 			);
 		}
 		return result;

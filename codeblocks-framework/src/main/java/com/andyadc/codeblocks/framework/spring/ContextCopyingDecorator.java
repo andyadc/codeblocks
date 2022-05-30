@@ -24,10 +24,8 @@ public class ContextCopyingDecorator implements TaskDecorator {
 
 	@Override
 	public Runnable decorate(Runnable runnable) {
-		RequestAttributes attributes =
-			RequestContextHolder.currentRequestAttributes();
+		RequestAttributes attributes = RequestContextHolder.currentRequestAttributes();
 		Map<String, String> contextMap = MDC.getCopyOfContextMap();
-
 		return () -> {
 			try {
 				RequestContextHolder.setRequestAttributes(attributes);

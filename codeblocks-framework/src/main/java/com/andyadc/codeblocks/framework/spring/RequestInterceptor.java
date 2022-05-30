@@ -4,12 +4,12 @@ import com.andyadc.codeblocks.kit.idgen.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
-import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+import org.springframework.web.servlet.AsyncHandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class RequestInterceptor extends HandlerInterceptorAdapter {
+public class RequestInterceptor implements AsyncHandlerInterceptor {
 
 	private static final Logger logger = LoggerFactory.getLogger(RequestInterceptor.class);
 
@@ -20,7 +20,6 @@ public class RequestInterceptor extends HandlerInterceptorAdapter {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
 		requestTimeCounterThreadLocal.set(System.currentTimeMillis());
-
 		String traceId = request.getHeader(HTTP_HEADER_TRACE_ID);
 		if (traceId == null || traceId.isEmpty()) {
 			traceId = UUID.randomUUID();
@@ -29,7 +28,6 @@ public class RequestInterceptor extends HandlerInterceptorAdapter {
 		if (logger.isDebugEnabled()) {
 			logger.debug(">>> " + request.getRequestURI());
 		}
-
 		return true;
 	}
 

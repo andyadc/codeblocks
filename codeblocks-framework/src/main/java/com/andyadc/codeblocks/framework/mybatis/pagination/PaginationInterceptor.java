@@ -82,7 +82,7 @@ public class PaginationInterceptor implements Interceptor {
 		String originalSql = (String) metaObject.getValue("delegate.boundSql.sql");
 		String newSql = dialect.getPageString(originalSql, pageBounds);
 		if (logger.isDebugEnabled()) {
-			logger.debug("original Sql: {}, new Sql: {}", originalSql, newSql);
+			logger.debug("Original Sql: {}, new Sql: {}", originalSql, newSql);
 		}
 
 		metaObject.setValue("delegate.boundSql.sql", newSql);
