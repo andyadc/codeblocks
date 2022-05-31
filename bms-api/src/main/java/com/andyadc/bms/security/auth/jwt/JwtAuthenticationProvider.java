@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -38,9 +39,9 @@ public class JwtAuthenticationProvider implements AuthenticationProvider {
 		String subject = jwsClaims.getBody().getSubject();
 
 		List<String> scopes = jwsClaims.getBody().get("scopes", List.class);
-		List<GrantedAuthority> authorities = scopes.stream()
+		Set<GrantedAuthority> authorities = scopes.stream()
 			.map(SimpleGrantedAuthority::new)
-			.collect(Collectors.toList());
+			.collect(Collectors.toSet());
 
 		UserContext context = UserContext.create(subject, authorities);
 

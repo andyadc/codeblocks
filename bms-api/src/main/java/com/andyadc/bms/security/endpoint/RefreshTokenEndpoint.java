@@ -26,7 +26,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -60,7 +60,7 @@ public class RefreshTokenEndpoint {
 		if (user.getAuthorities() == null) {
 			throw new InsufficientAuthenticationException("User has no roles assigned");
 		}
-		List<GrantedAuthority> grantedAuthorities = user.getAuthorities().stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+		Set<GrantedAuthority> grantedAuthorities = user.getAuthorities().stream().map(SimpleGrantedAuthority::new).collect(Collectors.toSet());
 
 		UserContext userContext = UserContext.create(user.getUsername(), grantedAuthorities);
 

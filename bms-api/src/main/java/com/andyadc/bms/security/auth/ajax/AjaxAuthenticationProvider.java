@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
 import javax.inject.Inject;
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
@@ -50,8 +50,8 @@ public class AjaxAuthenticationProvider implements AuthenticationProvider {
 			throw new InsufficientAuthenticationException("User has no authorities assigned");
 		}
 
-		List<GrantedAuthority> grantedAuthorities
-			= userDTO.getAuthorities().stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
+		Set<GrantedAuthority> grantedAuthorities
+			= userDTO.getAuthorities().stream().map(SimpleGrantedAuthority::new).collect(Collectors.toSet());
 
 		UserContext context = UserContext.create(username, grantedAuthorities);
 		context.setUid(userDTO.getId());

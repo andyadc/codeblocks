@@ -4,7 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Set;
 
 public class UserContext implements Serializable {
 
@@ -14,19 +14,19 @@ public class UserContext implements Serializable {
 	private final long timestamp;
 	private Long uid;
 	private String token;
-	private List<GrantedAuthority> authorities;
+	private Set<GrantedAuthority> authorities;
 
 	public UserContext(String username) {
 		this.username = username;
 		this.timestamp = System.currentTimeMillis();
 	}
 
-	private UserContext(String username, List<GrantedAuthority> authorities) {
+	private UserContext(String username, Set<GrantedAuthority> authorities) {
 		this(username);
 		this.authorities = authorities;
 	}
 
-	public static UserContext create(String username, List<GrantedAuthority> authorities) {
+	public static UserContext create(String username, Set<GrantedAuthority> authorities) {
 		if (StringUtils.isBlank(username)) {
 			throw new IllegalArgumentException("Username is blank: " + username);
 		}
@@ -57,7 +57,7 @@ public class UserContext implements Serializable {
 		this.token = token;
 	}
 
-	public List<GrantedAuthority> getAuthorities() {
+	public Set<GrantedAuthority> getAuthorities() {
 		return authorities;
 	}
 }
