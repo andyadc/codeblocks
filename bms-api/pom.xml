@@ -18,8 +18,9 @@
 
     <properties>
         <commons-io.version>2.11.0</commons-io.version>
+        <commons-fileupload.version>1.4</commons-fileupload.version>
         <guava.version>31.1-jre</guava.version>
-        <jjwt.version>0.11.2</jjwt.version>
+		<jjwt.version>0.11.5</jjwt.version>
 		<passay.version>1.6.1</passay.version>
 
         <java.version>1.8</java.version>
@@ -101,7 +102,7 @@
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
-			<version>1.4</version>
+			<version>${commons-fileupload.version}</version>
 			<exclusions>
 				<exclusion>
 					<groupId>commons-io</groupId>
