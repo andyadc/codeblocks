@@ -1,4 +1,4 @@
-package com.andyadc.bms.security.extension.mobile;
+package com.andyadc.security.extension2.mobile;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;

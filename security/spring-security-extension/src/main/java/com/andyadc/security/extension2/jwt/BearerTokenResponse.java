@@ -1,4 +1,4 @@
-package com.andyadc.bms.security.extension.jwt;
+package com.andyadc.security.extension2.jwt;
 
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.OAuth2RefreshToken;

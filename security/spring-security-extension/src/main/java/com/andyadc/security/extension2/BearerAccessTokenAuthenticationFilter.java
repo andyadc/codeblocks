@@ -1,4 +1,4 @@
-package com.andyadc.bms.security.extension;
+package com.andyadc.security.extension2;
 
 import com.andyadc.bms.security.extension.handler.SimpleAuthenticationEntryPoint;
 import com.andyadc.bms.security.extension.jwt.JwtTokenStorage;

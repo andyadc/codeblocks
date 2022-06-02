@@ -1,4 +1,4 @@
-package com.andyadc.bms.security.extension.jwt;
+package com.andyadc.security.extension2.jwt;
 
 import org.springframework.security.oauth2.core.converter.ClaimConversionService;
 import org.springframework.security.oauth2.jose.jws.JwsAlgorithm;

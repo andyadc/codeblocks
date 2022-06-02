@@ -1,4 +1,4 @@
-package com.andyadc.bms.security.extension;
+package com.andyadc.security.extension2;
 
 import com.andyadc.security.extension.JwtTokenGenerator;
 import org.springframework.security.authentication.AbstractAuthenticationToken;

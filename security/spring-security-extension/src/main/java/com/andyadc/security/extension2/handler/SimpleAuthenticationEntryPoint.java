@@ -1,4 +1,4 @@
-package com.andyadc.bms.security.extension.handler;
+package com.andyadc.security.extension2.handler;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;

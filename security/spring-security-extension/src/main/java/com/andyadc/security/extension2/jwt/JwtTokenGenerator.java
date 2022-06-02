@@ -1,4 +1,4 @@
-package com.andyadc.bms.security.extension.jwt;
+package com.andyadc.security.extension2.jwt;
 
 import com.andyadc.bms.security.extension.JwtProperties;
 import com.andyadc.bms.security.extension.SecureUser;

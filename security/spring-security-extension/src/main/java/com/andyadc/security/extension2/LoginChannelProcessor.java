@@ -1,4 +1,4 @@
-package com.andyadc.bms.security.extension;
+package com.andyadc.security.extension2;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationProvider;
