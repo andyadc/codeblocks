@@ -1,7 +1,7 @@
 package com.andyadc.security.extension2;
 
-import com.andyadc.bms.security.extension.handler.SimpleAuthenticationEntryPoint;
-import com.andyadc.bms.security.extension.jwt.JwtTokenStorage;
+import com.andyadc.security.extension2.handler.SimpleAuthenticationEntryPoint;
+import com.andyadc.security.extension2.jwt.JwtTokenStorage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;

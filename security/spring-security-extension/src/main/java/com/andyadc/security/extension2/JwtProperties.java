@@ -1,8 +1,8 @@
 package com.andyadc.security.extension2;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
+//import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(prefix = "jwt")
+//@ConfigurationProperties(prefix = "jwt")
 public class JwtProperties {
 
 	private CertInfo certInfo;

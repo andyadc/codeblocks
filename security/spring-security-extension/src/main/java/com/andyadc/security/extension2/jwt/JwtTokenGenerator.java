@@ -1,7 +1,7 @@
 package com.andyadc.security.extension2.jwt;
 
-import com.andyadc.bms.security.extension.JwtProperties;
-import com.andyadc.bms.security.extension.SecureUser;
+import com.andyadc.security.extension2.JwtProperties;
+import com.andyadc.security.extension2.SecureUser;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
 import org.springframework.security.oauth2.core.endpoint.OAuth2AccessTokenResponse;
