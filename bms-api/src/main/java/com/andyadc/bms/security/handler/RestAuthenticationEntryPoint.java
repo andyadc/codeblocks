@@ -32,14 +32,15 @@ public class RestAuthenticationEntryPoint extends ResponseWriter implements Auth
 	public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
 		logger.error("Responding with unauthorized error. {}", e.getMessage());
 //		response.sendError(HttpStatus.UNAUTHORIZED.value(), "Unauthorized");
-		this.write(request, response);
+		this.write(request, response, e);
 	}
 
 	@Override
-	protected Object body(HttpServletRequest request) {
+	protected Object body(HttpServletRequest request, Throwable throwable) {
 		Response<Object> resp = Response.of(RespCode.UNAUTHORIZED);
 		Map<String, Object> data = new LinkedHashMap<>(2);
 		data.put("uri", request.getRequestURI());
+		data.put("exception", throwable.getMessage());
 		resp.setData(data);
 		return resp;
 	}

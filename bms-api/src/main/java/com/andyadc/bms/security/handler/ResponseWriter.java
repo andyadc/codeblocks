@@ -21,7 +21,7 @@ public abstract class ResponseWriter {
 		this.objectMapper = objectMapper;
 	}
 
-	public void write(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public void write(HttpServletRequest request, HttpServletResponse response, Throwable throwable) throws IOException {
 		if (response.isCommitted()) {
 			logger.warn("Response has already been committed.");
 			return;
@@ -31,7 +31,7 @@ public abstract class ResponseWriter {
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 		response.setCharacterEncoding(Constants.DEFAULT_CHARACTER_ENCODING);
 
-		String resBody = objectMapper.writeValueAsString(this.body(request));
+		String resBody = objectMapper.writeValueAsString(this.body(request, throwable));
 
 		PrintWriter printWriter = response.getWriter();
 		printWriter.print(resBody);
@@ -42,5 +42,5 @@ public abstract class ResponseWriter {
 	/**
 	 * @return response info
 	 */
-	protected abstract Object body(HttpServletRequest request);
+	protected abstract Object body(HttpServletRequest request, Throwable throwable);
 }
