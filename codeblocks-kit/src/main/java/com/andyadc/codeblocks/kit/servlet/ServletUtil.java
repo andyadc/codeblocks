@@ -12,25 +12,36 @@ public final class ServletUtil {
 	private ServletUtil() {
 	}
 
-	/**
-	 * 		System.out.println(request.getContextPath()); // /bms
-	 * 		System.out.println(request.getServletPath()); // /exception/throw
-	 * 		System.out.println(request.getServerPort()); // 8080
-	 * 		System.out.println(request.getServerName()); // localhost
-	 * 		System.out.println(request.getScheme()); // http
-	 * 		System.out.println(request.getRequestURI()); // /exception/throw
-	 * 		System.out.println(request.getQueryString()); // bustCache=0.48901322528370006
-	 * 		System.out.println(request.getRemoteHost()); // 0:0:0:0:0:0:0:1
-	 * 		System.out.println(request.getMethod()); // GET
-	 * 		System.out.println(request.getAuthType()); // null
-	 * 		System.out.println(request.getLocalAddr()); // 0:0:0:0:0:0:0:1
-	 * 		System.out.println(request.getRemoteAddr()); // 0:0:0:0:0:0:0:1
-	 * 		System.out.println(request.getRemotePort()); // 52631
-	 * 		System.out.println(request.getRequestedSessionId()); // null
-	 * 		System.out.println(request.getRemoteUser()); // null
-	 * 		System.out.println(request.getPathTranslated()); // null
-	 * 		System.out.println(request.getProtocol()); // HTTP/1.1
-	 */
+	public static void printHttpServletRequest(HttpServletRequest request) {
+		System.out.println();
+		System.out.println("/r ----------------------------- /r");
+		System.out.println("Method : " + request.getMethod()); // GET
+		System.out.println("PathInfo : " + request.getPathInfo()); // /bms
+		System.out.println("PathTranslated : " + request.getPathTranslated()); // null
+		System.out.println("ContextPath : " + request.getContextPath()); // /bms
+		System.out.println("ServerName : " + request.getServerName()); // localhost
+		System.out.println("ServletPath : " + request.getServletPath()); // /exception/throw
+		System.out.println("ServerPort : " + request.getServerPort()); // 8080
+		System.out.println("ServletContext : " + request.getServletPath()); // localhost
+		System.out.println("RequestURI : " + request.getRequestURI()); // /exception/throw
+		System.out.println("RequestURL : " + request.getRequestURL()); // /exception/throw
+		System.out.println("QueryString : " + request.getQueryString()); // bustCache=0.48901322528370006
+		System.out.println("AuthType : " + request.getAuthType()); // null
+		System.out.println("LocalAddr : " + request.getLocalAddr()); // 0:0:0:0:0:0:0:1
+		System.out.println("RemoteUser : " + request.getRemoteUser()); // null
+		System.out.println("RemoteAddr : " + request.getRemoteAddr()); // 0:0:0:0:0:0:0:1
+		System.out.println("RemoteHost : " + request.getRemoteHost()); // 0:0:0:0:0:0:0:1
+		System.out.println("RemotePort : " + request.getRemotePort()); // 52631
+		System.out.println("RequestedSessionId : " + request.getRequestedSessionId()); // null
+		System.out.println("Scheme : " + request.getScheme()); // http
+		System.out.println("Protocol : " + request.getProtocol()); // HTTP/1.1
+		System.out.println("ContentType : " + request.getContentType()); //
+		System.out.println("ContentLength : " + request.getContentLength()); //
+		System.out.println("ContentLengthLong : " + request.getContentLengthLong()); //
+		System.out.println("RequestedSessionId : " + request.getRequestedSessionId()); //
+		System.out.println("/ ----------------------------- /");
+		System.out.println();
+	}
 
 	/**
 	 * 获取所有请求参数
