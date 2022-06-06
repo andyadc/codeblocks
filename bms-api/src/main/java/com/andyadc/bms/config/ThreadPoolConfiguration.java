@@ -29,8 +29,21 @@ public class ThreadPoolConfiguration {
 		return executor;
 	}
 
+	@Bean("mvcTaskExecutor")
+	public ThreadPoolTaskExecutor mvcTaskExecutor() {
+		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+		executor.setThreadNamePrefix("MvcTask-");
+		executor.setCorePoolSize(Constants.PROCESSOR_NUM);
+		executor.setMaxPoolSize(Constants.PROCESSOR_NUM * 2);
+		executor.setQueueCapacity(50);
+		executor.setKeepAliveSeconds(60);
+		executor.setWaitForTasksToCompleteOnShutdown(true);
+		executor.setRejectedExecutionHandler(new ThreadPoolExecutor.DiscardOldestPolicy());
+
+		return executor;
+	}
+
 	private RejectedExecutionHandler rejectedExecutionHandler() {
 		return new ThreadPoolExecutor.CallerRunsPolicy();
 	}
-
 }
