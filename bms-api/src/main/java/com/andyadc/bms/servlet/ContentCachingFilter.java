@@ -1,5 +1,6 @@
 package com.andyadc.bms.servlet;
 
+import com.andyadc.bms.modules.log.service.LogRecordService;
 import com.andyadc.codeblocks.kit.idgen.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,7 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import javax.inject.Inject;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebFilter;
@@ -30,9 +32,19 @@ public class ContentCachingFilter extends OncePerRequestFilter {
 	private static final String TRACE_ID = "traceId";
 	private static final String HEADER_TRACE_ID = "X_TRACE_ID";
 
+	private LogRecordService logRecordService;
+
+	@Inject
+	public void setLogRecordService(LogRecordService logRecordService) {
+		this.logRecordService = logRecordService;
+	}
+
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 		System.out.println("IN ContentCachingFilter");
+
+		logRecordService.saveReqeustLog(request);
+
 		String traceId = request.getHeader(HEADER_TRACE_ID);
 		if (traceId == null || traceId.isEmpty()) {
 			traceId = UUID.randomUUID();
