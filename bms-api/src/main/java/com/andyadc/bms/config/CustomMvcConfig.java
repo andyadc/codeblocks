@@ -1,5 +1,7 @@
 package com.andyadc.bms.config;
 
+import com.andyadc.bms.management.interceptor.RequestInterceptor;
+import com.andyadc.bms.management.resolver.HeaderVersionArgumentResolver;
 import com.andyadc.bms.modules.file.FileStorageConstants;
 import com.andyadc.bms.modules.file.FileStorageSettings;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,14 +12,19 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.context.request.RequestContextListener;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.servlet.config.annotation.AsyncSupportConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
@@ -27,8 +34,11 @@ public class CustomMvcConfig implements WebMvcConfigurer {
 
 	private static final Logger logger = LoggerFactory.getLogger(CustomMvcConfig.class);
 
-	private FileStorageSettings fileStorageSettings;
 	private ObjectMapper objectMapper;
+	private ThreadPoolTaskExecutor threadPoolTaskExecutor;
+	private FileStorageSettings fileStorageSettings;
+	private RequestInterceptor requestInterceptor;
+	private HeaderVersionArgumentResolver headerVersionArgumentResolver;
 
 	@Inject
 	public void setFileStorageSettings(FileStorageSettings fileStorageSettings) {
@@ -38,6 +48,39 @@ public class CustomMvcConfig implements WebMvcConfigurer {
 	@Inject
 	public void setObjectMapper(ObjectMapper objectMapper) {
 		this.objectMapper = objectMapper;
+	}
+
+	@Inject
+	public void setRequestInterceptor(RequestInterceptor requestInterceptor) {
+		this.requestInterceptor = requestInterceptor;
+	}
+
+	@Inject
+	public void setHeaderVersionArgumentResolver(HeaderVersionArgumentResolver headerVersionArgumentResolver) {
+		this.headerVersionArgumentResolver = headerVersionArgumentResolver;
+	}
+
+	@Named("mvcTaskExecutor")
+	@Inject
+	public void setThreadPoolTaskExecutor(ThreadPoolTaskExecutor threadPoolTaskExecutor) {
+		this.threadPoolTaskExecutor = threadPoolTaskExecutor;
+	}
+
+	// ---------------------------------------------------------------------------------
+
+	@Override
+	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
+		resolvers.add(headerVersionArgumentResolver);
+	}
+
+	@Override
+	public void configureAsyncSupport(AsyncSupportConfigurer configurer) {
+		configurer.setTaskExecutor(threadPoolTaskExecutor);
+	}
+
+	@Override
+	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(requestInterceptor).addPathPatterns("/**");
 	}
 
 	@Override
