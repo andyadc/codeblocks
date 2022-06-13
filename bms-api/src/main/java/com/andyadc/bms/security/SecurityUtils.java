@@ -3,6 +3,7 @@ package com.andyadc.bms.security;
 import com.andyadc.bms.security.model.UserContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,7 +20,7 @@ public class SecurityUtils {
 	public static Optional<String> getCurrentUsername() {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if (authentication == null) {
-			logger.warn("No authentication in security context found");
+			logger.warn("No authentication in security context found.");
 			return Optional.empty();
 		}
 
@@ -35,7 +36,19 @@ public class SecurityUtils {
 			username = (String) target;
 		}
 
-		logger.debug("Found username [{}] in security context", username);
+		if (logger.isDebugEnabled()) {
+			logger.debug("Found user [{}] in security context.", username);
+		}
 		return Optional.ofNullable(username);
+	}
+
+	public static Object getPrincipal() {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (authentication != null
+			&& authentication.isAuthenticated()
+			&& !(authentication instanceof AnonymousAuthenticationToken)) {
+			return authentication.getPrincipal();
+		}
+		return null;
 	}
 }
