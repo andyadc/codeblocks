@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -95,11 +96,28 @@ public class CustomMvcConfig implements WebMvcConfigurer {
 
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+		// json
+		MappingJackson2HttpMessageConverter jsonConverter = this.createJsonHttpMessageConverter();
+
+		// xml
+		HttpMessageConverter<?> xmlConverter = this.createXmlHttpMessageConverter();
+
+		converters.add(jsonConverter);
+		converters.add(xmlConverter);
+	}
+
+	private HttpMessageConverter<Object> createXmlHttpMessageConverter() {
+		MappingJackson2XmlHttpMessageConverter xmlConverter = new MappingJackson2XmlHttpMessageConverter();
+		xmlConverter.setDefaultCharset(StandardCharsets.UTF_8);
+
+		return xmlConverter;
+	}
+
+	private MappingJackson2HttpMessageConverter createJsonHttpMessageConverter() {
 		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
 		converter.setDefaultCharset(StandardCharsets.UTF_8);
 		converter.setObjectMapper(objectMapper);
-
-		converters.add(converter);
+		return converter;
 	}
 
 	@Bean
