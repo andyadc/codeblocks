@@ -7,6 +7,8 @@ import java.util.Map;
 
 public class MapperProxy<T> implements InvocationHandler, Serializable {
 
+	private static final long serialVersionUID = -1536518541998092229L;
+
 	private final Class<T> mapperInterface;
 	private final Map<String, String> sqlSession;
 
