@@ -1,4 +1,10 @@
 package com.andyadc.abatis.session;
 
-public class SqlSession {
+public interface SqlSession {
+
+	<T> T selectOne(String statement);
+
+	<T> T selectOne(String statement, Object parameter);
+
+	<T> T getMapper(Class<T> type);
 }
