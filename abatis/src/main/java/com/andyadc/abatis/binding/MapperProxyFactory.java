@@ -1,7 +1,8 @@
 package com.andyadc.abatis.binding;
 
+import com.andyadc.abatis.session.SqlSession;
+
 import java.lang.reflect.Proxy;
-import java.util.Map;
 
 public class MapperProxyFactory<T> {
 
@@ -12,7 +13,7 @@ public class MapperProxyFactory<T> {
 	}
 
 	@SuppressWarnings({"unchecked"})
-	public T newInstance(Map<String, String> sqlSession) {
+	public T newInstance(SqlSession sqlSession) {
 		final MapperProxy<T> mapperProxy = new MapperProxy<>(sqlSession, mapperInterface);
 		return (T) Proxy.newProxyInstance(
 			mapperProxy.getClass().getClassLoader(),
