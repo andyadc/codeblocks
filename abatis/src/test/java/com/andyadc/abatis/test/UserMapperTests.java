@@ -21,6 +21,6 @@ public class UserMapperTests {
 //		System.out.println(userMapper);
 //
 //		String userName = userMapper.queryUserName("10001");
-		System.out.println(userName);
+//		System.out.println(userName);
 	}
 }

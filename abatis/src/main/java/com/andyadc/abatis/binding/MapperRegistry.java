@@ -1,5 +1,6 @@
 package com.andyadc.abatis.binding;
 
+import cn.hutool.core.lang.ClassScanner;
 import com.andyadc.abatis.session.SqlSession;
 
 import java.util.HashMap;
@@ -8,6 +9,9 @@ import java.util.Set;
 
 public class MapperRegistry {
 
+	/**
+	 * 将已添加的映射器代理加入到 HashMap
+	 */
 	private final Map<Class<?>, MapperProxyFactory<?>> knownMappers = new HashMap<>();
 
 	public <T> T getMapper(Class<T> type, SqlSession sqlSession) {
@@ -15,7 +19,6 @@ public class MapperRegistry {
 		if (mapperProxyFactory == null) {
 			throw new RuntimeException("Type " + type + " is not known to the MapperRegistry.");
 		}
-
 		try {
 			return mapperProxyFactory.newInstance(sqlSession);
 		} catch (Exception e) {
@@ -32,7 +35,6 @@ public class MapperRegistry {
 			}
 			// 注册映射器代理工厂
 			knownMappers.put(type, new MapperProxyFactory<>(type));
-
 		}
 	}
 
