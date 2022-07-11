@@ -33,7 +33,6 @@
 		<module>bms-api</module>
 		<module>bms-site</module>
 		<module>bms-temp</module>
-		<module>abatis</module>
 	</modules>
 
     <prerequisites>
