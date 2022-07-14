@@ -23,6 +23,8 @@ package com.andyadc.bms;
 // https://www.baeldung.com/exception-handling-for-rest-with-spring
 // https://www.baeldung.com/global-error-handler-in-a-spring-rest-api
 // https://thepracticaldeveloper.com/custom-error-handling-rest-controllers-spring-boot/
+// spring security exception
+// https://www.baeldung.com/spring-security-exceptionhandler
 
 // servlet
 // https://www.baeldung.com/spring-reading-httpservletrequest-multiple-times
