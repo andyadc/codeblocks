@@ -30,7 +30,7 @@ public class ContentCachingFilter extends OncePerRequestFilter {
 	private static final Logger logger = LoggerFactory.getLogger(ContentCachingFilter.class);
 
 	private static final String TRACE_ID = "traceId";
-	private static final String HEADER_TRACE_ID = "X_TRACE_ID";
+	private static final String HEADER_REQUEST_ID = "X-Request-Id";
 
 	private LogRecordService logRecordService;
 
@@ -45,7 +45,7 @@ public class ContentCachingFilter extends OncePerRequestFilter {
 
 		logRecordService.saveReqeustLog(request);
 
-		String traceId = request.getHeader(HEADER_TRACE_ID);
+		String traceId = request.getHeader(HEADER_REQUEST_ID);
 		if (traceId == null || traceId.isEmpty()) {
 			traceId = UUID.randomUUID();
 		}
@@ -56,6 +56,8 @@ public class ContentCachingFilter extends OncePerRequestFilter {
 		Instant start = Instant.now();
 
 		CachedBodyHttpServletRequest cachedBodyHttpServletRequest = new CachedBodyHttpServletRequest(request);
+
+		setHeader(response, traceId);
 		filterChain.doFilter(cachedBodyHttpServletRequest, response);
 
 		Instant end = Instant.now();
@@ -63,6 +65,15 @@ public class ContentCachingFilter extends OncePerRequestFilter {
 		logger.info("{} {} in {} ms", request.getMethod(), uri, Duration.between(start, end).toMillis());
 		RequestContextHolder.resetRequestAttributes();
 		MDC.clear();
+	}
+
+	private void setHeader(HttpServletResponse response, String traceId) {
+		response.setHeader("X-Request-Id", traceId);
+		response.setHeader("X-Frame-Options", "deny");
+		response.setHeader("X-XSS-Protection", "0");
+		response.setHeader("X-Content-Type-Options", "nosniff");
+		response.setHeader("Content-Security-Policy", "default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self'; frame-ancestors 'self'; form-action 'self';");
+		response.setHeader("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload");
 	}
 
 	@Override
