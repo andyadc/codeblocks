@@ -21,6 +21,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.Instant;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Order(value = Ordered.HIGHEST_PRECEDENCE)
 @Component
@@ -68,6 +70,7 @@ public class ContentCachingFilter extends OncePerRequestFilter {
 	}
 
 	private void setHeader(HttpServletResponse response, String traceId) {
+		response.setHeader("Date", DateTimeFormatter.ISO_ZONED_DATE_TIME.format(ZonedDateTime.now()));
 		response.setHeader("X-Request-Id", traceId);
 		response.setHeader("X-Frame-Options", "deny");
 		response.setHeader("X-XSS-Protection", "0");
