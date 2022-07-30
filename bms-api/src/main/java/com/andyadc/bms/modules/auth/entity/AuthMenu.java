@@ -1,18 +1,22 @@
 package com.andyadc.bms.modules.auth.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Table
-@Entity
+@Entity(name = "AuthMenu")
+@Table(name = "auth_menu")
 public class AuthMenu {
 
 	@Id
+	@GeneratedValue
 	private Long id;
+	@Column(name = "parent_id")
 	private Long parentId;
 	private Integer type;
 	private String name;
@@ -180,3 +184,4 @@ public class AuthMenu {
 		this.childMenu = childMenu;
 	}
 }
+

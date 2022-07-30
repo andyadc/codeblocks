@@ -9,7 +9,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 @Mapper
-public interface CommonMapper {
+public interface NativeMapper {
 
 	@Select("${sql}")
 	List<LinkedHashMap<String, Object>> select(@Param("sql") String sql);

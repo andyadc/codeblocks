@@ -5,8 +5,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 
+@Entity(name = "AuthUser")
 @Table(name = "auth_user")
-@Entity
 public class AuthUser {
 
 	@Id

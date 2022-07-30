@@ -3,7 +3,7 @@ package com.andyadc.bms.test.mapper;
 import com.andyadc.bms.modules.auth.entity.AuthUser;
 import com.andyadc.bms.modules.auth.mapper.AuthMapper;
 import com.andyadc.bms.modules.auth.mapper.AuthUserMapper;
-import com.andyadc.bms.modules.common.CommonMapper;
+import com.andyadc.bms.modules.common.NativeMapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
@@ -26,7 +26,7 @@ public class MapperTests {
 	@Inject
 	private AuthMapper authMapper;
 	@Inject
-	private CommonMapper commonMapper;
+	private NativeMapper nativeMapper;
 
 	@BeforeEach
 	public void before() {
@@ -39,12 +39,15 @@ public class MapperTests {
 	}
 
 	@Test
-	public void testCommonMapper() {
+	public void testNativeMapper() {
 		List<LinkedHashMap<String, Object>> list
-			= commonMapper.select("select * from auth_user");
+			= nativeMapper.select("select * from auth_user");
 		for (LinkedHashMap<String, Object> map : list) {
 			System.out.println(map);
 		}
+
+		Long result = nativeMapper.update("delete from auth_user where username = 'adc1'");
+		System.out.println(result);
 	}
 
 	@Test
