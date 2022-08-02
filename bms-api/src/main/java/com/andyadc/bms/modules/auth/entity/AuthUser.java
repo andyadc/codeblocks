@@ -1,5 +1,6 @@
 package com.andyadc.bms.modules.auth.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -15,13 +16,20 @@ public class AuthUser {
 	private String nickname;
 	private String password;
 	private String salt;
+
+	@Column(name = "phone_no")
 	private String phoneNo;
 	private String email;
 	private Integer type;
 	private Integer status;
 	private Integer deleted;
+
+	@Column(name = "create_time")
 	private LocalDateTime createTime;
+
+	@Column(name = "update_time")
 	private LocalDateTime updateTime;
+
 	private Integer version;
 	private String comment;
 

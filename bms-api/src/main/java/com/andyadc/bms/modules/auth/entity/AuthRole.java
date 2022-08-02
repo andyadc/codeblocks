@@ -1,8 +1,10 @@
 package com.andyadc.bms.modules.auth.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.time.LocalDateTime;
 
 @Entity(name = "AuthRole")
 @Table(name = "auth_role")
@@ -14,9 +16,16 @@ public class AuthRole {
 	private String code;
 	private Integer status;
 	private Integer sort;
+
+	@Column(name = "data_scope")
 	private Integer dataScope;
-	private String createTime;
-	private String updateTime;
+
+	@Column(name = "create_time")
+	private LocalDateTime createTime;
+
+	@Column(name = "update_time")
+	private LocalDateTime updateTime;
+
 	private Integer version;
 	private String comment;
 
@@ -71,19 +80,19 @@ public class AuthRole {
 		this.dataScope = dataScope;
 	}
 
-	public String getCreateTime() {
+	public LocalDateTime getCreateTime() {
 		return createTime;
 	}
 
-	public void setCreateTime(String createTime) {
+	public void setCreateTime(LocalDateTime createTime) {
 		this.createTime = createTime;
 	}
 
-	public String getUpdateTime() {
+	public LocalDateTime getUpdateTime() {
 		return updateTime;
 	}
 
-	public void setUpdateTime(String updateTime) {
+	public void setUpdateTime(LocalDateTime updateTime) {
 		this.updateTime = updateTime;
 	}
 

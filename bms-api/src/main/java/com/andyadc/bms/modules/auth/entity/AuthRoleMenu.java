@@ -1,5 +1,6 @@
 package com.andyadc.bms.modules.auth.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -10,7 +11,11 @@ public class AuthRoleMenu {
 
 	@Id
 	private Long id;
+
+	@Column(name = "role_id")
 	private Long roleId;
+
+	@Column(name = "menu_id")
 	private Long menuId;
 
 	public AuthRoleMenu() {

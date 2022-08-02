@@ -24,6 +24,7 @@ public class AuthMenu {
 	private String target;
 	private Integer sort;
 	private Integer visible;
+	private Integer cacheable;
 	private Integer status;
 	private LocalDateTime createTime;
 	private LocalDateTime updateTime;
@@ -130,6 +131,14 @@ public class AuthMenu {
 
 	public void setVisible(Integer visible) {
 		this.visible = visible;
+	}
+
+	public Integer getCacheable() {
+		return cacheable;
+	}
+
+	public void setCacheable(Integer cacheable) {
+		this.cacheable = cacheable;
 	}
 
 	public Integer getStatus() {

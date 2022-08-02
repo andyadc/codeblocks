@@ -1,5 +1,6 @@
 package com.andyadc.bms.modules.log.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -8,7 +9,7 @@ import javax.persistence.Table;
 import java.time.LocalDateTime;
 import java.util.StringJoiner;
 
-@Entity
+@Entity(name = "RequestLog")
 @Table(name = "request_log")
 public class RequestLog {
 
@@ -20,10 +21,20 @@ public class RequestLog {
 	private String method;
 	private String url;
 	private String page;
+
+	@Column(name = "query_string")
 	private String queryString;
+
+	@Column(name = "referer_page")
 	private String refererPage;
+
+	@Column(name = "user_agent")
 	private String userAgent;
+
+	@Column(name = "logged_time")
 	private LocalDateTime loggedTime;
+
+	@Column(name = "unique_visit")
 	private Boolean uniqueVisit;
 
 	public Long getId() {

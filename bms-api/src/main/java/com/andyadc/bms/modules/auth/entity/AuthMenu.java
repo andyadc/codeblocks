@@ -16,21 +16,29 @@ public class AuthMenu {
 	@Id
 	@GeneratedValue
 	private Long id;
+
 	@Column(name = "parent_id")
 	private Long parentId;
-	private Integer type;
+
 	private String name;
 	private String code;
 	private String permission;
 	private String component;
+	private Integer type;
 	private String path;
 	private String icon;
 	private String target;
 	private Integer sort;
 	private Integer visible;
+	private Integer cacheable;
 	private Integer status;
+
+	@Column(name = "create_time")
 	private LocalDateTime createTime;
+
+	@Column(name = "update_time")
 	private LocalDateTime updateTime;
+
 	private Integer version;
 	private String comment;
 
@@ -134,6 +142,14 @@ public class AuthMenu {
 
 	public void setVisible(Integer visible) {
 		this.visible = visible;
+	}
+
+	public Integer getCacheable() {
+		return cacheable;
+	}
+
+	public void setCacheable(Integer cacheable) {
+		this.cacheable = cacheable;
 	}
 
 	public Integer getStatus() {
