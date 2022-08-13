@@ -21,7 +21,7 @@
 		<commons-fileupload.version>1.4</commons-fileupload.version>
 		<guava.version>31.1-jre</guava.version>
 		<jjwt.version>0.11.5</jjwt.version>
-		<passay.version>1.6.1</passay.version>
+		<passay.version>1.6.2</passay.version>
 
 		<java.version>1.8</java.version>
 		<maven.compiler.source>8</maven.compiler.source>
