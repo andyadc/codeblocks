@@ -1,6 +1,5 @@
 package com.andyadc.codeblocks.framework.http;
 
-import com.andyadc.codeblocks.common.annotation.NotNull;
 import com.andyadc.codeblocks.kit.collection.MapUtil;
 import com.andyadc.codeblocks.kit.text.StringUtil;
 import okhttp3.Call;
@@ -178,25 +177,25 @@ public class OkHttpClientTemplate extends AbstractHttpClientTemplate {
 	}
 
 	/**
+	 * TODO
 	 * Asynchronous request
 	 */
 	private void asyncProcess(Request request) {
+
 		httpClient.newCall(request).enqueue(new Callback() {
 
 			@Override
-			public void onFailure(@NotNull Call call, @NotNull IOException e) {
+			public void onFailure(Call call, IOException e) {
 				logger.error("asyncProcess error", e);
 			}
 
 			@Override
-			public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+			public void onResponse(Call call, Response response) throws IOException {
 				try (ResponseBody responseBody = response.body()) {
 					if (!response.isSuccessful()) {
 						throw new IOException("Unexpected code " + response);
 					}
-					ResponseBody body = response.body();
-					String result = body.string();
-
+					String result = responseBody.string();
 				}
 			}
 		});
