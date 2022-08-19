@@ -11,7 +11,7 @@ public class Geoip2Tests {
 
 	@Test
 	public void testCountry() throws Exception{
-		File database = new File("D:\\maxmind\\Developer\\GeoLite2-Country.mmdb");
+		File database = new File("D:\\Developer\\maxmind\\GeoLite2-Country.mmdb");
 		DatabaseReader reader = new DatabaseReader.Builder(database).build();
 
 		InetAddress ipAddress = InetAddress.getByName("101.86.215.146");
