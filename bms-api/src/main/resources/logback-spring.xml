@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
-    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 
-    <property name="APP_NAME" value="bms-api"/>
-    <property name="LOG_PATH" value="/opt/logs/${APP_NAME}"/>
+	<include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+	<include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
 
-    <!-- File log pattern -->
-    <property name="FILE_LOG_PATTERN"
-              value="%d{yyyy-MM-dd HH:mm:ss.SSS} [level=%level] [traceId=%X{traceId}] [thread=%thread] [class=%logger{39}] - %msg%n"
-    />
+	<property name="APP_NAME" value="bms-api"/>
+	<property name="LOG_PATH" value="/opt/logs/${APP_NAME}"/>
 
-    <!-- Output to File -->
-    <appender name="FILE_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_PATH}/${APP_NAME}.log</file>
+	<!-- File log pattern -->
+	<property name="FILE_LOG_PATTERN"
+			  value="%d{yyyy-MM-dd HH:mm:ss.SSS} [level=%level] [traceId=%X{traceId}] [thread=%thread] [class=%logger{39}] - %msg%n"
+	/>
+
+	<!-- Output to File -->
+	<appender name="FILE_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${LOG_PATH}/${APP_NAME}.log</file>
 		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
 			<level>INFO</level>
 		</filter>
@@ -25,7 +26,7 @@
 			<maxFileSize>10MB</maxFileSize>
 			<totalSizeCap>10GB</totalSizeCap>
 		</rollingPolicy>
-		<!-- 日志输出格式 -->
+		<!-- Log output format -->
 		<encoder>
 			<pattern>${FILE_LOG_PATTERN}</pattern>
 		</encoder>
@@ -46,6 +47,14 @@
 	<logger name="com.zaxxer.hikari" level="info" additivity="false">
 		<appender-ref ref="CONSOLE"/>
 		<appender-ref ref="ASYNCLOG"/>
+	</logger>
+
+	<logger name="org.hibernate.stat" level="debug" additivity="false">
+		<appender-ref ref="CONSOLE"/>
+	</logger>
+	<!-- spring.jpa.show-sql=true -->
+	<logger name="org.hibernate.SQL" level="debug" additivity="false">
+		<appender-ref ref="CONSOLE"/>
 	</logger>
 
 	<root level="INFO">

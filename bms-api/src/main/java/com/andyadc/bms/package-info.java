@@ -85,3 +85,8 @@ package com.andyadc.bms;
 
 // releases refer
 // https://github.com/spring-projects/spring-boot/releases
+
+// JPA
+// https://thorben-janssen.com/6-performance-pitfalls-when-using-spring-data-jpa/
+// https://blog.ippon.tech/boost-the-performance-of-your-spring-data-jpa-application/
+
