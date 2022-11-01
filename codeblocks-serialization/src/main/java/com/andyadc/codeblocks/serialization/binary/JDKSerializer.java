@@ -9,6 +9,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+/**
+ * TODO
+ * ByteArrayOutputStream 和 ByteArrayInputStream是伪装成流的字节数组，
+ * 它们不会锁定任何文件句柄和端口，如果不再被使用，字节数组会被垃圾回收掉，所以不需要关闭。
+ */
 public class JDKSerializer {
 
 	private static final Logger logger = LoggerFactory.getLogger(JDKSerializer.class);
