@@ -80,18 +80,18 @@
 		<dependency>
 			<groupId>com.auth0</groupId>
 			<artifactId>java-jwt</artifactId>
-			<version>4.0.0</version>
+			<version>4.2.1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.auth0</groupId>
 			<artifactId>jwks-rsa</artifactId>
-			<version>0.21.1</version>
+			<version>0.21.2</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.opencsv</groupId>
 			<artifactId>opencsv</artifactId>
-			<version>5.7.0</version>
+			<version>5.7.1</version>
 		</dependency>
 
 		<!-- https://failsafe.dev/ -->
@@ -104,7 +104,7 @@
 		<dependency>
 			<groupId>org.bouncycastle</groupId>
 			<artifactId>bcprov-jdk18on</artifactId>
-			<version>1.71.1</version>
+			<version>1.72</version>
 		</dependency>
 
 		<!-- https://github.com/vavr-io/vavr -->
@@ -150,22 +150,32 @@
 		<dependency>
 			<groupId>org.ehcache</groupId>
 			<artifactId>ehcache</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.glassfish.jaxb</groupId>
+					<artifactId>jaxb-runtime</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- https://github.com/snazy/ohc -->
+		<!--
 		<dependency>
 			<groupId>org.caffinitas.ohc</groupId>
 			<artifactId>ohc-core</artifactId>
 			<version>0.7.4</version>
 		</dependency>
+		 -->
 
 		<!-- https://github.com/openjdk/jol -->
 		<!-- Java Object Layout: Core -->
+		<!--
 		<dependency>
 			<groupId>org.openjdk.jol</groupId>
 			<artifactId>jol-core</artifactId>
 			<version>0.16</version>
 		</dependency>
+		 -->
 
 		<dependency>
 			<groupId>org.apache.kafka</groupId>
@@ -211,7 +221,7 @@
 		<dependency>
 			<groupId>org.mybatis.dynamic-sql</groupId>
 			<artifactId>mybatis-dynamic-sql</artifactId>
-			<version>1.4.0</version>
+			<version>1.4.1</version>
 		</dependency>
 
 		<!-- https://github.com/JSQLParser/JSqlParser -->
@@ -283,7 +293,7 @@
 		<dependency>
 			<groupId>com.konghq</groupId>
 			<artifactId>unirest-java</artifactId>
-			<version>3.13.10</version>
+			<version>3.13.12</version>
 		</dependency>
 
 		<dependency>
