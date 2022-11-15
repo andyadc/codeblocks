@@ -62,7 +62,7 @@
 		<guava.version>31.1-jre</guava.version>
 		<tomcat-jdbc.version>9.0.67</tomcat-jdbc.version>
 		<hikaricp.version>4.0.3</hikaricp.version>
-		<druid.version>1.2.12</druid.version>
+		<druid.version>1.2.15</druid.version>
 		<mysql-driver.version>8.0.31</mysql-driver.version>
 		<h2.version>2.1.212</h2.version>
 		<jsqlparser.version>4.5</jsqlparser.version>
@@ -88,11 +88,11 @@
 		<poi.version>5.2.3</poi.version>
 		<slf4j.version>1.7.36</slf4j.version>
 		<logback.version>1.2.11</logback.version>
-		<mockito.version>4.8.1</mockito.version>
+		<mockito.version>4.9.0</mockito.version>
 		<assertj.version>3.23.1</assertj.version>
 		<junit.version>4.13.2</junit.version>
 		<junit-jupiter.version>5.9.1</junit-jupiter.version>
-		<jmh.version>1.35</jmh.version>
+		<jmh.version>1.36</jmh.version>
 
 		<!-- maven plugins -->
 		<jetty-maven-plugin.version>9.4.49.v20220914</jetty-maven-plugin.version>
