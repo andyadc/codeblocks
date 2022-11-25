@@ -10,35 +10,34 @@ import java.util.TimeZone;
 
 /**
  * <code>org.apache.commons.lang3.time.DateUtils</code>
- *
  */
 public final class DateUtil {
 
 	/**
 	 * thread safe
 	 */
-	private static final ThreadLocal<DateFormat> PATTERN_YYYY_MM_DD_HH_MM_SS_SSS
-		= ThreadLocal.withInitial(() -> new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS"));
+	private static final ThreadLocal<DateFormat> PATTERN_ISO_8601
+		= ThreadLocal.withInitial(() -> new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX"));
 
 	private DateUtil() {
 	}
 
 	/**
-	 * @return yyyy-MM-dd HH:mm:ss.SSS
+	 * @return 2022-11-25T17:04:55.877+08:00
 	 */
 	public static String currentDateTime() {
 		return date2String(new Date());
 	}
 
 	/**
-	 * @return yyyy-MM-dd HH:mm:ss.SSS
+	 * @return 2022-11-25T17:04:55.877+08:00
 	 */
 	public static String date2String(Date date) {
-		return PATTERN_YYYY_MM_DD_HH_MM_SS_SSS.get().format(date);
+		return PATTERN_ISO_8601.get().format(date);
 	}
 
 	/**
-	 * @param pattern dd/MM/yyyy HH:mm:ss Z;
+	 * @param pattern pattern
 	 */
 	public static String date2String(Date date, String pattern) {
 		return new SimpleDateFormat(pattern).format(date);
