@@ -15,7 +15,7 @@
 		<web.port>9999</web.port>
 
 		<spring.version>5.3.21</spring.version>
-		<aspectj.version>1.9.9.1</aspectj.version>
+		<aspectj.version>1.9.19</aspectj.version>
 		<mybatis.version>3.5.11</mybatis.version>
 		<mybatis-spring.version>2.1.0</mybatis-spring.version>
 		<mysql-driver.version>8.0.31</mysql-driver.version>
