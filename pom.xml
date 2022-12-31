@@ -67,7 +67,7 @@
 		<h2.version>2.1.212</h2.version>
 		<jsqlparser.version>4.5</jsqlparser.version>
 		<fst.version>2.57</fst.version>
-		<kryo.version>5.3.0</kryo.version>
+		<kryo.version>5.4.0</kryo.version>
 		<protostuff.version>1.8.0</protostuff.version>
 		<hessian.version>4.0.66</hessian.version>
 		<cglib.version>3.3.0</cglib.version>
