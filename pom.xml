@@ -57,10 +57,10 @@
 		<curator.version>5.4.0</curator.version>
 		<rabbitmq-clients.version>5.16.0</rabbitmq-clients.version>
 		<jackson.version>2.14.1</jackson.version>
-		<fastjson.version>2.0.22</fastjson.version>
+		<fastjson.version>2.0.23</fastjson.version>
 		<joda-time.version>2.12.2</joda-time.version>
 		<guava.version>31.1-jre</guava.version>
-		<tomcat-jdbc.version>9.0.70</tomcat-jdbc.version>
+		<tomcat-jdbc.version>9.0.71</tomcat-jdbc.version>
 		<hikaricp.version>4.0.3</hikaricp.version>
 		<druid.version>1.2.15</druid.version>
 		<mysql-driver.version>8.0.31</mysql-driver.version>
@@ -89,7 +89,7 @@
 		<slf4j.version>1.7.36</slf4j.version>
 		<logback.version>1.2.11</logback.version>
 		<mockito.version>4.11.0</mockito.version>
-		<assertj.version>3.24.1</assertj.version>
+		<assertj.version>3.24.2</assertj.version>
 		<junit.version>4.13.2</junit.version>
 		<junit-jupiter.version>5.9.2</junit-jupiter.version>
 		<jmh.version>1.36</jmh.version>
