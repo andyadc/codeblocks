@@ -70,6 +70,7 @@
 		<kryo.version>5.4.0</kryo.version>
 		<protostuff.version>1.8.0</protostuff.version>
 		<hessian.version>4.0.66</hessian.version>
+		<byte-buddy.version>1.12.22</byte-buddy.version>
 		<cglib.version>3.3.0</cglib.version>
 		<objenesis.version>3.3</objenesis.version>
 		<javassist.version>3.29.2-GA</javassist.version>
@@ -321,9 +322,9 @@
             </dependency>
             <dependency>
                 <groupId>io.protostuff</groupId>
-                <artifactId>protostuff-runtime</artifactId>
-                <version>${protostuff.version}</version>
-            </dependency>
+				<artifactId>protostuff-runtime</artifactId>
+				<version>${protostuff.version}</version>
+			</dependency>
 
 			<dependency>
 				<groupId>com.caucho</groupId>
@@ -331,16 +332,21 @@
 				<version>${hessian.version}</version>
 			</dependency>
 
-            <dependency>
-                <groupId>cglib</groupId>
-                <artifactId>cglib</artifactId>
-                <version>${cglib.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.objenesis</groupId>
-                <artifactId>objenesis</artifactId>
-                <version>${objenesis.version}</version>
-            </dependency>
+			<dependency>
+				<groupId>net.bytebuddy</groupId>
+				<artifactId>byte-buddy</artifactId>
+				<version>${byte-buddy.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>cglib</groupId>
+				<artifactId>cglib</artifactId>
+				<version>${cglib.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.objenesis</groupId>
+				<artifactId>objenesis</artifactId>
+				<version>${objenesis.version}</version>
+			</dependency>
             <dependency>
 				<groupId>org.javassist</groupId>
 				<artifactId>javassist</artifactId>
