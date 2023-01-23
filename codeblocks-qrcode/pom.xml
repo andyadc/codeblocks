@@ -20,7 +20,7 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 
-		<batik.version>1.14</batik.version>
+		<batik.version>1.16</batik.version>
 	</properties>
 
     <dependencies>
@@ -41,6 +41,12 @@
 			<groupId>org.apache.xmlgraphics</groupId>
 			<artifactId>batik-svggen</artifactId>
 			<version>${batik.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-logging</groupId>
+					<artifactId>commons-logging</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.xmlgraphics</groupId>
