@@ -46,7 +46,7 @@
 		<httpcomponents.version>4.5.13</httpcomponents.version>
 		<okhttp.version>4.10.0</okhttp.version>
 		<hibernate-validator.version>6.2.5.Final</hibernate-validator.version>
-		<mybatis.version>3.5.12</mybatis.version>
+		<mybatis.version>3.5.13</mybatis.version>
 		<mybatis-spring.version>2.1.0</mybatis-spring.version>
 		<spring-data-redis.version>2.7.8</spring-data-redis.version>
 		<zookeeper.version>3.8.1</zookeeper.version>
