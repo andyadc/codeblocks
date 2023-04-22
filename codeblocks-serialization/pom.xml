@@ -55,10 +55,10 @@
 			<artifactId>protostuff-runtime</artifactId>
 			<scope>provided</scope>
 		</dependency>
+		<!-- snappy-java: A fast compression/decompression library -->
 		<dependency>
 			<groupId>org.xerial.snappy</groupId>
 			<artifactId>snappy-java</artifactId>
-			<version>1.1.9.1</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>

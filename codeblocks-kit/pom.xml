@@ -96,7 +96,7 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- ipaddress -->
+		<!-- IPAddress - Library for handling IP addresses, both IPv4 and IPv6 -->
 		<dependency>
 			<groupId>com.github.seancfoley</groupId>
 			<artifactId>ipaddress</artifactId>
