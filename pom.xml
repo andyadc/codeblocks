@@ -47,10 +47,10 @@
 		<okhttp.version>4.11.0</okhttp.version>
 		<hibernate-validator.version>6.2.5.Final</hibernate-validator.version>
 		<mybatis.version>3.5.13</mybatis.version>
-		<mybatis-spring.version>2.1.0</mybatis-spring.version>
+		<mybatis-spring.version>2.1.1</mybatis-spring.version>
 		<spring-data-redis.version>2.7.11</spring-data-redis.version>
 		<zookeeper.version>3.8.1</zookeeper.version>
-		<redisson.version>3.21.1</redisson.version>
+		<redisson.version>3.21.3</redisson.version>
 		<jedis.version>4.3.2</jedis.version>
 		<lettuce.version>6.2.3.RELEASE</lettuce.version>
 		<kafka-clients.version>3.1.2</kafka-clients.version>
