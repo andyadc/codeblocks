@@ -50,7 +50,7 @@
 		<mybatis-spring.version>2.1.1</mybatis-spring.version>
 		<spring-data-redis.version>2.7.11</spring-data-redis.version>
 		<zookeeper.version>3.8.1</zookeeper.version>
-		<redisson.version>3.22.1</redisson.version>
+		<redisson.version>3.23.0</redisson.version>
 		<jedis.version>4.4.3</jedis.version>
 		<lettuce.version>6.2.3.RELEASE</lettuce.version>
 		<kafka-clients.version>3.1.2</kafka-clients.version>
@@ -67,7 +67,7 @@
 		<h2.version>2.2.220</h2.version>
 		<jsqlparser.version>4.6</jsqlparser.version>
 		<fst.version>2.57</fst.version>
-		<snappy.version>1.1.9.1</snappy.version>
+		<snappy.version>1.1.10.1</snappy.version>
 		<kryo.version>5.5.0</kryo.version>
 		<protostuff.version>1.8.0</protostuff.version>
 		<hessian.version>4.0.66</hessian.version>
