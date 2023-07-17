@@ -12,6 +12,9 @@ import java.net.URI;
 import java.time.Duration;
 import java.time.Instant;
 
+/**
+ * https://www.baeldung.com/spring-resttemplate-logging
+ */
 public class LoggingInterceptor implements ClientHttpRequestInterceptor {
 
 	private static final Logger logger = LoggerFactory.getLogger(LoggingInterceptor.class);
