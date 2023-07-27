@@ -45,7 +45,7 @@
             </bean>
 
             <!-- 等价于下面 xml 配置 -->
-            <!--<bean class="com.andyadc.codeblocks.framework.jackson.CustomerMappingJackson2HttpMessageConverter">-->
+            <!--<bean class="com.andyadc.codeblocks.framework.jackson.CustomMappingJackson2HttpMessageConverter">-->
             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
                 <property name="prettyPrint" value="false"/>
                 <property name="objectMapper">
