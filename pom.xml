@@ -52,7 +52,7 @@
 		<zookeeper.version>3.9.0</zookeeper.version>
 		<redisson.version>3.23.3</redisson.version>
 		<jedis.version>4.4.3</jedis.version>
-		<lettuce.version>6.2.5.RELEASE</lettuce.version>
+		<lettuce.version>6.2.6.RELEASE</lettuce.version>
 		<kafka-clients.version>3.1.2</kafka-clients.version>
 		<curator.version>5.5.0</curator.version>
 		<rabbitmq-clients.version>5.18.0</rabbitmq-clients.version>
@@ -60,7 +60,7 @@
 		<fastjson.version>2.0.39</fastjson.version>
 		<joda-time.version>2.12.5</joda-time.version>
 		<guava.version>32.1.2-jre</guava.version>
-		<tomcat-jdbc.version>9.0.75</tomcat-jdbc.version>
+		<tomcat-jdbc.version>9.0.79</tomcat-jdbc.version>
 		<hikaricp.version>4.0.3</hikaricp.version>
 		<druid.version>1.2.18</druid.version>
 		<mysql-driver.version>8.1.0</mysql-driver.version>
