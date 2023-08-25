@@ -40,15 +40,15 @@
 	</prerequisites>
 
 	<properties>
-		<spring.version>5.3.27</spring.version>
+		<spring.version>5.3.29</spring.version>
 		<aspectj.version>1.9.20</aspectj.version>
-		<netty.version>4.1.91.Final</netty.version>
+		<netty.version>4.1.97.Final</netty.version>
 		<httpcomponents.version>4.5.13</httpcomponents.version>
 		<okhttp.version>4.11.0</okhttp.version>
 		<hibernate-validator.version>6.2.5.Final</hibernate-validator.version>
 		<mybatis.version>3.5.13</mybatis.version>
 		<mybatis-spring.version>2.1.1</mybatis-spring.version>
-		<spring-data-redis.version>2.7.11</spring-data-redis.version>
+		<spring-data-redis.version>2.7.15</spring-data-redis.version>
 		<zookeeper.version>3.9.0</zookeeper.version>
 		<redisson.version>3.23.3</redisson.version>
 		<jedis.version>4.4.3</jedis.version>
