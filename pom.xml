@@ -41,7 +41,7 @@
 
 	<properties>
 		<spring.version>5.3.29</spring.version>
-		<aspectj.version>1.9.20</aspectj.version>
+		<aspectj.version>1.9.20.1</aspectj.version>
 		<netty.version>4.1.97.Final</netty.version>
 		<httpcomponents.version>4.5.13</httpcomponents.version>
 		<okhttp.version>4.11.0</okhttp.version>
@@ -51,18 +51,18 @@
 		<spring-data-redis.version>2.7.15</spring-data-redis.version>
 		<zookeeper.version>3.9.0</zookeeper.version>
 		<redisson.version>3.23.3</redisson.version>
-		<jedis.version>4.4.3</jedis.version>
+		<jedis.version>4.4.4</jedis.version>
 		<lettuce.version>6.2.6.RELEASE</lettuce.version>
 		<kafka-clients.version>3.1.2</kafka-clients.version>
 		<curator.version>5.5.0</curator.version>
 		<rabbitmq-clients.version>5.18.0</rabbitmq-clients.version>
 		<jackson.version>2.15.2</jackson.version>
-		<fastjson.version>2.0.39</fastjson.version>
+		<fastjson.version>2.0.40</fastjson.version>
 		<joda-time.version>2.12.5</joda-time.version>
 		<guava.version>32.1.2-jre</guava.version>
 		<tomcat-jdbc.version>9.0.79</tomcat-jdbc.version>
 		<hikaricp.version>4.0.3</hikaricp.version>
-		<druid.version>1.2.18</druid.version>
+		<druid.version>1.2.19</druid.version>
 		<mysql-driver.version>8.1.0</mysql-driver.version>
 		<h2.version>2.2.222</h2.version>
 		<jsqlparser.version>4.7</jsqlparser.version>
