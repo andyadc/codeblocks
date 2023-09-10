@@ -38,10 +38,12 @@ public final class ServletUtil {
 
 	/**
 	 * post请求处理：获取 Body 参数，转换为SortedMap
+	 * TODO
 	 */
 	public SortedMap<String, String> getBodyParams(final HttpServletRequest request) throws IOException {
-		byte[] requestBody = StreamUtils.copyToByteArray(request.getInputStream());
-		String body = new String(requestBody);
-		return JsonUtil.json2Object(body, SortedMap.class);
+//		byte[] requestBody = StreamUtils.copyToByteArray(request.getInputStream());
+//		String body = new String(requestBody);
+//		return JsonUtil.json2Object(body, SortedMap.class);
+		return null;
 	}
 }
