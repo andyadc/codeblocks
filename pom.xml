@@ -83,7 +83,7 @@
 		<commons-beanutils.version>1.9.4</commons-beanutils.version>
 		<commons-pool.version>2.11.1</commons-pool.version>
 		<commons-io.version>2.13.0</commons-io.version>
-		<commons-dbutils.version>1.8.0</commons-dbutils.version>
+		<commons-dbutils.version>1.8.1</commons-dbutils.version>
 		<caffeine.version>2.9.3</caffeine.version>
 		<ehcache.version>3.10.8</ehcache.version>
 		<zxing.version>3.5.2</zxing.version>
