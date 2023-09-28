@@ -55,7 +55,7 @@
 		<lettuce.version>6.2.6.RELEASE</lettuce.version>
 		<kafka-clients.version>3.1.2</kafka-clients.version>
 		<curator.version>5.5.0</curator.version>
-		<rabbitmq-clients.version>5.18.0</rabbitmq-clients.version>
+		<rabbitmq-clients.version>5.19.0</rabbitmq-clients.version>
 		<jackson.version>2.15.2</jackson.version>
 		<fastjson.version>2.0.40</fastjson.version>
 		<joda-time.version>2.12.5</joda-time.version>
@@ -67,7 +67,7 @@
 		<h2.version>2.2.222</h2.version>
 		<jsqlparser.version>4.7</jsqlparser.version>
 		<fst.version>2.57</fst.version>
-		<snappy.version>1.1.10.3</snappy.version>
+		<snappy.version>1.1.10.5</snappy.version>
 		<kryo.version>5.5.0</kryo.version>
 		<protostuff.version>1.8.0</protostuff.version>
 		<hessian.version>4.0.66</hessian.version>
