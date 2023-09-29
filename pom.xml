@@ -51,7 +51,7 @@
 		<spring-data-redis.version>2.7.15</spring-data-redis.version>
 		<zookeeper.version>3.9.0</zookeeper.version>
 		<redisson.version>3.23.5</redisson.version>
-		<jedis.version>4.4.4</jedis.version>
+		<jedis.version>4.4.5</jedis.version>
 		<lettuce.version>6.2.6.RELEASE</lettuce.version>
 		<kafka-clients.version>3.1.2</kafka-clients.version>
 		<curator.version>5.5.0</curator.version>
@@ -99,7 +99,7 @@
 
 		<!-- maven plugins -->
 		<jetty-maven-plugin.version>9.4.52.v20230823</jetty-maven-plugin.version>
-		<versions-maven-plugin.version>2.16.0</versions-maven-plugin.version>
+		<versions-maven-plugin.version>2.16.1</versions-maven-plugin.version>
 
 		<java.version>1.8</java.version>
 		<encoding>UTF-8</encoding>
