@@ -1,5 +1,7 @@
-package com.andyadc.codeblocks.test.disruptor;
+package com.andyadc.codeblocks.test.disruptor.sample01;
 
+import com.andyadc.codeblocks.test.disruptor.EventConsumer;
+import com.andyadc.codeblocks.test.disruptor.ValueEvent;
 import com.lmax.disruptor.EventHandler;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
