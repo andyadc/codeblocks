@@ -1,7 +1,7 @@
 package com.andyadc.codeblocks.common.jar;
 
-import com.andyadc.codeblocks.common.constants.FileSuffixConstants;
-import com.andyadc.codeblocks.common.constants.ProtocolConstants;
+import com.andyadc.codeblocks.common.constants.FileSuffixConstant;
+import com.andyadc.codeblocks.common.constants.ProtocolConstant;
 import com.andyadc.codeblocks.common.constants.SeparatorConstants;
 import com.andyadc.codeblocks.common.function.Streams;
 import com.andyadc.codeblocks.common.lang.StringUtils;
@@ -43,19 +43,19 @@ public class JarUtils {
 	}
 
 	/**
-	 * Assert <code>jarURL</code> argument is valid , only supported protocols : {@link ProtocolConstants#JAR jar} and
-	 * {@link ProtocolConstants#FILE file}
+	 * Assert <code>jarURL</code> argument is valid , only supported protocols : {@link ProtocolConstant#JAR jar} and
+	 * {@link ProtocolConstant#FILE file}
 	 *
 	 * @param jarURL {@link URL} of {@link JarFile} or {@link JarEntry}
 	 * @throws NullPointerException     If <code>jarURL</code> is <code>null</code>
-	 * @throws IllegalArgumentException If {@link URL#getProtocol()} is not {@link ProtocolConstants#JAR jar} or {@link ProtocolConstants#FILE
+	 * @throws IllegalArgumentException If {@link URL#getProtocol()} is not {@link ProtocolConstant#JAR jar} or {@link ProtocolConstant#FILE
 	 *                                  file}
 	 */
 	protected static void assertJarURLProtocol(URL jarURL) throws NullPointerException, IllegalArgumentException {
 		final String protocol = jarURL.getProtocol(); //NPE check
-		if (!ProtocolConstants.JAR.equals(protocol)
-			&& !ProtocolConstants.FILE.equals(protocol)) {
-			String message = String.format("jarURL Protocol[%s] is unsupported ,except %s and %s ", protocol, ProtocolConstants.JAR, ProtocolConstants.FILE);
+		if (!ProtocolConstant.JAR.equals(protocol)
+			&& !ProtocolConstant.FILE.equals(protocol)) {
+			String message = String.format("jarURL Protocol[%s] is unsupported ,except %s and %s ", protocol, ProtocolConstant.JAR, ProtocolConstant.FILE);
 			throw new IllegalArgumentException(message);
 		}
 	}
@@ -87,7 +87,7 @@ public class JarUtils {
 	 */
 	public static String resolveJarAbsolutePath(URL jarURL) throws NullPointerException, IllegalArgumentException {
 		assertJarURLProtocol(jarURL);
-		File archiveFile = URLUtils.resolveArchiveFile(jarURL, FileSuffixConstants.JAR);
+		File archiveFile = URLUtils.resolveArchiveFile(jarURL, FileSuffixConstant.JAR);
 		return archiveFile == null ? null : archiveFile.getAbsolutePath();
 	}
 

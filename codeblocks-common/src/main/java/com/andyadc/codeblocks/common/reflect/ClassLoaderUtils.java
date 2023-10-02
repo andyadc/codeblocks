@@ -1,8 +1,8 @@
 package com.andyadc.codeblocks.common.reflect;
 
-import com.andyadc.codeblocks.common.constants.Constants;
-import com.andyadc.codeblocks.common.constants.FileSuffixConstants;
-import com.andyadc.codeblocks.common.constants.PathConstants;
+import com.andyadc.codeblocks.common.constants.Constant;
+import com.andyadc.codeblocks.common.constants.FileSuffixConstant;
+import com.andyadc.codeblocks.common.constants.PathConstant;
 import com.andyadc.codeblocks.common.lang.StringUtils;
 import com.andyadc.codeblocks.common.util.CollectionUtils;
 import com.andyadc.codeblocks.common.util.MapUtils;
@@ -21,8 +21,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.jar.JarFile;
 
-import static com.andyadc.codeblocks.common.constants.SystemConstants.JAVA_VENDOR;
-import static com.andyadc.codeblocks.common.constants.SystemConstants.JAVA_VERSION;
+import static com.andyadc.codeblocks.common.constants.SystemConstant.JAVA_VENDOR;
+import static com.andyadc.codeblocks.common.constants.SystemConstant.JAVA_VERSION;
 import static com.andyadc.codeblocks.common.util.CollectionUtils.asSet;
 import static java.util.Collections.emptySet;
 import static java.util.Collections.list;
@@ -307,7 +307,7 @@ public abstract class ClassLoaderUtils {
 	 * @throws NullPointerException If any argument is <code>null</code>
 	 */
 	public static URL getClassResource(ClassLoader classLoader, String className) {
-		final String resourceName = className + FileSuffixConstants.CLASS;
+		final String resourceName = className + FileSuffixConstant.CLASS;
 		return getResource(classLoader, ResourceType.CLASS, resourceName);
 	}
 
@@ -451,13 +451,13 @@ public abstract class ClassLoaderUtils {
 		CLASS {
 			@Override
 			boolean supported(String name) {
-				return StringUtils.endsWith(name, FileSuffixConstants.CLASS);
+				return StringUtils.endsWith(name, FileSuffixConstant.CLASS);
 			}
 
 			@Override
 			public String normalize(String name) {
-				String className = StringUtils.replace(name, FileSuffixConstants.CLASS, StringUtils.EMPTY);
-				return StringUtils.replace(className, Constants.DOT, PathConstants.SLASH) + FileSuffixConstants.CLASS;
+				String className = StringUtils.replace(name, FileSuffixConstant.CLASS, StringUtils.EMPTY);
+				return StringUtils.replace(className, Constant.DOT, PathConstant.SLASH) + FileSuffixConstant.CLASS;
 			}
 		},
 		PACKAGE {
@@ -465,13 +465,13 @@ public abstract class ClassLoaderUtils {
 			boolean supported(String name) {
 				//TODO: use regexp to match more precise
 				return !CLASS.supported(name)
-					&& !StringUtils.contains(name, PathConstants.SLASH)
-					&& !StringUtils.contains(name, PathConstants.BACK_SLASH);
+					&& !StringUtils.contains(name, PathConstant.SLASH)
+					&& !StringUtils.contains(name, PathConstant.BACK_SLASH);
 			}
 
 			@Override
 			String normalize(String name) {
-				return StringUtils.replace(name, Constants.DOT, PathConstants.SLASH) + PathConstants.SLASH;
+				return StringUtils.replace(name, Constant.DOT, PathConstant.SLASH) + PathConstant.SLASH;
 			}
 		};
 

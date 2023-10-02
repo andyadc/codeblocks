@@ -2,7 +2,7 @@ package com.andyadc.codeblocks.common.constants;
 
 import static java.lang.System.getProperty;
 
-public interface SystemConstants {
+public interface SystemConstant {
 
 	String JAVA_VERSION = getProperty("java.version");
 

@@ -1,7 +1,7 @@
 package com.andyadc.codeblocks.common.util;
 
-import com.andyadc.codeblocks.common.constants.Constants;
-import com.andyadc.codeblocks.common.constants.PathConstants;
+import com.andyadc.codeblocks.common.constants.Constant;
+import com.andyadc.codeblocks.common.constants.PathConstant;
 import com.andyadc.codeblocks.common.constants.SeparatorConstants;
 import com.andyadc.codeblocks.common.jar.JarUtils;
 import com.andyadc.codeblocks.common.lang.StringUtils;
@@ -17,9 +17,9 @@ import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
-import static com.andyadc.codeblocks.common.constants.Constants.DOT;
-import static com.andyadc.codeblocks.common.constants.ProtocolConstants.FILE;
-import static com.andyadc.codeblocks.common.constants.ProtocolConstants.JAR;
+import static com.andyadc.codeblocks.common.constants.Constant.DOT;
+import static com.andyadc.codeblocks.common.constants.ProtocolConstant.FILE;
+import static com.andyadc.codeblocks.common.constants.ProtocolConstant.JAR;
 import static com.andyadc.codeblocks.common.util.ArrayUtils.length;
 
 /**
@@ -65,7 +65,7 @@ public abstract class URLUtils {
 		String jarPath = StringUtils.substringBetween(archiveFilePath, prefix, suffix);
 		File archiveFile = null;
 		if (StringUtils.isNotBlank(jarPath)) {
-			jarPath = PathConstants.SLASH + decode(jarPath);
+			jarPath = PathConstant.SLASH + decode(jarPath);
 			archiveFile = new File(jarPath);
 			archiveFile = archiveFile.exists() ? archiveFile : null;
 		}
@@ -104,10 +104,10 @@ public abstract class URLUtils {
 		String queryString = StringUtils.substringAfterLast(url, SeparatorConstants.QUERY_STRING);
 		if (StringUtils.isNotBlank(queryString)) {
 			Map<String, List<String>> parametersMap = MapUtils.newLinkedHashMap();
-			String[] queryParams = StringUtils.split(queryString, Constants.AND);
+			String[] queryParams = StringUtils.split(queryString, Constant.AND);
 			if (queryParams != null) {
 				for (String queryParam : queryParams) {
-					String[] paramNameAndValue = StringUtils.split(queryParam, Constants.EQUAL);
+					String[] paramNameAndValue = StringUtils.split(queryParam, Constant.EQUAL);
 					if (paramNameAndValue.length > 0) {
 						String paramName = paramNameAndValue[0];
 						String paramValue = paramNameAndValue.length > 1 ? paramNameAndValue[1] : StringUtils.EMPTY;
@@ -141,12 +141,12 @@ public abstract class URLUtils {
 		}
 
 		String resolvedPath = path.trim();
-		while (resolvedPath.contains(PathConstants.BACK_SLASH)) {
-			resolvedPath = StringUtils.replace(resolvedPath, PathConstants.BACK_SLASH, PathConstants.SLASH);
+		while (resolvedPath.contains(PathConstant.BACK_SLASH)) {
+			resolvedPath = StringUtils.replace(resolvedPath, PathConstant.BACK_SLASH, PathConstant.SLASH);
 		}
 
-		while (resolvedPath.contains(PathConstants.DOUBLE_SLASH)) {
-			resolvedPath = StringUtils.replace(resolvedPath, PathConstants.DOUBLE_SLASH, PathConstants.SLASH);
+		while (resolvedPath.contains(PathConstant.DOUBLE_SLASH)) {
+			resolvedPath = StringUtils.replace(resolvedPath, PathConstant.DOUBLE_SLASH, PathConstant.SLASH);
 		}
 		return resolvedPath;
 	}
@@ -289,15 +289,15 @@ public abstract class URLUtils {
 	public static String buildURI(String... paths) {
 		int length = length(paths);
 		if (length < 1) {
-			return PathConstants.SLASH;
+			return PathConstant.SLASH;
 		}
 
-		StringBuilder uriBuilder = new StringBuilder(PathConstants.SLASH);
+		StringBuilder uriBuilder = new StringBuilder(PathConstant.SLASH);
 		for (int i = 0; i < length; i++) {
 			String path = paths[i];
 			uriBuilder.append(path);
 			if (i < length - 1) {
-				uriBuilder.append(PathConstants.SLASH);
+				uriBuilder.append(PathConstant.SLASH);
 			}
 		}
 		return resolvePath(uriBuilder.toString());

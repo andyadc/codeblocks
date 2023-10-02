@@ -1,6 +1,6 @@
 package com.andyadc.codeblocks.common.constants;
 
-public interface PathConstants {
+public interface PathConstant {
 
 	/**
 	 * Slash : <code>"/"</code>

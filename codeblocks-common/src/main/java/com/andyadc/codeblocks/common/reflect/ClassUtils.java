@@ -1,8 +1,8 @@
 package com.andyadc.codeblocks.common.reflect;
 
-import com.andyadc.codeblocks.common.constants.Constants;
-import com.andyadc.codeblocks.common.constants.FileSuffixConstants;
-import com.andyadc.codeblocks.common.constants.PathConstants;
+import com.andyadc.codeblocks.common.constants.Constant;
+import com.andyadc.codeblocks.common.constants.FileSuffixConstant;
+import com.andyadc.codeblocks.common.constants.PathConstant;
 import com.andyadc.codeblocks.common.filter.ClassFileJarEntryFilter;
 import com.andyadc.codeblocks.common.function.Streams;
 import com.andyadc.codeblocks.common.function.ThrowableFunction;
@@ -856,7 +856,7 @@ public abstract class ClassUtils {
 		}
 		if (archiveFile.isDirectory()) { // Directory
 			return findClassNamesInArchiveDirectory(archiveFile, recursive);
-		} else if (archiveFile.isFile() && archiveFile.getName().endsWith(FileSuffixConstants.JAR)) { //JarFile
+		} else if (archiveFile.isFile() && archiveFile.getName().endsWith(FileSuffixConstant.JAR)) { //JarFile
 			return findClassNamesInArchiveFile(archiveFile, recursive);
 		}
 		return emptySet();
@@ -922,7 +922,7 @@ public abstract class ClassUtils {
 	protected static Set<String> findClassNamesInArchiveDirectory(File classesDirectory, boolean recursive) {
 		Set<String> classNames = new LinkedHashSet<>();
 		SimpleFileScanner simpleFileScanner = SimpleFileScanner.INSTANCE;
-		Set<File> classFiles = simpleFileScanner.scan(classesDirectory, recursive, new SuffixFileFilter(FileSuffixConstants.CLASS));
+		Set<File> classFiles = simpleFileScanner.scan(classesDirectory, recursive, new SuffixFileFilter(FileSuffixConstant.CLASS));
 		for (File classFile : classFiles) {
 			String className = resolveClassName(classesDirectory, classFile);
 			classNames.add(className);
@@ -960,10 +960,10 @@ public abstract class ClassUtils {
 	 * @return class name
 	 */
 	public static String resolveClassName(String resourceName) {
-		String className = StringUtils.replace(resourceName, PathConstants.SLASH, Constants.DOT);
-		className = StringUtils.substringBefore(className, FileSuffixConstants.CLASS);
-		while (StringUtils.startsWith(className, Constants.DOT)) {
-			className = StringUtils.substringAfter(className, Constants.DOT);
+		String className = StringUtils.replace(resourceName, PathConstant.SLASH, Constant.DOT);
+		className = StringUtils.substringBefore(className, FileSuffixConstant.CLASS);
+		while (StringUtils.startsWith(className, Constant.DOT)) {
+			className = StringUtils.substringAfter(className, Constant.DOT);
 		}
 		return className;
 	}

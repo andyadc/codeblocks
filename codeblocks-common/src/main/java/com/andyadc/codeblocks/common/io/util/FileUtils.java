@@ -4,7 +4,7 @@ import com.andyadc.codeblocks.common.lang.StringUtils;
 
 import java.io.File;
 
-import static com.andyadc.codeblocks.common.constants.SystemConstants.FILE_SEPARATOR;
+import static com.andyadc.codeblocks.common.constants.SystemConstant.FILE_SEPARATOR;
 import static com.andyadc.codeblocks.common.util.URLUtils.resolvePath;
 
 public abstract class FileUtils {

@@ -10,7 +10,7 @@ public interface SeparatorConstants {
 	/**
 	 * Archive Entity Separator : "!/"
 	 */
-	String ARCHIVE_ENTITY = EXCLAMATION + PathConstants.SLASH;
+	String ARCHIVE_ENTITY = EXCLAMATION + PathConstant.SLASH;
 
 	/**
 	 * Query String Separator : "?"

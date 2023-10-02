@@ -4,7 +4,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.time.ZoneId;
 
-public interface Constants {
+public interface Constant {
 
 	int PROCESSOR_NUM = Runtime.getRuntime().availableProcessors();
 	String TRACE_ID = "traceId";

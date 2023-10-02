@@ -1,6 +1,6 @@
 package com.andyadc.codeblocks.common.jar;
 
-import com.andyadc.codeblocks.common.constants.PathConstants;
+import com.andyadc.codeblocks.common.constants.PathConstant;
 import com.andyadc.codeblocks.common.lang.StringUtils;
 
 import java.io.IOException;
@@ -89,7 +89,7 @@ public class SimpleJarEntryScanner {
 				} else {
 					int beginIndex = jarEntryName.indexOf(relativePath);
 					if (beginIndex == 0) {
-						accept = jarEntryName.indexOf(PathConstants.SLASH, relativePath.length()) < 0;
+						accept = jarEntryName.indexOf(PathConstant.SLASH, relativePath.length()) < 0;
 					}
 				}
 			}

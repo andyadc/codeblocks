@@ -1,6 +1,6 @@
 package com.andyadc.codeblocks.common.util;
 
-import com.andyadc.codeblocks.common.constants.SystemConstants;
+import com.andyadc.codeblocks.common.constants.SystemConstant;
 import com.andyadc.codeblocks.common.lang.StringUtils;
 import com.andyadc.codeblocks.common.reflect.ClassLoaderUtils;
 
@@ -35,7 +35,7 @@ public class ClassPathUtils {
 	}
 
 	private static Set<String> resolveClassPaths(String classPath) {
-		String[] classPathsArray = StringUtils.split(classPath, SystemConstants.PATH_SEPARATOR);
+		String[] classPathsArray = StringUtils.split(classPath, SystemConstant.PATH_SEPARATOR);
 		Set<String> classPaths = new LinkedHashSet<>(Arrays.asList(classPathsArray));
 		return Collections.unmodifiableSet(classPaths);
 	}

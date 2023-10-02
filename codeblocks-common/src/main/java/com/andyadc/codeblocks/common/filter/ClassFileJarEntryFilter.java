@@ -1,6 +1,6 @@
 package com.andyadc.codeblocks.common.filter;
 
-import com.andyadc.codeblocks.common.constants.FileSuffixConstants;
+import com.andyadc.codeblocks.common.constants.FileSuffixConstant;
 
 import java.util.function.Predicate;
 import java.util.jar.JarEntry;
@@ -17,6 +17,6 @@ public class ClassFileJarEntryFilter implements Predicate<JarEntry> {
 
 	@Override
 	public boolean test(JarEntry jarEntry) {
-		return !jarEntry.isDirectory() && jarEntry.getName().endsWith(FileSuffixConstants.CLASS);
+		return !jarEntry.isDirectory() && jarEntry.getName().endsWith(FileSuffixConstant.CLASS);
 	}
 }

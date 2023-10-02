@@ -1,6 +1,6 @@
 package com.andyadc.codeblocks.common.constants;
 
-public interface ProtocolConstants {
+public interface ProtocolConstant {
 
 	/**
 	 * File protocol
