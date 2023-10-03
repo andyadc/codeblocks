@@ -1,6 +1,6 @@
 package com.andyadc.codeblocks.framework.http;
 
-import com.andyadc.codeblocks.common.constants.Constants;
+import com.andyadc.codeblocks.common.constants.Constant;
 
 import java.io.Serializable;
 import java.nio.charset.Charset;
@@ -35,7 +35,7 @@ public class HttpClientConfiguration implements Serializable {
 	private boolean retryOnFailure = DEFAULT_HTTP_RETRY_ON_FAILURE;
 
 	//	private String charset = Constants.DEFAULT_CHARSET_FORMAT;
-	private Charset charset = Constants.DEFAULT_CHARSET;
+	private Charset charset = Constant.DEFAULT_CHARSET;
 
 	//全局headers，即所有请求都会添加
 	private Map<String, String> globalHeaders;
@@ -47,7 +47,7 @@ public class HttpClientConfiguration implements Serializable {
 
 	public static HttpClientConfiguration common(Map<String, String> globalHeaders) {
 		HttpClientConfiguration configuration = new HttpClientConfiguration();
-		configuration.setCharset(Constants.DEFAULT_CHARSET);// UTF-8
+		configuration.setCharset(Constant.DEFAULT_CHARSET);// UTF-8
 		configuration.setConnectionTimeout(DEFAULT_CONNECTION_TIMEOUT);// 500
 		configuration.setSocketTimeout(DEFAULT_SOCKET_TIMEOUT);// 500
 		configuration.setKeepAliveTime(DEFAULT_KEEP_ALIVE_TIME);// 6000

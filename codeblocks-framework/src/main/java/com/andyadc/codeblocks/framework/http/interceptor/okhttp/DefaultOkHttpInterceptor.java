@@ -1,7 +1,7 @@
 package com.andyadc.codeblocks.framework.http.interceptor.okhttp;
 
 import com.andyadc.codeblocks.common.annotation.NotNull;
-import com.andyadc.codeblocks.common.constants.Constants;
+import com.andyadc.codeblocks.common.constants.Constant;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -23,9 +23,9 @@ public class DefaultOkHttpInterceptor implements Interceptor {
 		logger.info(String.format("Sending request %s on %s%n%s",
 			request.url(), chain.connection(), request.headers()));
 
-		String traceId = MDC.get(Constants.TRACE_ID);
+		String traceId = MDC.get(Constant.TRACE_ID);
 		if (traceId != null) {
-			request = request.newBuilder().addHeader(Constants.TRACE_ID, traceId).build();
+			request = request.newBuilder().addHeader(Constant.TRACE_ID, traceId).build();
 		}
 
 		long t1 = System.nanoTime();

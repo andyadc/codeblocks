@@ -1,6 +1,6 @@
 package com.andyadc.codeblocks.framework.concurrent;
 
-import com.andyadc.codeblocks.common.constants.Constants;
+import com.andyadc.codeblocks.common.constants.Constant;
 import org.slf4j.MDC;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.task.TaskDecorator;
@@ -19,8 +19,8 @@ public class ThreadPoolTaskExecutorConfig {
 	public ThreadPoolTaskExecutor defaultTaskExecutor() {
 		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
 		executor.setThreadNamePrefix("DefaultThreadPool-");
-		executor.setCorePoolSize(Constants.PROCESSOR_NUM);
-		executor.setMaxPoolSize(Constants.PROCESSOR_NUM * 2);
+		executor.setCorePoolSize(Constant.PROCESSOR_NUM);
+		executor.setMaxPoolSize(Constant.PROCESSOR_NUM * 2);
 		executor.setQueueCapacity(100);
 		executor.setKeepAliveSeconds(60);
 		executor.setRejectedExecutionHandler(rejectedExecutionHandler());

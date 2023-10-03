@@ -1,6 +1,6 @@
 package com.andyadc.codeblocks.framework.http.interceptor.httpcomponents;
 
-import com.andyadc.codeblocks.common.constants.Constants;
+import com.andyadc.codeblocks.common.constants.Constant;
 import com.andyadc.codeblocks.kit.idgen.UUID;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpRequestInterceptor;
@@ -19,9 +19,9 @@ public class DefaultRequestInterceptor implements HttpRequestInterceptor {
 		context.setAttribute("startingAt", System.nanoTime());
 		logger.info("RequestLine {}", request.getRequestLine());
 
-		String traceId = MDC.get(Constants.TRACE_ID);
+		String traceId = MDC.get(Constant.TRACE_ID);
 		if (traceId != null) {
-			request.addHeader(Constants.TRACE_ID, traceId);
+			request.addHeader(Constant.TRACE_ID, traceId);
 		}
 	}
 }
