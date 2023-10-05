@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.andyadc.codeblocks.test.db.batch.mybatis.UserMapper">
+
+	<insert id="batchInsertUser" parameterType="java.util.List">
+		INSERT INTO `user` (name, time) VALUES
+		<foreach collection="list" item="user" index="index" separator=",">
+			(
+			#{user.name},
+			#{user.time}
+			)
+		</foreach>
+	</insert>
+
+</mapper>
