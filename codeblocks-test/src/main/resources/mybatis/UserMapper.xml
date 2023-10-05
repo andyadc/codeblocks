@@ -3,11 +3,11 @@
 <mapper namespace="com.andyadc.codeblocks.test.db.batch.mybatis.UserMapper">
 
 	<insert id="batchInsertUser" parameterType="java.util.List">
-		INSERT INTO `user` (name, time) VALUES
+		INSERT INTO `user` (name, age) VALUES
 		<foreach collection="list" item="user" index="index" separator=",">
 			(
 			#{user.name},
-			#{user.time}
+			#{user.age}
 			)
 		</foreach>
 	</insert>

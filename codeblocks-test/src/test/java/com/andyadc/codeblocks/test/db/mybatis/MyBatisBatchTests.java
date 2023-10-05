@@ -24,7 +24,7 @@ public class MyBatisBatchTests {
 
 		try {
 			List<User> userList = new ArrayList<>(100000);
-			for (int i = 0; i < 100; i++) {
+			for (int i = 0; i < 1000; i++) {
 				User user = new User();
 				user.setAge(i % 3);
 				user.setName("u_" + i);
