@@ -10,7 +10,6 @@ public class HttpClientConfiguration implements Serializable {
 
 	public static final String HTTP_CLIENT_TYPE_OK_HTTP = "OkHttp";
 	public static final String HTTP_CLIENT_TYPE_HTTP_COMPONENTS = "HttpComponents";
-
 	//连接创建
 	public static final long DEFAULT_CONNECTION_TIMEOUT = 500L;
 	//SO_TIMEOUT
@@ -22,7 +21,11 @@ public class HttpClientConfiguration implements Serializable {
 	//是否重试
 	public static final boolean DEFAULT_HTTP_RETRY_ON_FAILURE = false;
 	public static final int DEFAULT_CONNECTION_REQUEST_TIMEOUT = 1500;
+
+	private static final long serialVersionUID = -4626009762739155956L;
+
 	private static final int DEFAULT_MAX_CONNECTIONS = 1024;
+
 	//连接创建
 	private long connectionTimeout = DEFAULT_CONNECTION_TIMEOUT;
 	//SO_TIMEOUT

@@ -14,6 +14,9 @@ import java.util.Arrays;
  */
 public class CustomConnectionKeepAliveStrategy implements ConnectionKeepAliveStrategy {
 
+	/**
+	 * 如果没有约定，则默认定义时长为 30s
+	 */
 	private static final long DEFAULT_KEEP_ALIVE_SECONDS = 30L;
 
 	public CustomConnectionKeepAliveStrategy() {

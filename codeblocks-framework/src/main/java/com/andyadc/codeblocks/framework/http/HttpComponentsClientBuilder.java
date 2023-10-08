@@ -62,8 +62,8 @@ public final class HttpComponentsClientBuilder {
 //		builder.setMaxConnTotal(configuration.getMaxConnections());
 //		builder.setMaxConnPerRoute(128);
 		builder.setConnectionTimeToLive(configuration.getKeepAliveTime(), TimeUnit.MILLISECONDS);
-		builder.evictExpiredConnections();//过期移除
-		builder.evictIdleConnections(10, TimeUnit.SECONDS);//空闲10秒移除
+		builder.evictExpiredConnections(); // 过期移除
+		builder.evictIdleConnections(10, TimeUnit.SECONDS); // 空闲10秒移除
 
 		DefaultHttpRequestRetryHandler retryHandler = new DefaultHttpRequestRetryHandler(configuration.getRetryTimes(), configuration.getRetryOnFailure());
 		builder.setRetryHandler(retryHandler);
@@ -94,7 +94,11 @@ public final class HttpComponentsClientBuilder {
 		DnsResolver dnsResolver = SystemDefaultDnsResolver.INSTANCE;
 
 		//创建池化连接管理器
-		PoolingHttpClientConnectionManager manager = new PoolingHttpClientConnectionManager(socketFactoryRegistry, connectionFactory, dnsResolver);
+		PoolingHttpClientConnectionManager manager = new PoolingHttpClientConnectionManager(
+			socketFactoryRegistry,
+			connectionFactory,
+			dnsResolver
+		);
 
 		SocketConfig socketConfig = SocketConfig.custom().setTcpNoDelay(true).build();
 		manager.setDefaultSocketConfig(socketConfig);

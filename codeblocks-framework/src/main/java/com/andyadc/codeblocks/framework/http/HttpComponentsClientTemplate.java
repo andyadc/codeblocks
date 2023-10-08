@@ -10,12 +10,14 @@ import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
@@ -41,6 +43,7 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 	private static final Logger logger = LoggerFactory.getLogger(HttpComponentsClientTemplate.class);
 
 	private CloseableHttpClient httpClient;
+	private ResponseHandler<String> responseHandler;
 
 	private volatile boolean init = false;
 
@@ -66,6 +69,8 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 
 		httpClient = HttpComponentsClientBuilder.build(configuration, requestInterceptors, responseInterceptors);
 		init = true;
+
+		responseHandler = new BasicResponseHandler();
 
 		long t2 = System.nanoTime();
 		logger.info(String.format("HttpComponentsClient init elapsed time %.1fms", (t2 - t1) / 1e6d));
@@ -171,6 +176,13 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 		}
 	}
 
+	/**
+	 * TODO
+	 */
+	private String processWithResponseHandler(HttpUriRequest request) throws IOException {
+		return httpClient.execute(request, responseHandler);
+	}
+
 	private String process(HttpUriRequest request) throws Exception {
 		CloseableHttpResponse response = null;
 		try {
@@ -186,6 +198,7 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 			if (entity != null) {
 				result = EntityUtils.toString(entity, charset);
 			}
+			EntityUtils.consume(entity);
 			return result;
 		} catch (Exception e) {
 			if (response != null) {
