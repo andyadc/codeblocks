@@ -4,6 +4,7 @@ import com.andyadc.codeblocks.common.constants.Constant;
 
 import java.io.Serializable;
 import java.nio.charset.Charset;
+import java.util.HashMap;
 import java.util.Map;
 
 public class HttpClientConfiguration implements Serializable {
@@ -65,6 +66,16 @@ public class HttpClientConfiguration implements Serializable {
 
 	public static HttpClientConfiguration common() {
 		return common(null);
+	}
+
+	/**
+	 * TODO
+	 */
+	private void addGlobalHeaders() {
+		if (globalHeaders == null) {
+			globalHeaders = new HashMap<>();
+		}
+		globalHeaders.put("Cache-Control", "no-cache");
 	}
 
 	public Long getConnectionTimeout() {
