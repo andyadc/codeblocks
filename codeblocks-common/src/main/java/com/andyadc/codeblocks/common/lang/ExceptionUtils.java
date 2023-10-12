@@ -5,9 +5,9 @@ import com.andyadc.codeblocks.common.function.ThrowableSupplier;
 import java.lang.reflect.Constructor;
 import java.util.Arrays;
 
-public interface ExceptionUtils {
+public class ExceptionUtils {
 
-	static <T extends Throwable> T wrapThrowable(Throwable source, Class<T> exceptionType) {
+	public static <T extends Throwable> T wrapThrowable(Throwable source, Class<T> exceptionType) {
 		String message = source.getMessage();
 		Throwable cause = source.getCause();
 

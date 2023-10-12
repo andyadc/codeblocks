@@ -12,6 +12,8 @@ import java.nio.ReadOnlyBufferException;
  */
 public final class ReadOnlyBytes extends Bytes {
 
+	private static final long serialVersionUID = -8552345360356704829L;
+
 	/**
 	 * Creates a new read-only instance
 	 *

@@ -13,6 +13,7 @@ import java.util.Objects;
  * See: https://github.com/google/guava/blob/v26.0/guava/src/com/google/common/io/BaseEncoding.java
  */
 final class BaseEncoding implements BinaryToTextEncoding.EncoderDecoder {
+
 	static final Alphabet BASE32_RFC4848 = new Alphabet("ABCDEFGHIJKLMNOPQRSTUVWXYZ234567".toCharArray());
 	static final char BASE32_RFC4848_PADDING = '=';
 	private static final char ASCII_MAX = 127;
@@ -182,7 +183,7 @@ final class BaseEncoding implements BinaryToTextEncoding.EncoderDecoder {
 		}
 
 		int decode(char ch) {
-			return (int) decodabet[ch];
+			return decodabet[ch];
 		}
 	}
 }

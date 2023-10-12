@@ -8,6 +8,7 @@ import java.util.Objects;
  * Interface for transforming {@link Bytes}
  */
 public interface BytesTransformer {
+
 	/**
 	 * Transform given victim in place, overwriting its internal byte array
 	 *

@@ -33,7 +33,7 @@ final class Base64 {
 	}
 
 	public static String decode2String(String basedStr) {
-		if (basedStr == null) return basedStr;
+		if (basedStr == null) return null;
 		byte[] bytes = decode(basedStr);
 		return new String(bytes, StandardCharsets.UTF_8);
 	}

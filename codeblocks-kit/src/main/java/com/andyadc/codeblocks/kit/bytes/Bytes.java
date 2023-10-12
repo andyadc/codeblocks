@@ -56,6 +56,7 @@ import java.util.UUID;
  */
 @SuppressWarnings("WeakerAccess")
 public class Bytes implements Comparable<Bytes>, Serializable, Iterable<Byte> {
+
 	private static final long serialVersionUID = 1L;
 
 	private static final Bytes EMPTY = Bytes.wrap(new byte[0]);

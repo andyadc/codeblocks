@@ -25,7 +25,7 @@ public class BeanCopier {
         copier.copy(source, target, null);
     }
 
-    private static String generateKey(Class clazz1, Class clazz2) {
-        return clazz1.toString() + clazz2.toString();
-    }
+    private static String generateKey(Class<?> clazz1, Class<?> clazz2) {
+		return clazz1.toString() + clazz2.toString();
+	}
 }

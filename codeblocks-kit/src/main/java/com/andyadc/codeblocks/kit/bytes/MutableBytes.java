@@ -13,6 +13,8 @@ import java.util.Objects;
 @SuppressWarnings("WeakerAccess")
 public final class MutableBytes extends Bytes implements AutoCloseable {
 
+	private static final long serialVersionUID = 2967188727629747076L;
+
 	MutableBytes(byte[] byteArray, ByteOrder byteOrder) {
 		super(byteArray, byteOrder, new Factory());
 	}
