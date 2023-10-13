@@ -1,39 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns="http://www.springframework.org/schema/beans"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
-       default-lazy-init="false">
+	   xmlns="http://www.springframework.org/schema/beans"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+	   default-lazy-init="false">
 
-    <description>Druid DataSource Configuration</description>
+	<description>Druid DataSource Configuration</description>
 
 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
-        <!-- 基本属性 url、user、password -->
+		<!-- 基本属性 url、user、password -->
 		<property name="url" value="${jdbc.url}"/>
-        <property name="username" value="${jdbc.username}"/>
-        <property name="password" value="${jdbc.password}"/>
+		<property name="username" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.password}"/>
 
-        <!-- 配置初始化大小、最小、最大 -->
-        <property name="initialSize" value="${druid.pool.initialSize}"/>
-        <property name="minIdle" value="${druid.pool.minIdle}"/>
-        <property name="maxActive" value="${druid.pool.maxActive}"/>
+		<!-- 配置初始化大小、最小、最大 -->
+		<property name="initialSize" value="${druid.pool.initialSize}"/>
+		<property name="minIdle" value="${druid.pool.minIdle}"/>
+		<property name="maxActive" value="${druid.pool.maxActive}"/>
 
-        <!-- 配置获取连接等待超时的时间 -->
-        <property name="maxWait" value="60000"/>
+		<!-- 配置获取连接等待超时的时间 -->
+		<property name="maxWait" value="60000"/>
 
-        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
-        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+		<!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+		<property name="timeBetweenEvictionRunsMillis" value="60000"/>
 
-        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
-        <property name="minEvictableIdleTimeMillis" value="300000"/>
+		<!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+		<property name="minEvictableIdleTimeMillis" value="300000"/>
 
-        <property name="validationQuery" value="SELECT 'x'"/>
-        <property name="testWhileIdle" value="true"/>
+		<!--
+		用来检测连接是否有效的sql，要求是一个查询语句，常用select 'x'。
+		如果validationQuery为null，testOnBorrow、testOnReturn、testWhileIdle都不会起作用。缺省值为null；
+		-->
+		<property name="validationQuery" value="SELECT 'x'"/>
+		<!-- 申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。缺省值为false； -->
+		<property name="testWhileIdle" value="true"/>
+		<!-- 申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。缺省值为true； -->
 		<property name="testOnBorrow" value="false"/>
+		<!-- 归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。缺省值为false； -->
 		<property name="testOnReturn" value="false"/>
-
-		<!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
-		<property name="poolPreparedStatements" value="true"/>
-		<property name="maxPoolPreparedStatementPerConnectionSize" value="20"/>
+		<!--
+		 是否缓存preparedStatement，也就是PSCache。
+		 PSCache对支持游标的数据库性能提升巨大，比如说oracle。在mysql下建议关闭。缺省值为false；
+		 -->
+		<property name="poolPreparedStatements" value="false"/>
+		<!--
+		要启用PSCache，必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true。
+		在Druid中，不会存在Oracle下PSCache占用内存过多的问题，可以把这个数值配置大一些，比如说100。缺省值为-1。
+		-->
+		<property name="maxPoolPreparedStatementPerConnectionSize" value="-1"/>
 
 		<property name="asyncInit" value="true"/>
 		<!-- 设置连接池非公平锁模式 -->
@@ -54,8 +67,8 @@
 		</property>
 	</bean>
 
-    <bean id="logFilter" class="com.alibaba.druid.filter.logging.Slf4jLogFilter">
-        <property name="statementExecutableSqlLogEnable" value="true"/>
+	<bean id="logFilter" class="com.alibaba.druid.filter.logging.Slf4jLogFilter">
+		<property name="statementExecutableSqlLogEnable" value="true"/>
 		<property name="statementSqlPrettyFormat" value="true"/>
 
 		<property name="resultSetLogEnabled" value="false"/>
@@ -63,10 +76,10 @@
 		<property name="statementCloseAfterLogEnabled" value="false"/>
 		<property name="resultSetCloseAfterLogEnabled" value="false"/>
 		<property name="resultSetOpenAfterLogEnabled" value="false"/>
-    </bean>
+	</bean>
 
-    <bean id="statFilter" class="com.alibaba.druid.filter.stat.StatFilter">
-        <property name="slowSqlMillis" value="1000"/>
-        <property name="logSlowSql" value="true"/>
-    </bean>
+	<bean id="statFilter" class="com.alibaba.druid.filter.stat.StatFilter">
+		<property name="slowSqlMillis" value="1000"/>
+		<property name="logSlowSql" value="true"/>
+	</bean>
 </beans>
