@@ -22,7 +22,7 @@
 		<commons-fileupload.version>1.5</commons-fileupload.version>
 		<guava.version>32.1.3-jre</guava.version>
 		<jackson.version>2.13.5</jackson.version>
-		<jjwt.version>0.11.5</jjwt.version>
+		<jjwt.version>0.12.3</jjwt.version>
 		<passay.version>1.6.3</passay.version>
 		<mybatis.version>3.5.13</mybatis.version>
 
