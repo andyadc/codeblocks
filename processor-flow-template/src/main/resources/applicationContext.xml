@@ -37,5 +37,6 @@
 
 	<!-- workflow -->
 	<import resource="classpath:workflow/workFlowContext.xml"/>
+	<import resource="classpath:workflow/serviceContext.xml"/>
 
 </beans>

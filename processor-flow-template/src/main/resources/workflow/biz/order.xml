@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns="http://www.springframework.org/schema/beans"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="orderValidateProcessor" class="com.andyadc.order.processor.OrderValidateProcessor"/>
+	<bean id="orderQueryProcessor" class="com.andyadc.order.processor.OrderQueryProcessor"/>
+	<bean id="orderPostProcessor" class="com.andyadc.order.processor.OrderPostProcessor"/>
+
+	<bean id="orderBizWorkFlowMap" class="com.andyadc.workflow.BizWorkFlowMap">
+		<constructor-arg>
+			<map>
+				<entry key="START">
+					<bean class="com.andyadc.workflow.processor.BizProcessorProxy">
+						<property name="nextWorkMap">
+							<map>
+								<entry key="CONTINUE" value="bizValiate"/>
+							</map>
+						</property>
+					</bean>
+				</entry>
+
+				<entry key="bizValiate">
+					<bean class="com.andyadc.workflow.processor.BizProcessorProxy">
+						<property name="bizProcessor" ref="orderValidateProcessor"/>
+						<property name="nextWorkMap">
+							<map>
+								<entry key="CONTINUE" value="orderQuery"/>
+							</map>
+						</property>
+					</bean>
+				</entry>
+
+				<entry key="orderQuery">
+					<bean class="com.andyadc.workflow.processor.BizProcessorProxy">
+						<property name="bizProcessor" ref="orderQueryProcessor"/>
+						<property name="nextWorkMap">
+							<map>
+								<entry key="CONTINUE" value="orderHandler"/>
+							</map>
+						</property>
+					</bean>
+				</entry>
+
+				<entry key="orderPost">
+					<bean class="com.andyadc.workflow.processor.BizProcessorProxy">
+						<property name="bizProcessor" ref="orderPostProcessor"/>
+					</bean>
+				</entry>
+			</map>
+		</constructor-arg>
+	</bean>
+
+</beans>

@@ -3,14 +3,10 @@
 	   xmlns="http://www.springframework.org/schema/beans"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<import resource="classpath:workflow/biz/order.xml"/>
+	<import resource="classpath:workflow/biz/routerRules.xml"/>
 
-	<bean id="workFlowEngine" class="com.andyadc.workflow.WorkFlowEngine">
-		<property name="workFlowMap">
-			<map>
-				<entry key="order_workflow" value-ref="orderBizWorkFlowMap"/>
-			</map>
-		</property>
+	<bean id="routerProcessor" class="com.andyadc.workflow.processor.common.RouterProcessor">
+		<property name="routerRules" ref="routerRules"/>
 	</bean>
 
 </beans>
