@@ -6,12 +6,12 @@ import com.andyadc.workflow.processor.ProcessorContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class OrderQueryProcessor implements BizProcessor {
+public class OrderPostProcessor implements BizProcessor {
 
-	private static final Logger logger = LoggerFactory.getLogger(OrderQueryProcessor.class);
+	private static final Logger logger = LoggerFactory.getLogger(OrderPostProcessor.class);
 
 	@Override
 	public void process(ProcessorContext context) throws BizException {
-		logger.info("query");
+		logger.info("post");
 	}
 }
