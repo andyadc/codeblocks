@@ -3,7 +3,6 @@ package com.andyadc.workflow.base;
 public class RouterRequest {
 
 	private String code;
-
 	private String mode;
 
 	public String getCode() {
@@ -32,4 +31,5 @@ public class RouterRequest {
 		}
 		return i;
 	}
+
 }
