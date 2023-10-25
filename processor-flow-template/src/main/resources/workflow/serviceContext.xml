@@ -9,4 +9,76 @@
 		<property name="routerRules" ref="routerRules"/>
 	</bean>
 
+	<bean id="transactionFlowConvertor" class="com.andyadc.workflow.translator.TransactionFlowConvertor"/>
+
+	<bean id="bizObjectProcessor" class="com.andyadc.workflow.processor.common.BizObjectProcessor">
+		<property name="objectConvertor" ref="transactionFlowConvertor"/>
+	</bean>
+
+	<bean id="bizTxnTypeProcessor" class="com.andyadc.workflow.processor.common.BizTxnTypeProcessor">
+		<property name="bizTxnTypeMap">
+			<map>
+				<entry value="PAY">
+					<key>
+						<map>
+							<entry key="functionCode" value="10"/>
+						</map>
+					</key>
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="defaultTxnRequestProcessor" class="com.andyadc.workflow.processor.common.DefaultTxnRequestProcessor">
+		<property name="workFlowEngine" ref="workFlowEngine"/>
+		<property name="routerProcessor" ref="routerProcessor"/>
+	</bean>
+
+	<bean id="defaultExceptionProcessor" class="com.andyadc.workflow.processor.common.DefaultExceptionProcessor">
+
+	</bean>
+
+	<bean id="defaultTxnResponseProcessor" class="com.andyadc.workflow.processor.common.DefaultTxnResponseProcessor">
+
+	</bean>
+
+	<bean id="txnProcessorFactory" class="com.andyadc.workflow.processor.TxnProcessorFactory">
+		<property name="defaultExceptionProcessor" ref="defaultExceptionProcessor"/>
+		<property name="defaultTxnRequestProcessor" ref="defaultTxnRequestProcessor"/>
+		<property name="defaultTxnResponseProcessor" ref="defaultTxnResponseProcessor"/>
+		<property name="exceptionProcessorMap">
+			<map>
+
+			</map>
+		</property>
+		<property name="txnRequestProcessorMap">
+			<map>
+
+			</map>
+		</property>
+		<property name="txnResponseProcessorMap">
+			<map>
+
+			</map>
+		</property>
+	</bean>
+
+	<bean id="txnProcessor" class="com.andyadc.workflow.processor.common.TxnProcessor">
+		<property name="txnProcessorFactory" ref="txnProcessorFactory"/>
+	</bean>
+
+	<bean id="processorChain" class="com.andyadc.workflow.processor.ProcessorChain">
+		<property name="processorList">
+			<list>
+				<ref bean="bizObjectProcessor"/>
+				<ref bean="bizTxnTypeProcessor"/>
+				<ref bean="txnProcessor"/>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="orderProcessService" class="com.andyadc.order.service.impl.OrderProcessServiceImpl">
+		<property name="processorChain" ref="processorChain"/>
+	</bean>
+
 </beans>

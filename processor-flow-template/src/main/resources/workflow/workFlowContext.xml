@@ -11,6 +11,7 @@
 				<entry key="order_workflow" value-ref="orderBizWorkFlowMap"/>
 			</map>
 		</property>
+		<property name="txnProcessorFactory" ref="txnProcessorFactory"/>
 	</bean>
 
 </beans>
