@@ -9,8 +9,8 @@
 				<entry value="order_workflow">
 					<key>
 						<map>
-							<entry key="code" value="10"/>
-							<entry key="mode" value="10"/>
+							<entry key="functionCode" value="10"/>
+							<entry key="payMode" value="10"/>
 						</map>
 					</key>
 				</entry>

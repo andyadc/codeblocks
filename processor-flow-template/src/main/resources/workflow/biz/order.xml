@@ -36,7 +36,7 @@
 						<property name="bizProcessor" ref="orderQueryProcessor"/>
 						<property name="nextWorkMap">
 							<map>
-								<entry key="CONTINUE" value="orderHandler"/>
+								<entry key="CONTINUE" value="orderPost"/>
 							</map>
 						</property>
 					</bean>
