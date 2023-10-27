@@ -7,15 +7,13 @@ import com.andyadc.workflow.processor.core.BizProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class OrderQueryProcessor implements BizProcessor {
+public class OrderHandlerProcessor implements BizProcessor {
 
-	private static final Logger logger = LoggerFactory.getLogger(OrderQueryProcessor.class);
+	private static final Logger logger = LoggerFactory.getLogger(OrderHandlerProcessor.class);
 
 	@Override
 	public void process(ProcessorContext context) throws BizException {
-		logger.info("--OrderQueryProcessor--");
-
-//		int i = 1 / 0;
+		logger.info("--OrderHandlerProcessor--");
 
 		context.setProcessResult(ProcessorConstant.PROCESS_CONTINUE);
 	}
