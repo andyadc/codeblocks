@@ -5,17 +5,19 @@
 
 	<import resource="classpath:workflow/biz/routerRules.xml"/>
 
-	<bean id="routerProcessor" class="com.andyadc.workflow.processor.common.RouterProcessor">
+	<bean id="routerProcessor" class="com.andyadc.workflow.processor.RouterProcessor">
 		<property name="routerRules" ref="routerRules"/>
 	</bean>
 
-	<bean id="transactionFlowConvertor" class="com.andyadc.workflow.translator.TransactionFlowConvertor"/>
+	<bean id="transactionFlowConvertor" class="com.andyadc.workflow.convertor.TransactionFlowConvertor"/>
+	<bean id="orderResponseConvertor" class="com.andyadc.workflow.convertor.OrderResponseConvertor"/>
+	<bean id="respCodeConvertor" class="com.andyadc.workflow.convertor.RespCodeConvertor"/>
 
-	<bean id="bizObjectProcessor" class="com.andyadc.workflow.processor.common.BizObjectProcessor">
+	<bean id="bizObjectProcessor" class="com.andyadc.workflow.processor.BizObjectProcessor">
 		<property name="objectConvertor" ref="transactionFlowConvertor"/>
 	</bean>
 
-	<bean id="bizTxnTypeProcessor" class="com.andyadc.workflow.processor.common.BizTxnTypeProcessor">
+	<bean id="bizTxnTypeProcessor" class="com.andyadc.workflow.processor.BizTxnTypeProcessor">
 		<property name="bizTxnTypeMap">
 			<map>
 				<entry value="PAY">
@@ -25,27 +27,39 @@
 						</map>
 					</key>
 				</entry>
+
+				<entry value="REFUND">
+					<key>
+						<map>
+							<entry key="functionCode" value="-1"/>
+						</map>
+					</key>
+				</entry>
 			</map>
 		</property>
 	</bean>
 
-	<bean id="defaultTxnRequestProcessor" class="com.andyadc.workflow.processor.common.DefaultTxnRequestProcessor">
+	<bean id="defaultTxnRequestProcessor" class="com.andyadc.workflow.processor.DefaultTxnRequestProcessor">
 		<property name="workFlowEngine" ref="workFlowEngine"/>
 		<property name="routerProcessor" ref="routerProcessor"/>
 	</bean>
 
-	<bean id="defaultExceptionProcessor" class="com.andyadc.workflow.processor.common.DefaultExceptionProcessor">
+	<bean id="defaultExceptionProcessor" class="com.andyadc.workflow.processor.DefaultExceptionProcessor">
 
 	</bean>
 
-	<bean id="defaultTxnResponseProcessor" class="com.andyadc.workflow.processor.common.DefaultTxnResponseProcessor">
+	<bean id="defaultTxnResponseProcessor" class="com.andyadc.workflow.processor.DefaultTxnResponseProcessor">
+		<property name="objectConvertor" ref="respCodeConvertor"/>
+	</bean>
 
+	<bean id="defaultRefundTxnRequestProcessor" class="com.andyadc.workflow.processor.DefaultRefundTxnRequestProcessor"
+		  parent="generalRefundTxnProcessor">
 	</bean>
 
 	<bean id="txnProcessorFactory" class="com.andyadc.workflow.processor.TxnProcessorFactory">
-		<property name="defaultExceptionProcessor" ref="defaultExceptionProcessor"/>
 		<property name="defaultTxnRequestProcessor" ref="defaultTxnRequestProcessor"/>
 		<property name="defaultTxnResponseProcessor" ref="defaultTxnResponseProcessor"/>
+		<property name="defaultExceptionProcessor" ref="defaultExceptionProcessor"/>
 		<property name="exceptionProcessorMap">
 			<map>
 
@@ -53,7 +67,7 @@
 		</property>
 		<property name="txnRequestProcessorMap">
 			<map>
-
+				<entry key="REFUND" value-ref="defaultRefundTxnRequestProcessor"/>
 			</map>
 		</property>
 		<property name="txnResponseProcessorMap">
@@ -63,11 +77,11 @@
 		</property>
 	</bean>
 
-	<bean id="txnProcessor" class="com.andyadc.workflow.processor.common.TxnProcessor">
+	<bean id="txnProcessor" class="com.andyadc.workflow.processor.TxnProcessor">
 		<property name="txnProcessorFactory" ref="txnProcessorFactory"/>
 	</bean>
 
-	<bean id="processorChain" class="com.andyadc.workflow.processor.ProcessorChain">
+	<bean id="processorChain" class="com.andyadc.workflow.processor.core.ProcessorChain">
 		<property name="processorList">
 			<list>
 				<ref bean="bizObjectProcessor"/>
@@ -77,7 +91,7 @@
 		</property>
 	</bean>
 
-	<bean id="orderProcessService" class="com.andyadc.order.service.impl.OrderProcessServiceImpl">
+	<bean id="orderProcessService" class="com.andyadc.workflow.service.impl.OrderProcessServiceImpl">
 		<property name="processorChain" ref="processorChain"/>
 	</bean>
 

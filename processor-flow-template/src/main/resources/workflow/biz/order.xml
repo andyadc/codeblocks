@@ -5,13 +5,15 @@
 
 	<bean id="orderValidateProcessor" class="com.andyadc.order.processor.OrderValidateProcessor"/>
 	<bean id="orderQueryProcessor" class="com.andyadc.order.processor.OrderQueryProcessor"/>
-	<bean id="orderPostProcessor" class="com.andyadc.order.processor.OrderPostProcessor"/>
+	<bean id="orderHandlerProcessor" class="com.andyadc.order.processor.OrderHandlerProcessor"/>
+	<bean id="orderResponseProcessor" class="com.andyadc.order.processor.OrderResponseProcessor"
+		  parent="generalChannelResponseProcessor"/>
 
-	<bean id="orderBizWorkFlowMap" class="com.andyadc.workflow.BizWorkFlowMap">
+	<bean id="orderBizWorkFlowMap" class="com.andyadc.workflow.processor.core.BizWorkFlowMap">
 		<constructor-arg>
 			<map>
 				<entry key="START">
-					<bean class="com.andyadc.workflow.processor.BizProcessorProxy">
+					<bean class="com.andyadc.workflow.processor.core.BizProcessorProxy">
 						<property name="nextWorkMap">
 							<map>
 								<entry key="CONTINUE" value="bizValiate"/>
@@ -21,7 +23,7 @@
 				</entry>
 
 				<entry key="bizValiate">
-					<bean class="com.andyadc.workflow.processor.BizProcessorProxy">
+					<bean class="com.andyadc.workflow.processor.core.BizProcessorProxy">
 						<property name="bizProcessor" ref="orderValidateProcessor"/>
 						<property name="nextWorkMap">
 							<map>
@@ -32,19 +34,30 @@
 				</entry>
 
 				<entry key="orderQuery">
-					<bean class="com.andyadc.workflow.processor.BizProcessorProxy">
+					<bean class="com.andyadc.workflow.processor.core.BizProcessorProxy">
 						<property name="bizProcessor" ref="orderQueryProcessor"/>
 						<property name="nextWorkMap">
 							<map>
-								<entry key="CONTINUE" value="orderPost"/>
+								<entry key="CONTINUE" value="orderHandler"/>
 							</map>
 						</property>
 					</bean>
 				</entry>
 
-				<entry key="orderPost">
-					<bean class="com.andyadc.workflow.processor.BizProcessorProxy">
-						<property name="bizProcessor" ref="orderPostProcessor"/>
+				<entry key="orderHandler">
+					<bean class="com.andyadc.workflow.processor.core.BizProcessorProxy">
+						<property name="bizProcessor" ref="orderHandlerProcessor"/>
+						<property name="nextWorkMap">
+							<map>
+								<entry key="CONTINUE" value="orderResponse"/>
+							</map>
+						</property>
+					</bean>
+				</entry>
+
+				<entry key="orderResponse">
+					<bean class="com.andyadc.workflow.processor.core.BizProcessorProxy">
+						<property name="bizProcessor" ref="orderResponseProcessor"/>
 					</bean>
 				</entry>
 			</map>

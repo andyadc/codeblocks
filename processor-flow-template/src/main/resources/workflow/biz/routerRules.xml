@@ -15,11 +15,20 @@
 					</key>
 				</entry>
 
-				<entry value="order">
+				<entry value="acct_balance_pay_workflow">
 					<key>
 						<map>
-							<entry key="functionCode" value="12"/>
-							<entry key="payMode" value="10"/>
+							<entry key="functionCode" value="10"/>
+							<entry key="payMode" value="1"/>
+						</map>
+					</key>
+				</entry>
+
+				<entry value="bank_card_pay_workflow">
+					<key>
+						<map>
+							<entry key="functionCode" value="10"/>
+							<entry key="payMode" value="2"/>
 						</map>
 					</key>
 				</entry>
