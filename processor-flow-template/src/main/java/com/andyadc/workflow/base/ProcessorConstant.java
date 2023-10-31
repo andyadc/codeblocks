@@ -1,4 +1,4 @@
-package com.andyadc.workflow;
+package com.andyadc.workflow.base;
 
 public class ProcessorConstant {
 

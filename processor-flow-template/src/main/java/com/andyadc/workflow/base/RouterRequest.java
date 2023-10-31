@@ -1,35 +1,46 @@
 package com.andyadc.workflow.base;
 
-public class RouterRequest {
+import java.io.Serializable;
 
-	private String code;
-	private String mode;
+public class RouterRequest implements Serializable {
 
-	public String getCode() {
-		return code;
+	private static final long serialVersionUID = 4079847171499158803L;
+
+	private String functionCode;
+	private String payMode;
+
+	public String getFunctionCode() {
+		return functionCode;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	public void setFunctionCode(String functionCode) {
+		this.functionCode = functionCode;
 	}
 
-	public String getMode() {
-		return mode;
+	public String getPayMode() {
+		return payMode;
 	}
 
-	public void setMode(String mode) {
-		this.mode = mode;
+	public void setPayMode(String payMode) {
+		this.payMode = payMode;
 	}
 
 	public int conditionSize() {
 		int i = 0;
-		if (this.code != null) {
+		if (this.functionCode != null) {
 			i++;
 		}
-		if (this.mode != null) {
+		if (this.payMode != null) {
 			i++;
 		}
 		return i;
 	}
 
+	@Override
+	public String toString() {
+		return "RouterRequest{" +
+			"functionCode=" + functionCode +
+			", payMode=" + payMode +
+			'}';
+	}
 }
