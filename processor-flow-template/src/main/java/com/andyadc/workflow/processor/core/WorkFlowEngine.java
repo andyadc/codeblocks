@@ -1,7 +1,6 @@
-package com.andyadc.workflow;
+package com.andyadc.workflow.processor.core;
 
 import com.andyadc.workflow.exception.BizException;
-import com.andyadc.workflow.processor.BizProcessorProxy;
 import com.andyadc.workflow.processor.ProcessorContext;
 import com.andyadc.workflow.processor.TxnProcessorFactory;
 import org.slf4j.Logger;
@@ -36,25 +35,28 @@ public class WorkFlowEngine {
 			if (nextProcessor == null) {
 				return;
 			}
-
 			context.setProcessResult(null);
 			context.setCurrentWork(nextWorkValue);
 			nextProcessor.process(context);
 		} catch (BizException e) {
 			logger.error("processWorkFlow error", e);
 			exceptionProcess(context, e.getCode());
+			return;
 		} catch (Exception e) {
 			logger.error("processWorkFlow error", e);
+			exceptionProcess(context, "-1");
+			return;
 		}
 		processWorkFlow(context);
 	}
 
 	private void exceptionProcess(ProcessorContext context, String code) {
-
+		context.setErrorCode(code);
+		txnProcessorFactory.getExceptionProcessor(context).process(context);
 	}
 
 	private BizWorkFlowMap getWorkFlow(ProcessorContext context) {
-		BizWorkFlowMap bizWorkFlowMap = workFlowMap.get("");
+		BizWorkFlowMap bizWorkFlowMap = workFlowMap.get(context.getIntegrationChannelType());
 		if (bizWorkFlowMap == null) {
 			throw new BizException();
 		}
