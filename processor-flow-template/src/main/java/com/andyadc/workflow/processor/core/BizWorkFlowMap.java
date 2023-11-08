@@ -1,6 +1,4 @@
-package com.andyadc.workflow;
-
-import com.andyadc.workflow.processor.BizProcessorProxy;
+package com.andyadc.workflow.processor.core;
 
 import java.util.ArrayList;
 import java.util.HashMap;
