@@ -24,7 +24,7 @@ public class RefreshToken implements JwtToken {
 	public static Optional<RefreshToken> create(RawAccessJwtToken token, String signingKey) {
 		Jws<Claims> claims = token.parseClaims(signingKey);
 
-		List<String> scopes = claims.getBody().get("scopes", List.class);
+		List<String> scopes = claims.getPayload().get("scopes", List.class);
 		if (scopes == null || scopes.isEmpty()
 			|| !scopes.stream().filter(scope -> Scopes.REFRESH_TOKEN.authority().equals(scope)).findFirst().isPresent()) {
 			return Optional.empty();
@@ -43,10 +43,10 @@ public class RefreshToken implements JwtToken {
 	}
 
 	public String getJti() {
-		return claims.getBody().getId();
+		return claims.getPayload().getId();
 	}
 
 	public String getSubject() {
-		return claims.getBody().getSubject();
+		return claims.getPayload().getSubject();
 	}
 }

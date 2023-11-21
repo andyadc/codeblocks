@@ -18,7 +18,7 @@ import javax.inject.Inject;
 import java.security.Key;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -60,7 +60,7 @@ public class JwtTokenFactory implements InitializingBean {
 //			throw new JwtGenException("User doesn't have any privileges");
 		}
 
-		Claims claims = Jwts.claims().setSubject(username);
+		Claims claims = Jwts.claims().subject(username).build();
 		claims.put("scopes", userContext.getAuthorities().stream().map(Object::toString).collect(Collectors.toList()));
 
 		LocalDateTime currentTime = LocalDateTime.now();
@@ -68,10 +68,10 @@ public class JwtTokenFactory implements InitializingBean {
 //        Key key = new SecretKeySpec(settings.getTokenSigningKey().getBytes(), SignatureAlgorithm.HS512.getJcaName());
 
 		String token = Jwts.builder()
-			.setClaims(claims)
-			.setIssuer(settings.getTokenIssuer())
-			.setIssuedAt(Date.from(currentTime.atZone(ZoneId.systemDefault()).toInstant()))
-			.setExpiration(Date.from(
+			.claims(claims)
+			.issuer(settings.getTokenIssuer())
+			.issuedAt(Date.from(currentTime.atZone(ZoneId.systemDefault()).toInstant()))
+			.expiration(Date.from(
 				currentTime.plusMinutes(settings.getTokenExpirationTime())
 					.atZone(ZoneId.systemDefault()).toInstant())
 			)
@@ -89,15 +89,15 @@ public class JwtTokenFactory implements InitializingBean {
 
 		LocalDateTime currentTime = LocalDateTime.now();
 
-		Claims claims = Jwts.claims().setSubject(userContext.getUsername());
-		claims.put("scopes", Arrays.asList(Scopes.REFRESH_TOKEN.authority()));
+		Claims claims = Jwts.claims().subject(userContext.getUsername()).build();
+		claims.put("scopes", Collections.singletonList(Scopes.REFRESH_TOKEN.authority()));
 
 		String token = Jwts.builder()
-			.setClaims(claims)
-			.setIssuer(settings.getTokenIssuer())
-			.setId(UUID.randomUUID().toString())
-			.setIssuedAt(Date.from(currentTime.atZone(ZoneId.systemDefault()).toInstant()))
-			.setExpiration(Date.from(currentTime
+			.claims(claims)
+			.issuer(settings.getTokenIssuer())
+			.id(UUID.randomUUID().toString())
+			.issuedAt(Date.from(currentTime.atZone(ZoneId.systemDefault()).toInstant()))
+			.expiration(Date.from(currentTime
 				.plusMinutes(settings.getRefreshTokenExpTime())
 				.atZone(ZoneId.systemDefault()).toInstant()))
 //                .signWith(SignatureAlgorithm.HS512, settings.getTokenSigningKey())
