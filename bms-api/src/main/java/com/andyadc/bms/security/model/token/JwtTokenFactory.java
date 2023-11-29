@@ -6,7 +6,6 @@ import com.andyadc.bms.security.model.Scopes;
 import com.andyadc.bms.security.model.UserContext;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +38,8 @@ public class JwtTokenFactory implements InitializingBean {
 	@Override
 	public void afterPropertiesSet() {
 		byte[] keyBytes = settings.getTokenSigningKey().getBytes();
-		key = new SecretKeySpec(keyBytes, SignatureAlgorithm.HS512.getJcaName());
+		key = new SecretKeySpec(keyBytes, Jwts.SIG.HS512.key().build().getAlgorithm());
+//		key = new SecretKeySpec(keyBytes, SignatureAlgorithm.HS512.getJcaName());
 	}
 
 	public void invalidateJwtToken(UserContext userContext) {

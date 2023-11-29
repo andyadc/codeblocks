@@ -33,7 +33,7 @@ public class RawAccessJwtToken implements JwtToken {
 	public Jws<Claims> parseClaims(String signingKey) {
 		try {
 //			Key key = new SecretKeySpec(signingKey.getBytes(), SignatureAlgorithm.HS512.getJcaName());
-			SecretKey key = new SecretKeySpec(signingKey.getBytes(), Jwts.SIG.HS512.getId());
+			SecretKey key = new SecretKeySpec(signingKey.getBytes(), Jwts.SIG.HS512.key().build().getAlgorithm());
 			return Jwts.parser().decryptWith(key).build().parseSignedClaims(this.token);
 //            return Jwts.parserBuilder().setSigningKey(signingKey).build().parseClaimsJws(this.token);
 		} catch (UnsupportedJwtException | MalformedJwtException | IllegalArgumentException | SecurityException ex) {
