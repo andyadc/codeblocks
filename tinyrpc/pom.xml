@@ -14,7 +14,7 @@
 
 		<netty.version>4.1.101.Final</netty.version>
 		<commons-lang.version>3.13.0</commons-lang.version>
-		<commons-io.version>2.15.0</commons-io.version>
+		<commons-io.version>2.15.1</commons-io.version>
 	</properties>
 
 	<dependencies>
