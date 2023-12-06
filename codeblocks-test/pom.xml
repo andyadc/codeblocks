@@ -69,6 +69,17 @@
 			<version>1.0.3</version>
 		</dependency>
 
+		<!--
+		MVEL is a powerful expression language for Java-based applications.
+		It provides a plethora of features and is suited for everything from the smallest property binding and extraction,
+		to full blown scripts.
+		-->
+		<dependency>
+			<groupId>org.mvel</groupId>
+			<artifactId>mvel2</artifactId>
+			<version>2.5.1.Final</version>
+		</dependency>
+
 		<!-- https://lmax-exchange.github.io/disruptor/ -->
 		<dependency>
 			<groupId>com.lmax</groupId>
