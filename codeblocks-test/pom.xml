@@ -102,7 +102,7 @@
 		<dependency>
 			<groupId>com.opencsv</groupId>
 			<artifactId>opencsv</artifactId>
-			<version>5.8</version>
+			<version>5.9</version>
 		</dependency>
 
 		<!-- https://failsafe.dev/ -->
@@ -115,7 +115,7 @@
 		<dependency>
 			<groupId>org.bouncycastle</groupId>
 			<artifactId>bcprov-jdk18on</artifactId>
-			<version>1.76</version>
+			<version>1.77</version>
 		</dependency>
 
 		<!-- https://github.com/vavr-io/vavr -->
@@ -287,7 +287,7 @@
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>easyexcel</artifactId>
-			<version>3.3.2</version>
+			<version>3.3.3</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.glassfish.jaxb</groupId>
