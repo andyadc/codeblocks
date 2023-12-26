@@ -101,7 +101,7 @@
 
 		<!-- maven plugins -->
 		<jetty-maven-plugin.version>9.4.53.v20231009</jetty-maven-plugin.version>
-		<versions-maven-plugin.version>2.16.1</versions-maven-plugin.version>
+		<versions-maven-plugin.version>2.16.2</versions-maven-plugin.version>
 
 		<java.version>1.8</java.version>
 		<encoding>UTF-8</encoding>
