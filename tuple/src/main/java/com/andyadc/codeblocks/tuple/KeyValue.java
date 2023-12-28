@@ -30,7 +30,7 @@ public final class KeyValue<A, B>
 	}
 
 	public static <A, B> KeyValue<A, B> with(final A key, final B value) {
-		return new KeyValue<A, B>(key, value);
+		return new KeyValue<>(key, value);
 	}
 
 	/**
@@ -49,7 +49,7 @@ public final class KeyValue<A, B>
 		if (array.length != 2) {
 			throw new IllegalArgumentException("Array must have exactly 2 elements in order to create a KeyValue. Size is " + array.length);
 		}
-		return new KeyValue<X, X>(array[0], array[1]);
+		return new KeyValue<>(array[0], array[1]);
 	}
 
 	public static <X> KeyValue<X, X> fromCollection(final Collection<X> collection) {
@@ -106,7 +106,7 @@ public final class KeyValue<A, B>
 			throw new IllegalArgumentException("Iterable must have exactly 2 available elements in order to create a KeyValue.");
 		}
 
-		return new KeyValue<X, X>(element0, element1);
+		return new KeyValue<>(element0, element1);
 	}
 
 	public A getKey() {
@@ -114,7 +114,7 @@ public final class KeyValue<A, B>
 	}
 
 	public <X> KeyValue<X, B> setKey(final X key) {
-		return new KeyValue<X, B>(key, this.value);
+		return new KeyValue<>(key, this.value);
 	}
 
 	public B getValue() {
@@ -122,7 +122,7 @@ public final class KeyValue<A, B>
 	}
 
 	public <Y> KeyValue<A, Y> setValue(final Y value) {
-		return new KeyValue<A, Y>(this.key, value);
+		return new KeyValue<>(this.key, value);
 	}
 
 	@Override

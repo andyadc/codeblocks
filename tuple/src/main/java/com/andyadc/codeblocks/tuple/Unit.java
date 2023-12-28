@@ -24,7 +24,7 @@ public final class Unit<A>
 	}
 
 	public static <A> Unit<A> with(final A value0) {
-		return new Unit<A>(value0);
+		return new Unit<>(value0);
 	}
 
 	/**
@@ -41,7 +41,7 @@ public final class Unit<A>
 		if (array.length != 1) {
 			throw new IllegalArgumentException("Array must have exactly 1 element in order to create a Unit. Size is " + array.length);
 		}
-		return new Unit<X>(array[0]);
+		return new Unit<>(array[0]);
 	}
 
 	/**
@@ -59,7 +59,7 @@ public final class Unit<A>
 			throw new IllegalArgumentException("Collection must have exactly 1 element in order to create a Unit. Size is " + collection.size());
 		}
 		final Iterator<X> iter = collection.iterator();
-		return new Unit<X>(iter.next());
+		return new Unit<>(iter.next());
 	}
 
 	/**
@@ -120,7 +120,7 @@ public final class Unit<A>
 			throw new IllegalArgumentException("Iterable must have exactly 1 available element in order to create a Unit.");
 		}
 
-		return new Unit<X>(element0);
+		return new Unit<>(element0);
 	}
 
 	public A getValue0() {
@@ -133,92 +133,92 @@ public final class Unit<A>
 	}
 
 	public <X0> Pair<X0, A> addAt0(final X0 value0) {
-		return new Pair<X0, A>(
+		return new Pair<>(
 			value0, this.val0);
 	}
 
 	public <X0> Pair<A, X0> addAt1(final X0 value0) {
-		return new Pair<A, X0>(
+		return new Pair<>(
 			this.val0, value0);
 	}
 
 	public <X0, X1> Triplet<X0, X1, A> addAt0(final X0 value0, final X1 value1) {
-		return new Triplet<X0, X1, A>(
+		return new Triplet<>(
 			value0, value1, this.val0);
 	}
 
 	public <X0, X1> Triplet<A, X0, X1> addAt1(final X0 value0, final X1 value1) {
-		return new Triplet<A, X0, X1>(
+		return new Triplet<>(
 			this.val0, value0, value1);
 	}
 
 	public <X0, X1, X2> Quartet<X0, X1, X2, A> addAt0(final X0 value0, final X1 value1, final X2 value2) {
-		return new Quartet<X0, X1, X2, A>(
+		return new Quartet<>(
 			value0, value1, value2, this.val0);
 	}
 
 	public <X0, X1, X2> Quartet<A, X0, X1, X2> addAt1(final X0 value0, final X1 value1, final X2 value2) {
-		return new Quartet<A, X0, X1, X2>(
+		return new Quartet<>(
 			this.val0, value0, value1, value2);
 	}
 
 	public <X0, X1, X2, X3> Quintet<X0, X1, X2, X3, A> addAt0(final X0 value0, final X1 value1, final X2 value2, final X3 value3) {
-		return new Quintet<X0, X1, X2, X3, A>(
+		return new Quintet<>(
 			value0, value1, value2, value3, this.val0);
 	}
 
 	public <X0, X1, X2, X3> Quintet<A, X0, X1, X2, X3> addAt1(final X0 value0, final X1 value1, final X2 value2, final X3 value3) {
-		return new Quintet<A, X0, X1, X2, X3>(
+		return new Quintet<>(
 			this.val0, value0, value1, value2, value3);
 	}
 
 	public <X0, X1, X2, X3, X4> Sextet<X0, X1, X2, X3, X4, A> addAt0(final X0 value0, final X1 value1, final X2 value2, final X3 value3, final X4 value4) {
-		return new Sextet<X0, X1, X2, X3, X4, A>(
+		return new Sextet<>(
 			value0, value1, value2, value3, value4, this.val0);
 	}
 
 	public <X0, X1, X2, X3, X4> Sextet<A, X0, X1, X2, X3, X4> addAt1(final X0 value0, final X1 value1, final X2 value2, final X3 value3, final X4 value4) {
-		return new Sextet<A, X0, X1, X2, X3, X4>(
+		return new Sextet<>(
 			this.val0, value0, value1, value2, value3, value4);
 	}
 
 	public <X0, X1, X2, X3, X4, X5> Septet<X0, X1, X2, X3, X4, X5, A> addAt0(final X0 value0, final X1 value1, final X2 value2, final X3 value3, final X4 value4, final X5 value5) {
-		return new Septet<X0, X1, X2, X3, X4, X5, A>(
+		return new Septet<>(
 			value0, value1, value2, value3, value4, value5, this.val0);
 	}
 
 	public <X0, X1, X2, X3, X4, X5> Septet<A, X0, X1, X2, X3, X4, X5> addAt1(final X0 value0, final X1 value1, final X2 value2, final X3 value3, final X4 value4, final X5 value5) {
-		return new Septet<A, X0, X1, X2, X3, X4, X5>(
+		return new Septet<>(
 			this.val0, value0, value1, value2, value3, value4, value5);
 	}
 
 	public <X0, X1, X2, X3, X4, X5, X6> Octet<X0, X1, X2, X3, X4, X5, X6, A> addAt0(final X0 value0, final X1 value1, final X2 value2, final X3 value3, final X4 value4, final X5 value5, final X6 value6) {
-		return new Octet<X0, X1, X2, X3, X4, X5, X6, A>(
+		return new Octet<>(
 			value0, value1, value2, value3, value4, value5, value6, this.val0);
 	}
 
 	public <X0, X1, X2, X3, X4, X5, X6> Octet<A, X0, X1, X2, X3, X4, X5, X6> addAt1(final X0 value0, final X1 value1, final X2 value2, final X3 value3, final X4 value4, final X5 value5, final X6 value6) {
-		return new Octet<A, X0, X1, X2, X3, X4, X5, X6>(
+		return new Octet<>(
 			this.val0, value0, value1, value2, value3, value4, value5, value6);
 	}
 
 	public <X0, X1, X2, X3, X4, X5, X6, X7> Ennead<X0, X1, X2, X3, X4, X5, X6, X7, A> addAt0(final X0 value0, final X1 value1, final X2 value2, final X3 value3, final X4 value4, final X5 value5, final X6 value6, final X7 value7) {
-		return new Ennead<X0, X1, X2, X3, X4, X5, X6, X7, A>(
+		return new Ennead<>(
 			value0, value1, value2, value3, value4, value5, value6, value7, this.val0);
 	}
 
 	public <X0, X1, X2, X3, X4, X5, X6, X7> Ennead<A, X0, X1, X2, X3, X4, X5, X6, X7> addAt1(final X0 value0, final X1 value1, final X2 value2, final X3 value3, final X4 value4, final X5 value5, final X6 value6, final X7 value7) {
-		return new Ennead<A, X0, X1, X2, X3, X4, X5, X6, X7>(
+		return new Ennead<>(
 			this.val0, value0, value1, value2, value3, value4, value5, value6, value7);
 	}
 
 	public <X0, X1, X2, X3, X4, X5, X6, X7, X8> Decade<X0, X1, X2, X3, X4, X5, X6, X7, X8, A> addAt0(final X0 value0, final X1 value1, final X2 value2, final X3 value3, final X4 value4, final X5 value5, final X6 value6, final X7 value7, final X8 value8) {
-		return new Decade<X0, X1, X2, X3, X4, X5, X6, X7, X8, A>(
+		return new Decade<>(
 			value0, value1, value2, value3, value4, value5, value6, value7, value8, this.val0);
 	}
 
 	public <X0, X1, X2, X3, X4, X5, X6, X7, X8> Decade<A, X0, X1, X2, X3, X4, X5, X6, X7, X8> addAt1(final X0 value0, final X1 value1, final X2 value2, final X3 value3, final X4 value4, final X5 value5, final X6 value6, final X7 value7, final X8 value8) {
-		return new Decade<A, X0, X1, X2, X3, X4, X5, X6, X7, X8>(
+		return new Decade<>(
 			this.val0, value0, value1, value2, value3, value4, value5, value6, value7, value8);
 	}
 
@@ -367,7 +367,7 @@ public final class Unit<A>
 	}
 
 	public <X> Unit<X> setAt0(final X value) {
-		return new Unit<X>(
+		return new Unit<>(
 			value);
 	}
 }

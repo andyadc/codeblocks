@@ -57,7 +57,7 @@ public final class Ennead<A, B, C, D, E, F, G, H, I>
 	}
 
 	public static <A, B, C, D, E, F, G, H, I> Ennead<A, B, C, D, E, F, G, H, I> with(final A value0, final B value1, final C value2, final D value3, final E value4, final F value5, final G value6, final H value7, final I value8) {
-		return new Ennead<A, B, C, D, E, F, G, H, I>(value0, value1, value2, value3, value4, value5, value6, value7, value8);
+		return new Ennead<>(value0, value1, value2, value3, value4, value5, value6, value7, value8);
 	}
 
 	/**
@@ -76,7 +76,7 @@ public final class Ennead<A, B, C, D, E, F, G, H, I>
 		if (array.length != 9) {
 			throw new IllegalArgumentException("Array must have exactly 9 elements in order to create an Ennead. Size is " + array.length);
 		}
-		return new Ennead<X, X, X, X, X, X, X, X, X>(
+		return new Ennead<>(
 			array[0], array[1], array[2], array[3], array[4],
 			array[5], array[6], array[7], array[8]);
 	}
@@ -212,7 +212,7 @@ public final class Ennead<A, B, C, D, E, F, G, H, I>
 			throw new IllegalArgumentException("Iterable must have exactly 9 available elements in order to create an Ennead.");
 		}
 
-		return new Ennead<X, X, X, X, X, X, X, X, X>(
+		return new Ennead<>(
 			element0, element1, element2, element3, element4,
 			element5, element6, element7, element8);
 	}
@@ -259,61 +259,61 @@ public final class Ennead<A, B, C, D, E, F, G, H, I>
 	}
 
 	public <X0> Decade<X0, A, B, C, D, E, F, G, H, I> addAt0(final X0 value0) {
-		return new Decade<X0, A, B, C, D, E, F, G, H, I>(
+		return new Decade<>(
 			value0, this.val0, this.val1, this.val2, this.val3, this.val4, this.val5,
 			this.val6, this.val7, this.val8);
 	}
 
 	public <X0> Decade<A, X0, B, C, D, E, F, G, H, I> addAt1(final X0 value0) {
-		return new Decade<A, X0, B, C, D, E, F, G, H, I>(
+		return new Decade<>(
 			this.val0, value0, this.val1, this.val2, this.val3, this.val4, this.val5,
 			this.val6, this.val7, this.val8);
 	}
 
 	public <X0> Decade<A, B, X0, C, D, E, F, G, H, I> addAt2(final X0 value0) {
-		return new Decade<A, B, X0, C, D, E, F, G, H, I>(
+		return new Decade<>(
 			this.val0, this.val1, value0, this.val2, this.val3, this.val4, this.val5,
 			this.val6, this.val7, this.val8);
 	}
 
 	public <X0> Decade<A, B, C, X0, D, E, F, G, H, I> addAt3(final X0 value0) {
-		return new Decade<A, B, C, X0, D, E, F, G, H, I>(
+		return new Decade<>(
 			this.val0, this.val1, this.val2, value0, this.val3, this.val4, this.val5,
 			this.val6, this.val7, this.val8);
 	}
 
 	public <X0> Decade<A, B, C, D, X0, E, F, G, H, I> addAt4(final X0 value0) {
-		return new Decade<A, B, C, D, X0, E, F, G, H, I>(
+		return new Decade<>(
 			this.val0, this.val1, this.val2, this.val3, value0, this.val4, this.val5,
 			this.val6, this.val7, this.val8);
 	}
 
 	public <X0> Decade<A, B, C, D, E, X0, F, G, H, I> addAt5(final X0 value0) {
-		return new Decade<A, B, C, D, E, X0, F, G, H, I>(
+		return new Decade<>(
 			this.val0, this.val1, this.val2, this.val3, this.val4, value0, this.val5,
 			this.val6, this.val7, this.val8);
 	}
 
 	public <X0> Decade<A, B, C, D, E, F, X0, G, H, I> addAt6(final X0 value0) {
-		return new Decade<A, B, C, D, E, F, X0, G, H, I>(
+		return new Decade<>(
 			this.val0, this.val1, this.val2, this.val3, this.val4, this.val5, value0,
 			this.val6, this.val7, this.val8);
 	}
 
 	public <X0> Decade<A, B, C, D, E, F, G, X0, H, I> addAt7(final X0 value0) {
-		return new Decade<A, B, C, D, E, F, G, X0, H, I>(
+		return new Decade<>(
 			this.val0, this.val1, this.val2, this.val3, this.val4, this.val5, this.val6,
 			value0, this.val7, this.val8);
 	}
 
 	public <X0> Decade<A, B, C, D, E, F, G, H, X0, I> addAt8(final X0 value0) {
-		return new Decade<A, B, C, D, E, F, G, H, X0, I>(
+		return new Decade<>(
 			this.val0, this.val1, this.val2, this.val3, this.val4, this.val5, this.val6,
 			this.val7, value0, this.val8);
 	}
 
 	public <X0> Decade<A, B, C, D, E, F, G, H, I, X0> addAt9(final X0 value0) {
-		return new Decade<A, B, C, D, E, F, G, H, I, X0>(
+		return new Decade<>(
 			this.val0, this.val1, this.val2, this.val3, this.val4, this.val5, this.val6,
 			this.val7, this.val8, value0);
 	}
@@ -367,92 +367,92 @@ public final class Ennead<A, B, C, D, E, F, G, H, I>
 	}
 
 	public <X> Ennead<X, B, C, D, E, F, G, H, I> setAt0(final X value) {
-		return new Ennead<X, B, C, D, E, F, G, H, I>(
+		return new Ennead<>(
 			value, this.val1, this.val2, this.val3, this.val4, this.val5, this.val6, this.val7, this.val8);
 	}
 
 	public <X> Ennead<A, X, C, D, E, F, G, H, I> setAt1(final X value) {
-		return new Ennead<A, X, C, D, E, F, G, H, I>(
+		return new Ennead<>(
 			this.val0, value, this.val2, this.val3, this.val4, this.val5, this.val6, this.val7, this.val8);
 	}
 
 	public <X> Ennead<A, B, X, D, E, F, G, H, I> setAt2(final X value) {
-		return new Ennead<A, B, X, D, E, F, G, H, I>(
+		return new Ennead<>(
 			this.val0, this.val1, value, this.val3, this.val4, this.val5, this.val6, this.val7, this.val8);
 	}
 
 	public <X> Ennead<A, B, C, X, E, F, G, H, I> setAt3(final X value) {
-		return new Ennead<A, B, C, X, E, F, G, H, I>(
+		return new Ennead<>(
 			this.val0, this.val1, this.val2, value, this.val4, this.val5, this.val6, this.val7, this.val8);
 	}
 
 	public <X> Ennead<A, B, C, D, X, F, G, H, I> setAt4(final X value) {
-		return new Ennead<A, B, C, D, X, F, G, H, I>(
+		return new Ennead<>(
 			this.val0, this.val1, this.val2, this.val3, value, this.val5, this.val6, this.val7, this.val8);
 	}
 
 	public <X> Ennead<A, B, C, D, E, X, G, H, I> setAt5(final X value) {
-		return new Ennead<A, B, C, D, E, X, G, H, I>(
+		return new Ennead<>(
 			this.val0, this.val1, this.val2, this.val3, this.val4, value, this.val6, this.val7, this.val8);
 	}
 
 	public <X> Ennead<A, B, C, D, E, F, X, H, I> setAt6(final X value) {
-		return new Ennead<A, B, C, D, E, F, X, H, I>(
+		return new Ennead<>(
 			this.val0, this.val1, this.val2, this.val3, this.val4, this.val5, value, this.val7, this.val8);
 	}
 
 	public <X> Ennead<A, B, C, D, E, F, G, X, I> setAt7(final X value) {
-		return new Ennead<A, B, C, D, E, F, G, X, I>(
+		return new Ennead<>(
 			this.val0, this.val1, this.val2, this.val3, this.val4, this.val5, this.val6, value, this.val8);
 	}
 
 	public <X> Ennead<A, B, C, D, E, F, G, H, X> setAt8(final X value) {
-		return new Ennead<A, B, C, D, E, F, G, H, X>(
+		return new Ennead<>(
 			this.val0, this.val1, this.val2, this.val3, this.val4, this.val5, this.val6, this.val7, value);
 	}
 
 	public Octet<B, C, D, E, F, G, H, I> removeFrom0() {
-		return new Octet<B, C, D, E, F, G, H, I>(
+		return new Octet<>(
 			this.val1, this.val2, this.val3, this.val4, this.val5, this.val6, this.val7, this.val8);
 	}
 
 	public Octet<A, C, D, E, F, G, H, I> removeFrom1() {
-		return new Octet<A, C, D, E, F, G, H, I>(
+		return new Octet<>(
 			this.val0, this.val2, this.val3, this.val4, this.val5, this.val6, this.val7, this.val8);
 	}
 
 	public Octet<A, B, D, E, F, G, H, I> removeFrom2() {
-		return new Octet<A, B, D, E, F, G, H, I>(
+		return new Octet<>(
 			this.val0, this.val1, this.val3, this.val4, this.val5, this.val6, this.val7, this.val8);
 	}
 
 	public Octet<A, B, C, E, F, G, H, I> removeFrom3() {
-		return new Octet<A, B, C, E, F, G, H, I>(
+		return new Octet<>(
 			this.val0, this.val1, this.val2, this.val4, this.val5, this.val6, this.val7, this.val8);
 	}
 
 	public Octet<A, B, C, D, F, G, H, I> removeFrom4() {
-		return new Octet<A, B, C, D, F, G, H, I>(
+		return new Octet<>(
 			this.val0, this.val1, this.val2, this.val3, this.val5, this.val6, this.val7, this.val8);
 	}
 
 	public Octet<A, B, C, D, E, G, H, I> removeFrom5() {
-		return new Octet<A, B, C, D, E, G, H, I>(
+		return new Octet<>(
 			this.val0, this.val1, this.val2, this.val3, this.val4, this.val6, this.val7, this.val8);
 	}
 
 	public Octet<A, B, C, D, E, F, H, I> removeFrom6() {
-		return new Octet<A, B, C, D, E, F, H, I>(
+		return new Octet<>(
 			this.val0, this.val1, this.val2, this.val3, this.val4, this.val5, this.val7, this.val8);
 	}
 
 	public Octet<A, B, C, D, E, F, G, I> removeFrom7() {
-		return new Octet<A, B, C, D, E, F, G, I>(
+		return new Octet<>(
 			this.val0, this.val1, this.val2, this.val3, this.val4, this.val5, this.val6, this.val8);
 	}
 
 	public Octet<A, B, C, D, E, F, G, H> removeFrom8() {
-		return new Octet<A, B, C, D, E, F, G, H>(
+		return new Octet<>(
 			this.val0, this.val1, this.val2, this.val3, this.val4, this.val5, this.val6, this.val7);
 	}
 }
