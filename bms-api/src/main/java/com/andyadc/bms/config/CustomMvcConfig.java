@@ -29,6 +29,14 @@ import javax.inject.Named;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+/**
+ * 1)实现 WebMvcConfigurer: 不会覆盖 WebMvcAutoConfiguration的配置
+ * 2)实现 WebMvcConfigurer+@EnableWebMvc: 会覆盖 WebMvcAutoConfiguration的配置
+ * 3)继承 WebMvcConfigurationSupport: 会覆盖 WebMvcAutoConfiguration的配置
+ * 4)继承 DelegatingWebMvcConfiguration: 会覆盖 WebMvcAutoConfiguration的配置
+ * <p>
+ * 非必要，最好避免WebMvcConfigurer, WebMvcConfigurationSupport在一个项目中同时使用
+ */
 @EnableWebMvc
 @Configuration
 public class CustomMvcConfig implements WebMvcConfigurer {
