@@ -78,7 +78,7 @@
 		<ognl.version>3.4.2</ognl.version>
 		<commons-lang.version>3.13.0</commons-lang.version>
 		<commons-text.version>1.11.0</commons-text.version>
-		<commons-codec.version>1.16.0</commons-codec.version>
+		<commons-codec.version>1.16.1</commons-codec.version>
 		<commons-collections.version>4.4</commons-collections.version>
 		<commons-beanutils.version>1.9.4</commons-beanutils.version>
 		<commons-dbcp2.version>2.11.0</commons-dbcp2.version>
