@@ -15,12 +15,12 @@
 
 	<properties>
 		<spring.version>5.3.29</spring.version>
-		<aspectj.version>1.9.21.1</aspectj.version>
+		<aspectj.version>1.9.21.2</aspectj.version>
 		<mybatis.version>3.5.15</mybatis.version>
 		<mybatis-spring.version>2.1.2</mybatis-spring.version>
 		<hikaricp.version>4.0.3</hikaricp.version>
 		<mysql-driver.version>8.3.0</mysql-driver.version>
-		<jackson.version>2.16.1</jackson.version>
+		<jackson.version>2.16.2</jackson.version>
 		<slf4j.version>1.7.36</slf4j.version>
 		<logback.version>1.2.13</logback.version>
 		<junit-jupiter.version>5.9.3</junit-jupiter.version>
