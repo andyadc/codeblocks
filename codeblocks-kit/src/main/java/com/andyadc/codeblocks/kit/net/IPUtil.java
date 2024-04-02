@@ -74,9 +74,9 @@ public final class IPUtil {
 
 	public static String getRemoteIp(HttpServletRequest request) {
 		String ip = null;
-		Enumeration<?> enumeration = request.getHeaderNames();
+		Enumeration<String> enumeration = request.getHeaderNames();
 		while (enumeration.hasMoreElements()) {
-			String paraName = (String) enumeration.nextElement();
+			String paraName = enumeration.nextElement();
 			if ("x-forward-for".equalsIgnoreCase(paraName)
 				|| "x-forwarded-for".equalsIgnoreCase(paraName)) {
 				ip = request.getHeader(paraName);
