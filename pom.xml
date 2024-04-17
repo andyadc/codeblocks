@@ -42,7 +42,7 @@
 	<properties>
 		<spring.version>5.3.29</spring.version>
 		<aspectj.version>1.9.22</aspectj.version>
-		<netty.version>4.1.107.Final</netty.version>
+		<netty.version>4.1.109.Final</netty.version>
 		<httpcomponents.version>4.5.13</httpcomponents.version>
 		<okhttp.version>4.12.0</okhttp.version>
 		<hibernate-validator.version>6.2.5.Final</hibernate-validator.version>
@@ -77,7 +77,7 @@
 		<javassist.version>3.30.2-GA</javassist.version>
 		<ognl.version>3.4.2</ognl.version>
 		<commons-lang.version>3.13.0</commons-lang.version>
-		<commons-text.version>1.11.0</commons-text.version>
+		<commons-text.version>1.12.0</commons-text.version>
 		<commons-codec.version>1.16.1</commons-codec.version>
 		<commons-collections.version>4.4</commons-collections.version>
 		<commons-beanutils.version>1.9.4</commons-beanutils.version>
