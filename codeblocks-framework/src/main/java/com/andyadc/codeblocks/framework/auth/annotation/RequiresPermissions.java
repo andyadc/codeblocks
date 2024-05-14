@@ -1,4 +1,6 @@
-package com.andyadc.codeblocks.framework.authorize;
+package com.andyadc.codeblocks.framework.auth.annotation;
+
+import com.andyadc.codeblocks.framework.auth.Logical;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
