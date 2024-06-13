@@ -15,7 +15,7 @@
 
 	<properties>
 		<spring.version>5.3.29</spring.version>
-		<aspectj.version>1.9.22</aspectj.version>
+		<aspectj.version>1.9.22.1</aspectj.version>
 		<mybatis.version>3.5.15</mybatis.version>
 		<mybatis-spring.version>2.1.2</mybatis-spring.version>
 		<hikaricp.version>4.0.3</hikaricp.version>
