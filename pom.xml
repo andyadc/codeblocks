@@ -64,7 +64,7 @@
 		<hikaricp.version>4.0.3</hikaricp.version>
 		<druid.version>1.2.23</druid.version>
 		<mysql-driver.version>8.3.0</mysql-driver.version>
-		<h2.version>2.2.222</h2.version>
+		<h2.version>2.2.230</h2.version>
 		<jsqlparser.version>4.9</jsqlparser.version>
 		<fst.version>2.57</fst.version>
 		<snappy.version>1.1.10.5</snappy.version>
@@ -78,7 +78,7 @@
 		<ognl.version>3.4.3</ognl.version>
 		<commons-lang.version>3.13.0</commons-lang.version>
 		<commons-text.version>1.12.0</commons-text.version>
-		<commons-codec.version>1.17.0</commons-codec.version>
+		<commons-codec.version>1.17.1</commons-codec.version>
 		<commons-collections.version>4.4</commons-collections.version>
 		<commons-beanutils.version>1.9.4</commons-beanutils.version>
 		<commons-dbcp2.version>2.12.0</commons-dbcp2.version>
@@ -94,7 +94,7 @@
 		<logback.version>1.2.13</logback.version>
 		<log4j.version>2.17.2</log4j.version>
 		<mockito.version>4.11.0</mockito.version>
-		<assertj.version>3.25.3</assertj.version>
+		<assertj.version>3.26.3</assertj.version>
 		<junit.version>4.13.2</junit.version>
 		<junit-jupiter.version>5.9.3</junit-jupiter.version>
 		<jmh.version>1.37</jmh.version>
