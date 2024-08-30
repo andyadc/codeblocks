@@ -17,7 +17,7 @@
 	<description>Backend manage system site</description>
 
 	<properties>
-		<commons-lang.version>3.16.0</commons-lang.version>
+		<commons-lang.version>3.17.0</commons-lang.version>
 		<commons-io.version>2.16.1</commons-io.version>
 		<mybatis.version>3.5.15</mybatis.version>
 
