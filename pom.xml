@@ -16,6 +16,7 @@
 	</scm>
 
 	<modules>
+		<module>code-design-sample</module>
 		<module>codeblocks-common</module>
 		<module>codeblocks-kit</module>
 		<module>codeblocks-serialization</module>
