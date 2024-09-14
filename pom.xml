@@ -68,7 +68,7 @@
 		<h2.version>2.3.232</h2.version>
 		<jsqlparser.version>4.9</jsqlparser.version>
 		<fst.version>2.57</fst.version>
-		<snappy.version>1.1.10.5</snappy.version>
+		<snappy.version>1.1.10.7</snappy.version>
 		<kryo.version>5.6.0</kryo.version>
 		<protostuff.version>1.8.0</protostuff.version>
 		<hessian.version>4.0.66</hessian.version>
