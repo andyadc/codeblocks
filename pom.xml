@@ -56,9 +56,9 @@
 		<lettuce.version>6.3.2.RELEASE</lettuce.version>
 		<kafka-clients.version>3.1.2</kafka-clients.version>
 		<curator.version>5.7.0</curator.version>
-		<rabbitmq-clients.version>5.21.0</rabbitmq-clients.version>
+		<rabbitmq-clients.version>5.22.0</rabbitmq-clients.version>
 		<jackson.version>2.17.2</jackson.version>
-		<fastjson.version>2.0.52</fastjson.version>
+		<fastjson.version>2.0.53</fastjson.version>
 		<joda-time.version>2.12.7</joda-time.version>
 		<guava.version>33.3.0-jre</guava.version>
 		<tomcat-jdbc.version>9.0.93</tomcat-jdbc.version>
