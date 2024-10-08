@@ -69,7 +69,7 @@
 		<jsqlparser.version>4.9</jsqlparser.version>
 		<fst.version>2.57</fst.version>
 		<snappy.version>1.1.10.7</snappy.version>
-		<kryo.version>5.6.0</kryo.version>
+		<kryo.version>5.6.1</kryo.version>
 		<protostuff.version>1.8.0</protostuff.version>
 		<hessian.version>4.0.66</hessian.version>
 		<byte-buddy.version>1.12.23</byte-buddy.version>
