@@ -43,6 +43,12 @@
 			<artifactId>logback-classic</artifactId>
 			<version>${logback.version}</version>
 			<scope>runtime</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.slf4j</groupId>
+					<artifactId>slf4j-api</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>commons-fileupload</groupId>
@@ -78,6 +84,10 @@
 			<version>${mockito.version}</version>
 			<scope>test</scope>
 			<exclusions>
+				<exclusion>
+					<groupId>org.junit.jupiter</groupId>
+					<artifactId>junit-jupiter-api</artifactId>
+				</exclusion>
 				<exclusion>
 					<groupId>net.bytebuddy</groupId>
 					<artifactId>byte-buddy</artifactId>
