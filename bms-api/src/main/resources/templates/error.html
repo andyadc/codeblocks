@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="UTF-8">
+	<meta charset="UTF-8"/>
 	<title>Error!</title>
-	<link href="/favicon.ico" rel="icon" type="image/x-icon">
+	<link href="/favicon.ico" rel="icon" type="image/x-icon"/>
 
 	<style>
 		h1 {
@@ -38,14 +38,18 @@
 		}
 	</style>
 </head>
+
 <body>
 <h2>Something went wrong!</h2>
 <h3>Our Engineers are on it.</h3>
 <p><a href="/">Go Home</a></p>
 
 <span th:text="${status}">status</span>
+<br/>
 <span th:text="${error}">error</span>
+<br/>
 <span th:text="${timestamp}">timestamp</span>
+<br/>
 <span th:text="${path}">path</span>
 <br/>
 <span th:text="${message}">message</span>
