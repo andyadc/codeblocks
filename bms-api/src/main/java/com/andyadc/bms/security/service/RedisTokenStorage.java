@@ -1,5 +1,6 @@
 package com.andyadc.bms.security.service;
 
+import com.andyadc.bms.common.Constants;
 import com.andyadc.bms.redis.RedisOperator;
 import com.andyadc.bms.security.handler.TokenStorage;
 import com.andyadc.bms.security.model.SecureUser;
@@ -14,7 +15,7 @@ public class RedisTokenStorage implements TokenStorage {
 
 	private static final Logger logger = LoggerFactory.getLogger(RedisTokenStorage.class);
 
-	private static final String KEY_PREFIX = "jwt:user:token:";
+	private static final String KEY_PREFIX = Constants.REDIS_CACHE_PREFIX + "jwt:user:token:";
 	private final RedisOperator redisOperator;
 
 	public RedisTokenStorage(RedisOperator redisOperator) {

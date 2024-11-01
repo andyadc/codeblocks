@@ -1,6 +1,6 @@
 package com.andyadc.bms.security.handler;
 
-import com.andyadc.bms.security.Constants;
+import com.andyadc.bms.security.SecurityConstants;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +29,7 @@ public abstract class ResponseWriter {
 
 		response.setStatus(HttpServletResponse.SC_OK);
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-		response.setCharacterEncoding(Constants.DEFAULT_CHARACTER_ENCODING);
+		response.setCharacterEncoding(SecurityConstants.DEFAULT_CHARACTER_ENCODING);
 
 		String resBody = objectMapper.writeValueAsString(this.body(request, throwable));
 
