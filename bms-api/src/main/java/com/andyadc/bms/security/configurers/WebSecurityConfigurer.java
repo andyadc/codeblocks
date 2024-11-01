@@ -1,6 +1,6 @@
 package com.andyadc.bms.security.configurers;
 
-import com.andyadc.bms.security.Constants;
+import com.andyadc.bms.security.SecurityConstants;
 import com.andyadc.bms.security.auth.ajax.AjaxAuthenticationProvider;
 import com.andyadc.bms.security.auth.ajax.AjaxAwareAuthenticationFailureHandler;
 import com.andyadc.bms.security.auth.ajax.AjaxAwareAuthenticationSuccessHandler;
@@ -39,7 +39,7 @@ import java.util.List;
 )
 public class WebSecurityConfigurer extends WebSecurityConfigurerAdapter {
 
-	private static final String API_ROOT_URL = Constants.ROOT_API_URL;
+	private static final String API_ROOT_URL = SecurityConstants.ROOT_API_URL;
 	private static final String AUTHENTICATION_URL = "/api/auth/login";
 	private static final String REFRESH_TOKEN_URL = "/api/auth/token";
 	private static final String CAPTCHA_URL = "/api/captcha/**";
