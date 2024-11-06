@@ -145,7 +145,7 @@ public abstract class AbstractLoginFilterConfigurer<
 	}
 
 	protected final void registerDefaultAuthenticationEntryPoint(H http) {
-		if (authenticationEntryPoint != null) {
+		if (authenticationEntryPoint == null) {
 			this.authenticationEntryPoint = new SimpleAuthenticationEntryPoint();
 		}
 		registerAuthenticationEntryPoint(http, this.authenticationEntryPoint);
