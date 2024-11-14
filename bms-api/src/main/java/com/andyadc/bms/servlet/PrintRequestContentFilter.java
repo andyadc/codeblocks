@@ -26,11 +26,11 @@ public class PrintRequestContentFilter extends OncePerRequestFilter {
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 		String uri = request.getRequestURI();
-		System.out.println("IN PrintRequestContentFilter " + uri);
+		logger.info("In PrintRequestContentFilter {}", uri);
 
 		InputStream inputStream = request.getInputStream();
 		byte[] body = StreamUtils.copyToByteArray(inputStream);
-		System.out.println("In PrintRequestContentFilter. Request body is: " + new String(body));
+		logger.info("In PrintRequestContentFilter. Request body is: {}", new String(body));
 
 		filterChain.doFilter(request, response);
 	}

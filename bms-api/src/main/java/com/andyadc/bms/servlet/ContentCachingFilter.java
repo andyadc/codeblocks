@@ -49,7 +49,7 @@ public class ContentCachingFilter extends OncePerRequestFilter {
 
 		String traceId = request.getHeader(HEADER_REQUEST_ID);
 		if (traceId == null || traceId.isEmpty()) {
-			traceId = UUID.randomUUID();
+			traceId = UUID.randomUUID().replace("-", "");
 		}
 		MDC.put(TRACE_ID, traceId);
 		RequestContextHolder.currentRequestAttributes().setAttribute("traceId", traceId, RequestAttributes.SCOPE_REQUEST);
@@ -75,7 +75,7 @@ public class ContentCachingFilter extends OncePerRequestFilter {
 		response.setHeader("X-Frame-Options", "deny");
 		response.setHeader("X-XSS-Protection", "0");
 		response.setHeader("X-Content-Type-Options", "nosniff");
-		response.setHeader("Content-Security-Policy", "default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self'; frame-ancestors 'self'; form-action 'self';");
+//		response.setHeader("Content-Security-Policy", "default-src 'none'; script-src 'self'; connect-src 'self'; img-src 'self'; style-src 'self'; frame-ancestors 'self'; form-action 'self';");
 		response.setHeader("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload");
 	}
 
