@@ -44,8 +44,8 @@ public class OnUserRegistrationCompleteListener implements ApplicationListener<O
 			return;
 		}
 
-		String token = UUID.randomUUID().toString();
-		String confirmationUrl = event.getUrl() + "/pub/regitrationConfirm?activationCode=" + token
+		String token = UUID.randomUUID().toString().replace("-", "");
+		String confirmationUrl = event.getUrl() + "/openapi/regitrationConfirm?activationCode=" + token
 			+ "&t=" + System.currentTimeMillis();
 
 		String subject = "Registration Confirmation";
@@ -53,13 +53,13 @@ public class OnUserRegistrationCompleteListener implements ApplicationListener<O
 		String text = message + " \r\n" + confirmationUrl;
 
 		if (mailSendMock) {
-			logger.warn("Confirmation email mock sent. {}", userMailLog);
+			logger.warn("Confirm email mock sent. {}", userMailLog);
 		} else {
 			boolean sendFlag = mailService.sendSimpleMessage(email, subject, text);
 			if (sendFlag) {
-				logger.info("Confirmation email sent. {}", userMailLog);
+				logger.info("Confirm email sent successfully. {}", userMailLog);
 			} else {
-				logger.warn("Confirmation email send fail. {}", userMailLog);
+				logger.warn("Failure to send confirm email. {}", userMailLog);
 			}
 		}
 	}

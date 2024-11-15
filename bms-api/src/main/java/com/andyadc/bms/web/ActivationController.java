@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
-@RequestMapping("/pub")
+@RequestMapping("/openapi")
 @Controller
 public class ActivationController {
 
