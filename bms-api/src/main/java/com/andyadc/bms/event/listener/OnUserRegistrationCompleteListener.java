@@ -36,7 +36,7 @@ public class OnUserRegistrationCompleteListener implements ApplicationListener<O
 	private void confirmRegistration(OnUserRegistrationCompleteEvent event) {
 		AuthUser authUser = event.getAuthUser();
 		String userMailLog = authUser.getId() + "-" + authUser.getUsername();
-		logger.info("Send mail after user registration. {}", userMailLog);
+		logger.info("Prepare to send mail after user registration. {}", userMailLog);
 
 		String email = authUser.getEmail();
 		if (StringUtil.isBlank(email)) {
@@ -52,7 +52,7 @@ public class OnUserRegistrationCompleteListener implements ApplicationListener<O
 		String message = "You registered successfully. To confirm your registration, please click on the below link.";
 		String text = message + " \r\n" + confirmationUrl;
 
-		if (mailSendMock) {
+		if (mailSendMock != null && mailSendMock) {
 			logger.warn("Confirm email mock sent. {}", userMailLog);
 		} else {
 			boolean sendFlag = mailService.sendSimpleMessage(email, subject, text);
