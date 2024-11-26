@@ -45,4 +45,6 @@ public abstract class Message<T> {
 	public void setEventType(String eventType) {
 		this.eventType = eventType;
 	}
+
+
 }
