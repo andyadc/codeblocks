@@ -44,6 +44,7 @@ public class DefaultBatchMessageDispatcher implements MessageDispatcher {
 				break;
 			}
 		}
+		dumpPartitionOffsetInfo(offsetMap);
 		return offsetMap;
 	}
 
@@ -84,7 +85,22 @@ public class DefaultBatchMessageDispatcher implements MessageDispatcher {
 		}
 	}
 
-	public Map<String, MessageConsumer> getConsumers() {
-		return consumers;
+	private void dumpPartitionOffsetInfo(Map<TopicPartition, OffsetAndMetadata> offsets) {
+		if (logger.isInfoEnabled()) {
+			StringBuilder sb = new StringBuilder("Partition Offset Dump:");
+			if (offsets.isEmpty()) {
+				sb.append("No message is be consumed!");
+			} else {
+				for (TopicPartition partition : offsets.keySet()) {
+					sb.append("\n\ttopic=").append(partition.topic()).append(", partition=")
+						.append(partition.partition()).append(", offset=").append(offsets.get(partition).offset());
+				}
+			}
+			logger.info(sb.toString());
+		}
+	}
+
+	public void setConsumers(Map<String, MessageConsumer> consumers) {
+		this.consumers = consumers;
 	}
 }
