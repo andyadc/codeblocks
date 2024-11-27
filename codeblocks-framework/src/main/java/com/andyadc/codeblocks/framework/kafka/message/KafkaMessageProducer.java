@@ -2,7 +2,9 @@ package com.andyadc.codeblocks.framework.kafka.message;
 
 import com.andyadc.codeblocks.framework.message.Message;
 import com.andyadc.codeblocks.framework.message.MessageConverter;
+import com.andyadc.codeblocks.framework.message.MessageException;
 import com.andyadc.codeblocks.framework.message.MessageProducer;
+import org.apache.kafka.clients.producer.Callback;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -22,9 +24,11 @@ import java.util.concurrent.Future;
 public class KafkaMessageProducer implements MessageProducer, InitializingBean, DisposableBean {
 
 	private static final Logger logger = LoggerFactory.getLogger(KafkaMessageProducer.class);
+
 	private final Properties props;
 	private Producer<String, String> producer;
 	private String bootstrapServers;
+	private String clientId;
 
 	public KafkaMessageProducer() {
 		this.props = getDefaultConfig();
@@ -42,19 +46,17 @@ public class KafkaMessageProducer implements MessageProducer, InitializingBean, 
 
 	@Override
 	public void send(String topic, Message<?> message) {
-		try {
-			Future<RecordMetadata> future = sendToKafka(topic, null, null, message);
-			RecordMetadata metadata = future.get();
-			logger.info("{}", metadata.toString());
-		} catch (Exception e) {
-			logger.error("sendToKafka error.", e);
-			throw new RuntimeException(e);
-		}
+		sendToKafka(topic, null, null, message, true);
 	}
 
-	private Future<RecordMetadata> sendToKafka(String topic, Integer partition, String key, Message<?> message) {
+	@Override
+	public void syncSend(String topic, Message<?> message) {
+		sendToKafka(topic, null, null, message, false);
+	}
+
+	private void sendToKafka(String topic, Integer partition, String key, Message<?> message, Boolean isAsync) {
 		if (message.getTimestamp() == null) {
-			message.setTimestamp(System.currentTimeMillis() + "");
+			message.setTimestamp(System.currentTimeMillis());
 		}
 		if (message.getMessageId() == null) {
 			message.setMessageId(UUID.randomUUID().toString().replace("-", ""));
@@ -62,7 +64,29 @@ public class KafkaMessageProducer implements MessageProducer, InitializingBean, 
 		String value = MessageConverter.toJsonString(message);
 		ProducerRecord<String, String> record = new ProducerRecord<>(topic, partition, key, value);
 		logger.info("Prepare to send message to broker. topic: {}, key: {}, value: {}, partition: {}", topic, key, value, partition);
-		return producer.send(record);
+
+		long sendTime = System.currentTimeMillis();
+		if (isAsync) {
+			producer.send(record, new sentCallback(sendTime, message.getMessageId(), value));
+		} else {
+			RecordMetadata metadata = null;
+			try {
+				Future<RecordMetadata> future = producer.send(record);
+				metadata = future.get();
+			} catch (Exception e) {
+				logger.error("sendToKafka error", e);
+				throw new MessageException("Kafka send message error", e);
+			} finally {
+				long elapsedTime = System.currentTimeMillis() - sendTime;
+				if (metadata == null) {
+					logger.info("Sync send message error in {}", elapsedTime);
+				} else {
+					logger.info("Sync send message messageId: {} send to topic: {}, partition {}, offset: {}, in {}\n",
+						message.getMessageId(), metadata.topic(), metadata.partition(), metadata.offset(), elapsedTime);
+				}
+			}
+
+		}
 	}
 
 	@Override
@@ -71,6 +95,9 @@ public class KafkaMessageProducer implements MessageProducer, InitializingBean, 
 		long start = System.currentTimeMillis();
 		Assert.hasText(bootstrapServers, "Kafka bootstrapServers is null");
 		props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+		if (this.clientId != null) {
+			props.put(ProducerConfig.CLIENT_ID_CONFIG, clientId);
+		}
 		producer = new KafkaProducer<>(props);
 		logger.info("Kafka producer initialization completed in {} ms", (System.currentTimeMillis() - start));
 	}
@@ -79,6 +106,7 @@ public class KafkaMessageProducer implements MessageProducer, InitializingBean, 
 	public void destroy() throws Exception {
 		logger.info("Kafka producer Close initiated...");
 		if (this.producer != null) {
+			producer.flush();
 			producer.close();
 		}
 		logger.info("Kafka producer Close completed");
@@ -86,6 +114,35 @@ public class KafkaMessageProducer implements MessageProducer, InitializingBean, 
 
 	public void setBootstrapServers(String bootstrapServers) {
 		this.bootstrapServers = bootstrapServers;
+	}
+
+	public void setClientId(String clientId) {
+		this.clientId = clientId;
+	}
+
+	static class sentCallback implements Callback {
+
+		/* 开始发送消息的时间戳 */
+		private final long sendTime;
+		private final String messageId;
+		private final String message;
+
+		public sentCallback(long sendTime, String messageId, String message) {
+			this.sendTime = sendTime;
+			this.messageId = messageId;
+			this.message = message;
+		}
+
+		@Override
+		public void onCompletion(RecordMetadata metadata, Exception e) {
+			long elapsedTime = System.currentTimeMillis() - sendTime;
+			if (metadata != null) {
+				logger.info("Async send message messageId: {} send to topic: {}, partition {}, offset: {}, in {}\n",
+					messageId, metadata.topic(), metadata.partition(), metadata.offset(), elapsedTime);
+			} else {
+				logger.error("Async send message error. messageId: {}", messageId, e);
+			}
+		}
 	}
 
 }
