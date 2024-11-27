@@ -7,7 +7,7 @@ import java.time.ZoneId;
 public abstract class Message<T> {
 
 	private String messageId;
-	private String timestamp;
+	private Long timestamp;
 	private String eventType;
 
 	public abstract T getBody();
@@ -16,7 +16,7 @@ public abstract class Message<T> {
 
 	public String getSendTime() {
 		if (timestamp != null) {
-			LocalDateTime dateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(Long.parseLong(timestamp)), ZoneId.systemDefault());
+			LocalDateTime dateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(timestamp), ZoneId.systemDefault());
 			return dateTime.toString();
 		}
 		return null;
@@ -30,11 +30,11 @@ public abstract class Message<T> {
 		this.messageId = messageId;
 	}
 
-	public String getTimestamp() {
+	public Long getTimestamp() {
 		return timestamp;
 	}
 
-	public void setTimestamp(String timestamp) {
+	public void setTimestamp(Long timestamp) {
 		this.timestamp = timestamp;
 	}
 
@@ -46,5 +46,13 @@ public abstract class Message<T> {
 		this.eventType = eventType;
 	}
 
+	@Override
+	public String toString() {
+		return "Message{" +
+			"messageId=" + messageId +
+			", timestamp=" + timestamp +
+			", eventType=" + eventType +
+			'}';
+	}
 
 }

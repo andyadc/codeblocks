@@ -13,4 +13,12 @@ public class DefaultMessage extends Message<String> {
 	public void setBody(String body) {
 		this.body = body;
 	}
+
+	@Override
+	public String toString() {
+		return "{" +
+			"body=" + body +
+			"} " + super.toString();
+	}
+
 }
