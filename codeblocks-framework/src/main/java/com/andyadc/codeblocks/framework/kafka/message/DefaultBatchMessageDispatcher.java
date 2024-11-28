@@ -64,15 +64,12 @@ public class DefaultBatchMessageDispatcher implements MessageDispatcher {
 			offsetHolder.set(record.offset());
 			return;
 		}
-		DefaultMessage message = MessageConverter.toObject(payload, DefaultMessage.class);
-		Object body = message.getBody();
-		String bodyJson = MessageConverter.toJsonString(body);
-		message.setBody(bodyJson);
 
+		DefaultMessage message = MessageConverter.toObject(payload, DefaultMessage.class);
 		String eventType = message.getEventType();
 		MessageConsumer consumer = consumers.get(eventType);
 		if (consumer == null) {
-			logger.info("No consumer for event type {}", eventType);
+			logger.info("No consumer found for event type: {}", eventType);
 			offsetHolder.set(record.offset());
 			return;
 		}
