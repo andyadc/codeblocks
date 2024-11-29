@@ -50,8 +50,18 @@ public class KafkaMessageProducer implements MessageProducer, InitializingBean, 
 	}
 
 	@Override
+	public void send(String topic, Integer partition, String key, Message<?> message) {
+		sendToKafka(topic, partition, key, message, true);
+	}
+
+	@Override
 	public void syncSend(String topic, Message<?> message) {
 		sendToKafka(topic, null, null, message, false);
+	}
+
+	@Override
+	public void syncSend(String topic, Integer partition, String key, Message<?> message) {
+		sendToKafka(topic, partition, key, message, false);
 	}
 
 	private void sendToKafka(String topic, Integer partition, String key, Message<?> message, Boolean isAsync) {
@@ -67,7 +77,7 @@ public class KafkaMessageProducer implements MessageProducer, InitializingBean, 
 
 		long sendTime = System.currentTimeMillis();
 		if (isAsync) {
-			producer.send(record, new sentCallback(sendTime, message.getMessageId(), value));
+			producer.send(record, new KafkaSentCallback(sendTime, message.getMessageId(), value));
 		} else {
 			RecordMetadata metadata = null;
 			try {
@@ -120,14 +130,14 @@ public class KafkaMessageProducer implements MessageProducer, InitializingBean, 
 		this.clientId = clientId;
 	}
 
-	static class sentCallback implements Callback {
+	static class KafkaSentCallback implements Callback {
 
 		/* 开始发送消息的时间戳 */
 		private final long sendTime;
 		private final String messageId;
 		private final String message;
 
-		public sentCallback(long sendTime, String messageId, String message) {
+		public KafkaSentCallback(long sendTime, String messageId, String message) {
 			this.sendTime = sendTime;
 			this.messageId = messageId;
 			this.message = message;
