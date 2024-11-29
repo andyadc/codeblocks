@@ -26,6 +26,7 @@ public class MessagePoller implements Runnable, InitializingBean, DisposableBean
 	private MessageDispatcher dispatcher;
 	private String[] topics;
 	private String groupId;
+	private String clientId;
 	private long timeout = 3000;
 	private String bootstrapServers;
 
@@ -35,7 +36,6 @@ public class MessagePoller implements Runnable, InitializingBean, DisposableBean
 
 	private static Properties getDefaultConfig() {
 		Properties props = new Properties();
-
 
 		props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
 		props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
@@ -71,6 +71,7 @@ public class MessagePoller implements Runnable, InitializingBean, DisposableBean
 						logger.warn("Closing message poller occurs exception", e);
 					}
 				}
+				running.set(false);
 			}
 		}
 		logger.info("Message poller thread closed.");
@@ -81,15 +82,26 @@ public class MessagePoller implements Runnable, InitializingBean, DisposableBean
 		logger.info("Initializing kafka message poller.");
 		long start = System.currentTimeMillis();
 		Assert.hasText(bootstrapServers, "Kafka bootstrapServers is null");
+		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
+
 		if (this.groupId != null) {
 			props.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
 		}
-		props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
-		props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, true); // true-自动提交, false-禁用自动提交
+		if (this.clientId != null) {
+			props.put(ConsumerConfig.CLIENT_ID_CONFIG, clientId);
+		}
+
+		if (dispatcher instanceof TransactionalBatchMessageDispatcher) {
+			props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, false); // false-禁用自动提交
+		} else {
+			props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, true); // true-自动提交
+		}
 
 		Thread thread = new Thread(this);
 		thread.setName("MessagePoller-" + tid.getAndIncrement());
 		thread.start();
+
+		logger.info("Kafka poller initialization completed in {} ms", (System.currentTimeMillis() - start));
 	}
 
 	@Override
@@ -113,5 +125,13 @@ public class MessagePoller implements Runnable, InitializingBean, DisposableBean
 
 	public void setGroupId(String groupId) {
 		this.groupId = groupId;
+	}
+
+	public void setClientId(String clientId) {
+		this.clientId = clientId;
+	}
+
+	public void setDispatcher(MessageDispatcher dispatcher) {
+		this.dispatcher = dispatcher;
 	}
 }
