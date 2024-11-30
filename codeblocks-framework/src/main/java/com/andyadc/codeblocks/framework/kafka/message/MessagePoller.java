@@ -14,20 +14,20 @@ import java.time.Duration;
 import java.util.Arrays;
 import java.util.Properties;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.LongAdder;
 
 public class MessagePoller implements Runnable, InitializingBean, DisposableBean {
 
 	private static final Logger logger = LoggerFactory.getLogger(MessagePoller.class);
 
-	private static final AtomicInteger tid = new AtomicInteger(0);
+	private final LongAdder consumeAdder = new LongAdder();
 	private final AtomicBoolean running = new AtomicBoolean(true);
 	private final Properties props;
 	private MessageDispatcher dispatcher;
 	private String[] topics;
 	private String groupId;
 	private String clientId;
-	private long timeout = 3000;
+	private long timeout = 3000L;
 	private String bootstrapServers;
 
 	public MessagePoller() {
@@ -57,8 +57,10 @@ public class MessagePoller implements Runnable, InitializingBean, DisposableBean
 					if (records.isEmpty()) {
 						continue;
 					}
-					logger.info(records.count() + " records polled!");
+					int curCount = records.count();
+					logger.info(curCount + " records polled!");
 					dispatcher.doDispatch(kafkaConsumer, records);
+					consumeAdder.add(curCount);
 				}
 			} catch (Exception e) {
 				logger.error("KafkaConsumer poll records error.", e);
@@ -98,7 +100,8 @@ public class MessagePoller implements Runnable, InitializingBean, DisposableBean
 		}
 
 		Thread thread = new Thread(this);
-		thread.setName("MessagePoller-" + tid.getAndIncrement());
+		thread.setName("MessagePoller");
+		thread.setDaemon(true);
 		thread.start();
 
 		logger.info("Kafka poller initialization completed in {} ms", (System.currentTimeMillis() - start));
@@ -108,6 +111,7 @@ public class MessagePoller implements Runnable, InitializingBean, DisposableBean
 	public void destroy() throws Exception {
 		logger.info("MessagePoller shutdown initiated...");
 		this.running.set(false);
+		logger.info("Message consumed {}.", consumeAdder.sum());
 		logger.info("MessagePoller completed.");
 	}
 
