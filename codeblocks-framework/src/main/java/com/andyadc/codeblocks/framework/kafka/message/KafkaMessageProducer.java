@@ -20,11 +20,13 @@ import org.springframework.util.Assert;
 import java.util.Properties;
 import java.util.UUID;
 import java.util.concurrent.Future;
+import java.util.concurrent.atomic.LongAdder;
 
 public class KafkaMessageProducer implements MessageProducer, InitializingBean, DisposableBean {
 
 	private static final Logger logger = LoggerFactory.getLogger(KafkaMessageProducer.class);
 
+	private final LongAdder sentAdder = new LongAdder();
 	private final Properties props;
 	private Producer<String, String> producer;
 	private String bootstrapServers;
@@ -78,10 +80,12 @@ public class KafkaMessageProducer implements MessageProducer, InitializingBean, 
 		long sendTime = System.currentTimeMillis();
 		if (isAsync) {
 			producer.send(record, new KafkaSentCallback(sendTime, message.getMessageId(), value));
+			sentAdder.add(1L);
 		} else {
 			RecordMetadata metadata = null;
 			try {
 				Future<RecordMetadata> future = producer.send(record);
+				sentAdder.add(1L);
 				metadata = future.get();
 			} catch (Exception e) {
 				logger.error("sendToKafka error", e);
@@ -119,6 +123,7 @@ public class KafkaMessageProducer implements MessageProducer, InitializingBean, 
 			producer.flush();
 			producer.close();
 		}
+		logger.info("Message sent {}", sentAdder.sum());
 		logger.info("Kafka producer Close completed");
 	}
 
