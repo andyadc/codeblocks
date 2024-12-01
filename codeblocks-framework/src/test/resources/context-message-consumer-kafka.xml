@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns="http://www.springframework.org/schema/beans"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="messagePoller" class="com.andyadc.codeblocks.framework.kafka.message.MessagePoller">
+		<property name="bootstrapServers" value="localhost:9092"/>
+		<property name="dispatcher" ref="defaultBatchMessageDispatcher"/>
+		<property name="topics" value="user-behavior,user-bank-behavior"/>
+		<property name="groupId" value="codeblocks"/>
+
+	</bean>
+
+	<bean id="userRegisterConsumer" class="com.andyadc.test.kafka.message.UserRegisterConsumer"/>
+	<bean id="userLoginConsumer" class="com.andyadc.test.kafka.message.UserLoginConsumer"/>
+	<bean id="userBankAuthConsumer" class="com.andyadc.test.kafka.message.UserBankAuthConsumer"/>
+	<bean id="userBankBindConsumer" class="com.andyadc.test.kafka.message.UserBankBindConsumer"/>
+
+	<bean id="defaultBatchMessageDispatcher"
+		  class="com.andyadc.codeblocks.framework.kafka.message.DefaultBatchMessageDispatcher">
+		<property name="consumers">
+			<map>
+				<entry key="user-register" value-ref="userRegisterConsumer"/>
+				<entry key="user-login" value-ref="userLoginConsumer"/>
+				<entry key="user-bank-auth" value-ref="userBankAuthConsumer"/>
+				<entry key="user-bank-bind" value-ref="userBankBindConsumer"/>
+			</map>
+		</property>
+	</bean>
+
+</beans>
