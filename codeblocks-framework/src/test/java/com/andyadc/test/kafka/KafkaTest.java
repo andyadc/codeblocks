@@ -9,6 +9,7 @@ import org.apache.kafka.clients.admin.ListConsumerGroupOffsetsResult;
 import org.apache.kafka.clients.admin.ListTopicsOptions;
 import org.apache.kafka.clients.admin.ListTopicsResult;
 import org.apache.kafka.clients.admin.NewTopic;
+import org.apache.kafka.clients.admin.TopicListing;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -27,6 +28,7 @@ import org.junit.jupiter.api.Test;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -237,6 +239,16 @@ public class KafkaTest {
 		Map<String, KafkaFuture<Void>> values = createTopicsResult.values();
 		for (Map.Entry<String, KafkaFuture<Void>> futureEntry : values.entrySet()) {
 			System.out.println(futureEntry.getKey() + " - " + futureEntry.getValue().isDone());
+		}
+	}
+
+	@Test
+	public void testListTopics() throws Exception {
+		ListTopicsResult listTopicsResult = adminClient.listTopics();
+		KafkaFuture<Collection<TopicListing>> listings = listTopicsResult.listings();
+		Collection<TopicListing> topicListings = listings.get();
+		for (TopicListing topicListing : topicListings) {
+			System.out.println(topicListing);
 		}
 	}
 
