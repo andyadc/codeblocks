@@ -53,7 +53,7 @@
 		<zookeeper.version>3.9.3</zookeeper.version>
 		<redisson.version>3.27.2</redisson.version>
 		<jedis.version>5.1.5</jedis.version>
-		<lettuce.version>6.3.2.RELEASE</lettuce.version>
+		<lettuce.version>6.5.1.RELEASE</lettuce.version>
 		<kafka-clients.version>3.1.2</kafka-clients.version>
 		<curator.version>5.7.1</curator.version>
 		<rabbitmq-clients.version>5.23.0</rabbitmq-clients.version>
@@ -82,7 +82,7 @@
 		<commons-codec.version>1.17.1</commons-codec.version>
 		<commons-collections.version>4.4</commons-collections.version>
 		<commons-beanutils.version>1.9.4</commons-beanutils.version>
-		<commons-dbcp2.version>2.12.0</commons-dbcp2.version>
+		<commons-dbcp.version>2.13.0</commons-dbcp.version>
 		<commons-pool.version>2.12.0</commons-pool.version>
 		<commons-io.version>2.18.0</commons-io.version>
 		<commons-dbutils.version>1.8.1</commons-dbutils.version>
@@ -90,6 +90,7 @@
 		<ehcache.version>3.10.8</ehcache.version>
 		<zxing.version>3.5.3</zxing.version>
 		<poi.version>5.2.5</poi.version>
+		<quartz.version>2.4.0</quartz.version>
 		<dom4j.version>2.1.4</dom4j.version>
 		<slf4j.version>1.7.36</slf4j.version>
 		<logback.version>1.2.13</logback.version>
@@ -262,6 +263,17 @@
 				<artifactId>fastjson2</artifactId>
 				<version>${fastjson.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.quartz-scheduler</groupId>
+				<artifactId>quartz</artifactId>
+				<version>${quartz.version}</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.slf4j</groupId>
+						<artifactId>slf4j-api</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
 
 			<!-- commons -->
 			<dependency>
@@ -303,7 +315,7 @@
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-dbcp2</artifactId>
-				<version>${commons-dbcp2.version}</version>
+				<version>${commons-dbcp.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>commons-dbutils</groupId>
