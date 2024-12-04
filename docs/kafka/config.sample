@@ -1,0 +1,8 @@
+acks = all
+producer.send(msg, callback)
+retries > 0
+unclean.leader.election.enable = false
+replication.factor >= 3
+min.insync.replicas > 1
+replication.factor = min.insync.replicas + 1
+enable.auto.commit = false
