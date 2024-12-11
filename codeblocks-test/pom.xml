@@ -116,7 +116,7 @@
 		<dependency>
 			<groupId>org.bouncycastle</groupId>
 			<artifactId>bcprov-jdk18on</artifactId>
-			<version>1.78.1</version>
+			<version>1.79</version>
 		</dependency>
 
 		<!-- https://github.com/vavr-io/vavr -->
@@ -124,7 +124,7 @@
 		<dependency>
 			<groupId>io.vavr</groupId>
 			<artifactId>vavr</artifactId>
-			<version>0.10.4</version>
+			<version>0.10.5</version>
 		</dependency>
 
 		<!-- Usefull class adapters based on ASM, a very small and fast Java bytecode manipulation framework -->
