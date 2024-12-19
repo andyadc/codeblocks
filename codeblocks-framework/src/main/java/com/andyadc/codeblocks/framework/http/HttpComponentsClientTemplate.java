@@ -198,13 +198,17 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 			if (entity != null) {
 				result = EntityUtils.toString(entity, charset);
 			}
-			EntityUtils.consume(entity);
 			return result;
 		} catch (Exception e) {
-			if (response != null) {
-				EntityUtils.consume(response.getEntity());
+			if (response != null && response.getEntity() != null) {
+				// Ensure entity is consumed even if toString throws exception
+				EntityUtils.consumeQuietly(response.getEntity());
 			}
 			throw new HttpRequestException(e);
+		} finally {
+			if (response != null) {
+				response.close();
+			}
 		}
 	}
 

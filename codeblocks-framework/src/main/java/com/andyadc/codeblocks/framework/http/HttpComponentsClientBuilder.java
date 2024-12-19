@@ -1,5 +1,6 @@
 package com.andyadc.codeblocks.framework.http;
 
+import com.andyadc.codeblocks.kit.concurrent.ThreadUtil;
 import org.apache.http.HttpRequestInterceptor;
 import org.apache.http.HttpResponseInterceptor;
 import org.apache.http.client.config.RequestConfig;
@@ -22,6 +23,9 @@ import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.impl.conn.SystemDefaultDnsResolver;
 import org.apache.http.impl.io.DefaultHttpRequestWriterFactory;
 import org.apache.http.impl.io.DefaultHttpResponseParserFactory;
+import org.apache.http.pool.PoolStats;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -74,6 +78,9 @@ public final class HttpComponentsClientBuilder {
 		builder.setKeepAliveStrategy(new CustomConnectionKeepAliveStrategy());  // 自定义长连接策略
 		builder.setConnectionReuseStrategy(DefaultConnectionReuseStrategy.INSTANCE);// 连接重用策略
 
+		StatsMonitorThread statsMonitorThread = new StatsMonitorThread(defaultManager);
+		statsMonitorThread.start();
+
 		return builder.build();
 	}
 
@@ -120,5 +127,37 @@ public final class HttpComponentsClientBuilder {
 	public static CloseableHttpClient build() {
 		HttpClientConfiguration configuration = HttpClientConfiguration.common();
 		return build(configuration);
+	}
+
+	// Thread to monitor
+	private static class StatsMonitorThread extends Thread {
+
+		private static final Logger logger = LoggerFactory.getLogger(StatsMonitorThread.class);
+
+		private final PoolingHttpClientConnectionManager connectionManager;
+
+		public StatsMonitorThread(PoolingHttpClientConnectionManager connectionManager) {
+			super("Stats Monitor Thread");
+			this.connectionManager = connectionManager;
+		}
+
+		@Override
+		public void run() {
+			while (true) {
+				ThreadUtil.sleep(3000L);
+				logPoolStats(connectionManager);
+			}
+		}
+
+		private void logPoolStats(PoolingHttpClientConnectionManager connectionManager) {
+			PoolStats stats = connectionManager.getTotalStats();
+			String statsConnInfo = String.format("Available: %d, Leased: %d, Pending: %d, Max: %d%n",
+				stats.getAvailable(),  // Free connections in pool
+				stats.getLeased(),     // Currently in use
+				stats.getPending(),     // Connection requests waiting
+				stats.getMax()         // Maximum allowed connections
+			);
+			logger.info("{}", statsConnInfo);
+		}
 	}
 }
