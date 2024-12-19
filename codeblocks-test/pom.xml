@@ -293,7 +293,7 @@
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>easyexcel</artifactId>
-			<version>4.0.2</version>
+			<version>4.0.3</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.glassfish.jaxb</groupId>
