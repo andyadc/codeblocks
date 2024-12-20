@@ -7,7 +7,7 @@ import java.util.function.Predicate;
  */
 public interface Predicates {
 
-	Predicate[] EMPTY_ARRAY = new Predicate[0];
+	Predicate<?>[] EMPTY_ARRAY = new Predicate[0];
 
 	Predicate<?> ALWAYS_TRUE = e -> true;
 
