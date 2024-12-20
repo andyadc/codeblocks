@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.common.event;
+package com.andyadc.codeblocks.framework.event;
 
 public class DirectEventDispatcher extends AbstractEventDispatcher {
 

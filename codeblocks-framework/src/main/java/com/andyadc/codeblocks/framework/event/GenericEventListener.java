@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.common.event;
+package com.andyadc.codeblocks.framework.event;
 
 import com.andyadc.codeblocks.common.function.ThrowableConsumer;
 import com.andyadc.codeblocks.common.function.ThrowableFunction;

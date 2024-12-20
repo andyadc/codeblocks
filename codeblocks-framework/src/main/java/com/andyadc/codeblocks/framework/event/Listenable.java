@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.common.event;
+package com.andyadc.codeblocks.framework.event;
 
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;

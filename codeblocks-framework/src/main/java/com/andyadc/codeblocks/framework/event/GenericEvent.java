@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.common.event;
+package com.andyadc.codeblocks.framework.event;
 
 /**
  * Generic {@link Event event}
@@ -6,6 +6,8 @@ package com.andyadc.codeblocks.common.event;
  * @param <S> the type of event source
  */
 public class GenericEvent<S> extends Event {
+
+	private static final long serialVersionUID = 5392110492655173361L;
 
 	/**
 	 * Constructs a prototypical Event.

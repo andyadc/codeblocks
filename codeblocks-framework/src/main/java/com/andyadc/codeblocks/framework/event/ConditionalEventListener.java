@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.common.event;
+package com.andyadc.codeblocks.framework.event;
 
 /**
  * An {@link EventListener} extending the the conditional feature that {@link #accept(Event) decides} some

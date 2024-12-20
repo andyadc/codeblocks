@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.common.event;
+package com.andyadc.codeblocks.framework.event;
 
 import java.util.EventObject;
 
@@ -6,6 +6,8 @@ import java.util.EventObject;
  * An event object is based on the Java standard {@link EventObject event}
  */
 public abstract class Event extends EventObject {
+
+	private static final long serialVersionUID = -8967092158272525497L;
 
 	/**
 	 * The timestamp of event occurs
