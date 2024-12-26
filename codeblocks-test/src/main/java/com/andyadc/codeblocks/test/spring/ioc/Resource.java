@@ -2,6 +2,11 @@ package com.andyadc.codeblocks.test.spring.ioc;
 
 import java.util.Objects;
 
+/**
+ * <code>
+ * public record Resource(String path, String name) {}
+ * </code>
+ */
 public class Resource {
 
 	private final String path;
