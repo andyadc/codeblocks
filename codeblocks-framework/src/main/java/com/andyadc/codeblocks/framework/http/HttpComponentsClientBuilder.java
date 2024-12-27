@@ -1,6 +1,5 @@
 package com.andyadc.codeblocks.framework.http;
 
-import com.andyadc.codeblocks.kit.concurrent.ThreadUtil;
 import org.apache.http.HttpRequestInterceptor;
 import org.apache.http.HttpResponseInterceptor;
 import org.apache.http.client.config.RequestConfig;
@@ -23,9 +22,6 @@ import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.impl.conn.SystemDefaultDnsResolver;
 import org.apache.http.impl.io.DefaultHttpRequestWriterFactory;
 import org.apache.http.impl.io.DefaultHttpResponseParserFactory;
-import org.apache.http.pool.PoolStats;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -53,34 +49,38 @@ public final class HttpComponentsClientBuilder {
 		builder.setConnectionManager(defaultManager);
 
 		RequestConfig defaultRequestConfig = RequestConfig.custom()
-			.setConnectTimeout(configuration.getConnectionTimeout().intValue())
-			.setSocketTimeout(configuration.getSocketTimeout().intValue())
-			.setConnectionRequestTimeout(configuration.getConnectionRequestTimeout())//请求最大时长1.5S,
+			.setConnectTimeout(configuration.getConnectionTimeout().intValue()) // Timeout to establish a connection
+			.setSocketTimeout(configuration.getSocketTimeout().intValue()) // Timeout for waiting for data
+			.setConnectionRequestTimeout(configuration.getConnectionRequestTimeout()) // Timeout for getting a connection from the pool
 			.build();
 		builder.setDefaultRequestConfig(defaultRequestConfig);
 
 		// Set connection management settings
-//		builder.setMaxConnTotal(configuration.getMaxConnections());
-//		builder.setMaxConnPerRoute(128);
+		// builder.setMaxConnTotal(configuration.getMaxConnections());
+		// builder.setMaxConnPerRoute(128);
 		builder.setConnectionTimeToLive(configuration.getKeepAliveTime(), TimeUnit.MILLISECONDS);
 		builder.evictExpiredConnections(); // 过期移除
 		builder.evictIdleConnections(10, TimeUnit.SECONDS); // 空闲10秒移除
 
+		// Default Retry Logic
 		DefaultHttpRequestRetryHandler retryHandler = new DefaultHttpRequestRetryHandler(configuration.getRetryTimes(), configuration.getRetryOnFailure());
 		builder.setRetryHandler(retryHandler);
+		// ensuring no retries happen automatically
+		builder.disableAutomaticRetries();
 
-//		builder.disableAutomaticRetries();
-
-//		builder.setKeepAliveStrategy(DefaultConnectionKeepAliveStrategy.INSTANCE);  // 默认长连接策略
+		// DefaultConnectionKeepAliveStrategy - 默认长连接策略
 		builder.setKeepAliveStrategy(new CustomConnectionKeepAliveStrategy());  // 自定义长连接策略
 		builder.setConnectionReuseStrategy(DefaultConnectionReuseStrategy.INSTANCE);// 连接重用策略
 
-		StatsMonitorThread statsMonitorThread = new StatsMonitorThread(defaultManager);
-		statsMonitorThread.start();
+		IdleConnectionEvictorThread evictorThread = new IdleConnectionEvictorThread(defaultManager);
+		evictorThread.start();
 
 		return builder.build();
 	}
 
+	/**
+	 * use PoolingHttpClientConnectionManager to manage a pool of reusable connections.
+	 */
 	private static PoolingHttpClientConnectionManager defaultPoolingHttpClientConnectionManager(HttpClientConfiguration configuration) {
 		//HttpConnection 工厂; 配置写请求/解析响应处理器
 		HttpConnectionFactory<HttpRoute, ManagedHttpClientConnection> connectionFactory = new ManagedHttpClientConnectionFactory(
@@ -126,35 +126,4 @@ public final class HttpComponentsClientBuilder {
 		return build(configuration);
 	}
 
-	// Thread to monitor
-	private static class StatsMonitorThread extends Thread {
-
-		private static final Logger logger = LoggerFactory.getLogger(StatsMonitorThread.class);
-
-		private final PoolingHttpClientConnectionManager connectionManager;
-
-		public StatsMonitorThread(PoolingHttpClientConnectionManager connectionManager) {
-			super("Stats Monitor Thread");
-			this.connectionManager = connectionManager;
-		}
-
-		@Override
-		public void run() {
-			while (true) {
-				ThreadUtil.sleep(3000L);
-				logPoolStats(connectionManager);
-			}
-		}
-
-		private void logPoolStats(PoolingHttpClientConnectionManager connectionManager) {
-			PoolStats stats = connectionManager.getTotalStats();
-			String statsConnInfo = String.format("Available: %d, Leased: %d, Pending: %d, Max: %d%n",
-				stats.getAvailable(),  // Free connections in pool
-				stats.getLeased(),     // Currently in use
-				stats.getPending(),     // Connection requests waiting
-				stats.getMax()         // Maximum allowed connections
-			);
-			logger.info("{}", statsConnInfo);
-		}
-	}
 }

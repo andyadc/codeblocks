@@ -67,6 +67,7 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 		}
 		super.init();
 
+		// Avoid creating a new HttpClient instance for every request. Instead, reuse a single instance for better performance.
 		httpClient = HttpComponentsClientBuilder.build(configuration, requestInterceptors, responseInterceptors);
 		init = true;
 
@@ -206,6 +207,9 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 			}
 
 			try {
+				// Avoid EntityUtils.toString for Large Responses
+				// Use InputStream for streaming large responses to avoid high memory usage.
+				// <code> try (InputStream inputStream = entity.getContent()) { // Process the stream } </code>
 				return EntityUtils.toString(entity, charset);
 			} finally {
 				// TODO after call toString() Should call consumeQuietly()
