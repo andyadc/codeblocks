@@ -165,14 +165,12 @@ public class OkHttpClientTemplate extends AbstractHttpClientTemplate {
 	private String process(Request request) throws IOException {
 		try (Response response = httpClient.newCall(request).execute()) {
 			if (!response.isSuccessful()) {
-				throw new RuntimeException("OkHttpClient unexpected error >>> " + response);
+				throw new HttpRequestException(String.format("OkHttpClient HTTP request failed with code %d: %s",
+					response.code(),
+					response.message()));
 			}
 			ResponseBody body = response.body();
-			String result = null;
-			if (body != null) {
-				result = body.string();
-			}
-			return result;
+			return (body != null) ? body.string() : null;
 		}
 	}
 

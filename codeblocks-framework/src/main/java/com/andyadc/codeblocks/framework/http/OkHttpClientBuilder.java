@@ -26,9 +26,7 @@ public class OkHttpClientBuilder {
 		builder.retryOnConnectionFailure(configuration.getRetryOnFailure());
 
 		if (interceptors != null && !interceptors.isEmpty()) {
-			for (Interceptor interceptor : interceptors) {
-				builder.addInterceptor(interceptor);
-			}
+			interceptors.forEach(builder::addInterceptor);
 		}
 
 		return builder.build();

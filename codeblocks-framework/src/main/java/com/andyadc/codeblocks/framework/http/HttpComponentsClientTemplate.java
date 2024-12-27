@@ -184,31 +184,34 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 	}
 
 	private String process(HttpUriRequest request) throws Exception {
-		CloseableHttpResponse response = null;
-		try {
-			response = httpClient.execute(request);
+		if (request == null) {
+			throw new IllegalArgumentException("Request cannot be null");
+		}
+
+		try (CloseableHttpResponse response = httpClient.execute(request)) {
 			StatusLine statusLine = response.getStatusLine();
 			int statusCode = statusLine.getStatusCode();
 			if (statusCode != HttpStatus.SC_OK) { // 200
 				request.abort();
-				throw new HttpRequestException("HttpClient error, code: " + statusCode + ", message: " + statusLine.getReasonPhrase());
+				throw new HttpRequestException(String.format(
+					"HttpClient HTTP request failed with code: %d, reason: %s",
+					statusCode,
+					statusLine.getReasonPhrase()
+				));
 			}
+
 			HttpEntity entity = response.getEntity();
-			String result = null;
-			if (entity != null) {
-				result = EntityUtils.toString(entity, charset);
+			if (entity == null) {
+				return null;
 			}
-			return result;
-		} catch (Exception e) {
-			if (response != null && response.getEntity() != null) {
-				// Ensure entity is consumed even if toString throws exception
-				EntityUtils.consumeQuietly(response.getEntity());
+
+			try {
+				return EntityUtils.toString(entity, charset);
+			} finally {
+				// TODO after call toString() Should call consumeQuietly()
+				EntityUtils.consumeQuietly(entity);
 			}
-			throw new HttpRequestException(e);
-		} finally {
-			if (response != null) {
-				response.close();
-			}
+
 		}
 	}
 
@@ -233,6 +236,9 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 	}
 
 	private void headers(RequestBuilder requestBuilder, Map<String, String> headers) {
+		if (requestBuilder == null) {
+			return;
+		}
 		if (headers == null && globalHeaders == null) {
 			return;
 		}
@@ -245,10 +251,9 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 			_headers.putAll(headers);
 		}
 
-		for (Map.Entry<String, String> entry : _headers.entrySet()) {
-			String value = entry.getValue() == null ? "" : entry.getValue();
-			requestBuilder.addHeader(entry.getKey(), value);
-		}
+		_headers.forEach((key, value) -> {
+			requestBuilder.addHeader(key, value != null ? value : "");
+		});
 	}
 
 	@Override

@@ -42,14 +42,10 @@ public final class HttpComponentsClientBuilder {
 		HttpClientBuilder builder = HttpClientBuilder.create();
 
 		if (requestInterceptors != null && !requestInterceptors.isEmpty()) {
-			for (HttpRequestInterceptor interceptor : requestInterceptors) {
-				builder.addInterceptorFirst(interceptor);
-			}
+			requestInterceptors.forEach(builder::addInterceptorFirst);
 		}
 		if (responseInterceptors != null && !responseInterceptors.isEmpty()) {
-			for (HttpResponseInterceptor interceptor : responseInterceptors) {
-				builder.addInterceptorLast(interceptor);
-			}
+			responseInterceptors.forEach(builder::addInterceptorLast);
 		}
 
 		PoolingHttpClientConnectionManager defaultManager = defaultPoolingHttpClientConnectionManager(configuration);
@@ -63,6 +59,7 @@ public final class HttpComponentsClientBuilder {
 			.build();
 		builder.setDefaultRequestConfig(defaultRequestConfig);
 
+		// Set connection management settings
 //		builder.setMaxConnTotal(configuration.getMaxConnections());
 //		builder.setMaxConnPerRoute(128);
 		builder.setConnectionTimeToLive(configuration.getKeepAliveTime(), TimeUnit.MILLISECONDS);
