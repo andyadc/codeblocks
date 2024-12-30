@@ -165,9 +165,10 @@ public class OkHttpClientTemplate extends AbstractHttpClientTemplate {
 	private String process(Request request) throws IOException {
 		try (Response response = httpClient.newCall(request).execute()) {
 			if (!response.isSuccessful()) {
-				throw new HttpRequestException(String.format("OkHttpClient HTTP request failed with code %d: %s",
+				throw new HttpRequestException(String.format("OkHttpClient HTTP request failed with code %d: %s [URL: %s]",
 					response.code(),
-					response.message()));
+					response.message(),
+					request.url()));
 			}
 			ResponseBody body = response.body();
 			return (body != null) ? body.string() : null;
@@ -178,45 +179,56 @@ public class OkHttpClientTemplate extends AbstractHttpClientTemplate {
 	 * TODO
 	 * Asynchronous request
 	 */
-	private void asyncProcess(Request request) {
+	private void asyncProcess(Request request, HttpCallback callback) {
 
 		httpClient.newCall(request).enqueue(new Callback() {
 
 			@Override
 			public void onFailure(Call call, IOException e) {
-				logger.error("asyncProcess error", e);
+				logger.error("Request async failed for URL: {}", call.request().url(), e);
+				if (callback != null) {
+					callback.onFailure(e);
+				}
 			}
 
 			@Override
 			public void onResponse(Call call, Response response) throws IOException {
 				try (ResponseBody responseBody = response.body()) {
 					if (!response.isSuccessful()) {
-						throw new IOException("Unexpected code " + response);
+						String errorMsg = String.format("HTTP %d: %s", response.code(), response.message());
+						throw new HttpRequestException(errorMsg);
 					}
-					String result = responseBody.string();
+					String result = responseBody != null ? responseBody.string() : null;
+					if (callback != null) {
+						callback.onResponse(result);
+					}
 				}
 			}
 		});
 	}
 
-	private String url(String url, Map<String, String> parameters) throws Exception {
+	private String url(String url, Map<String, String> parameters) {
 		if (parameters == null || parameters.isEmpty()) {
 			return url;
 		}
 
 		StringBuilder builder = new StringBuilder(url);
-		if (!url.contains("?")) {
-			builder.append("?1=1");
-		}
-		for (Map.Entry<String, String> entry : parameters.entrySet()) {
-			String value = entry.getValue();
-			String encodedValue = "";
-			if (value != null) {
-				encodedValue = URLEncoder.encode(entry.getValue(), charset.name());
+		builder.append(url.contains("?") ? "&" : "?");
+
+		try {
+			boolean first = true;
+			for (Map.Entry<String, String> entry : parameters.entrySet()) {
+				if (!first) {
+					builder.append("&");
+				}
+				builder.append(URLEncoder.encode(entry.getKey(), charset.name()))
+					.append("=")
+					.append(URLEncoder.encode(entry.getValue() != null ? entry.getValue() : "", charset.name()));
+				first = false;
 			}
-			builder.append("&").append(entry.getKey())
-				.append("=")
-				.append(encodedValue);
+		} catch (Exception e) {
+			String erroMsg = String.format("Failed to encode URL parameters. url: %s, parameters: %s", url, parameters);
+			throw new HttpRequestException(erroMsg, e);
 		}
 		return builder.toString();
 	}
@@ -242,5 +254,11 @@ public class OkHttpClientTemplate extends AbstractHttpClientTemplate {
 
 	public void setInterceptors(List<Interceptor> interceptors) {
 		this.interceptors = interceptors;
+	}
+
+	interface HttpCallback {
+		void onResponse(String response);
+
+		void onFailure(Exception e);
 	}
 }

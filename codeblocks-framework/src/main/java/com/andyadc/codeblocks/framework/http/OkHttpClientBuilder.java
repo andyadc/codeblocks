@@ -9,6 +9,10 @@ import java.util.concurrent.TimeUnit;
 
 public class OkHttpClientBuilder {
 
+	private OkHttpClientBuilder() {
+		// Private constructor to prevent instantiation
+	}
+
 	public static OkHttpClient build(HttpClientConfiguration configuration) {
 		return build(configuration, null);
 	}
@@ -17,7 +21,10 @@ public class OkHttpClientBuilder {
 		OkHttpClient.Builder builder = new OkHttpClient.Builder();
 
 		// 不能设置最大连接数，默认连接是可重用的
-		ConnectionPool connectionPool = new ConnectionPool(3, configuration.getKeepAliveTime(), TimeUnit.MILLISECONDS);
+		ConnectionPool connectionPool = new ConnectionPool(
+			3,
+			configuration.getKeepAliveTime(),
+			TimeUnit.MILLISECONDS);
 		builder.connectionPool(connectionPool);
 
 		builder.connectTimeout(configuration.getConnectionTimeout(), TimeUnit.MILLISECONDS);
