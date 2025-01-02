@@ -1,11 +1,10 @@
-package com.andyadc.codeblocks.test.spring.ioc;
+package com.andyadc.summer.io;
 
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.annotation.security.PermitAll;
-import javax.annotation.sql.DataSourceDefinition;
 import java.util.Collections;
 import java.util.List;
 
@@ -16,7 +15,7 @@ public class ResourceResolverTest {
 
 	@Test
 	public void scanClass() {
-		String pkg = "com.andyadc.codeblocks.test";
+		String pkg = "com.andyadc.summer";
 		ResourceResolver resolver = new ResourceResolver(pkg);
 		List<String> classes = resolver.scan(resource -> {
 			String name = resource.name();
@@ -31,8 +30,8 @@ public class ResourceResolverTest {
 
 		String[] listClasses = new String[]{
 			// list of some scan classes:
-			"com.andyadc.codeblocks.test.Tests", //
-			"com.andyadc.codeblocks.test.db.mybatis.MyBatisBatchTests", //
+			"com.andyadc.summer.scan.MapTest", //
+			"com.andyadc.summer.scan.file.IOTest", //
 		};
 		for (String clazz : listClasses) {
 			assertTrue(classes.contains(clazz));
@@ -41,7 +40,7 @@ public class ResourceResolverTest {
 
 	@Test
 	public void scanJar() {
-		String pkg = PostConstruct.class.getPackage().getName();
+		String pkg = Logger.class.getPackage().getName();
 		System.out.println(pkg);
 		ResourceResolver resolver = new ResourceResolver(pkg);
 		List<String> classes = resolver.scan(resource -> {
@@ -55,15 +54,14 @@ public class ResourceResolverTest {
 		System.out.println(classes);
 
 		// classes in jar:
-		assertTrue(classes.contains(PostConstruct.class.getName()));
-		assertTrue(classes.contains(PreDestroy.class.getName()));
-		assertTrue(classes.contains(PermitAll.class.getName()));
-		assertTrue(classes.contains(DataSourceDefinition.class.getName()));
+		assertTrue(classes.contains(Logger.class.getName()));
+		assertTrue(classes.contains(LoggerFactory.class.getName()));
+		assertTrue(classes.contains(MDC.class.getName()));
 	}
 
 	@Test
 	public void scanTxt() {
-		String pkg = "com.andyadc.codeblocks.test.spring";
+		String pkg = "com.andyadc.summer";
 		ResourceResolver resolver = new ResourceResolver(pkg);
 		List<String> classes = resolver.scan(resource -> {
 			String name = resource.name();
@@ -78,7 +76,9 @@ public class ResourceResolverTest {
 
 		assertArrayEquals(new String[]{
 			// txt files:
-			"com/andyadc/codeblocks/test/spring/resource.txt", //
+			"com/andyadc/summer/resource.txt", //
+			"com/andyadc/summer/resource1/resource1.txt", //
+			"com/andyadc/summer/resource1/resource2/resource2.txt", //
 		}, classes.toArray());
 	}
 
