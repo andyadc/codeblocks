@@ -9,7 +9,7 @@
 	<artifactId>resource-resolver</artifactId>
 	<version>1.0.0</version>
 
-	<name>summer.resource-resolver</name>
+	<name>summer.step01.resource-resolver</name>
 
 	<properties>
 		<maven.compiler.source>8</maven.compiler.source>
