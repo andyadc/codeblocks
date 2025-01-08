@@ -35,6 +35,7 @@
 		<module>bms-site</module>
 		<module>bms-temp</module>
 		<module>tiny-spring-step-by-step</module>
+		<module>summer-framework</module>
 	</modules>
 
 	<prerequisites>
@@ -49,7 +50,7 @@
 		<httpcomponents.version>4.5.13</httpcomponents.version>
 		<okhttp.version>4.12.0</okhttp.version>
 		<hibernate-validator.version>6.2.5.Final</hibernate-validator.version>
-		<mybatis.version>3.5.17</mybatis.version>
+		<mybatis.version>3.5.19</mybatis.version>
 		<mybatis-spring.version>2.1.2</mybatis-spring.version>
 		<spring-data-redis.version>2.7.15</spring-data-redis.version>
 		<zookeeper.version>3.9.3</zookeeper.version>
@@ -78,10 +79,10 @@
 		<cglib.version>3.3.0</cglib.version>
 		<objenesis.version>3.3</objenesis.version>
 		<javassist.version>3.30.2-GA</javassist.version>
-		<ognl.version>3.4.3</ognl.version>
+		<ognl.version>3.4.5</ognl.version>
 		<commons-lang.version>3.17.0</commons-lang.version>
 		<commons-text.version>1.13.0</commons-text.version>
-		<commons-codec.version>1.17.1</commons-codec.version>
+		<commons-codec.version>1.17.2</commons-codec.version>
 		<commons-collections.version>4.4</commons-collections.version>
 		<commons-beanutils.version>1.9.4</commons-beanutils.version>
 		<commons-dbcp.version>2.13.0</commons-dbcp.version>
@@ -98,7 +99,7 @@
 		<logback.version>1.2.13</logback.version>
 		<log4j.version>2.22.1</log4j.version>
 		<mockito.version>4.11.0</mockito.version>
-		<assertj.version>3.26.3</assertj.version>
+		<assertj.version>3.27.2</assertj.version>
 		<junit.version>4.13.2</junit.version>
 		<junit-jupiter.version>5.11.3</junit-jupiter.version>
 		<jmh.version>1.37</jmh.version>
