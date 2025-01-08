@@ -3,8 +3,6 @@ package com.andyadc.codeblocks.serialization.compression;
 import com.andyadc.codeblocks.serialization.compression.quicklz.QuickLz;
 import org.xerial.snappy.Snappy;
 
-import java.io.IOException;
-
 public class CompressorExecutor {
 
 	public static byte[] compress(byte[] bytes) {
@@ -21,7 +19,7 @@ public class CompressorExecutor {
 		} else if (type == CompressorType.SNAPPY_COMPRESSOR) {
 			try {
 				return Snappy.compress(bytes);
-			} catch (IOException e) {
+			} catch (Exception e) {
 				throw new CompressorException(e);
 			}
 		} else {
@@ -35,7 +33,7 @@ public class CompressorExecutor {
 		} else if (type == CompressorType.SNAPPY_COMPRESSOR) {
 			try {
 				return Snappy.uncompress(bytes);
-			} catch (IOException e) {
+			} catch (Exception e) {
 				throw new CompressorException(e);
 			}
 		} else {
