@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.test.spring.ioc;
+package com.andyadc.summer.io;
 
 import java.util.Objects;
 
@@ -15,9 +15,6 @@ public class PropertyExpr {
 	public PropertyExpr(String key, String defaultValue) {
 		if (key == null || key.isEmpty()) {
 			throw new IllegalArgumentException("Path cannot be null or empty");
-		}
-		if (defaultValue == null || defaultValue.isEmpty()) {
-			throw new IllegalArgumentException("Name cannot be null or empty");
 		}
 		this.key = key;
 		this.defaultValue = defaultValue;

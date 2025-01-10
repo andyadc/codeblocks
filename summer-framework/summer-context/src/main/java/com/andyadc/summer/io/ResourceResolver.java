@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.test.spring.ioc;
+package com.andyadc.summer.io;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

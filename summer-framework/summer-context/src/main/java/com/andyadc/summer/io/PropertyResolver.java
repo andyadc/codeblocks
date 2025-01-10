@@ -1,9 +1,8 @@
-package com.andyadc.codeblocks.test.spring.ioc;
+package com.andyadc.summer.io;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.Nullable;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -116,7 +115,6 @@ public class PropertyResolver {
 		return convert(targetType, value);
 	}
 
-	@Nullable
 	public String getProperty(String key) {
 		PropertyExpr keyExpr = parsePropertyExpr(key);
 		if (keyExpr != null) {

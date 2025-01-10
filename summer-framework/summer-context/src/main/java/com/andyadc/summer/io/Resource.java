@@ -1,4 +1,4 @@
-package com.andyadc.codeblocks.test.spring.ioc;
+package com.andyadc.summer.io;
 
 import java.util.Objects;
 
