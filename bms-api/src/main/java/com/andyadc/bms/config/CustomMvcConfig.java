@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.ResourceHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.xml.MappingJackson2XmlHttpMessageConverter;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -112,6 +113,9 @@ public class CustomMvcConfig implements WebMvcConfigurer {
 
 		converters.add(jsonConverter);
 		converters.add(xmlConverter);
+
+		// download
+		converters.add(new ResourceHttpMessageConverter());
 	}
 
 	private HttpMessageConverter<Object> createXmlHttpMessageConverter() {
