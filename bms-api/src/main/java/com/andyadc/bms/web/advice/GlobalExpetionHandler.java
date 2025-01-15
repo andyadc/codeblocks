@@ -15,14 +15,36 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.sql.SQLIntegrityConstraintViolationException;
 
 @RestControllerAdvice
 public class GlobalExpetionHandler {
 
 	private static final Logger logger = LoggerFactory.getLogger(GlobalExpetionHandler.class);
+
+	// TODO view
+//	@ExceptionHandler(value = Exception.class)
+	public ModelAndView handleDefaultException(Exception ex, HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String stackTrace = ExceptionUtils.getStackTrace(ex);
+		logger.error(stackTrace);
+
+		request.setAttribute("javax.servlet.error.exception", ex);
+		response.sendError(500);
+		return new ModelAndView();
+	}
+
+	@ExceptionHandler(value = Exception.class)
+	public ResponseEntity<Object> handleDefaultException(Exception ex, HttpServletRequest request) {
+		String stackTrace = ExceptionUtils.getStackTrace(ex);
+		logger.error(stackTrace);
+
+		return ResponseEntity.ok(Response.of(RespCode.PENDING));
+	}
 
 	@ExceptionHandler(value = IllegalPasswordException.class)
 	public ResponseEntity<Object> handleIllegalPasswordException(IllegalPasswordException e, HttpServletRequest request) {
