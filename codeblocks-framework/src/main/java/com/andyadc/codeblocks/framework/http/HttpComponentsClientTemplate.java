@@ -44,11 +44,8 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 
 	private CloseableHttpClient httpClient;
 	private ResponseHandler<String> responseHandler;
-
 	private volatile boolean init = false;
-
 	private List<HttpRequestInterceptor> requestInterceptors;
-
 	private List<HttpResponseInterceptor> responseInterceptors;
 
 	public HttpComponentsClientTemplate() {
@@ -194,7 +191,7 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 			int statusCode = statusLine.getStatusCode();
 			if (statusCode != HttpStatus.SC_OK) { // 200
 				request.abort();
-				throw new HttpRequestException(String.format(
+				throw new HttpRequestException(statusCode, String.format(
 					"HttpClient HTTP request failed with code: %d, reason: %s",
 					statusCode,
 					statusLine.getReasonPhrase()
@@ -207,9 +204,6 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 			}
 
 			try {
-				// Avoid EntityUtils.toString for Large Responses
-				// Use InputStream for streaming large responses to avoid high memory usage.
-				// <code> try (InputStream inputStream = entity.getContent()) { // Process the stream } </code>
 				return EntityUtils.toString(entity, charset);
 			} finally {
 				// TODO after call toString() Should call consumeQuietly()
@@ -233,10 +227,20 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 		if (parameters == null || parameters.isEmpty()) {
 			return;
 		}
-		for (Map.Entry<String, String> entry : parameters.entrySet()) {
-			String value = entry.getValue() == null ? "" : entry.getValue();
-			requestBuilder.addParameters(new BasicNameValuePair(entry.getKey(), value));
-		}
+
+//		for (Map.Entry<String, String> entry : parameters.entrySet()) {
+//			String value = entry.getValue() == null ? "" : entry.getValue();
+//			requestBuilder.addParameters(new BasicNameValuePair(entry.getKey(), value));
+//		}
+
+//		List<BasicNameValuePair> pairList = parameters.entrySet().stream().map(
+//			entry -> new BasicNameValuePair(entry.getKey(), entry.getValue() == null ? "" : entry.getValue())
+//		).collect(Collectors.toList());
+//		requestBuilder.addParameters(pairList.toArray(new NameValuePair[0]));
+
+		requestBuilder.addParameters(parameters.entrySet().stream().map(
+			entry -> new BasicNameValuePair(entry.getKey(), entry.getValue() == null ? "" : entry.getValue())
+		).toArray(NameValuePair[]::new));
 	}
 
 	private void headers(RequestBuilder requestBuilder, Map<String, String> headers) {
@@ -255,9 +259,7 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 			_headers.putAll(headers);
 		}
 
-		_headers.forEach((key, value) -> {
-			requestBuilder.addHeader(key, value != null ? value : "");
-		});
+		_headers.forEach((key, value) -> requestBuilder.addHeader(key, value != null ? value : ""));
 	}
 
 	@Override
@@ -284,4 +286,5 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 	public void setResponseInterceptors(List<HttpResponseInterceptor> responseInterceptors) {
 		this.responseInterceptors = responseInterceptors;
 	}
+
 }

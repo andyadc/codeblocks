@@ -31,6 +31,6 @@ public class CustomConnectionKeepAliveStrategy implements ConnectionKeepAliveStr
 			)
 			.findFirst()
 			.map(h -> NumberUtils.toLong(h.getValue(), DEFAULT_KEEP_ALIVE_SECONDS))
-			.orElse(DEFAULT_KEEP_ALIVE_SECONDS) * 1000;
+			.orElse(DEFAULT_KEEP_ALIVE_SECONDS) * 1000L;
 	}
 }
