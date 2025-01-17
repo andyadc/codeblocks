@@ -1,0 +1,27 @@
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns="http://www.springframework.org/schema/beans"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<bean id="db" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="url" value="jdbc:h2:mem:testing"/>
+	</bean>
+
+	<bean id="transactionManager"
+		  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="db"/>
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+
+	<bean id="jdbi" class="org.jdbi.v3.spring5.JdbiFactoryBean">
+		<property name="dataSource" ref="db"/>
+		<!--		<property name="autoInstallPlugins" value="true"/>-->
+		<property name="plugins">
+			<bean class="org.jdbi.v3.sqlobject.SqlObjectPlugin"/>
+			<!--			<bean class="org.jdbi.v3.guava.GuavaPlugin"/>-->
+		</property>
+	</bean>
+
+</beans>

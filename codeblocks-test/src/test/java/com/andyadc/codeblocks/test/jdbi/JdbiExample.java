@@ -9,6 +9,10 @@ import org.junit.jupiter.api.Test;
 
 import javax.sql.DataSource;
 
+/**
+ * https://jdbi.org/releases/3.39.1/
+ * https://jdbi.org/#_release_documentation
+ */
 public class JdbiExample {
 
 	static MysqlDataSource buildDataSource() {
@@ -53,8 +57,8 @@ public class JdbiExample {
 			dao.createTable();
 
 			// Insert users
-			dao.insertUser(4, "Green");
-			dao.insertUser(5, "Lily");
+			dao.insertNamed(4, "Green");
+			dao.insertNamed(5, "Lily");
 
 			// Query user
 			User user = dao.getUser(5);
@@ -70,6 +74,20 @@ public class JdbiExample {
 		jdbi.useTransaction(handle -> {
 			handle.execute("INSERT INTO jdbi_users (id, name) VALUES (?, ?)", 6, "Charlie");
 			handle.execute("INSERT INTO jdbi_users (id, name) VALUES (?, ?)", 7, "David");
+		});
+
+	}
+
+	@Test
+	public void testReturnGeneratedKey() {
+		Jdbi jdbi = Jdbi.create(buildDataSource());
+
+		jdbi.useTransaction(handle -> {
+			handle.createUpdate("INSERT INTO jdbi_users (name) VALUES (:name)")
+				.bind("name", "Memo")
+				.executeAndReturnGeneratedKeys("id")
+				.mapTo(Long.class)
+				.one(); // Retrieve the generated key
 		});
 
 	}
