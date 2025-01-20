@@ -55,9 +55,9 @@
 		<mybatis-spring.version>2.1.2</mybatis-spring.version>
 		<spring-data-redis.version>2.7.15</spring-data-redis.version>
 		<zookeeper.version>3.9.3</zookeeper.version>
-		<redisson.version>3.27.2</redisson.version>
+		<redisson.version>3.43.0</redisson.version>
 		<jedis.version>5.2.0</jedis.version>
-		<lettuce.version>6.5.1.RELEASE</lettuce.version>
+		<lettuce.version>6.5.2.RELEASE</lettuce.version>
 		<kafka-clients.version>3.1.2</kafka-clients.version>
 		<curator.version>5.7.1</curator.version>
 		<rabbitmq-clients.version>5.23.0</rabbitmq-clients.version>
@@ -100,7 +100,7 @@
 		<logback.version>1.2.13</logback.version>
 		<log4j.version>2.22.1</log4j.version>
 		<mockito.version>4.11.0</mockito.version>
-		<assertj.version>3.27.2</assertj.version>
+		<assertj.version>3.27.3</assertj.version>
 		<junit.version>4.13.2</junit.version>
 		<junit-jupiter.version>5.11.3</junit-jupiter.version>
 		<jmh.version>1.37</jmh.version>
