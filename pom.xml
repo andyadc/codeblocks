@@ -62,10 +62,10 @@
 		<curator.version>5.7.1</curator.version>
 		<rabbitmq-clients.version>5.25.0</rabbitmq-clients.version>
 		<jackson.version>2.18.2</jackson.version>
-		<fastjson.version>2.0.53</fastjson.version>
+		<fastjson.version>2.0.55</fastjson.version>
 		<joda-time.version>2.13.1</joda-time.version>
 		<guava.version>33.3.1-jre</guava.version>
-		<tomcat-jdbc.version>9.0.97</tomcat-jdbc.version>
+		<tomcat-jdbc.version>9.0.99</tomcat-jdbc.version>
 		<hikaricp.version>4.0.3</hikaricp.version>
 		<druid.version>1.2.23</druid.version>
 		<mysql-driver.version>8.3.0</mysql-driver.version>
@@ -85,7 +85,7 @@
 		<commons-text.version>1.13.0</commons-text.version>
 		<commons-codec.version>1.18.0</commons-codec.version>
 		<commons-collections.version>4.4</commons-collections.version>
-		<commons-beanutils.version>1.10.0</commons-beanutils.version>
+		<commons-beanutils.version>1.10.1</commons-beanutils.version>
 		<commons-dbcp.version>2.13.0</commons-dbcp.version>
 		<commons-pool.version>2.12.1</commons-pool.version>
 		<commons-io.version>2.18.0</commons-io.version>
