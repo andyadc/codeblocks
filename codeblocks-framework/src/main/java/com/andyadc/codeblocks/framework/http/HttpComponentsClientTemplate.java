@@ -10,14 +10,12 @@ import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.methods.RequestBuilder;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
@@ -43,7 +41,6 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 	private static final Logger logger = LoggerFactory.getLogger(HttpComponentsClientTemplate.class);
 
 	private CloseableHttpClient httpClient;
-	private ResponseHandler<String> responseHandler;
 	private volatile boolean init = false;
 	private List<HttpRequestInterceptor> requestInterceptors;
 	private List<HttpResponseInterceptor> responseInterceptors;
@@ -67,8 +64,6 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 		// Avoid creating a new HttpClient instance for every request. Instead, reuse a single instance for better performance.
 		httpClient = HttpComponentsClientBuilder.build(configuration, requestInterceptors, responseInterceptors);
 		init = true;
-
-		responseHandler = new BasicResponseHandler();
 
 		long t2 = System.nanoTime();
 		logger.info(String.format("HttpComponentsClient init elapsed time %.1fms", (t2 - t1) / 1e6d));
@@ -174,13 +169,6 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 		}
 	}
 
-	/**
-	 * TODO
-	 */
-	private String processWithResponseHandler(HttpUriRequest request) throws IOException {
-		return httpClient.execute(request, responseHandler);
-	}
-
 	private String process(HttpUriRequest request) throws Exception {
 		if (request == null) {
 			throw new IllegalArgumentException("Request cannot be null");
@@ -189,7 +177,7 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 		try (CloseableHttpResponse response = httpClient.execute(request)) {
 			StatusLine statusLine = response.getStatusLine();
 			int statusCode = statusLine.getStatusCode();
-			if (statusCode != HttpStatus.SC_OK) { // 200
+			if (statusCode >= HttpStatus.SC_OK && statusCode < HttpStatus.SC_MULTIPLE_CHOICES) { // 200 <= statusCode < 300
 				request.abort();
 				throw new HttpRequestException(statusCode, String.format(
 					"HttpClient HTTP request failed with code: %d, reason: %s",
@@ -200,16 +188,13 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 
 			HttpEntity entity = response.getEntity();
 			if (entity == null) {
+				logger.warn("HttpResponse getEntity is null.");
 				return null;
 			}
 
-			try {
-				return EntityUtils.toString(entity, charset);
-			} finally {
-				// TODO after call toString() Should call consumeQuietly()
-				EntityUtils.consumeQuietly(entity);
-			}
-
+			return EntityUtils.toString(entity, charset);
+			// TODO after call toString() Should call consumeQuietly() ?
+			// EntityUtils.consumeQuietly(entity);
 		}
 	}
 
