@@ -55,14 +55,14 @@
 		<mybatis-spring.version>2.1.2</mybatis-spring.version>
 		<spring-data-redis.version>2.7.15</spring-data-redis.version>
 		<zookeeper.version>3.9.3</zookeeper.version>
-		<redisson.version>3.43.0</redisson.version>
+		<redisson.version>3.45.0</redisson.version>
 		<jedis.version>5.2.0</jedis.version>
 		<lettuce.version>6.5.3.RELEASE</lettuce.version>
 		<kafka-clients.version>3.1.2</kafka-clients.version>
 		<curator.version>5.7.1</curator.version>
 		<rabbitmq-clients.version>5.25.0</rabbitmq-clients.version>
 		<jackson.version>2.18.2</jackson.version>
-		<fastjson.version>2.0.55</fastjson.version>
+		<fastjson.version>2.0.56</fastjson.version>
 		<joda-time.version>2.13.1</joda-time.version>
 		<guava.version>33.3.1-jre</guava.version>
 		<tomcat-jdbc.version>9.0.99</tomcat-jdbc.version>
@@ -102,7 +102,7 @@
 		<mockito.version>4.11.0</mockito.version>
 		<assertj.version>3.27.3</assertj.version>
 		<junit.version>4.13.2</junit.version>
-		<junit-jupiter.version>5.11.3</junit-jupiter.version>
+		<junit-jupiter.version>5.12.0</junit-jupiter.version>
 		<jmh.version>1.37</jmh.version>
 
 		<!-- maven plugins -->
