@@ -24,4 +24,5 @@ public class FileStorageDTO implements Serializable {
 	public void setLocalStoragePath(String localStoragePath) {
 		this.localStoragePath = localStoragePath;
 	}
+
 }

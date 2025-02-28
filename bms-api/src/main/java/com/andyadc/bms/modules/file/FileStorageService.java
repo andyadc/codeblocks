@@ -2,6 +2,7 @@ package com.andyadc.bms.modules.file;
 
 import com.andyadc.bms.modules.file.exception.FileCreateException;
 import com.andyadc.bms.modules.file.exception.FileSizeLimitExceededException;
+import com.andyadc.bms.web.dto.UploadRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -54,6 +55,12 @@ public class FileStorageService {
 				throw new FileSizeLimitExceededException("");
 			}
 		}
+	}
+
+	// TODO
+	public FileStorageDTO store(UploadRequest request) {
+
+		return null;
 	}
 
 	public FileStorageDTO store(MultipartFile file) {
