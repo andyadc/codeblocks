@@ -96,13 +96,13 @@ public final class ThreadPoolCreator {
 			@Override
 			public void shutdown() {
 				logger.info("{}\r\n activeCount: {}, poolSize: {}, corePoolSize: {}, maximumPoolSize: {}, completedTaskCount: {}, taskCount: {}, largestPoolSize: {}", poolName,
-					this.getActiveCount(),
-					this.getPoolSize(),
-					this.getCorePoolSize(),
-					this.getMaximumPoolSize(),
-					this.getCompletedTaskCount(),
-					this.getTaskCount(),
-					this.getLargestPoolSize()
+					this.getActiveCount(), // 获取正在执行任务的线程数据
+					this.getPoolSize(), // 获取当前线程池中线程数量的大小
+					this.getCorePoolSize(), // 线程池的核心线程数量
+					this.getMaximumPoolSize(), // 线程池中最大可创建的线程数
+					this.getCompletedTaskCount(), // 已经执行完成的任务数量
+					this.getTaskCount(), // 计划执行的任务总数
+					this.getLargestPoolSize() // 线程池里曾经创建过的最大的线程数量
 				);
 				super.shutdown();
 			}
