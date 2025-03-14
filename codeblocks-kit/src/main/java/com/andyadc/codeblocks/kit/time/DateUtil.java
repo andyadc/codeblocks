@@ -2,6 +2,7 @@ package com.andyadc.codeblocks.kit.time;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Calendar;
@@ -362,6 +363,16 @@ public final class DateUtil {
 	}
 
 	//-----------------------------------------------------------------------
+
+	// LocalDate <-> Date
+
+	public static LocalDate toLocalDate(Date date) {
+		return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+	}
+
+	public static Date toDate(LocalDate localDate) {
+		return Date.from(localDate.atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
+	}
 
 	// LocalDateTime <-> Date
 
