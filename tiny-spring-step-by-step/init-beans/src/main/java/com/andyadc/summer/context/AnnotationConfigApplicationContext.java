@@ -18,12 +18,11 @@ import com.andyadc.summer.exception.UnsatisfiedDependencyException;
 import com.andyadc.summer.io.PropertyResolver;
 import com.andyadc.summer.io.ResourceResolver;
 import com.andyadc.summer.utils.ClassUtils;
-import jakarta.annotation.Nullable;
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Constructor;
@@ -514,7 +513,6 @@ public class AnnotationConfigApplicationContext {
 	/**
 	 * 根据Name查找BeanDefinition，如果Name不存在，返回null
 	 */
-	@Nullable
 	public BeanDefinition findBeanDefinition(String name) {
 		return this.beans.get(name);
 	}
@@ -522,7 +520,6 @@ public class AnnotationConfigApplicationContext {
 	/**
 	 * 根据Name和Type查找BeanDefinition，如果Name不存在，返回null，如果Name存在，但Type不匹配，抛出异常。
 	 */
-	@Nullable
 	public BeanDefinition findBeanDefinition(String name, Class<?> requiredType) {
 		BeanDefinition def = findBeanDefinition(name);
 		if (def == null) {
@@ -549,7 +546,6 @@ public class AnnotationConfigApplicationContext {
 	/**
 	 * 根据Type查找某个BeanDefinition，如果不存在返回null，如果存在多个返回@Primary标注的一个，如果有多个@Primary标注，或没有@Primary标注但找到多个，均抛出NoUniqueBeanDefinitionException
 	 */
-	@Nullable
 	public BeanDefinition findBeanDefinition(Class<?> type) {
 		List<BeanDefinition> defs = findBeanDefinitions(type);
 		if (defs.isEmpty()) {
@@ -625,7 +621,6 @@ public class AnnotationConfigApplicationContext {
 
 	// findXxx与getXxx类似，但不存在时返回null
 
-	@Nullable
 	@SuppressWarnings("unchecked")
 	protected <T> T findBean(String name, Class<T> requiredType) {
 		BeanDefinition def = findBeanDefinition(name, requiredType);
@@ -635,7 +630,6 @@ public class AnnotationConfigApplicationContext {
 		return (T) def.getRequiredInstance();
 	}
 
-	@Nullable
 	protected <T> T findBean(Class<T> requiredType) {
 		BeanDefinition def = findBeanDefinition(requiredType);
 		if (def == null) {
@@ -644,7 +638,6 @@ public class AnnotationConfigApplicationContext {
 		return (T) def.getRequiredInstance();
 	}
 
-	@Nullable
 	protected <T> List<T> findBeans(Class<T> requiredType) {
 		return findBeanDefinitions(requiredType).stream().map(def -> (T) def.getRequiredInstance()).collect(Collectors.toList());
 	}
