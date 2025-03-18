@@ -1,7 +1,8 @@
 package com.andyadc.summer.web;
 
 import com.andyadc.summer.annotation.Configuration;
-import jakarta.servlet.ServletContext;
+
+import javax.servlet.ServletContext;
 
 @Configuration
 public class WebMvcConfiguration {

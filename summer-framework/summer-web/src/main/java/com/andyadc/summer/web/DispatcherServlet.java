@@ -1,8 +1,9 @@
 package com.andyadc.summer.web;
 
-import jakarta.servlet.http.HttpServlet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import javax.servlet.http.HttpServlet;
 
 public class DispatcherServlet extends HttpServlet {
 

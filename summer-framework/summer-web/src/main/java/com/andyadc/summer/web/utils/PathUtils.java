@@ -1,7 +1,6 @@
 package com.andyadc.summer.web.utils;
 
-import jakarta.servlet.ServletException;
-
+import javax.servlet.ServletException;
 import java.util.regex.Pattern;
 
 public class PathUtils {

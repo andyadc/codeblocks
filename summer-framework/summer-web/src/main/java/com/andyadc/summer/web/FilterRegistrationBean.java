@@ -1,7 +1,6 @@
 package com.andyadc.summer.web;
 
-import jakarta.servlet.Filter;
-
+import javax.servlet.Filter;
 import java.util.List;
 
 public abstract class FilterRegistrationBean {
