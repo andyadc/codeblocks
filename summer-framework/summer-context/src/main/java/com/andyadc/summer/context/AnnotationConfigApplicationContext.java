@@ -18,12 +18,11 @@ import com.andyadc.summer.exception.UnsatisfiedDependencyException;
 import com.andyadc.summer.io.PropertyResolver;
 import com.andyadc.summer.io.ResourceResolver;
 import com.andyadc.summer.utils.ClassUtils;
-import jakarta.annotation.Nullable;
-import jakarta.annotation.PostConstruct;
-import jakarta.annotation.PreDestroy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Constructor;
@@ -679,7 +678,6 @@ public class AnnotationConfigApplicationContext implements ConfigurableApplicati
 
 	// findXxx与getXxx类似，但不存在时返回null
 
-	@Nullable
 	protected <T> T findBean(String name, Class<T> requiredType) {
 		BeanDefinition def = findBeanDefinition(name, requiredType);
 		if (def == null) {
@@ -688,7 +686,6 @@ public class AnnotationConfigApplicationContext implements ConfigurableApplicati
 		return (T) def.getRequiredInstance();
 	}
 
-	@Nullable
 	protected <T> T findBean(Class<T> requiredType) {
 		BeanDefinition def = findBeanDefinition(requiredType);
 		if (def == null) {
@@ -697,7 +694,6 @@ public class AnnotationConfigApplicationContext implements ConfigurableApplicati
 		return (T) def.getRequiredInstance();
 	}
 
-	@Nullable
 	protected <T> List<T> findBeans(Class<T> requiredType) {
 		return findBeanDefinitions(requiredType).stream().map(def -> (T) def.getRequiredInstance()).collect(Collectors.toList());
 	}
