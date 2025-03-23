@@ -1,12 +1,12 @@
 package com.andyadc.summer.web;
 
 import com.andyadc.summer.io.PropertyResolver;
-import jakarta.servlet.ServletContainerInitializer;
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.ServletException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.ServletContainerInitializer;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import java.util.Set;
 
 public class ContextLoaderInitializer implements ServletContainerInitializer {
