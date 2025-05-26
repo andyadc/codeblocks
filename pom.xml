@@ -34,7 +34,6 @@
 		<module>bms-api</module>
 		<module>bms-site</module>
 		<module>bms-temp</module>
-		<module>tiny-spring-step-by-step</module>
 		<module>summer-framework</module>
 		<module>jerrymouse</module>
 	</modules>
