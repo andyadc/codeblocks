@@ -18,7 +18,7 @@
 		<jackson.version>2.18.3</jackson.version>
 		<bytebuddy.version>1.12.23</bytebuddy.version>
 		<hikaricp.version>4.0.3</hikaricp.version>
-		<tomcat.version>9.0.102</tomcat.version>
+		<tomcat.version>9.0.105</tomcat.version>
 		<slf4j.version>1.7.36</slf4j.version>
 		<logback.version>1.2.13</logback.version>
 		<junit.version>5.12.1</junit.version>
