@@ -34,7 +34,6 @@
 		<module>bms-api</module>
 		<module>bms-site</module>
 		<module>bms-temp</module>
-		<module>summer-framework</module>
 		<module>jerrymouse</module>
 	</modules>
 
