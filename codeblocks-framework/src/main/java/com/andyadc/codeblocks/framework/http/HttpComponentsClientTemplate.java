@@ -177,7 +177,7 @@ public class HttpComponentsClientTemplate extends AbstractHttpClientTemplate {
 		try (CloseableHttpResponse response = httpClient.execute(request)) {
 			StatusLine statusLine = response.getStatusLine();
 			int statusCode = statusLine.getStatusCode();
-			if (statusCode >= HttpStatus.SC_OK && statusCode < HttpStatus.SC_MULTIPLE_CHOICES) { // 200 <= statusCode < 300
+			if (!(statusCode >= HttpStatus.SC_OK && statusCode < HttpStatus.SC_MULTIPLE_CHOICES)) { // 200 <= statusCode < 300
 				request.abort();
 				throw new HttpRequestException(statusCode, String.format(
 					"HttpClient HTTP request failed with code: %d, reason: %s",
