@@ -101,7 +101,8 @@
 	</dependencies>
 
 	<build>
-		<finalName>${project.name}</finalName>
+		<!--<finalName>${project.name}</finalName>-->
+		<finalName>servlet</finalName>
 
 		<plugins>
 			<plugin>
