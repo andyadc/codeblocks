@@ -13,6 +13,7 @@ import org.apache.http.conn.routing.HttpRoute;
 import org.apache.http.conn.socket.ConnectionSocketFactory;
 import org.apache.http.conn.socket.PlainConnectionSocketFactory;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.conn.ssl.TrustStrategy;
 import org.apache.http.impl.DefaultConnectionReuseStrategy;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.DefaultHttpRequestRetryHandler;
@@ -22,7 +23,12 @@ import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.impl.conn.SystemDefaultDnsResolver;
 import org.apache.http.impl.io.DefaultHttpRequestWriterFactory;
 import org.apache.http.impl.io.DefaultHttpResponseParserFactory;
+import org.apache.http.ssl.SSLContextBuilder;
 
+import javax.net.ssl.SSLContext;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -76,6 +82,17 @@ public final class HttpComponentsClientBuilder {
 		evictorThread.start();
 
 		return builder.build();
+	}
+
+	// register("https", new SSLConnectionSocketFactory(createIgnoreSSLContext()))
+	private static SSLContext createIgnoreSSLContext() throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
+		TrustStrategy trustAllStrategy = (chain, authType) -> {
+			return true; // 信任所有证书
+		};
+
+		return SSLContextBuilder.create()
+			.loadTrustMaterial(trustAllStrategy)
+			.build();
 	}
 
 	/**
