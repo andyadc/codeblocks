@@ -1,8 +1,12 @@
 package com.andyadc.codeblocks.kit.servlet;
 
+import org.apache.commons.io.IOUtils;
+
+import javax.servlet.ServletInputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -43,6 +47,16 @@ public final class ServletUtil {
 		System.out.println();
 	}
 
+	public static Map<String, String> getHeaders(HttpServletRequest request) {
+		Enumeration<String> headerNames = request.getHeaderNames();
+		Map<String, String> headers = new HashMap<>();
+		while (headerNames.hasMoreElements()) {
+			String element = headerNames.nextElement();
+			headers.put(element, request.getHeader(element));
+		}
+		return headers;
+	}
+
 	/**
 	 * 获取所有请求参数
 	 */
@@ -51,6 +65,7 @@ public final class ServletUtil {
 		if (request == null) {
 			return params;
 		}
+
 		Enumeration<String> paramNames = request.getParameterNames();
 		while (paramNames.hasMoreElements()) {
 			String paramName = paramNames.nextElement();
@@ -59,6 +74,18 @@ public final class ServletUtil {
 				params.put(paramName, values[0]);
 			}
 		}
+
+		try {
+			ServletInputStream inputStream = request.getInputStream();
+			String toString = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
+			System.out.println(toString);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		String entityId = request.getParameter("entityId");
+		System.out.println(entityId);
+
 		return params;
 	}
 
