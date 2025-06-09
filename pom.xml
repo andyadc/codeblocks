@@ -54,7 +54,7 @@
 		<zookeeper.version>3.9.3</zookeeper.version>
 		<redisson.version>3.45.1</redisson.version>
 		<jedis.version>5.2.0</jedis.version>
-		<lettuce.version>6.5.3.RELEASE</lettuce.version>
+		<lettuce.version>6.7.1.RELEASE</lettuce.version>
 		<kafka-clients.version>3.1.2</kafka-clients.version>
 		<curator.version>5.7.1</curator.version>
 		<rabbitmq-clients.version>5.25.0</rabbitmq-clients.version>
@@ -99,7 +99,7 @@
 		<mockito.version>4.11.0</mockito.version>
 		<assertj.version>3.27.3</assertj.version>
 		<junit.version>4.13.2</junit.version>
-		<junit-jupiter.version>5.12.1</junit-jupiter.version>
+		<junit-jupiter.version>5.13.1</junit-jupiter.version>
 		<jmh.version>1.37</jmh.version>
 
 		<!-- maven plugins -->
