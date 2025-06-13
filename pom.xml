@@ -44,7 +44,7 @@
 		<spring.version>5.3.29</spring.version>
 		<aspectj.version>1.9.23</aspectj.version>
 		<netty.version>4.1.121.Final</netty.version>
-		<httpcomponents5.version>5.4.3</httpcomponents5.version>
+		<httpcomponents5.version>5.5</httpcomponents5.version>
 		<httpcomponents.version>4.5.13</httpcomponents.version>
 		<okhttp.version>4.12.0</okhttp.version>
 		<hibernate-validator.version>6.2.5.Final</hibernate-validator.version>
