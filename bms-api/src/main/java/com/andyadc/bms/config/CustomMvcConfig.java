@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.ResourceHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -114,8 +115,19 @@ public class CustomMvcConfig implements WebMvcConfigurer {
 		converters.add(jsonConverter);
 		converters.add(xmlConverter);
 
+		// form
+		HttpMessageConverter<?> formConverter = createFormHttpMessageConverter();
+		converters.add(formConverter);
+
 		// download
 		converters.add(new ResourceHttpMessageConverter());
+	}
+
+	private HttpMessageConverter<?> createFormHttpMessageConverter() {
+		FormHttpMessageConverter converter = new FormHttpMessageConverter();
+		converter.setCharset(StandardCharsets.UTF_8);
+
+		return converter;
 	}
 
 	private HttpMessageConverter<Object> createXmlHttpMessageConverter() {
@@ -135,7 +147,7 @@ public class CustomMvcConfig implements WebMvcConfigurer {
 	@Bean
 	public MultipartResolver multipartResolver() {
 		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-		multipartResolver.setMaxUploadSize(5242880L);
+		multipartResolver.setMaxUploadSize(52428800L);
 		return multipartResolver;
 	}
 
