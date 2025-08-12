@@ -20,10 +20,10 @@
 		<mybatis-spring.version>2.1.2</mybatis-spring.version>
 		<hikaricp.version>4.0.3</hikaricp.version>
 		<mysql-driver.version>8.3.0</mysql-driver.version>
-		<jackson.version>2.19.1</jackson.version>
+		<jackson.version>2.19.2</jackson.version>
 		<slf4j.version>1.7.36</slf4j.version>
 		<logback.version>1.2.13</logback.version>
-		<junit-jupiter.version>5.13.1</junit-jupiter.version>
+		<junit-jupiter.version>5.13.2</junit-jupiter.version>
 
 		<maven.compiler.source>8</maven.compiler.source>
 		<maven.compiler.target>8</maven.compiler.target>
