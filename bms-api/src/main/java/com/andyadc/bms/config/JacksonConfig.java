@@ -27,10 +27,12 @@ public class JacksonConfig {
 
 		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 		mapper.configure(DeserializationFeature.READ_ENUMS_USING_TO_STRING, true);
+		mapper.configure(DeserializationFeature.USE_BIG_DECIMAL_FOR_FLOATS, true);
 
 		mapper.configure(JsonGenerator.Feature.WRITE_BIGDECIMAL_AS_PLAIN, true);
 
 //		mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
 		return mapper;
 	}
+
 }
