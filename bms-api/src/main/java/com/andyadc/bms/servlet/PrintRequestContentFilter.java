@@ -30,7 +30,7 @@ public class PrintRequestContentFilter extends OncePerRequestFilter {
 
 		InputStream inputStream = request.getInputStream();
 		byte[] body = StreamUtils.copyToByteArray(inputStream);
-		logger.info("In PrintRequestContentFilter. Request body is: {}", new String(body));
+//		logger.info("In PrintRequestContentFilter. Request body is: {}", new String(body));
 
 		filterChain.doFilter(request, response);
 	}
