@@ -1,7 +1,5 @@
 package com.andyadc.test.http;
 
-import com.andyadc.codeblocks.kit.collection.MapUtil;
-import com.andyadc.codeblocks.kit.text.StringUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +19,7 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 /**
- * java version < java 8
+ * java version < java v8
  * A http utility class that sends http request and parse response.
  *
  * @author andaicheng
@@ -51,7 +49,7 @@ public final class SimpleHttpUtil {
 	 * @throws UnsupportedEncodingException exception
 	 */
 	private static String buildQuery(Map<String, String> params, String charset) throws UnsupportedEncodingException {
-		if (MapUtil.isEmpty(params)) {
+		if (params == null || params.isEmpty()) {
 			return null;
 		}
 
@@ -61,13 +59,15 @@ public final class SimpleHttpUtil {
 		for (Entry<String, String> entry : entries) {
 			String name = entry.getKey();
 			String value = entry.getValue();
-			if (StringUtil.isAllNotEmpty(name, value)) {
+			if (name != null && value != null) {
 				if (hasParam) {
 					query.append("&");
 				} else {
 					hasParam = true;
 				}
-				query.append(name).append("=").append(URLEncoder.encode(value, StringUtil.defaultIfBlank(charset, DEFAULT_CHARSET)));
+				query.append(name)
+					.append("=")
+					.append(URLEncoder.encode(value, charset != null ? charset : DEFAULT_CHARSET));
 			}
 		}
 		return query.toString();
@@ -119,16 +119,16 @@ public final class SimpleHttpUtil {
 	 * @param content        content
 	 * @param connectTimeout an int that specifies the connect timeout value in milliseconds
 	 * @param readTimeout    an int that specifies the read timeout value in milliseconds
-	 * @param header         header
+	 * @param headers        header
 	 * @return post response
 	 * @throws IOException exception
 	 */
-	public static String doPost(String url, String contentType, byte[] content, Map<String, String> header, int connectTimeout, int readTimeout) throws IOException {
+	public static String doPost(String url, String contentType, byte[] content, Map<String, String> headers, int connectTimeout, int readTimeout) throws IOException {
 		HttpURLConnection conn = null;
 		OutputStream out = null;
 		String rsp;
 		try {
-			conn = getConnection(new URL(url), "POST", contentType, header);
+			conn = getConnection(new URL(url), "POST", contentType, headers);
 			conn.setConnectTimeout(connectTimeout);
 			conn.setReadTimeout(readTimeout);
 
@@ -146,14 +146,14 @@ public final class SimpleHttpUtil {
 		return rsp;
 	}
 
-	private static HttpURLConnection getConnection(URL url, String method, String ctype, Map<String, String> header) throws IOException {
+	private static HttpURLConnection getConnection(URL url, String method, String ctype, Map<String, String> headers) throws IOException {
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod(method);
 		conn.setDoInput(true);
 		conn.setDoOutput(true);
 		conn.setRequestProperty("Content-Type", ctype);
-		if (header != null) {
-			for (Entry<String, String> entry : header.entrySet()) {
+		if (headers != null) {
+			for (Entry<String, String> entry : headers.entrySet()) {
 				conn.setRequestProperty(entry.getKey(), entry.getValue());
 			}
 		}
@@ -167,7 +167,7 @@ public final class SimpleHttpUtil {
 			return getStreamAsString(conn.getInputStream(), charset);
 		} else {
 			String msg = getStreamAsString(es, charset);
-			if (StringUtil.isEmpty(msg)) {
+			if (msg == null) {
 				throw new IOException(conn.getResponseCode() + ":" + conn.getResponseMessage());
 			} else {
 				throw new IOException(msg);
@@ -178,13 +178,13 @@ public final class SimpleHttpUtil {
 	private static String getResponseCharset(String ctype) {
 		String charset = DEFAULT_CHARSET;
 
-		if (StringUtil.isNotEmpty(ctype)) {
+		if (ctype != null) {
 			String[] params = ctype.split(";");
 			for (String param : params) {
 				param = param.trim();
 				if (param.startsWith("charset")) {
 					String[] pair = param.split("=", 2);
-					if (pair.length == 2 && StringUtil.isNotEmpty(pair[1])) {
+					if (pair.length == 2 && (pair[1]) != null) {
 						charset = pair[1].trim();
 					}
 					break;
@@ -211,4 +211,5 @@ public final class SimpleHttpUtil {
 			}
 		}
 	}
+
 }
