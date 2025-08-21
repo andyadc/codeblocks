@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Upload dropzone</title>
+
+	<link href="/dropzone/dropzone.min.css" rel="stylesheet">
+	<script src="/dropzone/dropzone.min.js"></script>
+
+	<!-- <script src="/jquery/jquery-3.7.1.min.js"></script> -->
+	<script src="/jquery/jquery-1.12.3.min.js"></script>
+
+	<style>
+		.form-container {
+			max-width: 600px;
+			margin: 20px auto;
+			padding: 20px;
+			border: 1px solid #ddd;
+			border-radius: 5px;
+		}
+
+		.dropzone {
+			border: 2px dashed #0087F7;
+			border-radius: 5px;
+			background: white;
+			min-height: 150px;
+			padding: 20px;
+			margin-bottom: 20px;
+		}
+
+		.dz-message {
+			font-weight: 400;
+		}
+
+		.dz-message span {
+			font-size: 16px;
+		}
+	</style>
+
+</head>
+
+<body>
+<div class="form-container">
+	<h2>文件上传表单(Dropzone)</h2>
+	<form id="uploadForm">
+		<div class="form-group">
+			<label for="name">姓名:</label>
+			<input class="form-control" id="name" name="name" required type="text">
+		</div>
+		<div class="form-group">
+			<label for="email">邮箱:</label>
+			<input class="form-control" id="email" name="email" required type="email">
+		</div>
+
+		<!-- Dropzone容器 -->
+		<div class="dropzone" id="myDropzone">
+			<div class="dz-message">
+				<span>拖放文件到这里或点击选择文件</span>
+			</div>
+		</div>
+
+		<button class="btn btn-primary" type="submit">提交表单</button>
+	</form>
+	<div id="responseMessage" style="margin-top: 15px;"></div>
+</div>
+
+<script>
+
+	if (typeof Dropzone !== "undefined" && Dropzone.autoDiscover) {
+		// 禁用自动发现
+		Dropzone.autoDiscover = false;
+	}
+
+	// Dropzone.autoDiscover = false;
+	$(document).ready(function () {
+		// 初始化Dropzone
+		// Dropzone.autoDiscover = false;
+		var myDropzone = new Dropzone("#myDropzone", {
+			url: "/upload",
+			paramName: "file",
+			maxFilesize: 100, // MB
+			maxFiles: 1,
+			acceptedFiles: "image/*,.pdf,.doc,.docx,.zip",
+			addRemoveLinks: true,
+			autoProcessQueue: false, // 禁用自动上传
+			parallelUploads: 1,
+			dictDefaultMessage: "拖放文件到这里上传",
+			dictFileTooBig: "文件太大({{filesize}}MB). 最大支持: {{maxFilesize}}MB.",
+			dictInvalidFileType: "不支持此文件类型",
+			dictCancelUpload: "取消上传",
+			dictUploadCanceled: "上传已取消",
+			dictRemoveFile: "移除文件",
+			dictMaxFilesExceeded: "只能上传一个文件",
+			init: function () {
+				this.on("addedfile", function (file) {
+					// 当添加文件时，移除之前添加的文件(单文件上传)
+					if (this.files.length > 1) {
+						this.removeFile(this.files[0]);
+					}
+				});
+
+				this.on("uploadprogress", function (file, progress) {
+					// 实时更新进度
+					console.log("文件: " + file.name + " 上传进度: " + progress + "%");
+				});
+
+			}
+		});
+
+		// 表单提交处理
+		$('#uploadForm').submit(function (e) {
+			e.preventDefault();
+
+			// 确保有文件被上传
+			if (myDropzone.getQueuedFiles().length === 0) {
+				$('#responseMessage').html('<div class="alert alert-danger">请选择至少一个文件</div>');
+				return;
+			}
+
+			// 处理表单数据
+			var formData = new FormData();
+			formData.append('name', $('#name').val());
+			formData.append('email', $('#email').val());
+
+			// 添加Dropzone文件
+			myDropzone.getQueuedFiles().forEach(function (file) {
+				formData.append('file', file);
+			});
+
+			// 使用jQuery AJAX发送
+			$.ajax({
+				url: '/upload',
+				type: 'POST',
+				data: formData,
+				processData: false,
+				contentType: false,
+				success: function (response) {
+					$('#responseMessage').html('<div class="alert alert-success">' + response.message + '</div>');
+					myDropzone.removeAllFiles(true);
+					$('#uploadForm')[0].reset();
+				},
+				error: function (xhr) {
+					var errorMessage = xhr.responseJSON ? xhr.responseJSON.message : '上传失败';
+					$('#responseMessage').html('<div class="alert alert-danger">' + errorMessage + '</div>');
+				}
+			});
+		});
+	});
+</script>
+
+</body>
+</html>
