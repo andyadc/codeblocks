@@ -41,35 +41,35 @@
 	</prerequisites>
 
 	<properties>
-		<spring.version>5.3.29</spring.version>
+		<spring.version>6.2.10</spring.version>
 		<aspectj.version>1.9.23</aspectj.version>
 		<netty.version>4.1.121.Final</netty.version>
 		<httpcomponents5.version>5.5</httpcomponents5.version>
 		<httpcomponents.version>4.5.13</httpcomponents.version>
-		<okhttp.version>4.12.0</okhttp.version>
-		<hibernate-validator.version>6.2.5.Final</hibernate-validator.version>
+		<okhttp.version>5.1.0</okhttp.version>
+		<hibernate-validator.version>8.0.3.Final</hibernate-validator.version>
 		<mybatis.version>3.5.19</mybatis.version>
-		<mybatis-spring.version>2.1.2</mybatis-spring.version>
-		<spring-data-redis.version>2.7.15</spring-data-redis.version>
+		<mybatis-spring.version>3.0.5</mybatis-spring.version>
+		<spring-data-redis.version>3.5.3</spring-data-redis.version>
 		<zookeeper.version>3.9.3</zookeeper.version>
 		<redisson.version>3.45.1</redisson.version>
-		<jedis.version>5.2.0</jedis.version>
+		<jedis.version>6.1.0</jedis.version>
 		<lettuce.version>6.7.1.RELEASE</lettuce.version>
-		<kafka-clients.version>3.1.2</kafka-clients.version>
+		<kafka-clients.version>3.8.1</kafka-clients.version>
 		<curator.version>5.9.0</curator.version>
 		<rabbitmq-clients.version>5.26.0</rabbitmq-clients.version>
 		<jackson.version>2.19.2</jackson.version>
 		<fastjson.version>2.0.57</fastjson.version>
 		<joda-time.version>2.13.1</joda-time.version>
 		<guava.version>33.3.1-jre</guava.version>
-		<tomcat-jdbc.version>9.0.105</tomcat-jdbc.version>
-		<hikaricp.version>4.0.3</hikaricp.version>
+		<tomcat-jdbc.version>10.1.44</tomcat-jdbc.version>
+		<hikaricp.version>6.3.2</hikaricp.version>
 		<druid.version>1.2.27</druid.version>
 		<mysql-driver.version>8.3.0</mysql-driver.version>
 		<h2.version>2.3.232</h2.version>
-		<jsqlparser.version>4.9</jsqlparser.version>
+		<jsqlparser.version>5.3</jsqlparser.version>
 		<fst.version>2.57</fst.version>
-		<snappy.version>1.1.10.7</snappy.version>
+		<snappy.version>1.1.10.8</snappy.version>
 		<kryo.version>5.6.2</kryo.version>
 		<protostuff.version>1.8.0</protostuff.version>
 		<hessian.version>4.0.66</hessian.version>
@@ -80,33 +80,33 @@
 		<ognl.version>3.4.7</ognl.version>
 		<commons-lang.version>3.18.0</commons-lang.version>
 		<commons-text.version>1.13.1</commons-text.version>
-		<commons-codec.version>1.18.0</commons-codec.version>
+		<commons-codec.version>1.19.0</commons-codec.version>
 		<commons-collections.version>4.5.0</commons-collections.version>
 		<commons-beanutils.version>1.11.0</commons-beanutils.version>
 		<commons-dbcp.version>2.13.0</commons-dbcp.version>
 		<commons-pool.version>2.12.1</commons-pool.version>
-		<commons-io.version>2.19.0</commons-io.version>
+		<commons-io.version>2.20.0</commons-io.version>
 		<commons-dbutils.version>1.8.1</commons-dbutils.version>
-		<caffeine.version>2.9.3</caffeine.version>
+		<caffeine.version>3.2.2</caffeine.version>
 		<ehcache.version>3.10.8</ehcache.version>
 		<zxing.version>3.5.3</zxing.version>
-		<poi.version>5.2.5</poi.version>
-		<quartz.version>2.4.0</quartz.version>
+		<poi.version>5.4.1</poi.version>
+		<quartz.version>2.5.0</quartz.version>
 		<dom4j.version>2.2.0</dom4j.version>
-		<slf4j.version>1.7.36</slf4j.version>
-		<logback.version>1.2.13</logback.version>
-		<log4j.version>2.22.1</log4j.version>
-		<mockito.version>4.11.0</mockito.version>
+		<slf4j.version>2.0.17</slf4j.version>
+		<logback.version>1.5.18</logback.version>
+		<log4j.version>2.25.1</log4j.version>
+		<mockito.version>5.19.0</mockito.version>
 		<assertj.version>3.27.3</assertj.version>
 		<junit.version>4.13.2</junit.version>
 		<junit-jupiter.version>5.13.2</junit-jupiter.version>
 		<jmh.version>1.37</jmh.version>
 
 		<!-- maven plugins -->
-		<jetty-maven-plugin.version>9.4.57.v20241219</jetty-maven-plugin.version>
-		<versions-maven-plugin.version>2.17.1</versions-maven-plugin.version>
+		<jetty-maven-plugin.version>11.0.26</jetty-maven-plugin.version>
+		<versions-maven-plugin.version>2.18.0</versions-maven-plugin.version>
 
-		<java.version>1.8</java.version>
+		<java.version>17</java.version>
 		<encoding>UTF-8</encoding>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
@@ -475,7 +475,7 @@
 			<dependency>
 				<groupId>jakarta.servlet</groupId>
 				<artifactId>jakarta.servlet-api</artifactId>
-				<version>4.0.4</version>
+				<version>6.1.0</version>
 			</dependency>
 			<dependency>
 				<groupId>jakarta.servlet.jsp</groupId>
