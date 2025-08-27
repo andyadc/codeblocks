@@ -14,22 +14,22 @@
 	<properties>
 		<web.port>9999</web.port>
 
-		<spring.version>5.3.29</spring.version>
+		<spring.version>6.2.10</spring.version>
 		<aspectj.version>1.9.23</aspectj.version>
 		<mybatis.version>3.5.19</mybatis.version>
-		<mybatis-spring.version>2.1.2</mybatis-spring.version>
+		<mybatis-spring.version>3.0.5</mybatis-spring.version>
 		<mysql-driver.version>8.3.0</mysql-driver.version>
-		<hikaricp.version>4.0.3</hikaricp.version>
+		<hikaricp.version>6.3.2</hikaricp.version>
 		<cglib.version>3.3.0</cglib.version>
 
 		<jackson.version>2.19.2</jackson.version>
-		<slf4j.version>1.7.36</slf4j.version>
-		<logback.version>1.2.13</logback.version>
+		<slf4j.version>2.0.17</slf4j.version>
+		<logback.version>1.5.18</logback.version>
 		<junit-jupiter.version>5.13.2</junit-jupiter.version>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
 		<argLine>-Dfile.encoding=UTF-8</argLine>
 	</properties>
 
@@ -70,7 +70,7 @@
 		<dependency>
 			<groupId>jakarta.servlet</groupId>
 			<artifactId>jakarta.servlet-api</artifactId>
-			<version>4.0.4</version>
+			<version>6.1.0</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -112,7 +112,7 @@
 		<dependency>
 			<groupId>org.mybatis.dynamic-sql</groupId>
 			<artifactId>mybatis-dynamic-sql</artifactId>
-			<version>1.5.0</version>
+			<version>1.5.2</version>
 		</dependency>
 		<dependency>
 			<groupId>com.mysql</groupId>
@@ -147,7 +147,7 @@
 			<plugin>
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
-				<version>9.4.57.v20241219</version>
+				<version>11.0.26</version>
 				<configuration>
 					<reload>manual</reload>
 					<httpConnector>

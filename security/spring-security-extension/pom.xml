@@ -10,14 +10,14 @@
 	<version>1.0.0</version>
 
 	<properties>
-		<slf4j.version>1.7.36</slf4j.version>
-		<spring.version>5.3.29</spring.version>
-		<spring-boot.version>2.7.15</spring-boot.version>
-		<spring-security.version>5.7.10</spring-security.version>
+		<slf4j.version>2.0.17</slf4j.version>
+		<spring.version>6.2.10</spring.version>
+		<spring-boot.version>3.5.5</spring-boot.version>
+		<spring-security.version>6.5.3</spring-security.version>
 		<jackson.version>2.19.2</jackson.version>
 
-		<maven.compiler.source>8</maven.compiler.source>
-		<maven.compiler.target>8</maven.compiler.target>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
 	</properties>
 
 	<dependencies>
@@ -185,7 +185,7 @@
 		<dependency>
 			<groupId>jakarta.servlet</groupId>
 			<artifactId>jakarta.servlet-api</artifactId>
-			<version>4.0.4</version>
+			<version>6.1.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
