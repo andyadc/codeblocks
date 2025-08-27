@@ -122,7 +122,7 @@
 		<dependency>
 			<groupId>org.bouncycastle</groupId>
 			<artifactId>bcprov-jdk18on</artifactId>
-			<version>1.79</version>
+			<version>1.81</version>
 		</dependency>
 
 		<!-- https://github.com/vavr-io/vavr -->
@@ -130,7 +130,7 @@
 		<dependency>
 			<groupId>io.vavr</groupId>
 			<artifactId>vavr</artifactId>
-			<version>0.10.5</version>
+			<version>0.10.7</version>
 		</dependency>
 
 		<!-- Usefull class adapters based on ASM, a very small and fast Java bytecode manipulation framework -->
@@ -221,11 +221,13 @@
 		</dependency>
 
 		<!-- oracle -->
-		<dependency>
-			<groupId>com.oracle.database.jdbc</groupId>
-			<artifactId>ojdbc6</artifactId>
-			<version>11.2.0.4</version>
-		</dependency>
+		<!--
+	   <dependency>
+		   <groupId>com.oracle.database.jdbc</groupId>
+		   <artifactId>ojdbc6</artifactId>
+		   <version>11.2.0.4</version>
+	   </dependency>
+		-->
 
 		<!-- https://github.com/apache/commons-pool -->
 		<dependency>
@@ -241,6 +243,14 @@
 					<groupId>commons-logging</groupId>
 					<artifactId>commons-logging</artifactId>
 				</exclusion>
+				<exclusion>
+					<groupId>jakarta.transaction</groupId>
+					<artifactId>jakarta.transaction-api</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.commons</groupId>
+					<artifactId>commons-pool2</artifactId>
+				</exclusion>
 			</exclusions>
 		</dependency>
 		<dependency>
@@ -253,13 +263,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.jdbi</groupId>
-			<artifactId>jdbi3-sqlobject</artifactId>
-			<version>3.39.1</version>
-		</dependency>
-		<dependency>
-			<groupId>org.jdbi</groupId>
-			<artifactId>jdbi3-spring5</artifactId>
-			<version>3.39.1</version>
+			<artifactId>jdbi3-spring</artifactId>
+			<version>3.49.5</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.springframework</groupId>
@@ -268,6 +273,10 @@
 				<exclusion>
 					<groupId>org.springframework</groupId>
 					<artifactId>spring-beans</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework</groupId>
+					<artifactId>spring-context</artifactId>
 				</exclusion>
 				<exclusion>
 					<groupId>org.springframework</groupId>
@@ -288,7 +297,7 @@
 		<dependency>
 			<groupId>org.mybatis.dynamic-sql</groupId>
 			<artifactId>mybatis-dynamic-sql</artifactId>
-			<version>1.5.0</version>
+			<version>1.5.2</version>
 		</dependency>
 
 		<!-- https://github.com/JSQLParser/JSqlParser -->
@@ -357,11 +366,11 @@
 			<artifactId>netty-all</artifactId>
 		</dependency>
 
-		<dependency>
+		<!-- <dependency>
 			<groupId>io.github.openfeign</groupId>
 			<artifactId>feign-core</artifactId>
 			<version>12.1</version>
-		</dependency>
+		</dependency> -->
 
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
@@ -383,7 +392,7 @@
 		</dependency>
 
 		<!-- https://github.com/Kong/unirest-java -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>com.konghq</groupId>
 			<artifactId>unirest-java</artifactId>
 			<version>3.14.5</version>
@@ -397,7 +406,7 @@
 					<artifactId>commons-logging</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency>
+		</dependency> -->
 
 		<dependency>
 			<groupId>com.github.javafaker</groupId>
@@ -405,7 +414,7 @@
 			<version>1.0.2</version>
 		</dependency>
 
-		<dependency>
+		<!-- <dependency>
 			<groupId>com.maxmind.geoip2</groupId>
 			<artifactId>geoip2</artifactId>
 			<version>2.16.1</version>
@@ -423,9 +432,9 @@
 					<artifactId>jackson-annotations</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency>
+		</dependency> -->
 
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.flywaydb</groupId>
 			<artifactId>flyway-mysql</artifactId>
 			<version>9.22.3</version>
@@ -435,7 +444,7 @@
 					<artifactId>jackson-dataformat-toml</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency>
+		</dependency> -->
 
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
