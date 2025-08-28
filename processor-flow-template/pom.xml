@@ -14,19 +14,19 @@
 	<name>processor-flow-template</name>
 
 	<properties>
-		<spring.version>5.3.29</spring.version>
+		<spring.version>6.2.10</spring.version>
 		<aspectj.version>1.9.23</aspectj.version>
 		<mybatis.version>3.5.19</mybatis.version>
-		<mybatis-spring.version>2.1.2</mybatis-spring.version>
-		<hikaricp.version>4.0.3</hikaricp.version>
+		<mybatis-spring.version>3.0.5</mybatis-spring.version>
+		<hikaricp.version>6.3.2</hikaricp.version>
 		<mysql-driver.version>8.3.0</mysql-driver.version>
 		<jackson.version>2.19.2</jackson.version>
-		<slf4j.version>1.7.36</slf4j.version>
-		<logback.version>1.2.13</logback.version>
+		<slf4j.version>2.0.17</slf4j.version>
+		<logback.version>1.5.18</logback.version>
 		<junit-jupiter.version>5.13.2</junit-jupiter.version>
 
-		<maven.compiler.source>8</maven.compiler.source>
-		<maven.compiler.target>8</maven.compiler.target>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<argLine>-Dfile.encoding=UTF-8</argLine>
 	</properties>
@@ -127,7 +127,7 @@
 			<plugin>
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
-				<version>9.4.57.v20241219</version>
+				<version>11.0.26</version>
 				<configuration>
 					<reload>manual</reload>
 					<httpConnector>
