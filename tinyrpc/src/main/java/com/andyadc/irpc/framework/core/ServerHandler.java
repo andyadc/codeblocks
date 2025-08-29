@@ -1,6 +1,6 @@
 package com.andyadc.irpc.framework.core;
 
-import com.alibaba.fastjson2.JSON;
+import com.andyadc.codeblocks.common.JsonUtils;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -16,7 +16,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 		// 服务端接收数据的时候统一以 RpcProtocol 协议的格式接收，具体的发送逻辑见文章下方客户端发送部分
 		RpcProtocol rpcProtocol = (RpcProtocol) msg;
 		String json = new String(rpcProtocol.getContent(), 0, rpcProtocol.getContentLength());
-		RpcInvocation rpcInvocation = JSON.parseObject(json, RpcInvocation.class);
+		RpcInvocation rpcInvocation = JsonUtils.parse(json, RpcInvocation.class);
 
 		//这里的 PROVIDER_CLASS_MAP 就是一开始预先在启动时候存储的 Bean 集合
 		Object aimObject = PROVIDER_CLASS_MAP.get(rpcInvocation.getTargetServiceName());
@@ -34,7 +34,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 			}
 		}
 		rpcInvocation.setResponse(result);
-		RpcProtocol respRpcProtocol = new RpcProtocol(JSON.toJSONString(rpcInvocation).getBytes());
+		RpcProtocol respRpcProtocol = new RpcProtocol(JsonUtils.toJSONString(rpcInvocation).getBytes());
 		ctx.writeAndFlush(respRpcProtocol);
 	}
 

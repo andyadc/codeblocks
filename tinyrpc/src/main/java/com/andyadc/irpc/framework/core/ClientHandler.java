@@ -1,6 +1,6 @@
 package com.andyadc.irpc.framework.core;
 
-import com.alibaba.fastjson2.JSON;
+import com.andyadc.codeblocks.common.JsonUtils;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
@@ -14,8 +14,8 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 		RpcProtocol rpcProtocol = (RpcProtocol) msg;
 		byte[] reqContent = rpcProtocol.getContent();
-		String json = new String(reqContent, 0, reqContent.length);
-		RpcInvocation rpcInvocation = JSON.parseObject(json, RpcInvocation.class);
+		String json = new String(reqContent);
+		RpcInvocation rpcInvocation = JsonUtils.parse(json, RpcInvocation.class);
 		if (!RESP_MAP.containsKey(rpcInvocation.getUid())) {
 			throw new IllegalArgumentException("server response is error!");
 		}

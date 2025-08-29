@@ -1,6 +1,6 @@
 package com.andyadc.irpc.framework.core;
 
-import com.alibaba.fastjson2.JSON;
+import com.andyadc.codeblocks.common.JsonUtils;
 import com.andyadc.irpc.framework.core.proxy.JDKProxyFactory;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
@@ -57,7 +57,7 @@ public class Client {
 				try {
 					//阻塞模式
 					RpcInvocation data = CommonClientCache.SEND_QUEUE.take();
-					String json = JSON.toJSONString(data);
+					String json = JsonUtils.toJSONString(data);
 					RpcProtocol rpcProtocol = new RpcProtocol(json.getBytes());
 					channelFuture.channel().writeAndFlush(rpcProtocol);
 				} catch (InterruptedException e) {
