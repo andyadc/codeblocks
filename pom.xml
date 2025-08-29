@@ -32,8 +32,6 @@
 		<module>tuple</module>
 		<module>security</module>
 		<module>bms-api</module>
-		<module>bms-site</module>
-		<module>bms-temp</module>
 	</modules>
 
 	<prerequisites>
@@ -59,7 +57,6 @@
 		<curator.version>5.9.0</curator.version>
 		<rabbitmq-clients.version>5.26.0</rabbitmq-clients.version>
 		<jackson.version>2.19.2</jackson.version>
-		<fastjson.version>2.0.57</fastjson.version>
 		<joda-time.version>2.13.1</joda-time.version>
 		<guava.version>33.3.1-jre</guava.version>
 		<tomcat-jdbc.version>10.1.44</tomcat-jdbc.version>
@@ -263,11 +260,6 @@
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-databind</artifactId>
 				<version>${jackson.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.alibaba.fastjson2</groupId>
-				<artifactId>fastjson2</artifactId>
-				<version>${fastjson.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>org.quartz-scheduler</groupId>
