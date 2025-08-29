@@ -1,8 +1,8 @@
 package com.andyadc.codeblocks.common.util;
 
 import com.andyadc.codeblocks.common.lang.AnnotationUtils;
+import jakarta.annotation.Priority;
 
-import javax.annotation.Priority;
 import java.util.Comparator;
 import java.util.Objects;
 
