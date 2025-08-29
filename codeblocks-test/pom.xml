@@ -335,10 +335,6 @@
 			</exclusions>
 		</dependency>
 
-		<dependency>
-			<groupId>com.alibaba.fastjson2</groupId>
-			<artifactId>fastjson2</artifactId>
-		</dependency>
 		<!-- https://github.com/alibaba/easyexcel -->
 		<dependency>
 			<groupId>com.alibaba</groupId>
