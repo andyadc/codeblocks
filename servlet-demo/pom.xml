@@ -110,13 +110,12 @@
 				<artifactId>jetty-maven-plugin</artifactId>
 				<version>11.0.26</version>
 				<configuration>
-					<reload>manual</reload>
 					<httpConnector>
 						<port>${web.port}</port>
 					</httpConnector>
-					<webAppConfig>
+					<webApp>
 						<contextPath>/${project.build.finalName}</contextPath>
-					</webAppConfig>
+					</webApp>
 				</configuration>
 			</plugin>
 
