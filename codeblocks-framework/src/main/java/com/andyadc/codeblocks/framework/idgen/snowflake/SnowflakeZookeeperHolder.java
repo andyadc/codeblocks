@@ -1,6 +1,6 @@
 package com.andyadc.codeblocks.framework.idgen.snowflake;
 
-import com.alibaba.fastjson2.JSON;
+import com.andyadc.codeblocks.common.JsonUtils;
 import com.andyadc.codeblocks.framework.idgen.IDGenPropertyFactory;
 import com.google.common.collect.Maps;
 import org.apache.commons.io.FileUtils;
@@ -99,7 +99,7 @@ public class SnowflakeZookeeperHolder {
 			logger.error("Start node error", e);
             Properties properties = new Properties();
             try {
-				properties.load(new FileInputStream(PROP_PATH.replace("{port}", port + "")));
+				properties.load(new FileInputStream(PROP_PATH.replace("{port}", port)));
 				workerID = Integer.parseInt(properties.getProperty("workerID"));
 				logger.warn("START FAILED ,use local node file properties workerID-{}", workerID);
 			} catch (IOException e1) {
@@ -196,11 +196,11 @@ public class SnowflakeZookeeperHolder {
 
     private String buildEndpointData() {
         Endpoint endpoint = new Endpoint(ip, port, System.currentTimeMillis());
-		return JSON.toJSONString(endpoint);
+		return JsonUtils.toJSONString(endpoint);
     }
 
     private Endpoint parseEndpointData(String data) {
-		return JSON.parseObject(data, Endpoint.class);
+		return JsonUtils.parse(data, Endpoint.class);
     }
 
     public int getWorkerID() {
