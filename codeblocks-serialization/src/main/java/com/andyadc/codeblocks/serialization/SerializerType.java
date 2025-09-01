@@ -7,7 +7,6 @@ public enum SerializerType {
 	PROTO_BINARY("protostuffSerializer"),
 	JDK_BINARY("jdkBinarySerializer"),
 	JACKSON_JSON("jacksonJsonSerializer"),
-	FAST_JSON("fastJsonSerializer"),
 	;
 
 	private final String value;

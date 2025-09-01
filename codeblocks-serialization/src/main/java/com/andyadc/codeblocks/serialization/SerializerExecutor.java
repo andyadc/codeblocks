@@ -7,7 +7,6 @@ import com.andyadc.codeblocks.serialization.binary.ProtostuffSerializer;
 import com.andyadc.codeblocks.serialization.compression.CompressorExecutor;
 import com.andyadc.codeblocks.serialization.compression.CompressorFactory;
 import com.andyadc.codeblocks.serialization.compression.CompressorType;
-import com.andyadc.codeblocks.serialization.json.FastjsonSerializer;
 import com.andyadc.codeblocks.serialization.json.JacksonSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -93,8 +92,6 @@ public class SerializerExecutor {
 	public static <T> String toJSON(T object, SerializerType serializerType) {
 		if (serializerType == SerializerType.JACKSON_JSON) {
 			return JacksonSerializer.toJSON(object);
-		} else if (serializerType == SerializerType.FAST_JSON) {
-			return FastjsonSerializer.toJSON(object);
 		} else {
 			throw new SerializerException("Invalid serializer type of json: " + serializerType);
 		}
@@ -103,8 +100,6 @@ public class SerializerExecutor {
 	public static <T> T fromJSON(String json, Class<T> clazz, SerializerType serializerType) {
 		if (serializerType == SerializerType.JACKSON_JSON) {
 			return JacksonSerializer.fromJSON(json, clazz);
-		} else if (serializerType == SerializerType.FAST_JSON) {
-			return FastjsonSerializer.fromJSON(json, clazz);
 		} else {
 			throw new SerializerException("Invalid serializer type of json: " + serializerType);
 		}
