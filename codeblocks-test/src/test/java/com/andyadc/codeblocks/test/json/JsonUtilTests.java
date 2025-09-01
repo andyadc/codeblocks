@@ -1,6 +1,6 @@
 package com.andyadc.codeblocks.test.json;
 
-import com.alibaba.fastjson2.JSON;
+import com.andyadc.codeblocks.common.JsonUtils;
 
 import java.util.Date;
 import java.util.List;
@@ -21,7 +21,7 @@ public class JsonUtilTests {
     public static void main(String[] args) {
 		JsonUtilTests dto = new JsonUtilTests();
 
-		System.out.println(JSON.toJSONString(dto));
+		System.out.println(JsonUtils.toJSONString(dto));
     }
 
     public int getA() {
