@@ -50,7 +50,7 @@
 		<mybatis-spring.version>3.0.5</mybatis-spring.version>
 		<spring-data-redis.version>3.5.3</spring-data-redis.version>
 		<zookeeper.version>3.9.3</zookeeper.version>
-		<redisson.version>3.45.1</redisson.version>
+		<redisson.version>3.51.0</redisson.version>
 		<jedis.version>6.1.0</jedis.version>
 		<lettuce.version>6.7.1.RELEASE</lettuce.version>
 		<kafka-clients.version>3.8.1</kafka-clients.version>
@@ -85,7 +85,7 @@
 		<commons-io.version>2.20.0</commons-io.version>
 		<commons-dbutils.version>1.8.1</commons-dbutils.version>
 		<caffeine.version>3.2.2</caffeine.version>
-		<ehcache.version>3.11.0</ehcache.version>
+		<ehcache.version>3.11.1</ehcache.version>
 		<zxing.version>3.5.3</zxing.version>
 		<poi.version>5.4.1</poi.version>
 		<quartz.version>2.5.0</quartz.version>
