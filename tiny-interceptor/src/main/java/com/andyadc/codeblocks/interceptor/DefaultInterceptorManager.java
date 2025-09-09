@@ -3,12 +3,12 @@ package com.andyadc.codeblocks.interceptor;
 import com.andyadc.codeblocks.common.lang.AnnotationUtils;
 import com.andyadc.codeblocks.common.util.PriorityComparator;
 import com.andyadc.codeblocks.interceptor.util.InterceptorUtils;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.interceptor.ExcludeClassInterceptors;
+import jakarta.interceptor.ExcludeDefaultInterceptors;
+import jakarta.interceptor.Interceptors;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.interceptor.ExcludeClassInterceptors;
-import javax.interceptor.ExcludeDefaultInterceptors;
-import javax.interceptor.Interceptors;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Executable;
@@ -274,17 +274,13 @@ public class DefaultInterceptorManager implements InterceptorManager {
 		if (!executable.isAnnotationPresent(ExcludeClassInterceptors.class)) {
 			Interceptors classInterceptors = InterceptorUtils.searchAnnotation(componentClass, Interceptors.class);
 			if (classInterceptors != null) {
-				for (Class<?> interceptorClass : classInterceptors.value()) {
-					interceptorClasses.add(interceptorClass);
-				}
+				Collections.addAll(interceptorClasses, classInterceptors.value());
 			}
 		}
 
 		Interceptors executableInterceptors = InterceptorUtils.searchAnnotation(executable, Interceptors.class);
 		if (executableInterceptors != null) {
-			for (Class<?> interceptorClass : executableInterceptors.value()) {
-				interceptorClasses.add(interceptorClass);
-			}
+			Collections.addAll(interceptorClasses, executableInterceptors.value());
 		}
 
 		return interceptorClasses;

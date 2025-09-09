@@ -1,6 +1,7 @@
 package com.andyadc.codeblocks.interceptor;
 
-import javax.interceptor.InterceptorBinding;
+import jakarta.interceptor.InterceptorBinding;
+
 import java.lang.annotation.Annotation;
 import java.util.Comparator;
 

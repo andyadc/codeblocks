@@ -1,10 +1,10 @@
 package com.andyadc.codeblocks.interceptor.cglib;
 
 import com.andyadc.codeblocks.interceptor.ChainableInvocationContext;
+import jakarta.interceptor.InvocationContext;
 import net.sf.cglib.proxy.MethodInterceptor;
 import net.sf.cglib.proxy.MethodProxy;
 
-import javax.interceptor.InvocationContext;
 import java.lang.reflect.Method;
 
 public class MethodInterceptorAdapter implements MethodInterceptor {

@@ -4,15 +4,15 @@ import com.andyadc.codeblocks.common.function.ThrowableSupplier;
 import com.andyadc.codeblocks.common.lang.AnnotationUtils;
 import com.andyadc.codeblocks.common.reflect.ConstructorUtils;
 import com.andyadc.codeblocks.common.util.PriorityComparator;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.interceptor.AroundConstruct;
+import jakarta.interceptor.AroundInvoke;
+import jakarta.interceptor.AroundTimeout;
+import jakarta.interceptor.Interceptor;
+import jakarta.interceptor.InterceptorBinding;
+import jakarta.interceptor.InvocationContext;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.interceptor.AroundConstruct;
-import javax.interceptor.AroundInvoke;
-import javax.interceptor.AroundTimeout;
-import javax.interceptor.Interceptor;
-import javax.interceptor.InterceptorBinding;
-import javax.interceptor.InvocationContext;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Executable;
@@ -30,7 +30,7 @@ import static java.lang.reflect.Modifier.*;
  */
 public abstract class InterceptorUtils {
 
-	public static final Class<? extends Annotation> INTERCEPTOR_ANNOTATION_TYPE = javax.interceptor.Interceptor.class;
+	public static final Class<? extends Annotation> INTERCEPTOR_ANNOTATION_TYPE = jakarta.interceptor.Interceptor.class;
 
 	public static final Class<? extends Annotation> INTERCEPTOR_BINDING_ANNOTATION_TYPE = InterceptorBinding.class;
 
@@ -189,7 +189,7 @@ public abstract class InterceptorUtils {
 		int modifiers = method.getModifiers();
 		if (isAbstract(modifiers) || isFinal(modifiers) || isStatic(modifiers)) {
 			throw new IllegalStateException(format("@s Method[%s] must not be abstract or final or static!",
-				annotationType.getName(), method.toString()));
+				annotationType.getName(), method));
 		}
 	}
 
@@ -197,7 +197,7 @@ public abstract class InterceptorUtils {
 		if (!validReturnType.isAssignableFrom(method.getReturnType())) {
 			throw new IllegalStateException(
 				format("The return type of @%s Method[%s] must be %s or its derived type , actual type %s!",
-					annotationType.getName(), method.toString(), validReturnType.getName(),
+					annotationType.getName(), method, validReturnType.getName(),
 					method.getReturnType().getName()));
 		}
 	}
@@ -212,12 +212,12 @@ public abstract class InterceptorUtils {
 		Class<?>[] parameterTypes = method.getParameterTypes();
 		if (parameterTypes.length != 1) {
 			throw new IllegalStateException(format("@%s Method[%s] must have only one argument!",
-				annotationType.getName(), method.toString()));
+				annotationType.getName(), method));
 		}
 
 		if (!InvocationContext.class.equals(parameterTypes[0])) {
 			throw new IllegalStateException(format("There is only one argument must be an %s instance is declared in the @%s method[%s]!",
-				annotationType.getName(), InvocationContext.class.getName(), method.toString()));
+				annotationType.getName(), InvocationContext.class.getName(), method));
 		}
 	}
 

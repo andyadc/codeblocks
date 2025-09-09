@@ -4,8 +4,6 @@ import com.andyadc.codeblocks.common.reflect.ClassLoaderUtils;
 import com.andyadc.codeblocks.common.util.ServiceLoaders;
 import com.andyadc.codeblocks.interceptor.util.InterceptorUtils;
 
-import javax.annotation.Priority;
-import javax.interceptor.InterceptorBinding;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Executable;
@@ -28,7 +26,7 @@ public interface InterceptorManager {
 	}
 
 	/**
-	 * @param interceptorClass The class of {@link javax.interceptor.Interceptor @Interceptor}
+	 * @param interceptorClass The class of {@link jakarta.interceptor.Interceptor @Interceptor}
 	 * @throws NullPointerException  If <code>interceptorClass</code> is <code>null</code>
 	 * @throws IllegalStateException If an interceptor class does not annotate @Interceptor or
 	 *                               is abstract or have not a public no-arg constructor
@@ -36,8 +34,8 @@ public interface InterceptorManager {
 	void registerInterceptorClass(Class<?> interceptorClass) throws NullPointerException, IllegalStateException;
 
 	/**
-	 * @param interceptorClass        The class of {@link javax.interceptor.Interceptor @Interceptor}
-	 * @param otherInterceptorClasses the other classes of {@link javax.interceptor.Interceptor @Interceptor}
+	 * @param interceptorClass        The class of {@link jakarta.interceptor.Interceptor @Interceptor}
+	 * @param otherInterceptorClasses the other classes of {@link jakarta.interceptor.Interceptor @Interceptor}
 	 * @throws NullPointerException  If <code>interceptorClass</code> is <code>null</code>
 	 * @throws IllegalStateException If an interceptor class does not annotate @Interceptor or
 	 *                               is abstract or have not a public no-arg constructor
@@ -76,7 +74,7 @@ public interface InterceptorManager {
 	}
 
 	/**
-	 * Gets the {@linkplain InterceptorBinding interceptor bindings} of the interceptor.
+	 * Gets the {@linkplain jakarta.interceptor.InterceptorBinding interceptor bindings} of the interceptor.
 	 *
 	 * @return the instance of {@linkplain InterceptorBindings interceptor bindings}
 	 * @throws IllegalStateException See exception details on {@link InterceptorUtils#isInterceptorClass(Class)}
@@ -95,33 +93,33 @@ public interface InterceptorManager {
 	InterceptorInfo getInterceptorInfo(Class<?> interceptorClass) throws IllegalStateException;
 
 	/**
-	 * Resolve the bindings of {@link javax.interceptor.Interceptor @Interceptor} instances upon
+	 * Resolve the bindings of {@link jakarta.interceptor.Interceptor @Interceptor} instances upon
 	 * the specified {@link Method}
 	 *
 	 * @param method              the intercepted of {@linkplain Method method}
 	 * @param defaultInterceptors the default interceptors
 	 * @return a non-null read-only {@link Priority priority} {@link List list} of
-	 * {@link javax.interceptor.Interceptor @Interceptor} instances
+	 * {@link jakarta.interceptor.Interceptor @Interceptor} instances
 	 */
 	default List<Object> resolveInterceptors(Method method, Object... defaultInterceptors) {
 		return resolveInterceptors((Executable) method, defaultInterceptors);
 	}
 
 	/**
-	 * Resolve the bindings of {@link javax.interceptor.Interceptor @Interceptor} instances upon
+	 * Resolve the bindings of {@link jakarta.interceptor.Interceptor @Interceptor} instances upon
 	 * the specified {@link Constructor}
 	 *
 	 * @param constructor         the intercepted of {@linkplain Constructor constructor}
 	 * @param defaultInterceptors the default interceptors
 	 * @return a non-null read-only {@link Priority priority} {@link List list} of
-	 * {@link javax.interceptor.Interceptor @Interceptor} instances
+	 * {@link jakarta.interceptor.Interceptor @Interceptor} instances
 	 */
 	default List<Object> resolveInterceptors(Constructor<?> constructor, Object... defaultInterceptors) {
 		return resolveInterceptors((Executable) constructor, defaultInterceptors);
 	}
 
 	/**
-	 * Resolve the bindings of {@link javax.interceptor.Interceptor @Interceptor} instances upon
+	 * Resolve the bindings of {@link jakarta.interceptor.Interceptor @Interceptor} instances upon
 	 * the specified {@linkplain Method method} or {@link Constructor}
 	 * <p>
 	 * See Specification:
@@ -133,12 +131,12 @@ public interface InterceptorManager {
 	 * @param executable          the intercepted of {@linkplain Method method} or {@linkplain Constructor constructor}
 	 * @param defaultInterceptors the default interceptors
 	 * @return a non-null read-only {@link Priority priority} {@link List list} of
-	 * {@link javax.interceptor.Interceptor @Interceptor} instances
+	 * {@link jakarta.interceptor.Interceptor @Interceptor} instances
 	 */
 	List<Object> resolveInterceptors(Executable executable, Object... defaultInterceptors);
 
 	/**
-	 * Resolve the bindings of {@link javax.interceptor.Interceptor @Interceptor} {@link Class classes} upon
+	 * Resolve the bindings of {@link  jakarta.interceptor.Interceptor @Interceptor} {@link Class classes} upon
 	 * the specified {@linkplain Method method} or {@link Constructor}
 	 * <p>
 	 * See Specification:
@@ -150,21 +148,21 @@ public interface InterceptorManager {
 	 * @param executable                the intercepted of {@linkplain Method method} or {@linkplain Constructor constructor}
 	 * @param defaultInterceptorClasses the default interceptors {@link Class classes}
 	 * @return a non-null read-only {@link Priority priority} {@link List list} of
-	 * {@link javax.interceptor.Interceptor @Interceptor} {@link Class classes}
+	 * {@link jakarta.interceptor.Interceptor @Interceptor} {@link Class classes}
 	 */
 	List<Class<?>> resolveInterceptorClasses(Executable executable, Class<?>... defaultInterceptorClasses);
 
 	/**
-	 * Register an {@linkplain javax.interceptor.Interceptor @Interceptor} binding {@link Class type}
+	 * Register an {@linkplain jakarta.interceptor.Interceptor @Interceptor} binding {@link Class type}
 	 * whether it adds {@link InterceptorBinding} or not.
 	 * <p>
 	 *
-	 * @param interceptorBindingType {@linkplain javax.interceptor.Interceptor @Interceptor} binding {@link Class type}
+	 * @param interceptorBindingType {@linkplain jakarta.interceptor.Interceptor @Interceptor} binding {@link Class type}
 	 */
 	void registerInterceptorBindingType(Class<? extends Annotation> interceptorBindingType);
 
 	/**
-	 * Register an {@linkplain javax.interceptor.Interceptor @Interceptor} binding {@link Class type}
+	 * Register an {@linkplain jakarta.interceptor.Interceptor @Interceptor} binding {@link Class type}
 	 * whether it adds {@link InterceptorBinding} or not.
 	 *
 	 * @param interceptorBindingType An interceptor binding type
@@ -173,7 +171,7 @@ public interface InterceptorManager {
 	void registerInterceptorBinding(Class<? extends Annotation> interceptorBindingType, Annotation... interceptorBindingDef);
 
 	/**
-	 * Get all registered {@link Class classes} of {@link javax.interceptor.Interceptor @Interceptor}
+	 * Get all registered {@link Class classes} of {@link jakarta.interceptor.Interceptor @Interceptor}
 	 *
 	 * @return non-null read-only {@link Set} of {@link Class classes}
 	 */
@@ -187,7 +185,7 @@ public interface InterceptorManager {
 	Set<Class<? extends Annotation>> getInterceptorBindingTypes();
 
 	/**
-	 * The given interceptor class is {@link javax.interceptor.Interceptor @Interceptor} or not.
+	 * The given interceptor class is {@link jakarta.interceptor.Interceptor @Interceptor} or not.
 	 *
 	 * @param interceptorClass the class of interceptor is abstract or have not a public no-arg constructor
 	 */

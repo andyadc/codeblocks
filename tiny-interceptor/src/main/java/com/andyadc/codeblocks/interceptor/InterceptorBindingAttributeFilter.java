@@ -1,8 +1,8 @@
 package com.andyadc.codeblocks.interceptor;
 
 import com.andyadc.codeblocks.common.util.ServiceLoaders;
+import jakarta.interceptor.InterceptorBinding;
 
-import javax.interceptor.InterceptorBinding;
 import java.lang.reflect.Method;
 import java.util.function.Predicate;
 

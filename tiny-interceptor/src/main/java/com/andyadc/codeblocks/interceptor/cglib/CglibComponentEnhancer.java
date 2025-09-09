@@ -1,9 +1,8 @@
 package com.andyadc.codeblocks.interceptor.cglib;
 
 import com.andyadc.codeblocks.interceptor.ComponentEnhancer;
+import jakarta.interceptor.Interceptor;
 import net.sf.cglib.proxy.Enhancer;
-
-import javax.interceptor.Interceptor;
 
 /**
  * {@link Interceptor @Interceptor} enhancer by CGLIB

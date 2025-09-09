@@ -3,13 +3,13 @@ package com.andyadc.codeblocks.interceptor;
 import com.andyadc.codeblocks.common.lang.Prioritized;
 import com.andyadc.codeblocks.common.reflect.TypeUtils;
 import com.andyadc.codeblocks.interceptor.util.InterceptorUtils;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.interceptor.AroundConstruct;
+import jakarta.interceptor.AroundInvoke;
+import jakarta.interceptor.AroundTimeout;
+import jakarta.interceptor.InvocationContext;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.interceptor.AroundConstruct;
-import javax.interceptor.AroundInvoke;
-import javax.interceptor.AroundTimeout;
-import javax.interceptor.InvocationContext;
 import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 import static java.lang.String.format;
 
 /**
- * The abstract annotated {@link javax.interceptor.Interceptor @Interceptor} class
+ * The abstract annotated {@link Interceptor @Interceptor} class
  *
  * @param <A> the type of {@link Annotation}
  */

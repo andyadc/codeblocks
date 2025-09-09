@@ -2,8 +2,8 @@ package com.andyadc.codeblocks.interceptor;
 
 import com.andyadc.codeblocks.common.lang.AnnotationUtils;
 import com.andyadc.codeblocks.interceptor.util.InterceptorUtils;
+import jakarta.interceptor.InterceptorBinding;
 
-import javax.interceptor.InterceptorBinding;
 import java.lang.annotation.Annotation;
 import java.util.Map;
 import java.util.Objects;

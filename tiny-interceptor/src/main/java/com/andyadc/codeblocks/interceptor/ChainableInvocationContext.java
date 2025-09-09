@@ -1,8 +1,9 @@
 package com.andyadc.codeblocks.interceptor;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.interceptor.InvocationContext;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+import jakarta.interceptor.InvocationContext;
+
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.Collection;

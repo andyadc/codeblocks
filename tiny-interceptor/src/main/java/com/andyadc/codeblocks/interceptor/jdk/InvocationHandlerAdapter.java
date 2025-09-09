@@ -2,9 +2,9 @@ package com.andyadc.codeblocks.interceptor.jdk;
 
 import com.andyadc.codeblocks.interceptor.ChainableInvocationContext;
 import com.andyadc.codeblocks.interceptor.ReflectiveMethodInvocationContext;
+import jakarta.interceptor.Interceptor;
+import jakarta.interceptor.InvocationContext;
 
-import javax.interceptor.Interceptor;
-import javax.interceptor.InvocationContext;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 

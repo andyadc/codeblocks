@@ -3,8 +3,8 @@ package com.andyadc.codeblocks.interceptor.cdi;
 import com.andyadc.codeblocks.common.reflect.ClassLoaderUtils;
 import com.andyadc.codeblocks.common.reflect.ClassUtils;
 import com.andyadc.codeblocks.interceptor.InterceptorBindingAttributeFilter;
+import jakarta.enterprise.util.Nonbinding;
 
-import javax.enterprise.util.Nonbinding;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 
