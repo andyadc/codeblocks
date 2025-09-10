@@ -13,7 +13,6 @@
 	<properties>
 		<web.port>9999</web.port>
 
-		<commons-fileupload.version>1.6.0</commons-fileupload.version>
 		<commons-io.version>2.20.0</commons-io.version>
 		<slf4j.version>2.0.17</slf4j.version>
 		<logback.version>1.5.18</logback.version>
@@ -47,17 +46,6 @@
 				<exclusion>
 					<groupId>org.slf4j</groupId>
 					<artifactId>slf4j-api</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>commons-fileupload</groupId>
-			<artifactId>commons-fileupload</artifactId>
-			<version>${commons-fileupload.version}</version>
-			<exclusions>
-				<exclusion>
-					<groupId>commons-io</groupId>
-					<artifactId>commons-io</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>

@@ -1,15 +1,15 @@
 package com.andyadc.servlets;
 
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Serial;
 import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
 import java.util.Map;
@@ -17,17 +17,18 @@ import java.util.Map;
 @WebServlet(name = "echoServlet", value = "/echo")
 public class EchoServlet extends HttpServlet {
 
+	@Serial
 	private static final long serialVersionUID = -1832065328420692123L;
 
 	private static final Logger logger = LoggerFactory.getLogger(EchoServlet.class);
 
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		this.doPost(req, resp);
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
 		Enumeration<String> headerNames = req.getHeaderNames();
 		while (headerNames.hasMoreElements()) {
