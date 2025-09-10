@@ -1,6 +1,6 @@
 package com.andyadc.codeblocks.kit.validator;
 
-import javax.xml.bind.ValidationException;
+import jakarta.validation.ValidationException;
 
 /**
  * Enum of Validator implementations.

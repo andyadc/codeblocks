@@ -1,15 +1,15 @@
 package com.andyadc.codeblocks.kit.validator;
 
-import com.google.common.collect.Lists;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
 import org.hibernate.validator.HibernateValidator;
 
-import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -28,7 +28,7 @@ public class BeanValidator {
 
 	public static Map<String, String> validateObject(Object first, Object... objects) {
 		if (objects != null && objects.length > 0) {
-			return validate(Lists.asList(first, objects));
+			return validate(List.of(first, objects));
 		} else {
 			return validate(first);
 		}
@@ -36,7 +36,7 @@ public class BeanValidator {
 
 	public static void check(Object param) {
 		Map<String, String> map = validateObject(param);
-		if (map.size() > 0) {
+		if (!map.isEmpty()) {
 			throw new IllegalArgumentException(map.toString());
 		}
 	}

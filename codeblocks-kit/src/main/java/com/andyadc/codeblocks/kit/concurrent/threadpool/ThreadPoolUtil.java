@@ -2,10 +2,10 @@ package com.andyadc.codeblocks.kit.concurrent.threadpool;
 
 import com.google.common.util.concurrent.MoreExecutors;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import org.apache.commons.lang3.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.TimeUnit;
@@ -95,7 +95,7 @@ public class ThreadPoolUtil {
 		private final Runnable runnable;
 
         public SafeRunnable(Runnable runnable) {
-            Validate.notNull(runnable);
+			Objects.requireNonNull(runnable);
             this.runnable = runnable;
         }
 
