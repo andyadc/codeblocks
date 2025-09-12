@@ -1,11 +1,11 @@
 package com.andyadc.codeblocks.common.util;
 
 import com.andyadc.codeblocks.common.lang.StringUtils;
+import jakarta.servlet.http.HttpServletRequest;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.SortedMap;
 import java.util.TreeMap;
 
@@ -22,11 +22,7 @@ public final class ServletUtil {
 			return result;
 		}
 
-		try {
-			param = URLDecoder.decode(request.getQueryString(), "utf-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
+		param = URLDecoder.decode(request.getQueryString(), StandardCharsets.UTF_8);
 
 		String[] params = param.split("&");
 		for (String s : params) {

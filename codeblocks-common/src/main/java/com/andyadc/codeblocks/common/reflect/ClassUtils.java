@@ -122,7 +122,7 @@ public abstract class ClassUtils {
 	 */
 	private static final String INTERNAL_ARRAY_PREFIX = "[L";
 	/**
-	 * @see {@link Class#SYNTHETIC}
+	 //	 * @see {@link Class#SYNTHETIC}
 	 */
 	private static final int SYNTHETIC = 0x00001000;
 	/**

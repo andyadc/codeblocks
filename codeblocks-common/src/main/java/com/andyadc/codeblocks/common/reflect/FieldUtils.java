@@ -169,8 +169,11 @@ public abstract class FieldUtils {
 	 * @param field {@link Field}
 	 */
 	public static void enableAccessible(Field field) {
-		if (!field.isAccessible()) {
+		if (!field.canAccess(null)) {
 			field.setAccessible(true);
 		}
+//		if (!field.isAccessible()) {
+//			field.setAccessible(true);
+//		}
 	}
 }
