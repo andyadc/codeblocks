@@ -1,13 +1,12 @@
 package com.andyadc.codeblocks.framework.spring;
 
 import com.andyadc.codeblocks.kit.idgen.UUID;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.web.servlet.AsyncHandlerInterceptor;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 public class RequestInterceptor implements AsyncHandlerInterceptor {
 
@@ -26,7 +25,7 @@ public class RequestInterceptor implements AsyncHandlerInterceptor {
 		}
 		MDC.put(TRACE_ID, traceId);
 		if (logger.isDebugEnabled()) {
-			logger.debug(">>> " + request.getRequestURI());
+			logger.debug(">>> {}", request.getRequestURI());
 		}
 		return true;
 	}
@@ -34,7 +33,7 @@ public class RequestInterceptor implements AsyncHandlerInterceptor {
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
 		if (logger.isDebugEnabled()) {
-			logger.info("Request elapsed: " + (System.currentTimeMillis() - requestTimeCounterThreadLocal.get()));
+			logger.info("Request elapsed: {}", System.currentTimeMillis() - requestTimeCounterThreadLocal.get());
 		}
 		MDC.remove(TRACE_ID);
 		requestTimeCounterThreadLocal.remove();
