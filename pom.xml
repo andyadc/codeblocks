@@ -41,7 +41,7 @@
 	<properties>
 		<spring.version>6.2.10</spring.version>
 		<aspectj.version>1.9.23</aspectj.version>
-		<netty.version>4.1.121.Final</netty.version>
+		<netty.version>4.1.127.Final</netty.version>
 		<httpcomponents5.version>5.5</httpcomponents5.version>
 		<httpcomponents.version>4.5.13</httpcomponents.version>
 		<okhttp.version>5.1.0</okhttp.version>
@@ -59,7 +59,7 @@
 		<jackson.version>2.19.2</jackson.version>
 		<joda-time.version>2.13.1</joda-time.version>
 		<guava.version>33.3.1-jre</guava.version>
-		<tomcat-jdbc.version>10.1.44</tomcat-jdbc.version>
+		<tomcat-jdbc.version>10.1.45</tomcat-jdbc.version>
 		<hikaricp.version>6.3.2</hikaricp.version>
 		<druid.version>1.2.27</druid.version>
 		<mysql-driver.version>8.3.0</mysql-driver.version>
@@ -96,12 +96,12 @@
 		<mockito.version>5.19.0</mockito.version>
 		<assertj.version>3.27.3</assertj.version>
 		<junit.version>4.13.2</junit.version>
-		<junit-jupiter.version>5.13.2</junit-jupiter.version>
+		<junit-jupiter.version>5.12.2</junit-jupiter.version>
 		<jmh.version>1.37</jmh.version>
 
 		<!-- maven plugins -->
 		<jetty-maven-plugin.version>11.0.26</jetty-maven-plugin.version>
-		<versions-maven-plugin.version>2.18.0</versions-maven-plugin.version>
+		<versions-maven-plugin.version>2.19.0</versions-maven-plugin.version>
 
 		<java.version>17</java.version>
 		<encoding>UTF-8</encoding>
@@ -467,7 +467,7 @@
 			<dependency>
 				<groupId>jakarta.servlet</groupId>
 				<artifactId>jakarta.servlet-api</artifactId>
-				<version>6.1.0</version>
+				<version>6.0.0</version>
 			</dependency>
 			<dependency>
 				<groupId>jakarta.servlet.jsp</groupId>
