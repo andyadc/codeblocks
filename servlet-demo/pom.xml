@@ -16,7 +16,7 @@
 		<commons-io.version>2.20.0</commons-io.version>
 		<slf4j.version>2.0.17</slf4j.version>
 		<logback.version>1.5.18</logback.version>
-		<junit.version>5.13.2</junit.version>
+		<junit.version>5.12.2</junit.version>
 		<mockito.version>5.19.0</mockito.version>
 
 		<maven.compiler.target>17</maven.compiler.target>
@@ -29,7 +29,7 @@
 		<dependency>
 			<groupId>jakarta.servlet</groupId>
 			<artifactId>jakarta.servlet-api</artifactId>
-			<version>6.1.0</version>
+			<version>6.0.0</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
