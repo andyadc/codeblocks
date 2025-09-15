@@ -1,14 +1,16 @@
 package com.andyadc.codeblocks.showcase.sys.entity;
 
 import com.andyadc.codeblocks.common.BaseEntity;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import java.io.Serial;
 import java.util.Date;
 
 @Entity
 public class SpringTransaction extends BaseEntity {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@Id

@@ -1,11 +1,12 @@
 package com.andyadc.codeblocks.showcase.auth.entity;
 
 import com.andyadc.codeblocks.common.BaseEntity;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.beans.Transient;
+import java.io.Serial;
 import java.time.LocalDateTime;
 import java.util.StringJoiner;
 
@@ -13,6 +14,7 @@ import java.util.StringJoiner;
 @Entity
 public class AuthUser extends BaseEntity {
 
+	@Serial
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -146,9 +148,7 @@ public class AuthUser extends BaseEntity {
 		this.version = version;
 	}
 
-	// TODO
 	@Transient
-	@javax.persistence.Transient
 	public String getCredentialsSalt() {
 		return username + "-" + salt;
 	}
