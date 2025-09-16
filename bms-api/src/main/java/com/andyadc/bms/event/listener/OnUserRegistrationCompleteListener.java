@@ -4,6 +4,7 @@ import com.andyadc.bms.event.OnUserRegistrationCompleteEvent;
 import com.andyadc.bms.modules.auth.entity.AuthUser;
 import com.andyadc.bms.service.EmailService;
 import com.andyadc.codeblocks.kit.text.StringUtil;
+import jakarta.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,7 +13,6 @@ import org.springframework.core.annotation.Order;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-import javax.inject.Inject;
 import java.util.UUID;
 
 @Order(1)
