@@ -1,5 +1,6 @@
 package com.andyadc.bms.config.rest;
 
+import jakarta.inject.Inject;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +11,6 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.ResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 

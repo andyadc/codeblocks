@@ -5,6 +5,8 @@ import com.andyadc.bms.management.resolver.HeaderVersionArgumentResolver;
 import com.andyadc.bms.modules.file.FileStorageConstants;
 import com.andyadc.bms.modules.file.FileStorageSettings;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -19,15 +21,13 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.multipart.MultipartResolver;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.AsyncSupportConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import javax.inject.Inject;
-import javax.inject.Named;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
@@ -146,9 +146,7 @@ public class CustomMvcConfig implements WebMvcConfigurer {
 
 	@Bean
 	public MultipartResolver multipartResolver() {
-		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
-		multipartResolver.setMaxUploadSize(52428800L);
-		return multipartResolver;
+		return new StandardServletMultipartResolver();
 	}
 
 	@Bean
@@ -156,4 +154,5 @@ public class CustomMvcConfig implements WebMvcConfigurer {
 	public RequestContextListener requestContextListener() {
 		return new RequestContextListener();
 	}
+
 }
