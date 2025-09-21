@@ -2,11 +2,11 @@ package com.andyadc.bms.service;
 
 import com.andyadc.bms.redis.RedisOperator;
 import com.andyadc.bms.security.model.UserContext;
+import jakarta.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;

@@ -2,11 +2,10 @@ package com.andyadc.bms.service;
 
 import com.andyadc.bms.modules.auth.service.AuthUserService;
 import com.andyadc.bms.service.dto.ActivationDTO;
+import jakarta.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
-import javax.inject.Inject;
 
 @Service
 public class ActivationService {

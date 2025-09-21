@@ -6,11 +6,11 @@ import com.andyadc.bms.modules.auth.service.AuthUserService;
 import com.andyadc.bms.redis.RedisOperator;
 import com.andyadc.bms.security.exception.SmsSendException;
 import com.andyadc.codeblocks.kit.RandomUtil;
+import jakarta.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.concurrent.TimeUnit;
 
 @Service
