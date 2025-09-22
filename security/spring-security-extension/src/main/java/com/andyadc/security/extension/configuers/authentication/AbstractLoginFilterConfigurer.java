@@ -1,6 +1,7 @@
 package com.andyadc.security.extension.configuers.authentication;
 
 import com.andyadc.security.extension.handler.SimpleAuthenticationEntryPoint;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
@@ -32,7 +33,6 @@ import org.springframework.util.Assert;
 import org.springframework.web.accept.ContentNegotiationStrategy;
 import org.springframework.web.accept.HeaderContentNegotiationStrategy;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 import java.util.Collections;
 

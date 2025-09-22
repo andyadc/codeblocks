@@ -1,9 +1,9 @@
 package com.andyadc.security.extension2;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationProvider;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 public interface LoginChannelProcessor<T extends AbstractAuthenticationToken> {

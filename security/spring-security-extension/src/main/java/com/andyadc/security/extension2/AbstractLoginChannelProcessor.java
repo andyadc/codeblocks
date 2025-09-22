@@ -1,11 +1,11 @@
 package com.andyadc.security.extension2;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationDetailsSource;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 public abstract class AbstractLoginChannelProcessor<T extends AbstractAuthenticationToken>
