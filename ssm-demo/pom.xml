@@ -19,7 +19,7 @@
 		<mybatis.version>3.5.19</mybatis.version>
 		<mybatis-spring.version>3.0.5</mybatis-spring.version>
 		<mysql-driver.version>8.3.0</mysql-driver.version>
-		<hikaricp.version>6.3.2</hikaricp.version>
+		<hikaricp.version>6.3.3</hikaricp.version>
 		<cglib.version>3.3.0</cglib.version>
 
 		<jackson.version>2.19.2</jackson.version>
