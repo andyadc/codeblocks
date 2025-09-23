@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<settings>
+		<setting name="cacheEnabled" value="true"/>
+	</settings>
+
+	<environments default="developement">
+		<environment id="developement">
+			<transactionManager type="JDBC"/>
+			<dataSource type="POOLED">
+				<property name="driver" value="oracle.jdbc.OracleDriver"/>
+				<property name="url" value="jdbc:oracle:thin:@192.168.25.126:1530:billdb"/>
+				<property name="username" value="seashell"/>
+				<property name="password" value="ds6ww1phn73e4f8u"/>
+			</dataSource>
+		</environment>
+	</environments>
+
+	<mappers>
+		<mapper resource="mybatis/OracleMapper.xml"/>
+	</mappers>
+
+</configuration>

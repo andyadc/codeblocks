@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.andyadc.codeblocks.test.db.oracle.OracleMapper">
+
+	<select id="selectTmp">
+		SELECT *
+		FROM SEASHELL.T_TMP_A1
+	</select>
+
+	<select id="callBalanceList" statementType="CALLABLE">
+		CALL SEASHELL.PRC_BALANCE_DETAIL_V3_0311 ( #{V_ACCTCODE, mode=INOUT, jdbcType=NUMERIC},
+			#{V_START_POSTDATE, mode=INOUT, jdbcType=TIMESTAMP},
+			#{V_END_POSTDATE, mode=INOUT, jdbcType=TIMESTAMP},
+			#{V_START_HOUR, mode=IN, jdbcType=VARCHAR},
+			#{V_END_HOUR, mode=IN, jdbcType=VARCHAR},
+			#{V_PAGESIZE, mode=IN, jdbcType=NUMERIC, javaType=Integer},
+			#{V_NEXTPAGE, mode=IN, jdbcType=NUMERIC, javaType=Integer},
+			#{V_MAX_POSTDATE, mode=IN, jdbcType=VARCHAR},
+			#{V_BALANCE, mode=IN, jdbcType=NUMERIC, javaType=BigDecimal},
+			#{V_RETURN, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=BalanceResultMap}
+			)
+	</select>
+
+	<resultMap id="BalanceResultMap" type="com.andyadc.codeblocks.test.db.oracle.BalanceOutput">
+		<result property="entryCode" column="ENTRYCODE"/>
+		<result property="creationDate" column="CREATIONDATE"/>
+		<result property="postDate" column="POSTDATE"/>
+		<result property="dealId" column="DEALID"/>
+		<result property="voucherCode" column="VOUCHERCODE"/>
+		<result property="crdr" column="CRDR"/>
+		<result property="value" column="VALUE"/>
+		<!--		<result property="balance" column="BALANCE" />-->
+		<result property="orderCode" column="ORDERCODE"/>
+		<result property="sequenceId" column="SEQUENCEID"/>
+		<result property="name" column="NAME"/>
+		<result property="payeeFee" column="PAYEEFEE"/>
+		<result property="payerFee" column="PAYERFEE"/>
+		<result property="orderId" column="ORDERID"/>
+		<result property="transactionDate" column="TRANSACTIONDATE"/>
+		<result property="withdrawBatchId" column="WITHDRAWBATCHID"/>
+		<result property="withdrawBankName" column="WITHDRAWBANKNAME"/>
+		<result property="withdrawBankCard" column="WITHDRAWBANKCARD"/>
+	</resultMap>
+
+</mapper>

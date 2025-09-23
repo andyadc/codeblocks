@@ -1,7 +1,8 @@
 package com.andyadc.codeblocks.test.log;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
