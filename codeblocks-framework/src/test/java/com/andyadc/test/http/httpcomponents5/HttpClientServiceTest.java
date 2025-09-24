@@ -54,8 +54,7 @@ public class HttpClientServiceTest {
 	}
 
 	private static void handleException(Exception e) {
-		if (e instanceof HttpServiceException) {
-			HttpServiceException hse = (HttpServiceException) e;
+		if (e instanceof HttpServiceException hse) {
 			System.err.println("HTTP Error Occurred:");
 			System.err.println("  Status Code: " + hse.getStatusCode());
 			System.err.println("  Response Body: " + hse.getResponseBody());
@@ -89,14 +88,14 @@ public class HttpClientServiceTest {
 	@Test
 	public void test_get() throws Exception {
 		HttpClientService clientService = HttpClientService.getInstance();
-		String resp = clientService.getN("https://httpbin.org/get");
+		String resp = clientService.get("https://httpbin.org/get");
 		System.out.println(resp);
 	}
 
 	@Test
 	public void test_get_404() throws Exception {
 		HttpClientService clientService = HttpClientService.getInstance();
-		String resp = clientService.getN("https://httpbin.org/status/404");
+		String resp = clientService.get("https://httpbin.org/status/404");
 		System.out.println(resp);
 	}
 }
