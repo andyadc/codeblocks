@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Upload uppy</title>
+
+	<link href="/uppy/uppy.min.css" rel="stylesheet">
+
+	<script src="/jquery/jquery-3.7.1.min.js"></script>
+
+	<style>
+		.form-container {
+			max-width: 600px;
+			margin: 20px auto;
+			padding: 20px;
+			border: 1px solid #ddd;
+			border-radius: 5px;
+		}
+
+		#drag-drop-area {
+			margin-bottom: 20px;
+		}
+	</style>
+
+</head>
+
+<body>
+
+<div class="form-container">
+	<h2>文件上传表单(Uppy)</h2>
+	<form id="uploadForm">
+		<div class="form-group">
+			<label for="name">姓名:</label>
+			<input class="form-control" id="name" name="name" required type="text">
+		</div>
+		<div class="form-group">
+			<label for="email">邮箱:</label>
+			<input class="form-control" id="email" name="email" required type="email">
+		</div>
+
+		<!-- Uppy容器 -->
+		<div id="drag-drop-area"></div>
+
+		<button class="btn btn-primary" type="submit">提交表单</button>
+	</form>
+	<div id="responseMessage" style="margin-top: 15px;"></div>
+</div>
+
+<script src="/uppy/uppy.min.js"></script>
+<script>
+	$(document).ready(function () {
+		// 初始化Uppy
+		var uppy = Uppy.Core({
+			debug: true,
+			autoProceed: false,
+			restrictions: {
+				maxFileSize: 10485760, // 10MB
+				maxNumberOfFiles: 1,
+				allowedFileTypes: ['image/*', '.pdf', '.doc', '.docx']
+			}
+		})
+			.use(Uppy.Dashboard, {
+				inline: true,
+				target: '#drag-drop-area',
+				showProgressDetails: true,
+				proudlyDisplayPoweredByUppy: false
+			})
+			.use(Uppy.XHRUpload, {
+				endpoint: '/upload',
+				fieldName: 'file'
+			});
+
+		// 表单提交处理
+		$('#uploadForm').submit(function (e) {
+			e.preventDefault();
+
+			// 确保有文件被上传
+			if (uppy.getFiles().length === 0) {
+				$('#responseMessage').html('<div class="alert alert-danger">请选择至少一个文件</div>');
+				return;
+			}
+
+			// 添加表单数据
+			uppy.setMeta({
+				name: $('#name').val(),
+				email: $('#email').val()
+			});
+
+			// 开始上传
+			uppy.upload().then((result) => {
+				if (result.successful && result.successful.length > 0) {
+					$('#responseMessage').html('<div class="alert alert-success">文件上传成功</div>');
+					$('#uploadForm')[0].reset();
+				} else {
+					$('#responseMessage').html('<div class="alert alert-danger">上传失败</div>');
+				}
+			}).catch((error) => {
+				$('#responseMessage').html('<div class="alert alert-danger">上传出错: ' + error + '</div>');
+			});
+		});
+	});
+</script>
+
+</body>
+</html>
