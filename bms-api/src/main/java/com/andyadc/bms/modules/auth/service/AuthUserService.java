@@ -10,12 +10,12 @@ import com.andyadc.bms.security.service.PasswordService;
 import com.andyadc.bms.validation.PasswordConstraintValidator;
 import com.andyadc.codeblocks.kit.mask.MaskType;
 import com.andyadc.codeblocks.kit.text.StringUtil;
+import jakarta.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
-import javax.inject.Inject;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;

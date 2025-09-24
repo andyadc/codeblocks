@@ -3,6 +3,7 @@ package com.andyadc.bms.security.auth.ajax;
 import com.andyadc.bms.modules.auth.dto.AuthUserDTO;
 import com.andyadc.bms.security.model.UserContext;
 import com.andyadc.bms.security.service.SecurityService;
+import jakarta.inject.Inject;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.InsufficientAuthenticationException;
@@ -16,7 +17,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
-import javax.inject.Inject;
 import java.util.Set;
 import java.util.stream.Collectors;
 

@@ -3,13 +3,13 @@ package com.andyadc.bms.modules.log.service;
 import com.andyadc.bms.modules.log.entity.RequestLog;
 import com.andyadc.bms.modules.log.repository.RequestLogRepository;
 import com.andyadc.codeblocks.kit.net.IPUtil;
+import jakarta.inject.Inject;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.Objects;
 

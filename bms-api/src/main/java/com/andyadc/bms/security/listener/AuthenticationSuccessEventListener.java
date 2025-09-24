@@ -2,14 +2,13 @@ package com.andyadc.bms.security.listener;
 
 import com.andyadc.bms.security.model.UserContext;
 import com.andyadc.bms.security.service.LoginAttemptService;
+import jakarta.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.authentication.event.AuthenticationSuccessEvent;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
-
-import javax.inject.Inject;
 
 @Component
 public class AuthenticationSuccessEventListener implements ApplicationListener<AuthenticationSuccessEvent> {
@@ -22,8 +21,7 @@ public class AuthenticationSuccessEventListener implements ApplicationListener<A
 	public void onApplicationEvent(AuthenticationSuccessEvent event) {
 		logger.info(">>> AuthenticationSuccessEventListener <<<");
 		Authentication authentication = event.getAuthentication();
-		if (authentication.getPrincipal() instanceof UserContext) {
-			UserContext context = (UserContext) authentication.getPrincipal();
+		if (authentication.getPrincipal() instanceof UserContext context) {
 			loginAttemptService.loginSucceeded(context.getUsername());
 		}
 	}

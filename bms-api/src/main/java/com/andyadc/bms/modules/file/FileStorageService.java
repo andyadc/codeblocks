@@ -3,12 +3,12 @@ package com.andyadc.bms.modules.file;
 import com.andyadc.bms.modules.file.exception.FileCreateException;
 import com.andyadc.bms.modules.file.exception.FileSizeLimitExceededException;
 import com.andyadc.bms.web.dto.UploadRequest;
+import jakarta.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.inject.Inject;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;

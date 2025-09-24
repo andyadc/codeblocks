@@ -1,8 +1,7 @@
 package com.andyadc.bms.web.dto;
 
 import com.andyadc.bms.validation.PhoneNumber;
-
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 public class SmsSendRequest {
 

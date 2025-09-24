@@ -4,14 +4,13 @@ import com.andyadc.bms.common.RespCode;
 import com.andyadc.bms.common.Response;
 import com.andyadc.bms.service.ActivationService;
 import com.andyadc.bms.service.dto.ActivationDTO;
+import jakarta.inject.Inject;
+import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 
 @RequestMapping("/openapi")
 @Controller

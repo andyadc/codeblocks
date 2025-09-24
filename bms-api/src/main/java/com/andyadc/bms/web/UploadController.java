@@ -5,6 +5,7 @@ import com.andyadc.bms.common.Response;
 import com.andyadc.bms.modules.file.FileStorageDTO;
 import com.andyadc.bms.modules.file.FileStorageService;
 import com.andyadc.bms.web.dto.UploadRequest;
+import jakarta.inject.Inject;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.inject.Inject;
 import java.io.File;
 import java.util.Arrays;
 import java.util.HashMap;

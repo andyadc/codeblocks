@@ -6,6 +6,7 @@ import com.andyadc.bms.security.model.Scopes;
 import com.andyadc.bms.security.model.UserContext;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import jakarta.inject.Inject;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +14,6 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.spec.SecretKeySpec;
-import javax.inject.Inject;
 import java.security.Key;
 import java.time.LocalDateTime;
 import java.time.ZoneId;

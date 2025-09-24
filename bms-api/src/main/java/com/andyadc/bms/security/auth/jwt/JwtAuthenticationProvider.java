@@ -5,6 +5,7 @@ import com.andyadc.bms.security.model.UserContext;
 import com.andyadc.bms.security.model.token.RawAccessJwtToken;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
+import jakarta.inject.Inject;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -12,7 +13,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
-import javax.inject.Inject;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;

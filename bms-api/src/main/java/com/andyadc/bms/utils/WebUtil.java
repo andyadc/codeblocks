@@ -1,8 +1,7 @@
 package com.andyadc.bms.utils;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.security.web.savedrequest.SavedRequest;
-
-import javax.servlet.http.HttpServletRequest;
 
 public final class WebUtil {
 

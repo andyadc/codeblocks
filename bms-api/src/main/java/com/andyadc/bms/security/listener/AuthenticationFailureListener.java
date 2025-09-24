@@ -1,14 +1,13 @@
 package com.andyadc.bms.security.listener;
 
 import com.andyadc.bms.security.service.LoginAttemptService;
+import jakarta.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationListener;
 import org.springframework.security.authentication.event.AuthenticationFailureBadCredentialsEvent;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
-
-import javax.inject.Inject;
 
 @Component
 public class AuthenticationFailureListener implements ApplicationListener<AuthenticationFailureBadCredentialsEvent> {

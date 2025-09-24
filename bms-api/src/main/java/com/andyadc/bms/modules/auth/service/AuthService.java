@@ -2,9 +2,9 @@ package com.andyadc.bms.modules.auth.service;
 
 import com.andyadc.bms.modules.auth.entity.AuthMenu;
 import com.andyadc.bms.modules.auth.mapper.AuthMapper;
+import jakarta.inject.Inject;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 

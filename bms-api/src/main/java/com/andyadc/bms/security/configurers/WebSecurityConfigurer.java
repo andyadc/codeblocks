@@ -13,6 +13,7 @@ import com.andyadc.bms.security.auth.mobile.MobileAuthenticationProvider;
 import com.andyadc.bms.security.auth.mobile.MobileLoginAuthenticationProcessingFilter;
 import com.andyadc.bms.security.handler.RestAuthenticationEntryPoint;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.inject.Inject;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
@@ -26,10 +27,12 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Spring Security version 5
+ */
 @Configuration
 @EnableWebSecurity(debug = false)
 @EnableGlobalMethodSecurity(

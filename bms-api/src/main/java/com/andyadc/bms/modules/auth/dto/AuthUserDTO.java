@@ -2,10 +2,10 @@ package com.andyadc.bms.modules.auth.dto;
 
 import com.andyadc.bms.validation.PhoneNumber;
 import com.andyadc.codeblocks.kit.mask.MaskType;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
