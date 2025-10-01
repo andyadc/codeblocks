@@ -51,7 +51,7 @@
 		<spring-data-redis.version>3.5.3</spring-data-redis.version>
 		<zookeeper.version>3.9.3</zookeeper.version>
 		<redisson.version>3.52.0</redisson.version>
-		<jedis.version>6.1.0</jedis.version>
+		<jedis.version>6.2.0</jedis.version>
 		<lettuce.version>6.8.1.RELEASE</lettuce.version>
 		<kafka-clients.version>3.9.1</kafka-clients.version>
 		<curator.version>5.9.0</curator.version>
@@ -91,7 +91,7 @@
 		<quartz.version>2.5.0</quartz.version>
 		<dom4j.version>2.2.0</dom4j.version>
 		<slf4j.version>2.0.17</slf4j.version>
-		<logback.version>1.5.18</logback.version>
+		<logback.version>1.5.19</logback.version>
 		<log4j.version>2.25.1</log4j.version>
 		<mockito.version>5.19.0</mockito.version>
 		<assertj.version>3.27.3</assertj.version>
