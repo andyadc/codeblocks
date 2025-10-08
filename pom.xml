@@ -44,7 +44,7 @@
 		<netty.version>4.1.127.Final</netty.version>
 		<httpcomponents5.version>5.5.1</httpcomponents5.version>
 		<httpcomponents.version>4.5.13</httpcomponents.version>
-		<okhttp.version>5.1.0</okhttp.version>
+		<okhttp.version>5.2.0</okhttp.version>
 		<hibernate-validator.version>8.0.3.Final</hibernate-validator.version>
 		<mybatis.version>3.5.19</mybatis.version>
 		<mybatis-spring.version>3.0.5</mybatis-spring.version>
@@ -59,7 +59,7 @@
 		<jackson.version>2.19.2</jackson.version>
 		<joda-time.version>2.13.1</joda-time.version>
 		<guava.version>33.5.0-jre</guava.version>
-		<tomcat-jdbc.version>10.1.46</tomcat-jdbc.version>
+		<tomcat-jdbc.version>10.1.47</tomcat-jdbc.version>
 		<hikaricp.version>6.3.3</hikaricp.version>
 		<druid.version>1.2.27</druid.version>
 		<mysql-driver.version>8.3.0</mysql-driver.version>
