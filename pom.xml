@@ -44,7 +44,7 @@
 		<netty.version>4.1.127.Final</netty.version>
 		<httpcomponents5.version>5.5.1</httpcomponents5.version>
 		<httpcomponents.version>4.5.13</httpcomponents.version>
-		<okhttp.version>5.2.0</okhttp.version>
+		<okhttp.version>5.2.1</okhttp.version>
 		<hibernate-validator.version>8.0.3.Final</hibernate-validator.version>
 		<mybatis.version>3.5.19</mybatis.version>
 		<mybatis-spring.version>3.0.5</mybatis-spring.version>
