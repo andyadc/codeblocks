@@ -88,7 +88,7 @@
 		<ehcache.version>3.11.1</ehcache.version>
 		<zxing.version>3.5.3</zxing.version>
 		<poi.version>5.4.1</poi.version>
-		<quartz.version>2.5.0</quartz.version>
+		<quartz.version>2.5.1</quartz.version>
 		<dom4j.version>2.2.0</dom4j.version>
 		<slf4j.version>2.0.17</slf4j.version>
 		<logback.version>1.5.20</logback.version>
