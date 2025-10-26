@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.5.6</version>
+		<version>3.5.7</version>
 		<relativePath/>
 		<!-- lookup parent from repository -->
 	</parent>
@@ -18,18 +18,16 @@
 	<description>Backend manage system api</description>
 
 	<properties>
-		<spring-framework.version>6.2.11</spring-framework.version>
-		<spring-data-bom.version>2025.0.3</spring-data-bom.version>
+		<spring-framework.version>6.2.12</spring-framework.version>
 		<netty.version>4.1.127.Final</netty.version>
 		<aspectj.version>1.9.23</aspectj.version>
-		<tomcat.version>10.1.46</tomcat.version>
+		<tomcat.version>10.1.47</tomcat.version>
 		<commons-io.version>2.20.0</commons-io.version>
 		<commons-lang.version>3.19.0</commons-lang.version>
 		<guava.version>33.5.0-jre</guava.version>
 		<jackson.version>2.19.2</jackson.version>
 		<jjwt.version>0.13.0</jjwt.version>
 		<passay.version>1.6.6</passay.version>
-		<micrometer.version>1.15.3</micrometer.version>
 		<mybatis-spring-boot-starter.version>3.0.5</mybatis-spring-boot-starter.version>
 		<assertj.version>3.27.3</assertj.version>
 
@@ -75,12 +73,6 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>io.micrometer</groupId>
-					<artifactId>micrometer-core</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
