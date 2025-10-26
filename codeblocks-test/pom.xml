@@ -290,7 +290,7 @@
 		<dependency>
 			<groupId>org.jdbi</groupId>
 			<artifactId>jdbi3-spring</artifactId>
-			<version>3.49.5</version>
+			<version>3.49.6</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.springframework</groupId>
