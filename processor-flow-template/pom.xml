@@ -14,7 +14,7 @@
 	<name>processor-flow-template</name>
 
 	<properties>
-		<spring.version>6.2.11</spring.version>
+		<spring.version>6.2.12</spring.version>
 		<aspectj.version>1.9.23</aspectj.version>
 		<mybatis.version>3.5.19</mybatis.version>
 		<mybatis-spring.version>3.0.5</mybatis-spring.version>
