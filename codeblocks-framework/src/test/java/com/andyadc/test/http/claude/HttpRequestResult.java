@@ -1,21 +1,21 @@
 package com.andyadc.test.http.claude;
 
-public class HttpResult {
+public class HttpRequestResult {
 
 	private final int statusCode;
 	private final String body;
 	private final boolean success;
 	private final String errorMessage;
 
-	public HttpResult(int statusCode, String body, boolean success, String errorMessage) {
+	public HttpRequestResult(int statusCode, String body, boolean success, String errorMessage) {
 		this.statusCode = statusCode;
 		this.body = body;
 		this.success = success;
 		this.errorMessage = errorMessage;
 	}
 
-	public static HttpResult error(String errorMessage) {
-		return new HttpResult(-1, "", false, errorMessage);
+	public static HttpRequestResult error(String errorMessage) {
+		return new HttpRequestResult(-1, "", false, errorMessage);
 	}
 
 	public boolean isSuccess() {
