@@ -40,7 +40,7 @@
 
 	<properties>
 		<spring.version>6.2.12</spring.version>
-		<aspectj.version>1.9.23</aspectj.version>
+		<aspectj.version>1.9.25</aspectj.version>
 		<netty.version>4.1.127.Final</netty.version>
 		<httpcomponents5.version>5.5.1</httpcomponents5.version>
 		<httpcomponents.version>4.5.13</httpcomponents.version>
@@ -55,7 +55,7 @@
 		<lettuce.version>6.8.1.RELEASE</lettuce.version>
 		<kafka-clients.version>3.9.1</kafka-clients.version>
 		<curator.version>5.9.0</curator.version>
-		<rabbitmq-clients.version>5.27.0</rabbitmq-clients.version>
+		<rabbitmq-clients.version>5.27.1</rabbitmq-clients.version>
 		<jackson.version>2.19.2</jackson.version>
 		<joda-time.version>2.13.1</joda-time.version>
 		<guava.version>33.5.0-jre</guava.version>
