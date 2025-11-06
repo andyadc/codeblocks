@@ -77,7 +77,7 @@
 		<ognl.version>3.4.7</ognl.version>
 		<commons-lang.version>3.19.0</commons-lang.version>
 		<commons-text.version>1.13.1</commons-text.version>
-		<commons-codec.version>1.19.0</commons-codec.version>
+		<commons-codec.version>1.20.0</commons-codec.version>
 		<commons-collections.version>4.5.0</commons-collections.version>
 		<commons-beanutils.version>1.11.0</commons-beanutils.version>
 		<commons-dbcp.version>2.13.0</commons-dbcp.version>
@@ -94,7 +94,7 @@
 		<logback.version>1.5.20</logback.version>
 		<log4j.version>2.25.2</log4j.version>
 		<mockito.version>5.20.0</mockito.version>
-		<assertj.version>3.27.3</assertj.version>
+		<assertj.version>3.27.6</assertj.version>
 		<junit.version>4.13.2</junit.version>
 		<junit-jupiter.version>5.12.2</junit-jupiter.version>
 		<jmh.version>1.37</jmh.version>

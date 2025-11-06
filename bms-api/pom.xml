@@ -30,7 +30,7 @@
 		<passay.version>1.6.6</passay.version>
 		<mysql.version>9.5.0</mysql.version>
 		<mybatis-spring-boot-starter.version>3.0.5</mybatis-spring-boot-starter.version>
-		<assertj.version>3.27.3</assertj.version>
+		<assertj.version>3.27.6</assertj.version>
 
 		<java.version>17</java.version>
 		<maven.compiler.source>17</maven.compiler.source>
