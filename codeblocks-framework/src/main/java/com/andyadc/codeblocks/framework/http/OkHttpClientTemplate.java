@@ -159,6 +159,7 @@ public class OkHttpClientTemplate extends AbstractHttpClientTemplate {
 	public void close() {
 		if (httpClient != null) {
 			httpClient.dispatcher().executorService().shutdown();
+			httpClient.connectionPool().evictAll();
 		}
 	}
 
