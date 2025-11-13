@@ -21,8 +21,8 @@
 		<spring-framework.version>6.2.12</spring-framework.version>
 		<netty.version>4.1.127.Final</netty.version>
 		<aspectj.version>1.9.25</aspectj.version>
-		<tomcat.version>10.1.47</tomcat.version>
-		<commons-io.version>2.20.0</commons-io.version>
+		<tomcat.version>10.1.49</tomcat.version>
+		<commons-io.version>2.21.0</commons-io.version>
 		<commons-lang.version>3.19.0</commons-lang.version>
 		<guava.version>33.5.0-jre</guava.version>
 		<jackson.version>2.19.2</jackson.version>
