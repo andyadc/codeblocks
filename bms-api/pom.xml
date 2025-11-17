@@ -23,7 +23,7 @@
 		<aspectj.version>1.9.25</aspectj.version>
 		<tomcat.version>10.1.49</tomcat.version>
 		<commons-io.version>2.21.0</commons-io.version>
-		<commons-lang.version>3.19.0</commons-lang.version>
+		<commons-lang.version>3.20.0</commons-lang.version>
 		<guava.version>33.5.0-jre</guava.version>
 		<jackson.version>2.19.2</jackson.version>
 		<jjwt.version>0.13.0</jjwt.version>
