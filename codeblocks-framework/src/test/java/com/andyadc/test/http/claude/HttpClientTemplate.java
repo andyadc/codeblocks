@@ -1,8 +1,10 @@
 package com.andyadc.test.http.claude;
 
+import com.andyadc.codeblocks.framework.http.HttpRequestException;
 import org.apache.http.HttpRequest;
 import org.apache.http.NameValuePair;
 import org.apache.http.StatusLine;
+import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -54,6 +56,22 @@ public class HttpClientTemplate {
 		this.metrics.startMonitoring();
 
 		logger.info("HttpClientTemplate initialized.");
+	}
+
+	public String fecth(String url) throws IOException {
+
+		ResponseHandler<String> responseHandler = response -> {
+			int status = response.getStatusLine().getStatusCode();
+			if (status >= 200 && status < 300) {
+				// Successfully converts entity to String and auto-closes stream
+				return response.getEntity() != null ? EntityUtils.toString(response.getEntity()) : null;
+			} else {
+				throw new HttpRequestException("Unexpected response status: " + status);
+			}
+		};
+
+		HttpGet httpGet = new HttpGet(url);
+		return httpClient.execute(httpGet, responseHandler);
 	}
 
 	public void get(String url, Map<String, String> headers) {
