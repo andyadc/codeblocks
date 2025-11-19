@@ -1,7 +1,10 @@
 package com.andyadc.codeblocks.framework.http;
 
+import java.io.Serial;
+
 public class HttpRequestException extends RuntimeException {
 
+	@Serial
 	private static final long serialVersionUID = -4468068898952572673L;
 
 	private int statusCode;
