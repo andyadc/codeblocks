@@ -1,6 +1,7 @@
 package com.andyadc.codeblocks.test.encrypt;
 
-import javax.annotation.Nullable;
+import jakarta.annotation.Nullable;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 

@@ -1,8 +1,8 @@
 package com.andyadc.codeblocks.test.encrypt;
 
 import com.andyadc.codeblocks.kit.bytes.Bytes;
+import jakarta.annotation.Nullable;
 
-import javax.annotation.Nullable;
 import javax.crypto.Cipher;
 import javax.crypto.spec.GCMParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
