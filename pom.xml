@@ -87,7 +87,7 @@
 		<caffeine.version>3.2.3</caffeine.version>
 		<ehcache.version>3.11.1</ehcache.version>
 		<zxing.version>3.5.3</zxing.version>
-		<poi.version>5.5.0</poi.version>
+		<poi.version>5.5.1</poi.version>
 		<quartz.version>2.5.1</quartz.version>
 		<dom4j.version>2.2.0</dom4j.version>
 		<slf4j.version>2.0.17</slf4j.version>
@@ -101,7 +101,7 @@
 
 		<!-- maven plugins -->
 		<jetty-maven-plugin.version>11.0.26</jetty-maven-plugin.version>
-		<versions-maven-plugin.version>2.19.0</versions-maven-plugin.version>
+		<versions-maven-plugin.version>2.20.1</versions-maven-plugin.version>
 
 		<java.version>17</java.version>
 		<encoding>UTF-8</encoding>
