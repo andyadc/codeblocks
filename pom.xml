@@ -81,7 +81,7 @@
 		<commons-collections.version>4.5.0</commons-collections.version>
 		<commons-beanutils.version>1.11.0</commons-beanutils.version>
 		<commons-dbcp.version>2.13.0</commons-dbcp.version>
-		<commons-pool.version>2.12.1</commons-pool.version>
+		<commons-pool.version>2.13.0</commons-pool.version>
 		<commons-io.version>2.21.0</commons-io.version>
 		<commons-dbutils.version>1.8.1</commons-dbutils.version>
 		<caffeine.version>3.2.3</caffeine.version>
@@ -93,7 +93,7 @@
 		<slf4j.version>2.0.17</slf4j.version>
 		<logback.version>1.5.21</logback.version>
 		<log4j.version>2.25.2</log4j.version>
-		<mockito.version>5.20.0</mockito.version>
+		<mockito.version>5.21.0</mockito.version>
 		<assertj.version>3.27.6</assertj.version>
 		<junit.version>4.13.2</junit.version>
 		<junit-jupiter.version>5.12.2</junit-jupiter.version>
