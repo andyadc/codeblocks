@@ -295,7 +295,7 @@
 		<dependency>
 			<groupId>org.jdbi</groupId>
 			<artifactId>jdbi3-spring</artifactId>
-			<version>3.49.6</version>
+			<version>3.51.0</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.springframework</groupId>
@@ -435,11 +435,11 @@
 			</exclusions>
 		</dependency> -->
 
-		<dependency>
-			<groupId>com.github.javafaker</groupId>
-			<artifactId>javafaker</artifactId>
-			<version>1.0.2</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>com.github.javafaker</groupId>-->
+<!--			<artifactId>javafaker</artifactId>-->
+<!--			<version>1.0.2</version>-->
+<!--		</dependency>-->
 
 		<!-- <dependency>
 			<groupId>com.maxmind.geoip2</groupId>
