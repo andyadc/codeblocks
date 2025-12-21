@@ -39,9 +39,9 @@
 	</prerequisites>
 
 	<properties>
-		<spring.version>6.2.12</spring.version>
-		<aspectj.version>1.9.25</aspectj.version>
-		<netty.version>4.1.127.Final</netty.version>
+		<spring.version>6.2.15</spring.version>
+		<aspectj.version>1.9.25.1</aspectj.version>
+		<netty.version>4.1.130.Final</netty.version>
 		<httpcomponents5.version>5.5.1</httpcomponents5.version>
 		<httpcomponents.version>4.5.13</httpcomponents.version>
 		<okhttp.version>5.3.2</okhttp.version>
@@ -59,7 +59,7 @@
 		<jackson.version>2.19.3</jackson.version>
 		<joda-time.version>2.13.1</joda-time.version>
 		<guava.version>33.5.0-jre</guava.version>
-		<tomcat-jdbc.version>10.1.49</tomcat-jdbc.version>
+		<tomcat-jdbc.version>10.1.50</tomcat-jdbc.version>
 		<hikaricp.version>6.3.3</hikaricp.version>
 		<druid.version>1.2.27</druid.version>
 		<mysql-driver.version>9.5.0</mysql-driver.version>
@@ -91,7 +91,7 @@
 		<quartz.version>2.5.2</quartz.version>
 		<dom4j.version>2.2.0</dom4j.version>
 		<slf4j.version>2.0.17</slf4j.version>
-		<logback.version>1.5.21</logback.version>
+		<logback.version>1.5.22</logback.version>
 		<log4j.version>2.25.2</log4j.version>
 		<mockito.version>5.21.0</mockito.version>
 		<assertj.version>3.27.6</assertj.version>
