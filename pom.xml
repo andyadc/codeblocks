@@ -72,6 +72,7 @@
 		<hessian.version>4.0.66</hessian.version>
 		<byte-buddy.version>1.17.8</byte-buddy.version>
 		<cglib.version>3.3.0</cglib.version>
+		<micrometer.version>1.15.7</micrometer.version>
 		<objenesis.version>3.3</objenesis.version>
 		<javassist.version>3.30.2-GA</javassist.version>
 		<ognl.version>3.4.10</ognl.version>
@@ -399,6 +400,11 @@
 				<groupId>ognl</groupId>
 				<artifactId>ognl</artifactId>
 				<version>${ognl.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.micrometer</groupId>
+				<artifactId>micrometer-core</artifactId>
+				<version>${micrometer.version}</version>
 			</dependency>
 
 			<!-- cache -->
