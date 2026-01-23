@@ -599,6 +599,13 @@
 					<artifactId>versions-maven-plugin</artifactId>
 					<version>${versions-maven-plugin.version}</version>
 				</plugin>
+
+				<!-- This Plug-In generates reports based on the SpotBugs Library -->
+				<plugin>
+					<groupId>com.github.spotbugs</groupId>
+					<artifactId>spotbugs-maven-plugin</artifactId>
+					<version>4.9.8.2</version>
+				</plugin>
 			</plugins>
 		</pluginManagement>
 	</build>
@@ -630,7 +637,7 @@
 		<developer>
 			<id>andyadc</id>
 			<name>andyadc</name>
-			<email>andaicheng@gmail.com</email>
+			<email>jjwadc@gmail.com</email>
 			<url>https://andyadc.com</url>
 			<roles>
 				<role>developer</role>
