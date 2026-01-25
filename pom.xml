@@ -103,6 +103,7 @@
 		<!-- maven plugins -->
 		<jetty-maven-plugin.version>11.0.26</jetty-maven-plugin.version>
 		<versions-maven-plugin.version>2.20.1</versions-maven-plugin.version>
+		<spotbugs-maven-plugin.version>4.9.8.2</spotbugs-maven-plugin.version>
 
 		<java.version>17</java.version>
 		<encoding>UTF-8</encoding>
@@ -604,7 +605,7 @@
 				<plugin>
 					<groupId>com.github.spotbugs</groupId>
 					<artifactId>spotbugs-maven-plugin</artifactId>
-					<version>4.9.8.2</version>
+					<version>${spotbugs-maven-plugin.version}</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
