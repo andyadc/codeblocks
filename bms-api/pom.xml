@@ -22,7 +22,7 @@
 <!--		<netty.version>4.1.127.Final</netty.version>-->
 <!--		<aspectj.version>1.9.25</aspectj.version>-->
 <!--		<tomcat.version>10.1.49</tomcat.version>-->
-		<logback.version>1.5.25</logback.version>
+		<logback.version>1.5.26</logback.version>
 		<snakeyaml.version>2.5</snakeyaml.version>
 		<commons-io.version>2.21.0</commons-io.version>
 		<commons-lang.version>3.20.0</commons-lang.version>
