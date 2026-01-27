@@ -52,7 +52,7 @@
 		<zookeeper.version>3.9.3</zookeeper.version>
 		<redisson.version>3.52.0</redisson.version>
 		<jedis.version>6.2.0</jedis.version>
-		<lettuce.version>6.8.1.RELEASE</lettuce.version>
+		<lettuce.version>6.8.2.RELEASE</lettuce.version>
 		<kafka-clients.version>3.9.1</kafka-clients.version>
 		<curator.version>5.9.0</curator.version>
 		<rabbitmq-clients.version>5.28.0</rabbitmq-clients.version>
@@ -73,7 +73,7 @@
 		<byte-buddy.version>1.17.8</byte-buddy.version>
 		<cglib.version>3.3.0</cglib.version>
 		<micrometer.version>1.15.7</micrometer.version>
-		<objenesis.version>3.3</objenesis.version>
+		<objenesis.version>3.5</objenesis.version>
 		<javassist.version>3.30.2-GA</javassist.version>
 		<ognl.version>3.4.10</ognl.version>
 		<commons-lang.version>3.20.0</commons-lang.version>
