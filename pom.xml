@@ -22,6 +22,7 @@
 		<module>codeblocks-serialization</module>
 		<module>codeblocks-captcha</module>
 		<module>codeblocks-framework</module>
+		<module>codeblocks-framework</module>
 		<module>codeblocks-test</module>
 		<module>codeblocks-spring-sample</module>
 		<module>codeblocks-qrcode</module>
@@ -39,10 +40,10 @@
 	</prerequisites>
 
 	<properties>
-		<spring.version>6.2.15</spring.version>
+		<spring.version>6.2.16</spring.version>
 		<aspectj.version>1.9.25.1</aspectj.version>
-		<netty.version>4.1.130.Final</netty.version>
-		<httpcomponents5.version>5.5.1</httpcomponents5.version>
+		<netty.version>4.1.131.Final</netty.version>
+		<httpcomponents5.version>5.5.2</httpcomponents5.version>
 		<httpcomponents.version>4.5.13</httpcomponents.version>
 		<okhttp.version>5.3.2</okhttp.version>
 		<hibernate-validator.version>8.0.3.Final</hibernate-validator.version>
@@ -59,10 +60,10 @@
 		<jackson.version>2.19.3</jackson.version>
 		<joda-time.version>2.13.1</joda-time.version>
 		<guava.version>33.5.0-jre</guava.version>
-		<tomcat-jdbc.version>10.1.50</tomcat-jdbc.version>
+		<tomcat-jdbc.version>10.1.52</tomcat-jdbc.version>
 		<hikaricp.version>6.3.3</hikaricp.version>
 		<druid.version>1.2.27</druid.version>
-		<mysql-driver.version>9.5.0</mysql-driver.version>
+		<mysql-driver.version>9.6.0</mysql-driver.version>
 		<h2.version>2.3.232</h2.version>
 		<jsqlparser.version>5.3</jsqlparser.version>
 		<fst.version>2.57</fst.version>
@@ -72,7 +73,7 @@
 		<hessian.version>4.0.66</hessian.version>
 		<byte-buddy.version>1.17.8</byte-buddy.version>
 		<cglib.version>3.3.0</cglib.version>
-		<micrometer.version>1.15.7</micrometer.version>
+		<micrometer.version>1.15.9</micrometer.version>
 		<objenesis.version>3.5</objenesis.version>
 		<javassist.version>3.30.2-GA</javassist.version>
 		<ognl.version>3.4.10</ognl.version>
@@ -92,17 +93,17 @@
 		<quartz.version>2.5.2</quartz.version>
 		<dom4j.version>2.2.0</dom4j.version>
 		<slf4j.version>2.0.17</slf4j.version>
-		<logback.version>1.5.31</logback.version>
+		<logback.version>1.5.32</logback.version>
 		<log4j.version>2.25.2</log4j.version>
 		<mockito.version>5.21.0</mockito.version>
-		<assertj.version>3.27.6</assertj.version>
+		<assertj.version>3.27.7</assertj.version>
 		<junit.version>4.13.2</junit.version>
 		<junit-jupiter.version>5.12.2</junit-jupiter.version>
 		<jmh.version>1.37</jmh.version>
 
 		<!-- maven plugins -->
 		<jetty-maven-plugin.version>11.0.26</jetty-maven-plugin.version>
-		<versions-maven-plugin.version>2.20.1</versions-maven-plugin.version>
+		<versions-maven-plugin.version>2.21.0</versions-maven-plugin.version>
 		<spotbugs-maven-plugin.version>4.9.8.2</spotbugs-maven-plugin.version>
 
 		<java.version>17</java.version>
