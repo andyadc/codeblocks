@@ -95,7 +95,7 @@
 		<slf4j.version>2.0.17</slf4j.version>
 		<logback.version>1.5.32</logback.version>
 		<log4j.version>2.25.2</log4j.version>
-		<mockito.version>5.21.0</mockito.version>
+		<mockito.version>5.22.0</mockito.version>
 		<assertj.version>3.27.7</assertj.version>
 		<junit.version>4.13.2</junit.version>
 		<junit-jupiter.version>5.12.2</junit-jupiter.version>
