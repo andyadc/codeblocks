@@ -50,7 +50,7 @@
 		<mybatis.version>3.5.19</mybatis.version>
 		<mybatis-spring.version>3.0.5</mybatis-spring.version>
 		<spring-data-redis.version>3.5.3</spring-data-redis.version>
-		<zookeeper.version>3.9.3</zookeeper.version>
+		<zookeeper.version>3.9.5</zookeeper.version>
 		<redisson.version>3.52.0</redisson.version>
 		<jedis.version>6.2.0</jedis.version>
 		<lettuce.version>6.8.2.RELEASE</lettuce.version>
@@ -82,7 +82,7 @@
 		<commons-codec.version>1.21.0</commons-codec.version>
 		<commons-collections.version>4.5.0</commons-collections.version>
 		<commons-beanutils.version>1.11.0</commons-beanutils.version>
-		<commons-dbcp.version>2.13.0</commons-dbcp.version>
+		<commons-dbcp.version>2.14.0</commons-dbcp.version>
 		<commons-pool.version>2.13.1</commons-pool.version>
 		<commons-io.version>2.21.0</commons-io.version>
 		<commons-dbutils.version>1.8.1</commons-dbutils.version>
