@@ -58,7 +58,7 @@
 		<curator.version>5.9.0</curator.version>
 		<rabbitmq-clients.version>5.29.0</rabbitmq-clients.version>
 		<jackson.version>2.21.1</jackson.version>
-		<joda-time.version>2.14.0</joda-time.version>
+		<joda-time.version>2.14.1</joda-time.version>
 		<guava.version>33.5.0-jre</guava.version>
 		<tomcat-jdbc.version>10.1.52</tomcat-jdbc.version>
 		<hikaricp.version>6.3.3</hikaricp.version>
