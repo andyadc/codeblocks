@@ -62,7 +62,7 @@
 		<guava.version>33.5.0-jre</guava.version>
 		<tomcat-jdbc.version>10.1.52</tomcat-jdbc.version>
 		<hikaricp.version>6.3.3</hikaricp.version>
-		<druid.version>1.2.27</druid.version>
+		<druid.version>1.2.28</druid.version>
 		<mysql-driver.version>9.6.0</mysql-driver.version>
 		<h2.version>2.3.232</h2.version>
 		<jsqlparser.version>5.3</jsqlparser.version>
