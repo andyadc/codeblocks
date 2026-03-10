@@ -18,12 +18,14 @@ public class SpringThreadPoolTests {
 
 	public static ThreadPoolTaskExecutor build() {
 		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-		executor.setThreadNamePrefix("");
+		executor.setThreadNamePrefix("SpringThreadPoolTests-");
 		executor.setCorePoolSize(2);
 		executor.setMaxPoolSize(4);
 		executor.setQueueCapacity(100);
 		executor.setKeepAliveSeconds(60);
 		executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
+		executor.setWaitForTasksToCompleteOnShutdown(true); // 关闭时等待任务完成
+		executor.setAwaitTerminationSeconds(60); // 最多等待 60 秒
 		executor.initialize();
 		return executor;
 	}
