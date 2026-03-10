@@ -25,6 +25,8 @@ public class ThreadPoolTaskExecutorConfig {
 		executor.setKeepAliveSeconds(60);
 		executor.setRejectedExecutionHandler(rejectedExecutionHandler());
 		executor.setTaskDecorator(new MDCTaskDecorator());
+		executor.setWaitForTasksToCompleteOnShutdown(true); // 关闭时等待任务完成
+		executor.setAwaitTerminationSeconds(60); // 最多等待 60 秒
 		return executor;
 	}
 
