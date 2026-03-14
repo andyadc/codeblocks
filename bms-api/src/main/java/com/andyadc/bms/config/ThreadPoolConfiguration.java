@@ -40,6 +40,9 @@ public class ThreadPoolConfiguration {
 		executor.setWaitForTasksToCompleteOnShutdown(true);
 		executor.setRejectedExecutionHandler(new ThreadPoolExecutor.DiscardOldestPolicy());
 
+		executor.setWaitForTasksToCompleteOnShutdown(true); // 关闭时等待任务完成
+		executor.setAwaitTerminationSeconds(60); // 最多等待 60 秒
+
 		return executor;
 	}
 
