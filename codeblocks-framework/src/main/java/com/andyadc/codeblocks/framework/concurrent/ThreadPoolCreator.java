@@ -8,14 +8,7 @@ import org.slf4j.LoggerFactory;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.List;
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.CancellationException;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 public final class ThreadPoolCreator {
 
@@ -112,6 +105,7 @@ public final class ThreadPoolCreator {
 				return super.shutdownNow();
 			}
 		};
+		// 启动时预热所有核心线程
 		executor.prestartAllCoreThreads();
 
 		return executor;
@@ -129,4 +123,5 @@ public final class ThreadPoolCreator {
 			logger.error("ThreadPoolExecutor close error.", e);
 		}
 	}
+
 }
