@@ -87,7 +87,7 @@
 		<commons-io.version>2.21.0</commons-io.version>
 		<commons-dbutils.version>1.8.1</commons-dbutils.version>
 		<caffeine.version>3.2.3</caffeine.version>
-		<ehcache.version>3.11.1</ehcache.version>
+		<ehcache.version>3.12.0</ehcache.version>
 		<zxing.version>3.5.3</zxing.version>
 		<poi.version>5.5.1</poi.version>
 		<quartz.version>2.5.2</quartz.version>
