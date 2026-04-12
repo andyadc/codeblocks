@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.5.12</version>
+		<version>3.5.13</version>
 		<relativePath/>
 		<!-- lookup parent from repository -->
 	</parent>
@@ -27,7 +27,7 @@
 		<commons-io.version>2.21.0</commons-io.version>
 		<commons-lang.version>3.20.0</commons-lang.version>
 		<guava.version>33.5.0-jre</guava.version>
-		<jackson-bom.version>2.21.2</jackson-bom.version>
+		<!--		<jackson-bom.version>2.21.2</jackson-bom.version>-->
 		<jjwt.version>0.13.0</jjwt.version>
 		<passay.version>1.6.6</passay.version>
 		<mybatis-spring-boot-starter.version>3.0.5</mybatis-spring-boot-starter.version>
