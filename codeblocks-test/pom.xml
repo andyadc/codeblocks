@@ -68,7 +68,7 @@
 		<dependency>
 			<groupId>com.fasterxml.uuid</groupId>
 			<artifactId>java-uuid-generator</artifactId>
-			<version>5.1.1</version>
+			<version>5.2.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.f4b6a3</groupId>
@@ -109,7 +109,7 @@
 		<dependency>
 			<groupId>com.auth0</groupId>
 			<artifactId>java-jwt</artifactId>
-			<version>4.5.0</version>
+			<version>4.5.1</version>
 			<exclusions>
 				<exclusion>
 					<groupId>com.fasterxml.jackson.core</groupId>
@@ -140,7 +140,7 @@
 		<dependency>
 			<groupId>com.opencsv</groupId>
 			<artifactId>opencsv</artifactId>
-			<version>5.11</version>
+			<version>5.12.0</version>
 		</dependency>
 
 		<!-- https://failsafe.dev/ -->
@@ -153,7 +153,7 @@
 		<dependency>
 			<groupId>org.bouncycastle</groupId>
 			<artifactId>bcprov-jdk18on</artifactId>
-			<version>1.81</version>
+			<version>1.83</version>
 		</dependency>
 
 		<!-- https://github.com/vavr-io/vavr -->
@@ -161,14 +161,14 @@
 		<dependency>
 			<groupId>io.vavr</groupId>
 			<artifactId>vavr</artifactId>
-			<version>0.11.0</version>
+			<version>1.0.1</version>
 		</dependency>
 
 		<!-- Usefull class adapters based on ASM, a very small and fast Java bytecode manipulation framework -->
 		<dependency>
 			<groupId>org.ow2.asm</groupId>
 			<artifactId>asm-commons</artifactId>
-			<version>9.7.1</version>
+			<version>9.9.1</version>
 		</dependency>
 
 		<!-- https://github.com/EsotericSoftware/reflectasm -->
@@ -295,7 +295,7 @@
 		<dependency>
 			<groupId>org.jdbi</groupId>
 			<artifactId>jdbi3-spring</artifactId>
-			<version>3.51.0</version>
+			<version>3.52.1</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.springframework</groupId>
@@ -484,4 +484,5 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
 </project>
