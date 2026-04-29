@@ -52,13 +52,13 @@
 		<spring-data-redis.version>3.5.3</spring-data-redis.version>
 		<zookeeper.version>3.9.5</zookeeper.version>
 		<redisson.version>3.52.0</redisson.version>
-		<jedis.version>6.2.0</jedis.version>
+		<jedis.version>7.4.1</jedis.version>
 		<lettuce.version>6.8.2.RELEASE</lettuce.version>
 		<kafka-clients.version>3.9.2</kafka-clients.version>
 		<curator.version>5.9.0</curator.version>
 		<rabbitmq-clients.version>5.30.0</rabbitmq-clients.version>
-		<jackson.version>2.21.2</jackson.version>
-		<joda-time.version>2.14.1</joda-time.version>
+		<jackson.version>2.21.3</jackson.version>
+		<joda-time.version>2.14.2</joda-time.version>
 		<guava.version>33.6.0-jre</guava.version>
 		<tomcat-jdbc.version>10.1.53</tomcat-jdbc.version>
 		<hikaricp.version>6.3.3</hikaricp.version>
