@@ -92,8 +92,8 @@
 		<poi.version>5.5.1</poi.version>
 		<quartz.version>2.5.2</quartz.version>
 		<dom4j.version>2.2.0</dom4j.version>
-		<slf4j.version>2.0.17</slf4j.version>
-		<logback.version>1.5.32</logback.version>
+		<slf4j.version>2.0.18</slf4j.version>
+		<logback.version>1.5.33</logback.version>
 		<log4j.version>2.25.2</log4j.version>
 		<mockito.version>5.23.0</mockito.version>
 		<assertj.version>3.27.7</assertj.version>
