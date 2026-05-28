@@ -15,7 +15,7 @@
 	<name>codeblocks-framework</name>
 
 	<properties>
-		<jackson-dataformat-msgpack.version>0.9.11</jackson-dataformat-msgpack.version>
+		<jackson-dataformat-msgpack.version>0.9.12</jackson-dataformat-msgpack.version>
 		<testcontainers.version>1.21.4</testcontainers.version>
 
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
