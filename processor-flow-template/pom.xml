@@ -14,7 +14,7 @@
 	<name>processor-flow-template</name>
 
 	<properties>
-		<spring.version>6.2.17</spring.version>
+		<spring.version>6.2.19</spring.version>
 		<aspectj.version>1.9.25.1</aspectj.version>
 		<mybatis.version>3.5.19</mybatis.version>
 		<mybatis-spring.version>3.0.5</mybatis-spring.version>
@@ -22,7 +22,7 @@
 		<mysql-driver.version>9.7.0</mysql-driver.version>
 		<jackson.version>2.21.3</jackson.version>
 		<slf4j.version>2.0.18</slf4j.version>
-		<logback.version>1.5.33</logback.version>
+		<logback.version>1.5.37</logback.version>
 		<junit-jupiter.version>5.12.2</junit-jupiter.version>
 
 		<maven.compiler.source>17</maven.compiler.source>
