@@ -14,7 +14,7 @@
 		<spring.version>6.2.19</spring.version>
 		<spring-boot.version>3.5.15</spring-boot.version>
 		<spring-security.version>6.5.11</spring-security.version>
-		<jackson.version>2.21.3</jackson.version>
+		<jackson.version>2.21.5</jackson.version>
 
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
