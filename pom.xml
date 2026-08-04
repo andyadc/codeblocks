@@ -57,7 +57,7 @@
 		<kafka-clients.version>3.9.2</kafka-clients.version>
 		<curator.version>5.9.0</curator.version>
 		<rabbitmq-clients.version>5.33.1</rabbitmq-clients.version>
-		<jackson.version>2.21.3</jackson.version>
+		<jackson.version>2.21.5</jackson.version>
 		<joda-time.version>2.14.3</joda-time.version>
 		<guava.version>33.6.0-jre</guava.version>
 		<tomcat-jdbc.version>10.1.53</tomcat-jdbc.version>
@@ -74,12 +74,12 @@
 		<byte-buddy.version>1.17.8</byte-buddy.version>
 		<cglib.version>3.3.0</cglib.version>
 		<micrometer.version>1.15.12</micrometer.version>
-		<objenesis.version>3.5</objenesis.version>
+		<objenesis.version>3.6</objenesis.version>
 		<javassist.version>3.32.0-GA</javassist.version>
 		<ognl.version>3.4.11</ognl.version>
 		<commons-lang.version>3.20.0</commons-lang.version>
 		<commons-text.version>1.15.0</commons-text.version>
-		<commons-codec.version>1.22.0</commons-codec.version>
+		<commons-codec.version>1.22.1</commons-codec.version>
 		<commons-collections.version>4.5.0</commons-collections.version>
 		<commons-beanutils.version>1.11.0</commons-beanutils.version>
 		<commons-dbcp.version>2.14.0</commons-dbcp.version>
